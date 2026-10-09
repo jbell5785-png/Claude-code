@@ -42,6 +42,20 @@ No contract field was removed or renamed.
 - catalog.js extended (no keys removed): `LAYOUTS.*.boreStroke` (+ rotary `vePeakAdd/veWidthMult`),
   `CAMS.*.veGain`, `INTAKES.*.heatK`, `ECU_TUNES.*.boostTaper`, `CHASSIS.*.clearance`, `ANTI_LAG`.
 
+## Nitrous (follow-up)
+
+- Catalog `NITROUS` (none/street/sport/race/drag: `kW` nominal, `flow` g/s N2O, `bottleKg`, `mass`, `armRpm`, `price`).
+  Spec `engine.nitrous`; `env.nitrous` arms it only with a kit, throttle ≥ 0.9, rpm > min(kit armRpm, 0.6·redline),
+  bottle not empty, engine firing. State: `nitrousActive, nitrousKg, nitrousCapacityKg` (+ `nitrousFlowGs`,
+  `cylPressureRatio`). EV: no-op (fields false/0).
+- Physics: N2O brings 1.57× its mass in air-equivalent O2 plus 1.86 MJ/kg decomposition heat; liquid flash
+  cools the charge (density ↑) and its vapour displaces some air; wet-kit fuel goes through the same
+  fuel-flow cap (shortfall = lean = damage); peak-pressure equivalence (3× per kg vs air) feeds friction,
+  knock index (only 30 % of the N2O cooling helps the end gas) and the internals pressure limit.
+  Bottle pressure sag below 15 % fill. Turbo spool sees the extra exhaust mass.
+- build: full bottle + hardware mass behind the rear axle (boot/bed), price, warnings (gain, duration, fuel
+  cap, detonation, internals), `summary.nitrousPowerKW/nitrousTorqueNm/nitrousSeconds`.
+
 ## Model summary (for reviewers)
 
 - Geometry: bore/stroke from layout ratio; redline = min(mean piston speed 21 m/s (diesel 14),

@@ -54,7 +54,7 @@ export const PRESETS = {
     spec: {
       name: 'Muscle V8', chassis: 'sedan', powertrain: 'ice',
       engine: { layout: 'V8', displacement: 5.0, placement: 'front', induction: 'na', boost: 0, intercooler: 'none',
-        fuel: 'petrol98', fuelSystem: 'sport', cams: 'stock', intake: 'stock', exhaust: 'sport', internals: 'stock', flywheel: 'stock', ecu: 'stock', antiLag: false },
+        fuel: 'petrol98', fuelSystem: 'sport', cams: 'stock', intake: 'stock', exhaust: 'sport', internals: 'stock', flywheel: 'stock', ecu: 'stock', antiLag: false, nitrous: 'sport' },
       drivetrain: { layout: 'RWD', gearbox: 'mt6', finalDrive: 3.73, frontDiff: 'open', rearDiff: 'lsd1way', centreDiff: 'open', centreSplit: 0 },
       suspension: { type: 'solidAxle', dampers: 'sport', springF: 38, springR: 32, arbF: 28, arbR: 10, damping: 0.32, rideHeight: 0, camberF: -0.8, camberR: 0, toeF: 0, toeR: 0 },
       tyres: { compound: 'sport', widthF: 255, widthR: 285 },
@@ -168,7 +168,7 @@ export const PRESETS = {
     spec: {
       name: 'Drift', chassis: 'coupe', powertrain: 'ice',
       engine: { layout: 'I6', displacement: 3.0, placement: 'front', induction: 'turboLarge', boost: 1.4, intercooler: 'fmic',
-        fuel: 'e85', fuelSystem: 'drag', cams: 'fastRoad', intake: 'stock', exhaust: 'straight', internals: 'forged', flywheel: 'light', ecu: 'stage2', antiLag: false },
+        fuel: 'e85', fuelSystem: 'drag', cams: 'fastRoad', intake: 'stock', exhaust: 'straight', internals: 'forged', flywheel: 'light', ecu: 'stage2', antiLag: false, nitrous: 'street' },
       drivetrain: { layout: 'RWD', gearbox: 'seq6', finalDrive: 4.1, frontDiff: 'open', rearDiff: 'lsd2way', centreDiff: 'open', centreSplit: 0 },
       suspension: { type: 'doubleWishbone', dampers: 'coilover', springF: 80, springR: 60, arbF: 35, arbR: 8, damping: 0.45, rideHeight: -35, camberF: -4.0, camberR: -0.5, toeF: 0.2, toeR: 0.1 },
       tyres: { compound: 'drift', widthF: 245, widthR: 265 },

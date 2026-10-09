@@ -307,7 +307,7 @@ export function createEngineState(ep) {
     pMan: P_AMB * 0.35, boost: 0, airFlow: 0, idleI: 0.1, lambda: 1, mapBar: 0.35,
     fuelLimited: false, fuelCut: false, steady: false, batteryShared: null,
     nitrousActive: false, nitrousKg: ep.nitrousCapacity || 0, nitrousCapacityKg: ep.nitrousCapacity || 0,
-    nitrousFlowGs: 0,
+    nitrousFlowGs: 0, cylPressureRatio: 0,
   };
   if (ep.isEV) {
     es.batteryKwh = ep.batteryKwh;
@@ -536,6 +536,7 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
   if (als) fuelFlow += MODEL.alsFuelFrac * ep.fuelCap;
   es.fuelFlowGs = fuelFlow * 1000;
   const prMan = pCyl / Pamb;   // effective (nitrous-equivalent) charge pressure ratio
+  es.cylPressureRatio = prMan;
   es.overRev = rpm > ep.redlineRpm + ep.overRev;
   if (!es.steady) {
     es.fuelKg -= fuelFlow * dt;

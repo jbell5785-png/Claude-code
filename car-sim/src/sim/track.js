@@ -418,7 +418,9 @@ export function createTrack(keyOrDef) {
     nx *= nl; ny *= nl;
     const px = x - X[i] - t * dx, py = y - Y[i] - t * dy;
     const o = px * nx + py * ny;
-    const j1x = dx + o * dnx, j1y = dy + o * dny;
+    // dP/dt = D + o * d(N/|N|)/dt (exact derivative of the normalised interpolated normal)
+    const ndn = nx * dnx + ny * dny;
+    const j1x = dx + o * (dnx - nx * ndn) * nl, j1y = dy + o * (dny - ny * ndn) * nl;
     const det = j1x * ny - j1y * nx;
     const idet = 1 / det;
     _t = t; _o = o;

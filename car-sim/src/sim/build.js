@@ -11,9 +11,9 @@ import {
   CHASSIS, LAYOUTS, FUELS, INDUCTION, INTERCOOLERS, FUEL_SYSTEMS, CAMS, INTAKES, EXHAUSTS, INTERNALS,
   FLYWHEELS, ECU_TUNES, EV_MOTORS, EV_BATTERIES, GEARBOXES, DIFFS, CENTRE_DIFFS, SUSPENSION_TYPES,
   DAMPERS, BRAKES, COMPOUNDS, SPLITTERS, WINGS, DIFFUSERS, BODY_KITS, WEIGHT_REDUCTION, ELECTRONICS,
-  ANTI_LAG,
+  ANTI_LAG, NITROUS,
 } from './catalog.js';
-import { makeEngineParams, makeMotorParams, engineCurve, curvePeaks } from './engine.js';
+import { makeEngineParams, makeMotorParams, engineCurve, curvePeaks, createEngineState, engineUpdate } from './engine.js';
 import { makeTyreParams } from './tyre.js';
 
 const DEG = Math.PI / 180;
@@ -34,7 +34,7 @@ export function defaultSpec() {
       layout: 'I4', displacement: 2.0, placement: 'front',
       induction: 'na', boost: 0, intercooler: 'none', fuel: 'petrol98', fuelSystem: 'street',
       cams: 'stock', intake: 'stock', exhaust: 'sport', internals: 'stock',
-      flywheel: 'stock', ecu: 'stock', antiLag: false,
+      flywheel: 'stock', ecu: 'stock', antiLag: false, nitrous: 'none',
     },
     ev: { front: null, rear: 'medium', battery: 'b60' },
     drivetrain: {
@@ -109,6 +109,7 @@ export function normalizeSpec(input) {
     if (INTAKES[e.intake].naOnly && ind.kind !== 'na') { warnings.push('Individual throttle bodies need a naturally aspirated engine (fitted stock airbox)'); e.intake = 'stock'; }
     if (e.antiLag && ind.kind !== 'turbo') { warnings.push('Anti-lag needs a turbo (disabled)'); e.antiLag = false; }
     e.antiLag = !!e.antiLag;
+    if (!NITROUS[e.nitrous]) { if (e.nitrous) warnings.push(`Unknown nitrous kit '${e.nitrous}' (none fitted)`); e.nitrous = 'none'; }
     if (FUELS[e.fuel].diesel && L.rotary) { errors.push('A Wankel rotary cannot run on diesel; using RON 98'); e.fuel = 'petrol98'; }
     if (FUELS[e.fuel].diesel && ind.kind === 'super') warnings.push('Supercharged diesel: unusual but modelled');
     if (FUELS[e.fuel].diesel && ind.kind === 'na') warnings.push('Naturally aspirated diesel will be very slow');
@@ -244,6 +245,12 @@ function components(s, ch, ctx) {
       if (placement === 'front' && s.suspension.type !== 'solidAxle') add('rearDiff', 25, 0, 0.32, 0.3, 0.4, 0.3);
     }
     if (e.antiLag) add('antiLag', ANTI_LAG.mass, xEng, zEng, 0.3, 0.3, 0.2);
+    // nitrous: bottle (full) in the boot / bed behind the rear axle (ahead of it in a rear-engined car)
+    const nos = NITROUS[e.nitrous];
+    if (nos.flow > 0) {
+      const xBottle = placement === 'rear' ? wb * 0.35 : placement === 'mid' ? wb + ohF * 0.4 : -ohR * 0.45;
+      add('nitrousBottle', nos.mass + nos.bottleKg, xBottle, 0.40, 0.55, 0.18, 0.18);
+    }
     // fuel tank near the rear axle (ahead of the engine in a mid-engined car)
     const xTank = placement === 'mid' ? wb * 0.55 : placement === 'rear' ? wb + ohF * 0.4 : 0.30;
     ctx.xTank = xTank;
@@ -326,7 +333,7 @@ export function build(input) {
   // ---- engine / motors ----
   const powerUnits = [];
   let fuelKg = 0, fuelDensity = 0.75, battery = null;
-  let curve = null, pk = null, evCurves = [];
+  let curve = null, pk = null, evCurves = [], nitrousPk = null;
   if (!isEV) {
     const fuel = FUELS[s.engine.fuel];
     fuelDensity = fuel.density;
@@ -336,6 +343,7 @@ export function build(input) {
     curve = engineCurve(ep);
     pk = curvePeaks(curve);
     engineWarnings(s, ep, curve, pk, warnings);
+    if (ep.nitrousFlow > 0) nitrousPk = nitrousWarnings(s, ep, pk, warnings);
   } else {
     const ev = s.ev, bat = EV_BATTERIES[ev.battery];
     const pF = ev.front ? EV_MOTORS[ev.front].power : 0, pR = ev.rear ? EV_MOTORS[ev.rear].power : 0;
@@ -487,6 +495,9 @@ export function build(input) {
       mass: mTot, weightDistFront, powerToWeight: powerKW / (mTot / 1000), topSpeedEstKph: top * 3.6,
       drivetrain: layout, price,
       redlineRpm: ep0.redlineRpm, rideFreqF: fF, rideFreqR: fR,
+      nitrousPowerKW: nitrousPk ? nitrousPk.powerKW : null,
+      nitrousTorqueNm: nitrousPk ? nitrousPk.torqueNm : null,
+      nitrousSeconds: nitrousPk ? nitrousPk.seconds : null,
       maxBoostBar: isEV ? 0 : Math.max(...curve.map((p) => p.boostBar)),
       downforce200: 0.5 * RHO_AIR * (aero.clAFront + aero.clARear) * (200 / 3.6) ** 2 / G,
       cdA: aero.cdA,
@@ -494,6 +505,37 @@ export function build(input) {
     },
   };
   return params;
+}
+
+function nitrousWarnings(s, ep, pk0, warnings) {
+  const e = s.engine, kit = NITROUS[e.nitrous];
+  const cur = engineCurve(ep, 40, { nitrous: true });
+  const pk = curvePeaks(cur);
+  let maxRetard = 0, fuelLim = false, maxP = 0;
+  for (const p of cur) {
+    if (p.rpm <= ep.nitrousArmRpm) continue;
+    if (p.knockRetard > maxRetard) maxRetard = p.knockRetard;
+    if (p.fuelLimited) fuelLim = true;
+  }
+  // effective cylinder-pressure ratio on the shot just above the arming rpm (worst case)
+  const lo = cur.find((p) => p.rpm > ep.nitrousArmRpm);
+  warnings.push(`Nitrous: ${kit.label}, ${pk.powerKW >= pk0.powerKW ? '+' : ''}${Math.round(pk.powerKW - pk0.powerKW)} kW on the button above ${Math.round(ep.nitrousArmRpm)} rpm, ${Math.round(ep.nitrousCapacity / ep.nitrousFlow)} s per bottle`);
+  if (fuelLim) warnings.push(`Fuel system cannot feed the nitrous shot (${FUEL_SYSTEMS[e.fuelSystem].label}): lean on the button, engine damage`);
+  if (maxRetard >= 0.999) warnings.push(`Nitrous detonation on ${FUELS[e.fuel].label}: engine will fail (use higher-octane fuel or a smaller shot)`);
+  else if (maxRetard > 0.15) warnings.push(`Nitrous causes ${Math.round(maxRetard * 100)} % knock retard on ${FUELS[e.fuel].label}`);
+  if (lo) {
+    maxP = nitrousCylPressure(ep, lo.rpm);
+    if (maxP > ep.maxPressure) warnings.push(`Internals at risk on nitrous: ${maxP.toFixed(1)} bar-equivalent cylinder load exceeds the ${INTERNALS[e.internals].label} limit (${ep.maxPressure})`);
+  }
+  return { powerKW: pk.powerKW, torqueNm: pk.torqueNm, seconds: ep.nitrousCapacity / ep.nitrousFlow };
+}
+
+/** Steady effective (nitrous-equivalent) charge pressure ratio at full throttle and rpm. */
+function nitrousCylPressure(ep, rpm) {
+  const es = createEngineState(ep); es.steady = true; es.fuelKg = 1;
+  const env = { nitrous: true }, w = rpm * Math.PI / 30;
+  for (let k = 0; k < 200; k++) engineUpdate(es, ep, 1, w, 0.02, env);
+  return es.cylPressureRatio;
 }
 
 function engineWarnings(s, ep, curve, pk, warnings) {
@@ -552,7 +594,8 @@ function priceOf(s) {
     const e = s.engine;
     p += LAYOUTS[e.layout].price + INDUCTION[e.induction].price + INTERCOOLERS[e.intercooler].price + FUELS[e.fuel].price
       + FUEL_SYSTEMS[e.fuelSystem].price + CAMS[e.cams].price + INTAKES[e.intake].price + EXHAUSTS[e.exhaust].price
-      + INTERNALS[e.internals].price + FLYWHEELS[e.flywheel].price + ECU_TUNES[e.ecu].price + (e.antiLag ? ANTI_LAG.price : 0);
+      + INTERNALS[e.internals].price + FLYWHEELS[e.flywheel].price + ECU_TUNES[e.ecu].price + (e.antiLag ? ANTI_LAG.price : 0)
+      + NITROUS[e.nitrous].price;
   } else {
     if (s.ev.front) p += EV_MOTORS[s.ev.front].price;
     if (s.ev.rear) p += EV_MOTORS[s.ev.rear].price;

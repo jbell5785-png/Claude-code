@@ -72,6 +72,12 @@ const w = (spec) => build(spec);
   const k = w({ engine: { induction: 'turboHuge', boost: 3.0, ecu: 'stage2', fuel: 'methanol', fuelSystem: 'drag', intercooler: 'waterAir' } });
   if (!k.warnings.some((e) => /Internals at risk/.test(e))) fail('internals warning');
   console.log('\nWarning samples:', [p.errors[0], q.warnings[0], r.warnings.find((e) => /Gearbox/.test(e)), o.warnings.find((e) => /octane/.test(e)), f.warnings.find((e) => /Fuel/.test(e)), i.warnings[0], k.warnings.find((e) => /Internals/.test(e))].join('\n  '));
+  const n = w({ engine: { induction: 'turboMedium', boost: 1.2, intercooler: 'stock', fuel: 'petrol95', fuelSystem: 'stock', nitrous: 'drag' } });
+  if (!n.warnings.some((e) => /Internals at risk on nitrous/.test(e)) || !n.warnings.some((e) => /cannot feed the nitrous/.test(e))) fail('big nitrous shot on stock internals/pump should warn');
+  const n0 = w({}), n1 = w({ engine: { nitrous: 'sport' } });
+  if (!(n1.mass.total > n0.mass.total + 10 && n1.summary.weightDistFront < n0.summary.weightDistFront)) fail('nitrous bottle mass should be added near the rear');
+  if (!(n1.summary.nitrousPowerKW > n1.summary.powerKW + 60)) fail('nitrous summary power');
+  console.log('Nitrous warnings (2.0T, stock pump, 250 kW shot):\n  ' + n.warnings.filter((e) => /itrous/.test(e)).join('\n  '));
   // weight distribution is an output: moving the engine moves it
   const fr = w({ chassis: 'coupe', engine: { placement: 'front' } }).summary.weightDistFront;
   const mid = w({ chassis: 'coupe', engine: { placement: 'mid' } }).summary.weightDistFront;
