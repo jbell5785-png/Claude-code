@@ -31,8 +31,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 if (!existsSync(path.join(root, 'dist', 'index.html')) || process.env.REBUILD) {
   console.log('building…'); execSync('npx vite build', { cwd: root, stdio: 'inherit' });
 }
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] });
-const stopServer = () => { try { server.kill('SIGTERM'); } catch { /* ignore */ } };
+const server = spawn(process.execPath, [path.join(root, 'node_modules', 'vite', 'bin', 'vite.js'), 'preview', '--port', String(PORT), '--strictPort'], { cwd: root, stdio: 'ignore', detached: true });
+const stopServer = () => { try { process.kill(-server.pid, 'SIGTERM'); } catch { try { server.kill('SIGTERM'); } catch { /* ignore */ } } };
 process.on('exit', stopServer);
 for (let i = 0; i < 60; i++) { try { const r = await fetch(BASE); if (r.ok) break; } catch { /* not up yet */ } await sleep(250); }
 
@@ -110,4 +110,5 @@ try {
   writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 2));
   for (const [k, v] of Object.entries(report.console)) if (v.length) console.log(`console[${k}]:\n  ` + v.slice(0, 15).join('\n  '));
   console.log('perf', JSON.stringify(report.perf, null, 1));
+  process.exit(process.exitCode || 0);
 }

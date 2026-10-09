@@ -96,7 +96,7 @@ export class Deck {
     this.nodes = [this.out, this.filter, this.duck, this.brkFilter, ...this.delay.nodes];
     for (const [name, [g, rev, dly, music]] of Object.entries(CHANNELS)) {
       const n = ctx.createGain();
-      n.gain.value = g;
+      n.gain.value = g * (engine.mix && engine.mix[name] !== undefined ? engine.mix[name] : 1);
       n.connect(name === 'brk' ? this.brkFilter : music ? this.duck : this.filter);
       if (rev) {
         const s = ctx.createGain();

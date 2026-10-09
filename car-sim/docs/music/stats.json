@@ -1,0 +1,39 @@
+[
+  {
+    "name": "race-demo",
+    "titles": [
+      "Turbo Signal [breaks 131bpm E phrygian]",
+      "Velocity Strobe (Warehouse Mix) [acid 143bpm Eb phrygian]"
+    ],
+    "full": {
+      "peakDb": -0.12,
+      "rmsDb": -6.87,
+      "lufs": -6.3,
+      "crestDb": 6.7,
+      "clips": 0,
+      "balancePct": {
+        "sub": 59.8,
+        "low": 34.6,
+        "lowmid": 4.3,
+        "highmid": 0.9,
+        "high": 0.5
+      },
+      "frames": 515
+    },
+    "drop": {
+      "peakDb": -0.12,
+      "rmsDb": -6.19,
+      "lufs": -6.3,
+      "crestDb": 6.1,
+      "clips": 0,
+      "balancePct": {
+        "sub": 58.5,
+        "low": 35.9,
+        "lowmid": 4.1,
+        "highmid": 0.9,
+        "high": 0.5
+      },
+      "frames": 410
+    }
+  }
+]

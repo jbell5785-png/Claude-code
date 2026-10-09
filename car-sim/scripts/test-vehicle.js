@@ -177,9 +177,13 @@ function trackDriver(v, track, pt, mu) {
       vt = 80;
       const look = 20 + spd * spd / (2 * 5);
       for (let d = 0; d < look; d += 5) {
-      track.pointAt(s + d, pt);
-      const kk = Math.abs(pt.curvature) + 1e-4;
-      const vc = Math.sqrt(mu * G / kk + 2 * 5 * d);
+        track.pointAt(s + d, pt);
+        const kk = Math.abs(pt.curvature) + 1e-4, g0 = pt.grade;
+        let vlim = Math.sqrt(mu * G / kk);
+        track.pointAt(s + d + 5, pt);
+        const kv = -(pt.grade - g0) / 5;                 // crest curvature: keep unloading below ~0.5 g
+        if (kv > 1e-4) vlim = Math.min(vlim, Math.sqrt(0.5 * G / kv));
+        const vc = Math.sqrt(vlim * vlim + 2 * 5 * d);
         if (vc < vt) vt = vc;
       }
     }
@@ -220,6 +224,30 @@ function trackDriver(v, track, pt, mu) {
   }
   console.log(`  info mean step cost on tracks: ${(Number(totalNs) / 1e3 / totalSteps).toFixed(2)} us/step (incl. driver)`);
 }
+
+// ---------------------------------------------------------------------------------------------
+// 3b. Closed-loop laps with the racing-line AI (src/ai, owner F) — informational
+// ---------------------------------------------------------------------------------------------
+console.log(`\n== Racing-line AI laps (info) == (${((Date.now() - T0) / 1000).toFixed(0)} s)`);
+try {
+  const { createDriver, DRIVER_HZ } = await import('../src/ai/driver.js');
+  const { createLapTimer } = await import('../src/sim/track.js');
+  for (const [tk, pk] of [['gp', 'hotHatch'], ['gp', 'supercar'], ['club', 'naCoupe']]) {
+    if (!PRESETS[pk] || !TRACKS[tk]) continue;
+    const track = createTrack(tk), p = build(PRESETS[pk].spec);
+    const v = createVehicle(p, track, track.startPose(0));
+    const d = createDriver('pursuit'); d.reset(v, track);
+    const lt = createLapTimer(track), c = controls(), every = Math.round(1 / DT / DRIVER_HZ);
+    let off = 0, ok = true;
+    for (let i = 0; i < (quick ? 200 : 400) / DT && lt.lap < 2; i++) {
+      if (i % every === 0) d.act(v, track, { cars: [v], time: v.time }, c);
+      v.step(c); lt.update(v);
+      if (!v.wheels.some((w) => w.onTrack)) off += DT;
+      if ((i & 1023) === 0 && !finiteState(v)) { ok = false; break; }
+    }
+    check(ok, `AI ${tk}/${pk}: laps ${lt.lap}, last lap ${lt.lastLap ? lt.lastLap.toFixed(2) + ' s' : '-'}, all-wheels-off-track ${off.toFixed(1)} s, no NaN`);
+  }
+} catch (e) { console.log(`  info AI driver unavailable: ${e.message}`); }
 
 // ---------------------------------------------------------------------------------------------
 // 4. Performance: 100 cars x 500 Hz

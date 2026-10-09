@@ -1,3 +1,5 @@
 node_modules/
 dist/
 car-sim/brains/*.tmp
+car-sim/docs/music/*.wav
+car-sim/dist-single/

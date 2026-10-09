@@ -7,7 +7,7 @@ import { softClipCurve } from './dsp.js';
  * @param {BaseAudioContext} ctx
  * @param {AudioNode} destination
  */
-export function createMaster(ctx, destination) {
+export function createMaster(ctx, destination, bypass = false) {
   const input = ctx.createGain();
   input.gain.value = 1;
 
@@ -41,7 +41,8 @@ export function createMaster(ctx, destination) {
   const volume = ctx.createGain();
   volume.gain.value = 0.8;
 
-  input.connect(glue).connect(makeup).connect(limiter).connect(clip).connect(menuLP);
+  if (bypass) input.connect(menuLP);
+  else input.connect(glue).connect(makeup).connect(limiter).connect(clip).connect(menuLP);
   menuLP.connect(volume).connect(destination);
 
   // shared reverb
