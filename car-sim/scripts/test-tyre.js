@@ -229,7 +229,7 @@ for (const [label, Tb] of [['threshold braking 1100 Nm', 1100], ['locked wheel 4
   const decel = 30 / r.tStop / G;
   console.log(`  (b) ${label}: stop in ${f2(r.tStop)} s / ${f1(r.xStop)} m (mean ${f2(decel)} g), rebound after stop ${(maxBack * 1000).toFixed(2)} mm, velocity reversals ${rev}, final v ${(r.v * 1000).toFixed(4)} mm/s`);
   check(!r.bad && r.tStop > 0, `${label}: stops`);
-  check(rev <= 1 && maxBack < 0.01, `${label}: no oscillation after stop`);
+  check(rev <= 1 && maxBack < 0.01, `${label}: no oscillation after stop (rebound < 1 cm, <= 1 reversal)`);
 }
 {
   // (c) free wheel coasting at low speed (no brake): wheel must follow without jitter

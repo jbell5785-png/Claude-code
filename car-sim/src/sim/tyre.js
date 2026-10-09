@@ -38,7 +38,7 @@
 // * Thermal: 2 nodes (tread surface, carcass). Heat: 50% of slip power |Fx Vsx| + |Fy Vsy|
 //   (75% of it to the surface), rolling hysteresis (crr Fz |omega R|) to the carcass,
 //   surface<->carcass conduction, speed-dependent convection. Grip factor is a smooth window
-//   around tOpt (effective temp = 0.3 surface + 0.7 carcass), half-width tWindow, depth
+//   around tOpt (effective temp = 0.4 surface + 0.6 carcass), half-width tWindow, depth
 //   tempDrop (deeper for narrow-window compounds, ~30% for slicks).
 // * Wear: d(wear)/dt = wearK * slip power * (1 + overheat); grip *= 1 - 0.12 w - 0.18 w^2.
 // * Surfaces: asphalt 1.0, kerb 0.9, grass grassMult, gravel 0.95*grassMult; loose surfaces
@@ -132,7 +132,7 @@ export function makeTyreParams(compoundKey, widthMm, radius, nominalLoad) {
   const treadArea = 2 * Math.PI * R * wM;
   const sideArea = 2 * Math.PI * R * R * (1 - 0.6 * 0.6);
   const capSurface = 1700 * 1150 * treadArea * 0.003;  // J/K (3 mm tread skin)
-  const capCarcass = 1700 * 0.6 * tyreMass;            // J/K
+  const capCarcass = 1700 * 0.45 * tyreMass;           // J/K (effective)
   const tWindow = c.tWindow;
   const tempDrop = clamp(6 / tWindow, 0.08, 0.32);
 
@@ -159,6 +159,7 @@ export function makeTyreParams(compoundKey, widthMm, radius, nominalLoad) {
     dampWheelMax: 0.8 * inertia / (R * R * DT),   // explicit free-wheel stability cap
     vDamp: 3.0,                                    // m/s low-speed damping fade
     vFloor: 0.1,                                   // m/s floor for steady-state slip estimate
+    rhoStatic: 0.5,                                // max normalised slip stored when not sliding
     crrSpeed: 1.6e-4,                              // crr *= 1 + crrSpeed v^2
     trail0: 0.032 * Math.sqrt(rf),
     // surfaces indexed by SURFACE id: asphalt, kerb, grass, gravel
@@ -172,7 +173,7 @@ export function makeTyreParams(compoundKey, widthMm, radius, nominalLoad) {
     hC0: 4 * sideArea, hC1: 2.5 * sideArea,
     heatSlipFrac: 0.5, heatSurfShare: 0.75,
     tempDrop,
-    wearK: c.wear / (18e6 * wf),                  // per J of slip energy
+    wearK: c.wear / (30e6 * wf),                  // per J of slip energy
   };
 }
 
@@ -215,7 +216,7 @@ export function resetTyreState(ts, tp, opts) {
 }
 
 function updateGrip(ts, tp) {
-  const te = 0.3 * ts.tempSurface + 0.7 * ts.tempCarcass;
+  const te = 0.4 * ts.tempSurface + 0.6 * ts.tempCarcass;
   ts.temp = te;
   const d = (te - tp.tOpt) / tp.tWindow;
   ts.gripTemp = 1 - tp.tempDrop * (1 - Math.exp(-0.6931471805599453 * d * d));
@@ -339,13 +340,15 @@ export function tyreForces(ts, tp, input, dt, out) {
   const vyEff = vy - avx * ug;
   let kap = (ts.kappa - ax * Vsx) / (1 + ax * avx);
   let u = (ts.alpha + ay * vyEff) / (1 + ay * avx);
-  // limit stored deflection: at most the peak (static friction) or the current steady-state slip
+  // limit stored deflection: at most rhoStatic (static friction ~0.9 peak) or the current
+  // steady-state slip, so a tyre that slid to a stop only stores a small, realistic deflection
   const vden = avx > tp.vFloor ? avx : tp.vFloor;
   const kssn = Vsx / (vden * kpk), ussn = vyEff / (vden * apk);
   const rss = Math.sqrt(kssn * kssn + ussn * ussn);
   const kn0 = kap / kpk, an0 = u / apk;
   const rs = Math.sqrt(kn0 * kn0 + an0 * an0);
-  const cap = rss > 1 ? (rss < 60 ? rss : 60) : 1;
+  const rst = tp.rhoStatic;
+  const cap = rss > rst ? (rss < 60 ? rss : 60) : rst;
   if (rs > cap) { const s = cap / rs; kap *= s; u *= s; }
   ts.kappa = kap; ts.alpha = u;
 
