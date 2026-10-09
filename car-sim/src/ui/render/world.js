@@ -109,9 +109,9 @@ export class World {
     this.trackGroup = info.group; this.trackInfo = info; this.scene.add(info.group);
     rc.trackGroup = info.group; rc.track = track; emit('track', info.group, track);
     this.rig.setTvCams(info.tvCams);
-    const q = { s: 0, offset: 0, height: 0, nx: 0, ny: 0, nz: 1, surface: 0, index: -1 };
+    const gq = { s: 0, offset: 0, height: 0, nx: 0, ny: 0, nz: 1, surface: 0, index: -1 };
     let hint = -1;
-    this.rig.groundAt = (x, y) => { track.query(x, y, hint, q); hint = q.index; return q.height; };
+    this.rig.groundAt = (x, y) => { track.query(x, y, hint, gq); hint = gq.index; return gq.height; };
     this.skids.clear();
     return info;
   }

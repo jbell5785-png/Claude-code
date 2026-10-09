@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "node scripts/test-physics.js",
-    "train": "node scripts/train.js"
+    "train": "node scripts/train.js",
+    "build:single": "vite build --mode single"
   },
   "dependencies": {
     "three": "^0.186.1"

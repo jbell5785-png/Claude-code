@@ -218,6 +218,7 @@ class Vehicle {
       tyreSteadyForces(tp, Fz, k, 0, 0, SURFACE.ASPHALT, out);
       if (out.Fx > best) { best = out.Fx; bestK = k; }
     }
+    this.muPeak = clamp(best / Fz, 0.3, 2.5);
     return clamp(bestK, 0.03, 0.3);
   }
 
@@ -278,7 +279,7 @@ class Vehicle {
     this.gear = 0; this.clutch = 0; this.shifting = false; this.shiftTimer = 0; this.shiftDir = 0;
     this.sinceShift = 10; this.clutchLocked = false; this.holdTimer = 0; this.revArmed = true;
     this.prevUp = false; this.prevDown = false; this.steerAngle = 0;
-    this.tcI = 0; this.launchState = 0; this.idleI = 0;
+    this.tcI = 0; this.launchState = 0; this.idleI = 0; this.lcScale = 1; this._rpmT = this.idleRpm;
     this.aids.absActive = this.aids.tcActive = this.aids.launchActive = false;
     this.drive.setGear(this.isEV ? 1 : 0);
     this.damage = 0; this.failed = false;
@@ -354,8 +355,12 @@ class Vehicle {
         if (g < n && this.sinceShift > this.shiftTime + 0.3) {
           const upFull = this.upRpm[g - 1];
           const upEff = Math.max(idle * 2.2, upFull * (0.5 + 0.5 * thrS));
-          const rpmAfter = rpmOut * this.gearRatios[g] / ratioNow;
-          if (rpmOut > upEff && rpmAfter > idle * 1.6) want = g + 1;
+          // wheelspin should not trigger upshifts (unless the engine is bouncing off the limiter)
+          const rpmGround = Math.abs(vFwd) / this.driveRad * ratioNow * this.drive.finalDrive * RPM;
+          let rpmUp = Math.min(rpmOut, rpmGround * (1 + 1.5 * this.peakSlip));
+          if (rpm > this.limiterRpm - 100) rpmUp = rpmOut;
+          const rpmAfter = rpmUp * this.gearRatios[g] / ratioNow;
+          if (rpmUp > upEff && rpmAfter > idle * 1.6) want = g + 1;
         }
         if (g > 1 && want === g && this.sinceShift > this.shiftTime + 0.15) {
           const rLow = this.gearRatios[g - 2];
@@ -380,10 +385,15 @@ class Vehicle {
     // ---- reverse: in reverse the throttle drives backwards; nothing else to do (ratio is signed)
 
     // ---- launch control ----
-    let launch = false;
-    if (this.hasLaunch && !this.isEV && this.gear === 1 && stopped && thr > 0.8) { launch = true; this.launchState = 1; }
-    else if (this.launchState === 1 && (thr < 0.5 || vFwd > 12 || this.gear !== 1)) this.launchState = 0;
-    if (this.launchState === 1) launch = true;
+    // Any ICE car: brake + throttle at standstill = pre-rev (clutch held open, crank held at the
+    // launch speed); releasing the brake pulls away through the slip/traction-controlled clutch.
+    // Cars with launch control additionally keep the optimum launch speed regardless of pedal
+    // position until the clutch has locked.
+    const preRev = !this.isEV && this.gear !== 0 && stopped && brk > 0.1 && thr > 0.3;
+    if (this.hasLaunch && !this.isEV && this.gear === 1 && stopped && thr > 0.8) this.launchState = 1;
+    else if (this.launchState === 1 && (thr < 0.5 || this.clutchLocked || this.gear !== 1)) this.launchState = 0;
+    const launch = this.launchState === 1;
+    if (stopped && this.clutch < 0.02) this.lcScale = 1;
     this.aids.launchActive = launch;
 
     // ---- traction control (driven wheel slip) ----
@@ -406,6 +416,7 @@ class Vehicle {
     // ---- throttle shaping ----
     let thrEff = thr;
     if (this.gear === 0 && this.isEV) thrEff = 0;
+    if (this.isEV && stopped && brk > 0.1) thrEff = 0;      // brake-throttle override at standstill
     if (this.shifting && this.shiftTimer > 0.3 * this.shiftTime) {
       if (this.shiftDir > 0) thrEff = 0;
       else {
@@ -414,11 +425,18 @@ class Vehicle {
         thrEff = clamp((target - rpm) / 800, 0, 1);
       }
     }
-    if (launch && this.launchState === 1 && stopped) {
-      const lim = clamp(1 - (rpm - this.launchRpm) / 600, 0, 1);
+    if (preRev) {
+      const lim = clamp(1 - (rpm - this.launchRpm) / 400, 0, 1);
       thrEff = Math.min(thrEff, lim);
     }
     thrEff *= 1 - tcCut;
+    // while the auto clutch is slipping (pull-away), the ECU holds the crank near the launch speed
+    // instead of letting it flare to the limiter (the clutch, not the engine, meters the torque)
+    if (!this.isEV && this.gear !== 0 && !this.clutchLocked && !this.shifting && this.clutch > 0.05) {
+      const rpmIn = Math.abs(drv.inputOmega()) * RPM;
+      const rpmHold = Math.max(this._rpmT + 400, rpmIn + 300);
+      thrEff = Math.min(thrEff, clamp(1 - (rpm - rpmHold) / 500, 0, 1));
+    }
     // engine failure → no drive
     let failed = false;
     for (let u = 0; u < this.engines.length; u++) if (this.engines[u].failed) failed = true;
@@ -439,24 +457,41 @@ class Vehicle {
         const slip = Math.abs(drv.omega[0] * RPM - rpmIn);
         if (this.clutchLocked) {
           if (rpmIn < this.idleRpm * 0.9 && !launch) this.clutchLocked = false;
-        } else if (this.clutch > 0.97 && slip < 80 && rpmIn > this.idleRpm) {
-          // don't call it synchronised while the driven wheels are spinning up (ground-speed check)
+        } else if (this.clutch > 0.05 && rpmIn > this.idleRpm) {
+          // synchronised (and not merely because the driven wheels are spinning up), or the car is
+          // already fast enough to run the launch speed without slip -> close the clutch fully
           const rpmGround = Math.abs(vFwd / this.driveRad * drv.totalRatio()) * RPM;
-          if (Math.abs(drv.omega[0] * RPM - rpmGround) < Math.max(300, 0.15 * rpm)) this.clutchLocked = true;
+          if ((slip < 80 && Math.abs(drv.omega[0] * RPM - rpmGround) < Math.max(300, 0.15 * rpm))
+            || rpmGround > this._rpmT) this.clutchLocked = true;
         }
         if ((c.handbrake || 0) > 0.5) { this.clutchLocked = false; }
-        if (this.clutchLocked) { target = 1; rateUp = 1e3; }
+        if (this.clutchLocked) { target = 1; rateUp = this.sinceShift < this.shiftTime + 0.05 ? 1e3 : 6; }
         else if ((c.handbrake || 0) > 0.5) target = 0;
-        else if (launch && brk > 0.1) target = 0;
-        else if (launch) { target = 1; rateUp = 6; }
+        else if (preRev) target = 0;
         else {
           // slip-controlled engagement: hold the crank at a throttle-dependent launch speed;
           // capacity = engine torque (feed-forward) + P on the rpm error. Locks once synchronised.
           const idle = this.idleRpm;
-          const rpmT = idle * 1.1 + Math.min(1, thr * 1.5) * (this.launchRpm - idle * 1.1);
+          const rpmT = launch ? this.launchRpm : idle * 1.1 + Math.min(1, thr * 1.5) * (this.launchRpm - idle * 1.1);
+          this._rpmT = rpmT;
           const Te = this.engines[0].torque * this.eff;
           const cap = (Te > 0 ? Te : 0) + 0.4 * (rpm - rpmT);
-          target = clamp(cap / this.clutchMax, 0, 1);
+          // traction-aware pull-away: never feed more clutch torque than the driven tyres can use,
+          // trimmed by driven-wheel slip feedback (what a good driver does with the clutch pedal)
+          let Fzd = 0, kmax = -1;
+          for (let i = 0; i < 4; i++) {
+            if (!(i < 2 ? drv.frontDriven : drv.rearDriven)) continue;
+            Fzd += this.wheels[i].Fz;
+            const vx = this.vxW[i];
+            const k = (Math.abs(drv.omega[2 + i]) * this.rad[i] - Math.abs(vx)) / Math.max(Math.abs(vx), 2);
+            if (k > kmax) kmax = k;
+          }
+          const ks = this.peakSlip;
+          if (kmax > ks * 1.2) this.lcScale -= dt * (2 + 20 * (kmax - ks * 1.2));
+          else this.lcScale += dt * 1.5;
+          this.lcScale = clamp(this.lcScale, 0.4, 1.3);
+          const capTr = Fzd * this.muPeak * this.driveRad / (Math.abs(drv.totalRatio()) * this.eff + 1e-6);
+          target = clamp(Math.min(cap, capTr * this.lcScale) / this.clutchMax, 0, 1);
           rateUp = 20; rateDn = 20;
         }
       }

@@ -46,6 +46,10 @@ export function accelRun(params, maxTime = 150) {
   const v = createVehicle(params, createFlatTrack(), { x: 0, y: 0, heading: 0 });
   const c = controls();
   for (let i = 0; i < 250; i++) v.step(c); // settle
+  // staged launch: hold the brake and pre-rev for 1 s (ICE), timing starts at brake release
+  c.brake = 1; c.throttle = 1;
+  for (let i = 0; i < 500; i++) v.step(c);
+  c.brake = 0;
   const x0 = v.pos[0], t0 = v.time;
   let thr = 1, t60 = 0, t100 = 0, tQ = 0, vQ = 0, vTop = 0, lastCheckV = 0, lastCheckT = 0, ok = true;
   const target = v.peakSlip;
