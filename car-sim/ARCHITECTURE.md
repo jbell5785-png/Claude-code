@@ -220,6 +220,24 @@ createLapTimer(track) -> lt  // lt.update(v) each step; lt.lap, lt.lapTime, lt.l
                              // lt.sector, lt.progress (total metres incl. laps), lt.wrongWay, lt.offTrackTime
 ```
 
+### 6b. Walls, obstacles & raycasts (added after kickoff — owner D)
+
+```js
+track.walls       // { segs: Float32Array [x1,y1,x2,y2, ...], n, height }  barrier polylines (both sides,
+                  // at the outer edge of the run-off) — solid for collisions (collision module, wave 2)
+track.obstacles   // [{ kind: 'cylinder', x, y, r, h } | { kind: 'box', x, y, hx, hy, heading, h }]
+                  // defined in track defs by { s, offset, ... } and resolved to world coords
+track.raycast(x, y, dx, dy, maxDist, mask, out) -> distance   // (dx,dy) unit vector; returns maxDist if no hit
+                  // mask bits: RAY.EDGE = 1 (edge of asphalt+kerb), RAY.WALL = 2, RAY.OBSTACLE = 4
+                  // out (optional) = { dist, kind /*RAY bit hit*/, nx, ny /*hit normal*/ }
+                  // must be fast (uniform grid over segments): ~100 cars × 15 rays × 50 Hz
+export const RAY = { EDGE: 1, WALL: 2, OBSTACLE: 4 }   // exported from track.js
+```
+
+Random tracks accept `{ type: 'random', seed, obstacles: n, difficulty: 0..1 }` (difficulty tightens
+corners/zigzags). Obstacles sit on the racing surface and must leave a drivable gap (≥ 5 m).
+Car-car and car-wall/obstacle collision physics: separate collision module (wave 2), not owner C.
+
 ## Physics model summary (for orientation)
 
 - 6-DOF sprung rigid body + 4 unsprung masses with vertical DOF, coil-over spring/damper, anti-roll bars,

@@ -41,12 +41,12 @@ export const MODEL = {
   dieselBoreStroke: 0.90,       // diesels are undersquare
   // Volumetric efficiency
   veBase: 0.95,                 // stock NA peak VE (stock cams, airbox, exhaust)
-  veTurboPenalty: 0.97,         // turbine back-pressure / residual gas
-  veLowK: 0.90,                 // VE loss coefficient below the cam's tuned speed (per normalised d^2)
-  veHighK: 1.15,                // above it
+  veTurboPenalty: 0.98,         // turbine in the exhaust path (residual gas) at low flow
+  veLowK: 0.70,                 // VE loss coefficient below the cam's tuned speed (per normalised d^2)
+  veHighK: 0.75,                // above it (modern cam phasing keeps VE broad)
   veFloor: 0.45,
   // Indicated thermal efficiency, scaled with the Otto efficiency of the compression ratio.
-  etaPetrol: 0.405, crPetrolRef: 11.0,
+  etaPetrol: 0.415, crPetrolRef: 11.0,
   etaDiesel: 0.45, crDieselRef: 16.5,
   etaRotaryMult: 0.80,          // long thin combustion chamber: heat loss + crevice HC
   gammaCycle: 1.30,             // effective ratio of specific heats for the CR scaling
@@ -56,7 +56,7 @@ export const MODEL = {
   // Friction mean effective pressure (Chen-Flynn form), bar: c0 + c1*Pmax + c2*Up + c3*Up^2
   fmep: [0.55, 0.004, 0.030, 0.0009],
   pmaxPerBarPetrol: 55,         // peak cylinder pressure per bar of MAP (firing)
-  pmaxPerBarDiesel: 140,
+  pmaxPerBarDiesel: 80,
   pmaxMotoring: 22,             // not firing (compression only)
   exhaustBackPressure: 0.05,    // bar above ambient seen by the pistons at WOT (NA)
   // Throttle / manifold
@@ -68,6 +68,9 @@ export const MODEL = {
   knock: { pRef: 2.05, a: 0.75, TRef: 330, b: 3.0, c: 1.3, d: 8, retardRange: 0.40, lossPerRetard: 0.25 },
   // Turbo
   turboChokeStart: 0.85,        // fraction of flowMax where the compressor starts to choke
+  turbineBackPressure: 1.0,     // exhaust-manifold over-pressure / MAP at flowMax (turbine restriction, grows with flow^2)
+  turbineResidualVE: 0.12,      // VE lost at flowMax from hot residual gas trapped by turbine back-pressure
+  turboPreSpool: 0.12,          // capability fraction at flowStart from the quadratic pre-spool region
   turboSpinDown: 1.6,           // spin-down tau multiple (BOV vents, wheel freewheels)
   scTau: 0.08,                  // belt-driven supercharger response (s)
   scBeltEff: 0.95,
@@ -226,6 +229,8 @@ export function makeEngineParams(e, fuelKg = 40) {
     fuelKg,
     // induction
     boostTarget,
+    turboMaxBoost: ind.maxBoost,
+    boostTaper: ecu.boostTaper || 0,
     flowStart: ind.flowStart || 0, flowFull: ind.flowFull || 1, flowMax: ind.flowMax || 1,
     turboTau: ind.tau || 0.5,
     scCurve: ind.curve || null,
@@ -355,20 +360,34 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
   // --- boost (pressure upstream of the throttle) -------------------------------------------
   const kind = ep.induction;
   let compEff = ep.compEff;
+  let flowFrac = 0;
   if (kind === 'turbo') {
+    // Compressor pressure capability rises with engine (exhaust) mass flow between flowStart and
+    // flowFull (full capability = the turbo's maxBoost); the wastegate caps it at the target. Using the
+    // engine's own flow closes a positive-feedback loop -> the characteristic spool "hit".
     const flow = es.airFlow;
-    const spool = clamp((flow - ep.flowStart) / (ep.flowFull - ep.flowStart), 0, 1);
     const fr = flow / ep.flowMax;
+    flowFrac = fr;
+    const P = MODEL.turboPreSpool;
+    let spool;
+    if (flow < ep.flowStart) { const q = flow / ep.flowStart; spool = P * q * q; }
+    else spool = P + (1 - P) * (flow - ep.flowStart) / (ep.flowFull - ep.flowStart);
+    if (spool > 1) spool = 1;
     const choke = clamp(1 - 3 * (fr - MODEL.turboChokeStart), 0.3, 1);
     if (fr > 0.8) compEff *= clamp(1 - 0.6 * (fr - 0.8), 0.5, 1);
-    let target = ep.boostTarget * spool * choke;
-    if (als && target < 0.9 * ep.boostTarget) target = 0.9 * ep.boostTarget;
-    let tau;
-    if (target > es.boost) {
+    let cap = ep.turboMaxBoost * spool * choke;
+    let wg = ep.boostTarget * (1 - ep.boostTaper * clamp((x - 0.7) / 0.3, 0, 1));
+    if (als) { if (cap < 0.9 * wg) cap = 0.9 * wg; }
+    if (cap > es.boost) {
+      // spool up: shaft accelerates towards the capability, time constant shrinks with flow
       const r = ep.flowFull / (flow > 1e-4 ? flow : 1e-4);
-      tau = ep.turboTau * Math.pow(clamp(r, 0.35, 3), 0.8);
-    } else tau = ep.turboTau * MODEL.turboSpinDown;
-    es.boost += (target - es.boost) * (1 - Math.exp(-dt / tau));
+      const tau = ep.turboTau * Math.pow(clamp(r, 0.5, 3), 0.8);
+      es.boost += (cap - es.boost) * (1 - Math.exp(-dt / tau));
+      if (es.boost > wg) es.boost = wg;              // wastegate opens
+    } else {
+      const tgt = cap < wg ? cap : wg;
+      es.boost += (tgt - es.boost) * (1 - Math.exp(-dt / (ep.turboTau * MODEL.turboSpinDown)));
+    }
   } else if (kind === 'super') {
     const xs = x < 1.2 ? x : 1.2;
     const cap = ep.scCurve === 'centrifugal'
@@ -398,7 +417,8 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
     const airPedal = als && pedal < 0.3 ? 0.3 : pedal;
     prSS = prClosed + (prWot - prClosed) * airPedal;
   }
-  const ve = veAt(ep, x);
+  let ve = veAt(ep, x);
+  if (kind === 'turbo') ve *= 1 - MODEL.turbineResidualVE * (flowFrac < 1.2 ? flowFrac * flowFrac : 1.44);
   const nRps = rpmF / 60;
   const tauM = ep.manifoldVol / (ve * ep.vdEff * 0.5 * nRps);
   es.pMan += (prSS * pUp - es.pMan) * (1 - Math.exp(-dt / tauM));
@@ -461,6 +481,7 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
     pmep = (Pamb + MODEL.exhaustBackPressure * 1e5 - pMan) / 1e5;
     if (pmep < 0) pmep = 0;
   }
+  if (kind === 'turbo') pmep += MODEL.turbineBackPressure * flowFrac * flowFrac * pMan / 1e5;
   const spin = Math.tanh(omega / 8);
   let tLoss = (fmep + pmep) * 1e5 * ep.vdEff / FOUR_PI * spin;
   if (kind === 'super' && PR > 1) {

@@ -10,7 +10,7 @@ const E = (o) => ({ ...base, ...o });
 // real = published figures of the comparable production engine
 const CASES = [
   { name: '2.0 NA I4 high-rev', ref: 'K20A Type R (148 kW @8000, 202 Nm @7000)', real: { kw: 148, nm: 202 },
-    spec: E({ layout: 'I4', displacement: 2.0, cams: 'race', intake: 'coldAir', exhaust: 'sport', ecu: 'stage1' }) },
+    spec: E({ layout: 'I4', displacement: 2.0, cams: 'fastRoad', ecu: 'stage1' }) },
   { name: '2.0 turbo I4 stock', ref: 'EA888/Ecoboost 2.0T (~185 kW, 350 Nm)', real: { kw: 185, nm: 350 },
     spec: E({ layout: 'I4', displacement: 2.0, induction: 'turboMedium', boost: 1.2, intercooler: 'stock', fuel: 'petrol95', fuelSystem: 'street' }) },
   { name: '5.0 NA V8', ref: 'Coyote Gen2 (324 kW @6500, 542 Nm @4250)', real: { kw: 324, nm: 542 },
@@ -22,9 +22,9 @@ const CASES = [
   { name: '1.3 NA twin-rotor', ref: 'Renesis 13B-MSP (175 kW @8200, 211 Nm @5500)', real: { kw: 175, nm: 211 },
     spec: E({ layout: 'R2', displacement: 1.3, fuelSystem: 'street' }) },
   { name: '2.0 turbo-diesel I4', ref: 'B47/N47 20d (140 kW @4000, 400 Nm @2000)', real: { kw: 140, nm: 400 },
-    spec: E({ layout: 'I4', displacement: 2.0, induction: 'turboMedium', boost: 1.6, intercooler: 'stock', fuel: 'diesel', fuelSystem: 'street' }) },
+    spec: E({ layout: 'I4', displacement: 2.0, induction: 'turboMedium', boost: 1.6, intercooler: 'stock', fuel: 'diesel', fuelSystem: 'street', ecu: 'stage1' }) },
   { name: '4.0 twin-turbo V8', ref: 'M178/F154 class (~470 kW, 700-760 Nm)', real: { kw: 470, nm: 730 },
-    spec: E({ layout: 'V8', displacement: 4.0, induction: 'twinTurbo', boost: 1.5, intercooler: 'waterAir', fuelSystem: 'race', ecu: 'stage1' }) },
+    spec: E({ layout: 'V8', displacement: 4.0, induction: 'twinTurbo', boost: 1.4, intercooler: 'waterAir', fuelSystem: 'race' }) },
 ];
 
 let fails = 0;
@@ -86,7 +86,7 @@ for (const [lab, spec] of [['2.0T medium turbo', CASES[1].spec],
 
 // ----- anti-lag
 {
-  const spec = E({ layout: 'I4', displacement: 2.0, induction: 'turboLarge', boost: 1.6, ecu: 'stage1', intercooler: 'fmic', antiLag: true });
+  const spec = E({ layout: 'I4', displacement: 2.0, induction: 'turboLarge', boost: 1.6, ecu: 'stage1', intercooler: 'fmic', internals: 'forged', antiLag: true });
   const ep = makeEngineParams(spec); const es = createEngineState(ep); const w = 5000 * Math.PI / 30;
   for (let i = 0; i < 3000; i++) engineUpdate(es, ep, 1, w, 1 / 500, null);
   const fuel0 = es.fuelKg;
@@ -157,10 +157,12 @@ for (const [m, b] of [['small', 'b60'], ['medium', 'b80'], ['large', 'b100'], ['
 {
   const ep = makeMotorParams('medium', 'b60', 1); const es = createEngineState(ep);
   const w = 8000 * Math.PI / 30;
+  es.batteryKwh = 0.5 * ep.batteryKwh;
+  const e0 = es.batteryKwh;
   for (let i = 0; i < 500; i++) engineUpdate(es, ep, 1, w, 1 / 500, null);
   const e1 = es.batteryKwh;
   for (let i = 0; i < 500; i++) engineUpdate(es, ep, 0, w, 1 / 500, { regen: 1 });
-  console.log(`EV energy: 1 s WOT used ${((60 - e1) * 3600).toFixed(0)} kJ; 1 s full regen torque ${es.torque.toFixed(0)} Nm, recovered ${((es.batteryKwh - e1) * 3600).toFixed(0)} kJ, SoC ${es.soc.toFixed(4)}`);
+  console.log(`EV energy: 1 s WOT used ${((e0 - e1) * 3600).toFixed(0)} kJ; 1 s full regen torque ${es.torque.toFixed(0)} Nm, recovered ${((es.batteryKwh - e1) * 3600).toFixed(0)} kJ, SoC ${es.soc.toFixed(4)}`);
 }
 
 // ----- hot path timing + allocation sanity

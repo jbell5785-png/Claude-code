@@ -154,10 +154,12 @@ export const FLYWHEELS = {
   race: { label: 'Race single-mass', inertia: 0.05, price: 1100 },
 };
 
+// boostTaper = fraction of boost the map removes between 70 % of redline and redline (OEM turbine-inlet
+// temperature / turbo-speed protection); boostTrim = fraction of the requested boost the map allows.
 export const ECU_TUNES = {
-  stock: { label: 'Stock map', redlineAdd: 0, boostTrim: 0.85, timing: 1.0, price: 0 },
-  stage1: { label: 'Stage 1 remap', redlineAdd: 200, boostTrim: 1.0, timing: 1.02, price: 500 },
-  stage2: { label: 'Stage 2 standalone ECU', redlineAdd: 500, boostTrim: 1.0, timing: 1.04, price: 1800 },
+  stock: { label: 'Stock map', redlineAdd: 0, boostTrim: 0.85, timing: 1.0, boostTaper: 0.25, price: 0 },
+  stage1: { label: 'Stage 1 remap', redlineAdd: 200, boostTrim: 1.0, timing: 1.02, boostTaper: 0.10, price: 500 },
+  stage2: { label: 'Stage 2 standalone ECU', redlineAdd: 500, boostTrim: 1.0, timing: 1.04, boostTaper: 0.0, price: 1800 },
 };
 
 // Electric powertrain parts.
