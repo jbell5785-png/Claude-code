@@ -155,12 +155,12 @@ export class CarFX {
 
     // scrape sparks when the chassis bottoms out
     this.sparkCd -= dt;
-    if (visible && v && v.wheels && v.params && v.params.axles && speed > 12 && this.sparkCd <= 0 && ctx.sparks) {
+    if (this.opts.autoSparks && visible && v && v.wheels && v.params && v.params.axles && speed > 12 && this.sparkCd <= 0 && ctx.sparks) {
       for (let i = 0; i < 4; i++) {
         const ax = v.params.axles[i < 2 ? 0 : 1]; const w = v.wheels[i];
-        if (ax && w.contact && w.compression >= ax.maxCompression * 0.97) {
+        if (ax && w.contact && ax.maxCompression > 0 && w.compression >= ax.maxCompression * 0.999) {
           _v2.set(i < 2 ? this.len * 0.25 : -this.len * 0.25, groundY - root.position.y + 0.04, (i % 2 ? 1 : -1) * this.wid * 0.3).applyMatrix4(root.matrixWorld);
-          ctx.sparks.spawn(_v2, _n.set(-_fwd.x * 0.6, 0.5, -_fwd.z * 0.6).normalize(), 0.5, _vel, groundY + 0.02); this.sparkCd = 0.06; break;
+          ctx.sparks.spawn(_v2, _n.set(-_fwd.x * 0.6, 0.5, -_fwd.z * 0.6).normalize(), 0.25, _vel, groundY + 0.02); this.sparkCd = 0.3; break;
         }
       }
     }

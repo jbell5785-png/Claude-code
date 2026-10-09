@@ -12,6 +12,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { simToThree, simQuatToThree } from './coords.js';
 import { tyreTexture } from './textures.js';
 import { getQuality } from '../quality.js';
+import { applyGltfBody } from './gltfCars.js';
 
 const clamp = (x, a, b) => (x < a ? a : x > b ? b : x);
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -619,6 +620,8 @@ export class CarView {
   constructor(params, opts = {}) {
     this.params = params; this.opts = opts;
     this.model = buildCarModel(params, opts);
+    // Kenney GLB body when preloaded (gltfCars.preloadCarModels); procedural body on potato tier or if unavailable.
+    if (getQuality().name !== 'potato' && !opts.procedural) { try { applyGltfBody(this.model, params, opts); } catch (e) { console.warn('[carModel] GLB body failed', e); } }
     this.group = new THREE.Group(); this.group.add(this.model.root);
     this.wheelGroup = new THREE.Group(); for (const h of this.model.holders) this.wheelGroup.add(h); this.group.add(this.wheelGroup);
     this.prev = new Snapshot(); this.cur = new Snapshot(); this.render = new Snapshot();

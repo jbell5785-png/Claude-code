@@ -18,7 +18,7 @@ uniform float scale; uniform float fogDensity;
 void main() {
   vec4 mv = modelViewMatrix * vec4( position, 1.0 );
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = min( size * scale / max( 0.5, -mv.z ), 600.0 );
+  gl_PointSize = min( size * scale / max( 0.5, -mv.z ), 220.0 );
   vA = alpha; vC = color; vR = rot; vViewZ = mv.z;
   float d = -mv.z; vFog = 1.0 - exp( -fogDensity * fogDensity * d * d );
 }`;
@@ -119,7 +119,7 @@ export class Sparks {
     this.aV = new THREE.InstancedBufferAttribute(new Float32Array(max * 4), 4).setUsage(THREE.DynamicDrawUsage); // vel + heat
     g.setAttribute('iPos', this.aP); g.setAttribute('iVel', this.aV); g.instanceCount = max; g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e7);
     this.mat = new THREE.ShaderMaterial({
-      uniforms: { uStretch: { value: 0.035 }, uWidth: { value: 0.025 }, uIntensity: { value: 14 } },
+      uniforms: { uStretch: { value: 0.035 }, uWidth: { value: 0.02 }, uIntensity: { value: 6 } },
       vertexShader: /* glsl */`
         attribute vec3 iPos; attribute vec4 iVel; uniform float uStretch, uWidth; varying float vHeat; varying vec2 vUv;
         void main() {
@@ -127,7 +127,7 @@ export class Sparks {
           vec3 tail = iPos - iVel.xyz * uStretch;
           vec3 a = ( viewMatrix * vec4( iPos, 1.0 ) ).xyz, b = ( viewMatrix * vec4( tail, 1.0 ) ).xyz;
           vec3 dir = a - b; float len = length( dir ); dir = len > 1e-4 ? dir / len : vec3( 0, 1, 0 );
-          vec3 side = normalize( cross( dir, vec3( 0.0, 0.0, 1.0 ) ) ) * uWidth * ( 0.5 + vHeat );
+          vec3 sx = cross( dir, vec3( 0.0, 0.0, 1.0 ) ); vec3 side = ( dot( sx, sx ) > 1e-6 ? normalize( sx ) : vec3( 1.0, 0.0, 0.0 ) ) * uWidth * ( 0.5 + vHeat );
           vec3 p = mix( b, a, position.y ) + side * position.x * 2.0;
           if ( vHeat <= 0.0 ) p = vec3( 0.0, 0.0, 1e5 );
           gl_Position = projectionMatrix * vec4( p, 1.0 );

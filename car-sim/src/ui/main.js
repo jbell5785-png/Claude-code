@@ -172,8 +172,10 @@ window.addEventListener('pointerdown', startAudio); window.addEventListener('key
 
 // ---------------------------------------------------------------- visuals plug-in (engineer H)
 const loadFx = Object.values(fxMods)[0];
-// Opt-in until the FX tone-mapping/exposure clash with the base renderer is fixed: ?fx in the URL.
-if (loadFx && new URLSearchParams(location.search).has('fx')) {
+// On by default for medium/high/ultra; off for potato/low or with ?nofx (?fx forces it on).
+const fxQs = new URLSearchParams(location.search);
+const fxTier = (() => { const g = getQuality(); return String((g && g.name) || g || ''); })();
+if (loadFx && !fxQs.has('nofx') && (fxQs.has('fx') || !['potato', 'low'].includes(fxTier))) {
   loadFx().then((m) => (m.installFx || m.default)?.(renderContext, { quality: getQuality(), onQualityChange })).catch((err) => console.warn('[fx] failed to install', err));
 }
 
@@ -191,6 +193,8 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) audio
 
 const qs = new URLSearchParams(location.search);
 const startMode = qs.get('mode') || 'menu';
+// Car GLB bodies (render/gltfCars.js): wait briefly so the first garage/race car uses them; CarView falls back to procedural.
+try { await Promise.race([import('./render/gltfCars.js').then((m) => m.preloadCarModels()), new Promise((r) => setTimeout(r, 5000))]); } catch (err) { console.warn('[main] car models preload failed', err); }
 await switchMode(getMode(startMode) ? startMode : 'menu');
 showLoading(false);
 requestAnimationFrame(frame);
