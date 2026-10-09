@@ -175,14 +175,16 @@ function buildTerrain(S, def, seed) {
   const r = rng(seed ^ 0x5bd1e995);
   const ph = [r() * TWO_PI, r() * TWO_PI, r() * TWO_PI, r() * TWO_PI];
   const H = new Float32Array(cols * rows);
-  const w0 = 1.0;
+  const w0c = 0.12 * 0.457 * 3 * R;
   for (let yy = 0; yy < rows; yy++) {
     for (let xx = 0; xx < cols; xx++) {
       const k = xx + yy * cols;
       const x = x0 + xx * cell, y = y0 + yy * cell;
       const sw = fine.sw[k], swz = fine.swz[k];
-      const T2 = (coarse.swz[k] + w0 * zRef) / (coarse.sw[k] + w0);
-      const cw = 2.0; // weight of the coarse field against the fine one
+      // prior weights scaled to the kernel mass of a straight track (~0.457 * radius) so the
+      // fine→coarse→mean transitions are spread over the kernel radius (no creases)
+      const T2 = (coarse.swz[k] + w0c * zRef) / (coarse.sw[k] + w0c);
+      const cw = 0.12 * 0.457 * R;
       const far = cw / (sw + cw);
       const noise = amp * (Math.sin(x / 97 + ph[0]) * Math.sin(y / 131 + ph[1])
         + 0.5 * Math.sin((x + y) / 59 + ph[2]) + 0.35 * Math.sin((x - 2 * y) / 173 + ph[3]));
@@ -355,12 +357,12 @@ export function createTrack(keyOrDef) {
   const ramp = Math.max(1, Math.round(1.5 / ds));
   const KLs = boxCirc(KL, ramp, 2), KRs = boxCirc(KR, ramp, 2);
   if (def.gravel !== false) {
-    const thrG = 1 / 450;
+    const thrG = 1 / 500;
     for (const c of findCorners(KAP, thrG)) {
       if (c.full) continue;
-      let km = 0;
-      for (let q = 0; q < c.len; q++) km = Math.max(km, Math.abs(KAP[(c.a + q) % n]));
-      if (c.len * ds < 15) continue;
+      let km = 0, turn = 0;
+      for (let q = 0; q < c.len; q++) { const k = Math.abs(KAP[(c.a + q) % n]); km = Math.max(km, k); turn += k * ds; }
+      if (c.len * ds < 15 || turn < 0.45 || km > 1 / 22 || km < 1 / 300) continue;
       const outside = c.sign > 0 ? GVR : GVL;
       const E = c.sign > 0 ? ER : EL;
       const pre = Math.ceil(25 / ds), post = Math.ceil((km > 1 / 40 ? 50 : 80) / ds);
@@ -476,6 +478,11 @@ export function createTrack(keyOrDef) {
    * @returns {object} out
    */
   function query(x, y, hint, out) {
+    if (!(x === x && y === y)) { // NaN guard: flat grass, no index
+      out.s = 0; out.offset = 0; out.height = 0; out.nx = 0; out.ny = 0; out.nz = 1;
+      out.surface = SURFACE.GRASS; out.index = -1;
+      return out;
+    }
     let i = -1;
     if (hint >= 0 && hint < n) {
       i = walk(hint | 0, x, y, 24);
@@ -833,7 +840,7 @@ function buildScenery(track, def, seed, wallLines, barrierOff) {
   const stand = (s, len) => {
     track.pointAt(s, p);
     const i = p.index;
-    const side = S.edgeL[i] >= S.edgeR[i] ? 1 : -1;
+    const side = sdef.standSide ?? (S.edgeL[i] >= S.edgeR[i] ? 1 : -1);
     const w = side > 0 ? p.widthL : p.widthR;
     const off = side * (w + barrierOff(i, side) + 7);
     const x = p.x + off * p.nx, y = p.y + off * p.ny;

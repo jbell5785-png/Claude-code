@@ -35,7 +35,7 @@ export function racingLine(track, margin = 1.2) {
     for (let d = -reach; d <= reach; d++) {
       const i = (i0 + d + n) % n;
       const fade = 1 - Math.abs(d) / (reach + 1); // full clearance at the obstacle, tapering off
-      const clear = (ext + CAR_HALF + 0.6) * Math.min(1, fade * 1.6);
+      const clear = (ext + CAR_HALF + 1.0) * Math.min(1, fade * 1.6);
       if (passLeft) lo[i] = Math.min(hi[i], Math.max(lo[i], ob.offset + clear));
       else hi[i] = Math.max(lo[i], Math.min(hi[i], ob.offset - clear));
     }

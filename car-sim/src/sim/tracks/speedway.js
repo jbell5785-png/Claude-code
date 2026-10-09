@@ -17,6 +17,6 @@ export function speedwayDef() {
     terrain: { amp: 0.6, radius: 110 },
     // outer (right-hand) SAFER-style wall close to the edge, inner armco beyond the apron
     barrier: { kind: 'wall', offsetR: 2.5, offsetL: 14, height: 1.2, fence: 4 },
-    scenery: { trees: 0.5, grandstands: 4 },
+    scenery: { trees: 0.5, grandstands: 4, standSide: -1 },
   };
 }
