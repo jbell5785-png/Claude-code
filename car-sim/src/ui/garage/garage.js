@@ -46,6 +46,7 @@ function schema(C) {
       { p: 'engine.boost', label: 'Boost target', type: 'range', step: 0.05, range: (s) => [0, ind(s).maxBoost || 0], fmt: (v) => v.toFixed(2) + ' bar', when: (s) => ind(s).kind !== 'na' },
       { p: 'engine.intercooler', label: 'Intercooler', type: 'select', options: () => opts(C.INTERCOOLERS), when: (s) => ind(s).kind !== 'na' },
       { p: 'engine.antiLag', label: 'Anti-lag', type: 'toggle', when: (s) => ind(s).kind === 'turbo' },
+      { p: 'engine.nitrous', label: 'Nitrous', type: 'select', options: () => opts(C.NITROUS || {}), when: () => !!C.NITROUS },
       { p: 'engine.fuel', label: 'Fuel', type: 'select', options: () => opts(C.FUELS) },
       { p: 'engine.fuelSystem', label: 'Fuel system', type: 'select', options: () => opts(C.FUEL_SYSTEMS) },
       { p: 'fuelLitres', label: 'Fuel load', type: 'range', min: 5, max: 100, step: 1, fmt: (v) => v + ' L' },

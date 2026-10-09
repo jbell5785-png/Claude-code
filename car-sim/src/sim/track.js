@@ -317,17 +317,17 @@ export function createTrack(keyOrDef) {
   // --- edge (terrain blend end) and run-off plane extents
   const edgeMax = def.edgeMax ?? 30;
   const runoffDef = def.runoff ?? 8;
-  const win = Math.ceil(25 / ds);
+  const win = Math.ceil(12 / ds);
   const mkEdge = (free, W) => {
     const a = new Float64Array(n);
-    for (let i = 0; i < n; i++) a[i] = Math.max(2.5, Math.min(edgeMax, 0.8 * (free[i] - W[i]) - 0.5));
+    for (let i = 0; i < n; i++) a[i] = Math.max(2.5, Math.min(edgeMax, 0.9 * (free[i] - W[i]) - 0.5));
     return boxCirc(minFilterCirc(a, win), Math.ceil(win / 2), 1);
   };
   const EL = mkEdge(freeL, WL), ER = mkEdge(freeR, WR);
   const RL = new Float64Array(n), RR = new Float64Array(n);
   for (let i = 0; i < n; i++) {
-    RL[i] = Math.max(KERB_W + 0.4, Math.min(runoffDef, 0.5 * EL[i]));
-    RR[i] = Math.max(KERB_W + 0.4, Math.min(runoffDef, 0.5 * ER[i]));
+    RL[i] = Math.max(KERB_W + 0.4, Math.min(runoffDef, 0.35 * EL[i]));
+    RR[i] = Math.max(KERB_W + 0.4, Math.min(runoffDef, 0.35 * ER[i]));
     if (RL[i] > EL[i] - 1) RL[i] = EL[i] - 1;
     if (RR[i] > ER[i] - 1) RR[i] = ER[i] - 1;
   }

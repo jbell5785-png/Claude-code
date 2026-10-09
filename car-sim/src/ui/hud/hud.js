@@ -34,6 +34,7 @@ export class Hud {
             <div class="aids"><span class="aid abs">ABS</span><span class="aid tc">TC</span><span class="aid lc">LC</span><span class="aid gm">AUTO</span></div>
             <canvas class="boost"></canvas>
             <div class="fuel"><span class="fuel-lbl">FUEL</span><div class="bar"><i></i></div><span class="fuel-val mono"></span></div>
+            <div class="nos-bar"><span>N₂O</span><div class="bar"><i></i></div></div>
           </div>
         </div>
       </div>`;
@@ -84,6 +85,9 @@ export class Hud {
     if (isEV) { frac = es.soc ?? (p.battery ? es.batteryKwh / p.battery.kwh : 0); txt = `${Math.round(frac * 100)}%`; this.setText('.fuel-lbl', 'BATT'); }
     else { const cap = Math.max(1, (p.fuel?.tankKg || 40)); frac = clamp((es.fuelKg ?? cap) / cap, 0, 1); txt = `${((es.fuelKg ?? 0) / (p.fuel?.density || 0.745)).toFixed(1)} L`; this.setText('.fuel-lbl', 'FUEL'); }
     this.$('.fuel i').style.transform = `scaleX(${clamp(frac, 0, 1)})`; this.$('.fuel i').classList.toggle('low', frac < 0.12); this.setText('.fuel-val', txt);
+    // nitrous
+    { const cap = es.nitrousCapacityKg || 0; const nb = this.$('.nos-bar'); nb.classList.toggle('none', !(cap > 0));
+      if (cap > 0) { const f = clamp((es.nitrousKg || 0) / cap, 0, 1); nb.querySelector('i').style.transform = `scaleX(${f})`; nb.classList.toggle('active', !!(es.nitrousActive || (v.controls?.nitrous && f > 0))); } }
     // aids
     const a = v.aids || {}; const el = p.electronics || {};
     this.$('.aid.abs').className = 'aid abs' + (a.absActive ? ' on' : el.abs ? ' avail' : '');

@@ -106,6 +106,18 @@ export const INDUCTION = {
   centrifugal: { label: 'Centrifugal supercharger', kind: 'super', maxBoost: 1.1, curve: 'centrifugal', compEff: 0.74, price: 4500, mass: 16 },
 };
 
+// Nitrous oxide kits (wet: the kit adds matching fuel, drawn through the car's fuel system).
+// flow = N2O mass flow (g/s) at full bottle pressure, bottleKg = N2O capacity, mass = bottle + lines
+// + solenoids (empty), armRpm = minimum rpm the window switch allows; kW = nominal shot (label only,
+// the actual gain comes from the engine model).
+export const NITROUS = {
+  none: { label: 'None', kW: 0, flow: 0, bottleKg: 0, mass: 0, armRpm: 0, price: 0 },
+  street: { label: 'Street wet kit (50 kW shot)', kW: 50, flow: 25, bottleKg: 2.3, mass: 9, armRpm: 2500, price: 900 },
+  sport: { label: 'Sport wet kit (100 kW shot)', kW: 100, flow: 50, bottleKg: 4.5, mass: 12, armRpm: 3000, price: 1600 },
+  race: { label: 'Race plate kit (150 kW shot)', kW: 150, flow: 75, bottleKg: 4.5, mass: 13, armRpm: 3500, price: 2600 },
+  drag: { label: 'Drag direct-port (250 kW shot)', kW: 250, flow: 125, bottleKg: 6.8, mass: 17, armRpm: 4000, price: 4800 },
+};
+
 // Anti-lag system (turbo only): price and hardware mass.
 export const ANTI_LAG = { label: 'Anti-lag (ignition retard + air bypass)', price: 1500, mass: 3 };
 
