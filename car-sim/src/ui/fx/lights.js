@@ -47,7 +47,7 @@ for ( int fxi = 0; fxi < FX_MAX_LIGHTS; fxi ++ ) {
   IncidentLight fxl;
   fxl.direction = fxlv / max( fxd, 1e-3 );
   float fxcone = smoothstep( fxp.y, fxp.z, dot( - fxl.direction, fxLightDir[ fxi ] ) );
-  fxl.color = fxLightColor[ fxi ] * ( getDistanceAttenuation( fxd, fxp.x, fxp.w ) * fxcone );
+  fxl.color = fxLightColor[ fxi ] * ( min( getDistanceAttenuation( fxd, fxp.x, fxp.w ), 1.0 ) * fxcone );
   fxl.visible = true;
   RE_Direct( fxl, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );
 }

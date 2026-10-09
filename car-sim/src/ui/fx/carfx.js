@@ -111,7 +111,7 @@ export class CarFX {
     const hl = visible && dark > 0.05;
     for (const [L, side] of [[this.head, 1], [this.head2, -1]]) {
       _v.copy(this.headLocal); _v.z = side * Math.max(0.45, Math.abs(this.headLocal.z || 0.6)); _v.x += 0.3; _v.applyMatrix4(root.matrixWorld);
-      L.pos.copy(_v); L.dir.copy(_fwd).addScaledVector(_up, -0.09).normalize(); L.intensity = hl ? 60 * dark : 0;
+      L.pos.copy(_v); L.dir.copy(_fwd).addScaledVector(_up, -0.09).normalize(); L.intensity = hl ? 16 * dark : 0;
     }
     _v.copy(this.tailLocal); _v.x -= 0.25; _v.applyMatrix4(root.matrixWorld);
     this.tailL.pos.copy(_v); this.tailL.dir.copy(_fwd).negate().addScaledVector(_up, -0.5).normalize(); this.tailL.intensity = visible ? (0.2 + brake * 1.2) * (1 + 4 * dark) : 0;
