@@ -1,39 +1,146 @@
 [
   {
-    "name": "race-demo",
+    "name": "dnb",
     "titles": [
-      "Turbo Signal [breaks 131bpm E phrygian]",
-      "Velocity Strobe (Warehouse Mix) [acid 143bpm Eb phrygian]"
+      "The Redline Funk [dnb 174bpm C harmonicMinor]"
     ],
     "full": {
       "peakDb": -0.92,
-      "rmsDb": -7.3,
-      "lufs": -6.7,
-      "crestDb": 6.4,
+      "rmsDb": -11.81,
+      "lufs": -8.9,
+      "crestDb": 10.9,
       "clips": 0,
       "balancePct": {
-        "sub": 58.9,
-        "low": 34.8,
-        "lowmid": 4.9,
-        "highmid": 0.9,
-        "high": 0.5
+        "sub": 18.6,
+        "low": 42,
+        "lowmid": 19.2,
+        "highmid": 12.4,
+        "high": 7.8
       },
-      "frames": 515
+      "frames": 351
     },
     "drop": {
       "peakDb": -0.92,
-      "rmsDb": -6.65,
-      "lufs": -6.6,
-      "crestDb": 5.7,
+      "rmsDb": -11.81,
+      "lufs": -9,
+      "crestDb": 10.9,
       "clips": 0,
       "balancePct": {
-        "sub": 57.5,
-        "low": 36.2,
-        "lowmid": 4.9,
-        "highmid": 0.9,
-        "high": 0.5
+        "sub": 19.9,
+        "low": 43.7,
+        "lowmid": 16,
+        "highmid": 11.6,
+        "high": 8.7
       },
-      "frames": 410
+      "frames": 222
+    }
+  },
+  {
+    "name": "breaks",
+    "titles": [
+      "Slipstream Rush [breaks 131bpm C minor]"
+    ],
+    "full": {
+      "peakDb": -0.99,
+      "rmsDb": -11.92,
+      "lufs": -8.9,
+      "crestDb": 10.9,
+      "clips": 0,
+      "balancePct": {
+        "sub": 18.8,
+        "low": 41.3,
+        "lowmid": 18.1,
+        "highmid": 14.1,
+        "high": 7.7
+      },
+      "frames": 351
+    },
+    "drop": {
+      "peakDb": -0.99,
+      "rmsDb": -11.96,
+      "lufs": -9,
+      "crestDb": 11,
+      "clips": 0,
+      "balancePct": {
+        "sub": 20.9,
+        "low": 39.5,
+        "lowmid": 16.1,
+        "highmid": 13.8,
+        "high": 9.7
+      },
+      "frames": 179
+    }
+  },
+  {
+    "name": "garage",
+    "titles": [
+      "Launch Control Sunday [garage 131bpm Eb minor]"
+    ],
+    "full": {
+      "peakDb": -1.04,
+      "rmsDb": -12,
+      "lufs": -9.2,
+      "crestDb": 11,
+      "clips": 0,
+      "balancePct": {
+        "sub": 22.3,
+        "low": 35,
+        "lowmid": 24.5,
+        "highmid": 7.8,
+        "high": 10.3
+      },
+      "frames": 351
+    },
+    "drop": {
+      "peakDb": -1.05,
+      "rmsDb": -11.98,
+      "lufs": -9,
+      "crestDb": 10.9,
+      "clips": 0,
+      "balancePct": {
+        "sub": 21.7,
+        "low": 31.4,
+        "lowmid": 26,
+        "highmid": 8.6,
+        "high": 12.3
+      },
+      "frames": 179
+    }
+  },
+  {
+    "name": "acid",
+    "titles": [
+      "Afterburner Fury '97 [acid 141bpm E minor]"
+    ],
+    "full": {
+      "peakDb": -0.91,
+      "rmsDb": -12.12,
+      "lufs": -9.2,
+      "crestDb": 11.2,
+      "clips": 0,
+      "balancePct": {
+        "sub": 21.5,
+        "low": 31.1,
+        "lowmid": 30.2,
+        "highmid": 9,
+        "high": 8.2
+      },
+      "frames": 351
+    },
+    "drop": {
+      "peakDb": -0.91,
+      "rmsDb": -12.07,
+      "lufs": -9.2,
+      "crestDb": 11.2,
+      "clips": 0,
+      "balancePct": {
+        "sub": 20.7,
+        "low": 31.8,
+        "lowmid": 28.9,
+        "highmid": 8.3,
+        "high": 10.3
+      },
+      "frames": 191
     }
   }
 ]

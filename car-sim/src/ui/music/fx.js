@@ -9,7 +9,7 @@ import { softClipCurve } from './dsp.js';
  */
 export function createMaster(ctx, destination, bypass = false) {
   const input = ctx.createGain();
-  input.gain.value = 1;
+  input.gain.value = 0.56; // ~-14 LUFS integrated at full volume
 
   const glue = ctx.createDynamicsCompressor();
   glue.threshold.value = -18;
