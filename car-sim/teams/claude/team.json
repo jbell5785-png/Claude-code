@@ -1,0 +1,11 @@
+{
+  "name": "Claude",
+  "model": "claude",
+  "notes": "Car: the hot-hatch preset (£29,700, FWD 2.0 turbo, sport tyres, ABS+TC). A forgiving, understeery front-driver is the easiest platform for a learned policy: front-drive power-on understeer is self-correcting, and ABS/TC absorb crude pedal outputs. Under £60k, extra power mostly adds ways to crash. Driver: small tanh MLP (79→24→12→2, steer + combined pedal), with OpenAI-ES (antithetic sampling, centred ranks, Adam).",
+  "car": { "preset": "hotHatch", "overrides": { "name": "Claude GTI", "color": "#d97757" } },
+  "driver": {
+    "arch": { "type": "mlp", "hidden": [24, 12], "act": "tanh", "outAct": "tanh", "head": "pedal" },
+    "learner": "es",
+    "hyper": { "popSize": 32, "sigma": 0.08, "lr": 0.03 }
+  }
+}

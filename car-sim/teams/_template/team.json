@@ -1,0 +1,31 @@
+{
+  "name": "My Team",
+  "model": "chatgpt | gemini | claude | human | ...",
+  "notes": "Explain your car choice and learning setup here.",
+  "car": {
+    "preset": "hotHatch",
+    "overrides": {
+      "name": "My car",
+      "color": "#3a7bd5"
+    }
+  },
+  "driver": {
+    "arch": {
+      "type": "mlp",
+      "hidden": [
+        24,
+        12
+      ],
+      "act": "tanh",
+      "outAct": "tanh",
+      "head": "pedal"
+    },
+    "learner": "ga",
+    "hyper": {
+      "popSize": 32,
+      "poolFrac": 0.1,
+      "mutRate": 0.1,
+      "mutSigma": 0.2
+    }
+  }
+}

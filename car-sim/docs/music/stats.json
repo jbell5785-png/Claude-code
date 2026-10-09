@@ -1,0 +1,38 @@
+[
+  {
+    "name": "hardcore",
+    "titles": [
+      "The Apex Predator Rush [hardcore 175bpm E minor]"
+    ],
+    "full": {
+      "peakDb": -1.1,
+      "rmsDb": -13.41,
+      "lufs": -10.3,
+      "crestDb": 12.3,
+      "clips": 0,
+      "balancePct": {
+        "sub": 15.9,
+        "low": 15.6,
+        "lowmid": 49.2,
+        "highmid": 11,
+        "high": 8.3
+      },
+      "frames": 468
+    },
+    "drop": {
+      "peakDb": -1.1,
+      "rmsDb": -13.27,
+      "lufs": -10.1,
+      "crestDb": 12.2,
+      "clips": 0,
+      "balancePct": {
+        "sub": 14.8,
+        "low": 18.7,
+        "lowmid": 44.7,
+        "highmid": 12.1,
+        "high": 9.7
+      },
+      "frames": 340
+    }
+  }
+]
