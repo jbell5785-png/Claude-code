@@ -61,20 +61,21 @@ export const CHASSIS = {
 };
 
 // Engine layouts. mass = base + perL * displacement. length is the block length (m).
-// strokeRatio sets how revvy the layout is (short stroke = higher piston-speed-limited redline).
+// boreStroke = typical bore/stroke ratio (oversquare > 1 = shorter stroke = higher piston-speed-limited redline).
+// Rotaries: vePeakAdd/veWidthMult describe the peripheral/side-port breathing (VE peak later and broader).
 export const LAYOUTS = {
-  I3: { label: 'Inline-3', cyl: 3, disp: [0.6, 1.6], massBase: 55, perL: 45, length: 0.45, price: 2500 },
-  I4: { label: 'Inline-4', cyl: 4, disp: [1.0, 2.7], massBase: 70, perL: 40, length: 0.55, price: 3500 },
-  I5: { label: 'Inline-5', cyl: 5, disp: [2.0, 2.6], massBase: 95, perL: 40, length: 0.68, price: 6000 },
-  I6: { label: 'Inline-6', cyl: 6, disp: [2.0, 4.0], massBase: 110, perL: 38, length: 0.80, price: 7500 },
-  V6: { label: 'V6', cyl: 6, disp: [2.5, 4.0], massBase: 105, perL: 35, length: 0.52, price: 7000 },
-  V8: { label: 'V8', cyl: 8, disp: [3.5, 7.0], massBase: 130, perL: 30, length: 0.62, price: 10000 },
-  V10: { label: 'V10', cyl: 10, disp: [4.0, 8.4], massBase: 160, perL: 28, length: 0.72, price: 18000 },
-  V12: { label: 'V12', cyl: 12, disp: [5.0, 7.3], massBase: 190, perL: 28, length: 0.80, price: 26000 },
-  F4: { label: 'Flat-4', cyl: 4, disp: [1.6, 2.5], massBase: 75, perL: 38, length: 0.45, price: 4500 },
-  F6: { label: 'Flat-6', cyl: 6, disp: [3.0, 4.0], massBase: 115, perL: 32, length: 0.55, price: 12000 },
-  R2: { label: 'Twin-rotor Wankel', cyl: 2, disp: [1.3, 1.3], massBase: 95, perL: 0, length: 0.40, price: 8000, rotary: true },
-  R3: { label: 'Triple-rotor Wankel', cyl: 3, disp: [2.0, 2.0], massBase: 125, perL: 0, length: 0.52, price: 14000, rotary: true },
+  I3: { label: 'Inline-3', cyl: 3, disp: [0.6, 1.6], massBase: 55, perL: 45, length: 0.45, price: 2500, boreStroke: 0.92 },
+  I4: { label: 'Inline-4', cyl: 4, disp: [1.0, 2.7], massBase: 70, perL: 40, length: 0.55, price: 3500, boreStroke: 1.0 },
+  I5: { label: 'Inline-5', cyl: 5, disp: [2.0, 2.6], massBase: 95, perL: 40, length: 0.68, price: 6000, boreStroke: 0.95 },
+  I6: { label: 'Inline-6', cyl: 6, disp: [2.0, 4.0], massBase: 110, perL: 38, length: 0.80, price: 7500, boreStroke: 0.95 },
+  V6: { label: 'V6', cyl: 6, disp: [2.5, 4.0], massBase: 105, perL: 35, length: 0.52, price: 7000, boreStroke: 1.05 },
+  V8: { label: 'V8', cyl: 8, disp: [3.5, 7.0], massBase: 130, perL: 30, length: 0.62, price: 10000, boreStroke: 1.05 },
+  V10: { label: 'V10', cyl: 10, disp: [4.0, 8.4], massBase: 160, perL: 28, length: 0.72, price: 18000, boreStroke: 1.1 },
+  V12: { label: 'V12', cyl: 12, disp: [5.0, 7.3], massBase: 190, perL: 28, length: 0.80, price: 26000, boreStroke: 1.12 },
+  F4: { label: 'Flat-4', cyl: 4, disp: [1.6, 2.5], massBase: 75, perL: 38, length: 0.45, price: 4500, boreStroke: 1.12 },
+  F6: { label: 'Flat-6', cyl: 6, disp: [3.0, 4.0], massBase: 115, perL: 32, length: 0.55, price: 12000, boreStroke: 1.2 },
+  R2: { label: 'Twin-rotor Wankel', cyl: 2, disp: [1.3, 1.3], massBase: 95, perL: 0, length: 0.40, price: 8000, rotary: true, vePeakAdd: 0.18, veWidthMult: 1.35 },
+  R3: { label: 'Triple-rotor Wankel', cyl: 3, disp: [2.0, 2.0], massBase: 125, perL: 0, length: 0.52, price: 14000, rotary: true, vePeakAdd: 0.18, veWidthMult: 1.35 },
 };
 
 // Fuels. lhv in J/kg, afr = stoichiometric air/fuel ratio, density kg/L,
@@ -121,16 +122,17 @@ export const FUEL_SYSTEMS = {
 };
 
 // Camshaft profiles shift the volumetric-efficiency peak (fraction of redline) and the redline itself.
+// veGain = peak VE multiplier at the tuned speed.
 export const CAMS = {
-  stock: { label: 'Stock', vePeak: 0.62, veWidth: 1.0, redlineAdd: 0, idleRough: 0, price: 0 },
-  fastRoad: { label: 'Fast road', vePeak: 0.70, veWidth: 0.95, redlineAdd: 400, idleRough: 0.2, price: 900 },
-  race: { label: 'Race', vePeak: 0.80, veWidth: 0.85, redlineAdd: 900, idleRough: 0.6, price: 2200 },
+  stock: { label: 'Stock', vePeak: 0.62, veWidth: 1.0, redlineAdd: 0, idleRough: 0, veGain: 1.00, price: 0 },
+  fastRoad: { label: 'Fast road', vePeak: 0.70, veWidth: 0.95, redlineAdd: 400, idleRough: 0.2, veGain: 1.03, price: 900 },
+  race: { label: 'Race', vePeak: 0.80, veWidth: 0.85, redlineAdd: 900, idleRough: 0.6, veGain: 1.06, price: 2200 },
 };
 
 export const INTAKES = {
-  stock: { label: 'Stock airbox', ve: 1.0, price: 0 },
-  coldAir: { label: 'Cold-air intake', ve: 1.02, price: 300 },
-  itb: { label: 'Individual throttle bodies', ve: 1.06, naOnly: true, price: 3500 },
+  stock: { label: 'Stock airbox', ve: 1.0, heatK: 12, price: 0 },
+  coldAir: { label: 'Cold-air intake', ve: 1.02, heatK: 6, price: 300 },
+  itb: { label: 'Individual throttle bodies', ve: 1.06, naOnly: true, heatK: 8, price: 3500 },
 };
 
 export const EXHAUSTS = {
