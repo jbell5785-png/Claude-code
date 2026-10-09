@@ -12,12 +12,12 @@ export const MOUNTAIN_SEGMENTS = [
   { r: 16, a: -160, z: 30 },                            // 5 switchback hairpin (right)
   { s: 250, z: 48 },                                    // 6 climb
   { r: 50, a: 60, z: 54 },                              // 7
-  { s: 70, z: 62 },                                     // 8 crest approach
-  { s: 45, z: 69 },                                     // 9 summit crest
-  { s: 45, z: 63 },                                     // 10
-  { s: 60, z: 60 },                                     // 11
-  { r: 120, a: 40 },                                    // 12 fast left on the ridge
-  { s: 220, z: 62 },                                    // 13 ridge
+  { s: 140, z: 62 },                                    // 8
+  { r: 120, a: 40 },                                    // 9 fast left onto the ridge
+  { s: 150, z: 64 },                                    // 10 ridge
+  { s: 45, z: 69 },                                     // 11 summit crest (airborne at speed)
+  { s: 45, z: 64 },                                     // 12
+  { s: 60, z: 62 },                                     // 13
   { r: 35, a: 70 },                                     // 14
   { s: 260, z: 40 },                                    // 15 descent
   { r: 60, a: -60, z: 33 },                             // 16

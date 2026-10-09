@@ -25,7 +25,7 @@ export const CLUB_SEGMENTS = [
 ];
 
 export function clubDef() {
-  const t = turtle(CLUB_SEGMENTS, { width: 10.5, step: 8, close: [0, 11], scale: 1.12 });
+  const t = turtle(CLUB_SEGMENTS, { width: 10.5, step: 8, close: [0, 11], scale: 1.25 });
   return {
     key: 'club', label: 'Club Circuit', points: t.points, width: 10.5,
     startFrac: t.startFrac, marks: t.marks, smooth: 3.5, zSmooth: 10,

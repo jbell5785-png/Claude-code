@@ -30,7 +30,8 @@ export const PRESETS = {
     label: 'NA rear-drive coupe',
     description: '2.4 flat-four, rear-wheel drive, low centre of gravity, Torsen rear.',
     // Comparable: Toyota GR86 / Subaru BRZ (2nd gen, 172 kW, 250 Nm, ~1275 kg)
-    targets: { zeroTo100s: 6.3, topSpeedKph: 226, brake100to0m: 35.0, lateralG: 1.0, quarterMileS: 14.8 },
+    // (226 km/h quoted top speed is limiter/gearing-quoted; left null)
+    targets: { zeroTo100s: 6.3, topSpeedKph: null, brake100to0m: 35.0, lateralG: 1.0, quarterMileS: 14.8 },
     spec: {
       name: 'NA coupe', chassis: 'coupe', powertrain: 'ice',
       engine: { layout: 'F4', displacement: 2.4, placement: 'front', induction: 'na', boost: 0, intercooler: 'none',
@@ -68,7 +69,8 @@ export const PRESETS = {
     label: 'AWD turbo rally saloon',
     description: '2.5 turbo flat-four, symmetrical AWD with LSDs front and rear, viscous centre.',
     // Comparable: Subaru WRX STI (EJ257, 221 kW, 407 Nm, ~1530 kg)
-    targets: { zeroTo100s: 5.2, topSpeedKph: 255, brake100to0m: 35.5, lateralG: 0.98, quarterMileS: 13.4 },
+    // (quoted top speed is governed; left null)
+    targets: { zeroTo100s: 5.2, topSpeedKph: null, brake100to0m: 35.5, lateralG: 0.98, quarterMileS: 13.4 },
     spec: {
       name: 'Rally saloon', chassis: 'sedan', powertrain: 'ice',
       engine: { layout: 'F4', displacement: 2.5, placement: 'front', induction: 'turboMedium', boost: 1.25, intercooler: 'stock',
@@ -90,10 +92,10 @@ export const PRESETS = {
     targets: { zeroTo100s: 2.9, topSpeedKph: 341, brake100to0m: 30.0, lateralG: 1.2, quarterMileS: 10.4 },
     spec: {
       name: 'Supercar', chassis: 'supercar', powertrain: 'ice',
-      engine: { layout: 'V8', displacement: 4.0, placement: 'mid', induction: 'twinTurbo', boost: 1.5, intercooler: 'waterAir',
+      engine: { layout: 'V8', displacement: 4.0, placement: 'mid', induction: 'twinTurbo', boost: 1.15, intercooler: 'waterAir',
         fuel: 'petrol98', fuelSystem: 'race', cams: 'fastRoad', intake: 'stock', exhaust: 'sport', internals: 'forged', flywheel: 'light', ecu: 'stage1', antiLag: false },
       drivetrain: { layout: 'RWD', gearbox: 'dct7', finalDrive: 3.4, frontDiff: 'open', rearDiff: 'lsd15way', centreDiff: 'open', centreSplit: 0 },
-      suspension: { type: 'doubleWishbone', dampers: 'coilover', springF: 55, springR: 65, arbF: 30, arbR: 20, damping: 0.40, rideHeight: 0, camberF: -1.5, camberR: -1.5, toeF: 0, toeR: 0.15 },
+      suspension: { type: 'doubleWishbone', dampers: 'coilover', springF: 45, springR: 75, arbF: 30, arbR: 20, damping: 0.40, rideHeight: 0, camberF: -1.5, camberR: -1.5, toeF: 0, toeR: 0.15 },
       tyres: { compound: 'semiSlick', widthF: 245, widthR: 305 },
       brakes: { kit: 'carbonCeramic', bias: 0.62 },
       aero: { splitter: 'lip', wing: 'gt', wingAngle: 4, diffuser: 'race', bodyKit: 'stock' },
@@ -110,7 +112,7 @@ export const PRESETS = {
     spec: {
       name: 'EV saloon', chassis: 'sedan', powertrain: 'ev',
       ev: { front: 'small', rear: 'medium', battery: 'b80' },
-      drivetrain: { layout: 'AWD', gearbox: 'ev1', finalDrive: 8.0, frontDiff: 'open', rearDiff: 'open', centreDiff: 'open', centreSplit: 0.4 },
+      drivetrain: { layout: 'AWD', gearbox: 'ev1', finalDrive: 7.2, frontDiff: 'open', rearDiff: 'open', centreDiff: 'open', centreSplit: 0.4 },
       suspension: { type: 'doubleWishbone', dampers: 'sport', springF: 40, springR: 42, arbF: 25, arbR: 18, damping: 0.35, rideHeight: -10, camberF: -1.0, camberR: -1.2, toeF: 0, toeR: 0.15 },
       tyres: { compound: 'sport', widthF: 235, widthR: 235 },
       brakes: { kit: 'sport', bias: 0.62 },
@@ -127,7 +129,7 @@ export const PRESETS = {
     targets: { zeroTo100s: 9.0, topSpeedKph: null, brake100to0m: null, lateralG: null, quarterMileS: null },
     spec: {
       name: 'Kei car', chassis: 'kei', powertrain: 'ice',
-      engine: { layout: 'I3', displacement: 0.66, placement: 'front', induction: 'turboSmall', boost: 0.9, intercooler: 'stock',
+      engine: { layout: 'I3', displacement: 0.66, placement: 'front', induction: 'turboSmall', boost: 0.7, intercooler: 'stock',
         fuel: 'petrol95', fuelSystem: 'stock', cams: 'stock', intake: 'stock', exhaust: 'stock', internals: 'stock', flywheel: 'stock', ecu: 'stock', antiLag: false },
       drivetrain: { layout: 'FWD', gearbox: 'mt5', finalDrive: 4.8, frontDiff: 'open', rearDiff: 'open', centreDiff: 'open', centreSplit: 1 },
       suspension: { type: 'macpherson', dampers: 'stock', springF: 22, springR: 20, arbF: 10, arbR: 0, damping: 0.3, rideHeight: 0, camberF: -0.5, camberR: -1.0, toeF: 0, toeR: 0.1 },
@@ -166,7 +168,7 @@ export const PRESETS = {
     spec: {
       name: 'Drift', chassis: 'coupe', powertrain: 'ice',
       engine: { layout: 'I6', displacement: 3.0, placement: 'front', induction: 'turboLarge', boost: 1.4, intercooler: 'fmic',
-        fuel: 'e85', fuelSystem: 'race', cams: 'fastRoad', intake: 'stock', exhaust: 'straight', internals: 'forged', flywheel: 'light', ecu: 'stage2', antiLag: false },
+        fuel: 'e85', fuelSystem: 'drag', cams: 'fastRoad', intake: 'stock', exhaust: 'straight', internals: 'forged', flywheel: 'light', ecu: 'stage2', antiLag: false },
       drivetrain: { layout: 'RWD', gearbox: 'seq6', finalDrive: 4.1, frontDiff: 'open', rearDiff: 'lsd2way', centreDiff: 'open', centreSplit: 0 },
       suspension: { type: 'doubleWishbone', dampers: 'coilover', springF: 80, springR: 60, arbF: 35, arbR: 8, damping: 0.45, rideHeight: -35, camberF: -4.0, camberR: -0.5, toeF: 0.2, toeR: 0.1 },
       tyres: { compound: 'drift', widthF: 245, widthR: 265 },
@@ -187,7 +189,7 @@ export const PRESETS = {
       engine: { layout: 'I4', displacement: 2.7, placement: 'front', induction: 'turboMedium', boost: 1.6, intercooler: 'stock',
         fuel: 'diesel', fuelSystem: 'street', cams: 'stock', intake: 'stock', exhaust: 'stock', internals: 'stock', flywheel: 'stock', ecu: 'stage1', antiLag: false },
       drivetrain: { layout: 'AWD', gearbox: 'at8', finalDrive: 3.9, frontDiff: 'open', rearDiff: 'lsd1way', centreDiff: 'locked', centreSplit: 0.5 },
-      suspension: { type: 'solidAxle', dampers: 'stock', springF: 40, springR: 45, arbF: 20, arbR: 0, damping: 0.3, rideHeight: 0, camberF: -0.3, camberR: 0, toeF: 0, toeR: 0 },
+      suspension: { type: 'solidAxle', dampers: 'stock', springF: 60, springR: 65, arbF: 20, arbR: 0, damping: 0.3, rideHeight: 0, camberF: -0.3, camberR: 0, toeF: 0, toeR: 0 },
       tyres: { compound: 'eco', widthF: 265, widthR: 265 },
       brakes: { kit: 'stock', bias: 0.72 },
       aero: { splitter: 'none', wing: 'none', wingAngle: 8, diffuser: 'none', bodyKit: 'stock' },

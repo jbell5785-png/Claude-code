@@ -5,7 +5,7 @@
 export const CHASSIS = {
   kei: {
     label: 'Kei car', price: 6000,
-    mass: 520, wheelbase: 2.36, trackF: 1.30, trackR: 1.29,
+    mass: 380, wheelbase: 2.36, trackF: 1.30, trackR: 1.29,
     length: 3.40, width: 1.48, height: 1.55, cgHeight: 0.48, cgFromRear: 0.52,
     Cd: 0.34, frontalArea: 1.95, Cl: 0.12, wheelRadius: 0.285,
     maxTyreWidth: 205, placements: ['front', 'mid', 'rear'], clearance: 0.15, style: 'kei',

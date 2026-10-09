@@ -36,6 +36,7 @@ export const MODEL = {
   // Mean piston speed limits at the stock redline (m/s). Valvetrain/ECU options add rpm on top.
   pistonSpeedPetrol: 21.0,
   pistonSpeedDiesel: 14.0,
+  valvetrainRpm: 7600,          // stock valvetrain (spring/follower) limit; cams/ECU add rpm on top
   rotaryRedline: 9000,          // eccentric-shaft rpm (stock ports/ECU)
   rotaryEqPistonSpeed: 15.0,    // friction-equivalent "piston speed" at the rotary redline (m/s)
   dieselBoreStroke: 0.90,       // diesels are undersquare
@@ -160,7 +161,8 @@ export function makeEngineParams(e, fuelKg = 40) {
     bore = Math.cbrt(4 * vc * bs / Math.PI);
     stroke = bore / bs;
     const up = diesel ? MODEL.pistonSpeedDiesel : MODEL.pistonSpeedPetrol;
-    redline = up * 30 / stroke + (diesel ? 0.25 : 1) * (cam.redlineAdd + ecu.redlineAdd);
+    // whichever is lower: mean-piston-speed limit or the valvetrain limit (small engines)
+    redline = Math.min(up * 30 / stroke, diesel ? 1e9 : MODEL.valvetrainRpm) + (diesel ? 0.25 : 1) * (cam.redlineAdd + ecu.redlineAdd);
     strokeEq = stroke;
   }
   redline = Math.round(redline / 50) * 50;
@@ -208,7 +210,7 @@ export function makeEngineParams(e, fuelKg = 40) {
     limiterHyst: MODEL.limiterHyst,
     maxRpm: redline + inr.overRev + 1500,
     overRev: inr.overRev,
-    maxPressure: inr.maxPressure,
+    maxPressure: inr.maxPressure * (diesel ? 1.25 : 1),   // diesel blocks/heads are built for ~2x the peak cylinder pressure
     inertia,
     loudness: clamp(exh.loudness * (kind === 'turbo' ? 0.8 : 1) * (0.7 + 0.1 * Math.sqrt(L.cyl * disp)), 0.1, 1.5),
     // breathing
@@ -553,8 +555,7 @@ function motorUpdate(es, ep, throttle, omega, dt, env) {
   if (!es.steady) {
     if (pack) { pack.kwh -= pBatt * dt / 3.6e6; if (pack.kwh < 0) pack.kwh = 0; if (pack.kwh > pack.capacity) pack.kwh = pack.capacity; es.batteryKwh = pack.kwh; }
     else { es.batteryKwh -= pBatt * dt / 3.6e6; if (es.batteryKwh < 0) es.batteryKwh = 0; if (es.batteryKwh > ep.batteryKwh) es.batteryKwh = ep.batteryKwh; }
-    es.overRev = rpm > ep.maxRpm * 1.05;
-    if (es.overRev && !es.failed) { es.damage += dt * (0.5 + 5 * (xr - 1.05)); if (es.damage >= 1) { es.damage = 1; es.failed = true; } }
+    es.overRev = rpm > ep.maxRpm * 1.05;   // no damage: inverter simply stops producing torque
   }
   es.limiter = rpm >= ep.maxRpm;
   es.boostBar = 0;

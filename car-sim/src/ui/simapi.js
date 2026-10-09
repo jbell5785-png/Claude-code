@@ -66,7 +66,8 @@ function normPresets(p) {
   return out;
 }
 export const PRESETS = normPresets(mPresets?.PRESETS || MOCK_PRESETS);
-export const DEFAULT_SPEC = mPresets?.DEFAULT_SPEC || (PRESETS[0] && PRESETS[0].spec) || MOCK_DEFAULT_SPEC;
+export const DEFAULT_SPEC = (mBuild?.defaultSpec && (() => { try { return mBuild.defaultSpec(); } catch { return null; } })()) || (PRESETS[0] && PRESETS[0].spec) || MOCK_DEFAULT_SPEC;
+export const normalizeSpec = mBuild?.normalizeSpec || ((s) => s);
 
 export const TRACKS = useMockTrack ? MOCK_TRACKS : mTrack.TRACKS;
 

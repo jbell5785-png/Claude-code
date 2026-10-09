@@ -196,7 +196,7 @@ function components(s, ch, ctx) {
   const red = WEIGHT_REDUCTION[s.weight.reduction];
 
   // Shell: body-in-white + interior + systems; CG from the catalogue; box ~ the cabin/structure.
-  add('chassis', ch.mass, ch.cgFromRear * wb, ch.cgHeight + 0.02, ch.length * 0.85, ch.width * 0.9, ch.height * 0.85);
+  add('chassis', ch.mass, ch.cgFromRear * wb, ch.cgHeight + 0.02, ch.length, ch.width * 0.9, ch.height * 0.85);
   add('bodyPanels', kit.mass, wb * 0.5, ch.cgHeight + 0.15, ch.length * 0.9, ch.width, ch.height * 0.5);
   add('interior', red.mass, wb * 0.4, 0.55, 1.6, ch.width * 0.8, 0.5);
   const placement = ctx.placement;
@@ -229,8 +229,9 @@ function components(s, ch, ctx) {
     // cooling pack (radiator + coolant), always at the front for front engines
     add('cooling', 12, placement === 'front' ? wb + ohF * 0.75 : placement === 'mid' ? xEng : xEng - 0.4, 0.45, 0.1, 0.7, 0.45);
     const ex = EXHAUSTS[e.exhaust];
+    const exScale = Math.sqrt(clamp((L.rotary ? 2 : 1) * e.displacement / 2.0, 0.4, 2.0)); // pipe size follows airflow
     const xEx = placement === 'front' ? wb * 0.35 : -ohR * 0.5;
-    add('exhaust', ex.mass, xEx, 0.22, placement === 'front' ? wb + 0.6 : 0.8, 0.4, 0.15);
+    add('exhaust', ex.mass * exScale, xEx, 0.22, placement === 'front' ? wb + 0.6 : 0.8, 0.4, 0.15);
     const gb = GEARBOXES[s.drivetrain.gearbox];
     add('gearbox', gb.mass, xBox, zBox, 0.6, 0.35, 0.35);
     if (s.drivetrain.layout === 'AWD') {
@@ -292,8 +293,10 @@ export function build(input) {
   // so make provisional tyres for mass, then final tyres with the real static loads.
   const tyreProbeF = makeTyreParams(s.tyres.compound, s.tyres.widthF, rad, 3500);
   const tyreProbeR = makeTyreParams(s.tyres.compound, s.tyres.widthR, rad, 3500);
-  const frontHw = (s.suspension.type === 'solidAxle' ? SUSPENSION_TYPES.macpherson.unsprung : susp.unsprung) - REF_WHEEL_KG;
-  const rearHw = susp.unsprung - REF_WHEEL_KG;
+  // hub/upright/brake/link hardware scales with the vehicle it is designed for
+  const hwScale = Math.sqrt(ch.mass / 900);
+  const frontHw = ((s.suspension.type === 'solidAxle' ? SUSPENSION_TYPES.macpherson.unsprung : susp.unsprung) - REF_WHEEL_KG) * hwScale;
+  const rearHw = (susp.unsprung - REF_WHEEL_KG) * hwScale;
   const unsprungF = frontHw + tyreProbeF.mass + brk.mass * 0.6 / 2;
   const unsprungR = rearHw + tyreProbeR.mass + brk.mass * 0.4 / 2;
 
@@ -379,6 +382,10 @@ export function build(input) {
 
   // ---- suspension ----
   const msF = mS * b / wb / 2, msR = mS * a / wb / 2;   // sprung mass per corner
+  // Brake kits are sized for the car they go on: catalogue torques are for a 1350 kg car on 0.317 m
+  // wheels; disc/caliper size (torque and thermal mass) scales with mass x wheel radius. The 1.25
+  // margin lets full pedal lock the tyres (pedal ~ 1.3 g stock) so ABS / bias matter.
+  const brakeSize = clamp(1.25 * mTot * rad / (1350 * 0.317), 0.6, 3.0);
   const dmp = s.suspension.damping;
   const mkAxle = (front) => {
     const su = s.suspension;
@@ -397,7 +404,7 @@ export function build(input) {
     const camberGain = solidRear ? (tp.camberGainR != null ? tp.camberGainR : 1) : tp.camberGain;
     const staticDefl = m * G / k;
     const bt = BRAKES[s.brakes.kit];
-    const totalBrake = bt.torqueF + bt.torqueR;
+    const totalBrake = (bt.torqueF + bt.torqueR) * brakeSize;
     const share = front ? s.brakes.bias : 1 - s.brakes.bias;
     const FzW = front ? FzF : FzR;
     return {
@@ -417,7 +424,7 @@ export function build(input) {
       toe: (front ? su.toeF : su.toeR) * DEG,
       anti: front ? tp.antiDive : tp.antiSquat,
       brakeTorque: totalBrake * share / 2,
-      brakeHeatCap: (front ? bt.heatCap * 0.6 : bt.heatCap * 0.4),
+      brakeHeatCap: (front ? bt.heatCap * 0.6 : bt.heatCap * 0.4) * brakeSize,
       brakeFadeStart: bt.fadeStart,
       tyre: makeTyreParams(s.tyres.compound, front ? s.tyres.widthF : s.tyres.widthR, rad, FzW),
     };
@@ -483,6 +490,7 @@ export function build(input) {
       maxBoostBar: isEV ? 0 : Math.max(...curve.map((p) => p.boostBar)),
       downforce200: 0.5 * RHO_AIR * (aero.clAFront + aero.clARear) * (200 / 3.6) ** 2 / G,
       cdA: aero.cdA,
+      brakeCapG: (axles[0].brakeTorque + axles[1].brakeTorque) * 2 / rad / (mTot * G),
     },
   };
   return params;

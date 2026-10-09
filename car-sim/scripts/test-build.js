@@ -48,6 +48,7 @@ for (const r of rows) {
   const p = r.params, a0 = p.axles[0], a1 = p.axles[1];
   console.log(`- ${r.key}: ${p.spec.powertrain === 'ev' ? 'EV' : p.spec.engine.layout + ' ' + p.spec.engine.displacement + 'L ' + p.spec.engine.induction}, ${p.drivetrain.layout}, gears [${p.drivetrain.gearRatios.map((x) => x.toFixed(2)).join(' ')}] fd ${p.drivetrain.finalDrive}`
     + `\n    redline ${p.summary.redlineRpm}, peak ${p.summary.powerKW.toFixed(0)} kW @${p.summary.peakPowerRpm.toFixed(0)} / ${p.summary.torqueNm.toFixed(0)} Nm @${p.summary.peakTorqueRpm.toFixed(0)}, boost ${p.summary.maxBoostBar.toFixed(2)} bar`
+    + `, brake capability ${p.summary.brakeCapG.toFixed(2)} g`
     + `\n    unsprung F/R ${p.mass.unsprungF.toFixed(1)}/${p.mass.unsprungR.toFixed(1)} kg, ride ${p.summary.rideFreqF.toFixed(2)}/${p.summary.rideFreqR.toFixed(2)} Hz, rc ${a0.rollCentre.toFixed(3)}/${a1.rollCentre.toFixed(3)} m, brakes ${a0.brakeTorque.toFixed(0)}/${a1.brakeTorque.toFixed(0)} Nm/wheel`
     + `\n    aero cdA ${p.aero.cdA.toFixed(3)} clA F/R ${p.aero.clAFront.toFixed(3)}/${p.aero.clARear.toFixed(3)} (downforce @200 km/h ${p.summary.downforce200.toFixed(0)} kg), GE ${p.aero.groundEffect.toFixed(2)}, Ixx/Iyy/Izz ${p.mass.inertia.Ixx.toFixed(0)}/${p.mass.inertia.Iyy.toFixed(0)}/${p.mass.inertia.Izz.toFixed(0)}`
     + (p.warnings.length ? `\n    warnings: ${p.warnings.join(' | ')}` : ''));
