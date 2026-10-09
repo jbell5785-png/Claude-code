@@ -5,15 +5,15 @@ const approach = (x, target, rate) => (x < target ? Math.min(target, x + rate) :
 
 export const KEY_HELP = [
   ['W / ↑', 'Throttle'], ['S / ↓', 'Brake / reverse'], ['A D / ← →', 'Steer'], ['Space', 'Handbrake'],
-  ['E / Shift', 'Shift up'], ['Q / Ctrl', 'Shift down'], ['M', 'Auto / manual gears'], ['C', 'Cycle camera'],
+  ['Left Shift', 'Nitrous'], ['E', 'Shift up'], ['Q', 'Shift down'], ['M', 'Auto / manual gears'], ['C', 'Cycle camera'],
   ['R', 'Reset car'], ['T', 'Telemetry'], ['V', 'Spectate next car (race)'], ['N', 'Mute audio'], ['P', 'Pause'], ['H', 'Help'],
 ];
 
 export class Input {
   constructor(root) {
     this.keys = new Set(); this.actions = new Map(); this.enabled = true;
-    this.c = { steer: 0, throttle: 0, brake: 0, handbrake: 0, shiftUp: false, shiftDown: false, gearMode: 'auto' };
-    this.touch = { steer: 0, throttle: 0, brake: 0, handbrake: 0, up: false, down: false, active: false };
+    this.c = { steer: 0, throttle: 0, brake: 0, handbrake: 0, shiftUp: false, shiftDown: false, gearMode: 'auto', nitrous: false };
+    this.touch = { steer: 0, throttle: 0, brake: 0, handbrake: 0, up: false, down: false, nos: false, active: false };
     this.pad = null; this.padPrev = []; this.source = 'keyboard';
     this.autoReverse = true;
     window.addEventListener('keydown', (e) => this._key(e, true));
@@ -46,13 +46,13 @@ export class Input {
     // ---- gamepad
     const pads = navigator.getGamepads ? navigator.getGamepads() : [];
     let pad = null; for (const p of pads) if (p && p.connected) { pad = p; break; }
-    let padSteer = 0, padThr = 0, padBrk = 0, padHb = 0, padUp = false, padDown = false;
+    let padSteer = 0, padThr = 0, padBrk = 0, padHb = 0, padUp = false, padDown = false, padNos = false;
     if (pad) {
       const b = (i) => (pad.buttons[i] ? pad.buttons[i].value || (pad.buttons[i].pressed ? 1 : 0) : 0);
       const ax = pad.axes[0] || 0; padSteer = Math.abs(ax) < 0.08 ? 0 : -Math.sign(ax) * Math.pow((Math.abs(ax) - 0.08) / 0.92, 1.4);
-      padThr = b(7); padBrk = b(6); padHb = b(1) || b(0) ? 1 : 0; padUp = b(5) > 0.5; padDown = b(4) > 0.5;
+      padThr = b(7); padBrk = b(6); padHb = b(1) || b(0) ? 1 : 0; padNos = b(2) > 0.5; padUp = b(5) > 0.5; padDown = b(4) > 0.5;
       const edge = (i) => b(i) > 0.5 && !this.padPrev[i];
-      if (edge(3)) this._fire('camera'); if (edge(8)) this._fire('reset'); if (edge(2)) { this.c.gearMode = this.c.gearMode === 'auto' ? 'manual' : 'auto'; this._fire('gearMode'); }
+      if (edge(3)) this._fire('camera'); if (edge(8)) this._fire('reset'); if (edge(10)) { this.c.gearMode = this.c.gearMode === 'auto' ? 'manual' : 'auto'; this._fire('gearMode'); }
       if (edge(9)) this._fire('pause'); if (edge(12)) this._fire('telemetry');
       this.padPrev = pad.buttons.map((x) => x.pressed);
       if (padThr > 0.05 || padBrk > 0.05 || Math.abs(padSteer) > 0.05) this.source = 'gamepad';
@@ -83,14 +83,15 @@ export class Input {
     else { this._thr = thr; this._brk = brk; }
     c.throttle = this._thr; c.brake = this._brk;
     c.handbrake = hb; c.steer = clamp(steer, -1, 1);
-    c.shiftUp = this.has('KeyE', 'ShiftLeft', 'ShiftRight') || padUp || this.touch.up;
-    c.shiftDown = this.has('KeyQ', 'ControlLeft', 'ControlRight') || padDown || this.touch.down;
+    c.shiftUp = this.has('KeyE', 'ShiftRight') || padUp || this.touch.up;
+    c.shiftDown = this.has('KeyQ', 'ControlRight') || padDown || this.touch.down;
+    c.nitrous = this.has('ShiftLeft') || padNos || this.touch.nos;
 
     // auto mode: the vehicle ECU engages reverse when the brake is held at standstill; while in
     // reverse, swap the pedals so 'S' drives backwards and 'W' brakes (arcade convention).
     this.reverse = false;
     if (c.gearMode === 'auto' && v && v.gear === -1 && this.autoReverse) { const t = c.throttle; c.throttle = c.brake; c.brake = t; this.reverse = true; }
-    if (!this.enabled) { c.throttle = 0; c.brake = 0; c.steer = 0; c.handbrake = 0; c.shiftUp = c.shiftDown = false; }
+    if (!this.enabled) { c.throttle = 0; c.brake = 0; c.steer = 0; c.handbrake = 0; c.shiftUp = c.shiftDown = false; c.nitrous = false; }
     return c;
   }
 
@@ -99,7 +100,7 @@ export class Input {
     const el = document.createElement('div'); el.className = 'touch'; el.innerHTML = `
       <div class="touch-steer" data-k="steer"><div class="touch-steer-track"><div class="touch-steer-knob"></div></div><span>STEER</span></div>
       <div class="touch-right">
-        <div class="touch-row"><button class="tbtn small" data-k="down">−</button><button class="tbtn small" data-k="up">+</button><button class="tbtn small" data-k="hb">HB</button></div>
+        <div class="touch-row"><button class="tbtn small" data-k="down">−</button><button class="tbtn small" data-k="up">+</button><button class="tbtn small" data-k="hb">HB</button><button class="tbtn small nos" data-k="nos">NOS</button></div>
         <div class="touch-row"><button class="tbtn pedal brake" data-k="brake">BRAKE</button><button class="tbtn pedal gas" data-k="gas">GAS</button></div>
       </div>`;
     root.appendChild(el); this.touchEl = el;
@@ -115,7 +116,7 @@ export class Input {
       const set = (on, e) => {
         if (e) e.preventDefault(); b.classList.toggle('on', on); T.active = true;
         if (k === 'gas') T.throttle = on ? 1 : 0; else if (k === 'brake') T.brake = on ? 1 : 0; else if (k === 'hb') T.handbrake = on ? 1 : 0;
-        else if (k === 'up') T.up = on; else if (k === 'down') T.down = on;
+        else if (k === 'up') T.up = on; else if (k === 'nos') T.nos = on; else if (k === 'down') T.down = on;
       };
       b.addEventListener('pointerdown', (e) => { b.setPointerCapture(e.pointerId); set(true, e); });
       b.addEventListener('pointerup', (e) => set(false, e)); b.addEventListener('pointercancel', (e) => set(false, e));

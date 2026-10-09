@@ -7,6 +7,7 @@ import { buildTrackScene } from './trackMesh.js';
 import { CarView } from './carModel.js';
 import { Particles, SkidMarks, WheelFx } from './effects.js';
 import { CameraRig } from './cameras.js';
+import { renderContext as rc, emit } from './context.js';
 
 const isCoarse = typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches;
 
@@ -54,6 +55,8 @@ export class World {
     this.studio = this._buildStudio();
 
     this.cars = new Set(); this.fx = new Map(); this.focus = null; this.active = 'track';
+    this.hemi = hemi;
+    Object.assign(rc, { renderer: r, scene, studioScene: this.studio.scene, camera: this.camera, world: this, cars: this.cars, sun, hemi, sky, quality: this.quality, activeScene: 'track' });
     this.resize(); window.addEventListener('resize', () => this.resize());
   }
 
@@ -88,6 +91,7 @@ export class World {
     if (this.trackGroup) { this.scene.remove(this.trackGroup); this.trackGroup.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); }
     this.track = track; const info = buildTrackScene(track, { lowDetail: this.quality === 'low' });
     this.trackGroup = info.group; this.trackInfo = info; this.scene.add(info.group);
+    rc.trackGroup = info.group; rc.track = track; emit('track', info.group, track);
     this.rig.setTvCams(info.tvCams);
     const q = { s: 0, offset: 0, height: 0, nx: 0, ny: 0, nz: 1, surface: 0, index: -1 };
     let hint = -1;
@@ -103,16 +107,16 @@ export class World {
   addCar(params, opts = {}) {
     const cv = new CarView(params, opts); this.scene.add(cv.group); this.cars.add(cv);
     if (opts.effects ?? !opts.ghost) this.fx.set(cv, new WheelFx(this.particles, this.skids));
-    return cv;
+    emit('carAdded', cv); return cv;
   }
-  removeCar(cv) { if (!cv) return; this.scene.remove(cv.group); this.cars.delete(cv); this.fx.delete(cv); cv.dispose(); if (this.focus === cv) this.focus = null; }
+  removeCar(cv) { if (!cv) return; emit('carRemoved', cv); this.scene.remove(cv.group); this.cars.delete(cv); this.fx.delete(cv); cv.dispose(); if (this.focus === cv) this.focus = null; }
   clearCars() { for (const cv of [...this.cars]) this.removeCar(cv); }
   setFocus(cv) { this.focus = cv; this.rig.init = false; }
 
   /** Garage turntable car. */
   setStudioCar(params) {
     const st = this.studio; if (st.car) { st.table.remove(st.car.group); st.car.dispose(); }
-    const cv = new CarView(params, {}); st.car = cv; st.table.add(cv.group);
+    const cv = new CarView(params, {}); st.car = cv; st.table.add(cv.group); emit('carAdded', cv);
     const lay = cv.model.lay; const r = params.render || {};
     const fake = { pos: [0, 0, lay.cgH], quat: [0, 0, 0, 1], wheels: [0, 1, 2, 3].map((i) => {
       const front = i < 2, left = i % 2 === 0; const R = front ? lay.rF : lay.rR; const t = (front ? lay.trackF : lay.trackR) / 2;
@@ -122,12 +126,14 @@ export class World {
     void r; return cv;
   }
 
-  setActive(which) { this.active = which; if (which === 'studio') this.rig.setMode('studio'); }
+  setActive(which) { this.active = which; rc.activeScene = which; if (which === 'studio') this.rig.setMode('studio'); }
+  _render(scene, dt) { emit('frame', dt, rc); if (rc.renderFn) rc.renderFn(scene, this.camera, dt); else this.renderer.render(scene, this.camera); }
 
   resize() {
     const w = this.canvas.clientWidth || window.innerWidth, h = this.canvas.clientHeight || window.innerHeight;
     this.renderer.setSize(w, h, false); this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
     this.particles.setViewportHeight(h * this.renderer.getPixelRatio(), this.camera.fov);
+    emit('resize', w, h);
   }
 
   /** Per-frame: effects, shadows following the focus car, camera, render. vehicleOf(cv) -> vehicle state. */
@@ -135,7 +141,7 @@ export class World {
     if (this.active === 'studio') {
       const st = this.studio; if (st.car && this.autoRotate !== false) st.table.rotation.y += dt * 0.25;
       this.rig.update(dt, null, null);
-      this.renderer.render(st.scene, this.camera); return;
+      this._render(st.scene, dt); return;
     }
     for (const [cv, fx] of this.fx) { const v = vehicleOf(cv); if (v && cv.group.visible) fx.update(dt, v, cv.params); }
     this.particles.update(dt); this.skids.flush();
@@ -152,6 +158,6 @@ export class World {
       const ck = this.rig.mode === 'cockpit';
       if (f.model.helmet !== ck) { f.model.root.traverse((o) => { if (o.userData.helmet) o.visible = !ck; }); }
     }
-    this.renderer.render(this.scene, this.camera);
+    this._render(this.scene, dt);
   }
 }

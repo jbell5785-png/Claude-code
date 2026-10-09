@@ -262,6 +262,28 @@ lap timer progress, lap count selection, gaps, results table with best laps; spe
 Cars are ghosts until the collision module (wave 2) lands; then it is called once per step
 with all vehicles.
 
+## 8. Portability & performance tiers (added — applies to everyone)
+
+Target: anything from a high-end gaming PC (Ultra) to a school Chromebook / cheap laptop with
+integrated graphics, in any modern browser (Chrome, Edge, Firefox, Safari; WebGL2).
+
+- Quality presets: `potato | low | medium | high | ultra`, auto-detected on first run
+  (GPU renderer string + a short benchmark) and **dynamic resolution scaling** that holds a target
+  frame rate (60 fps; 30 fps floor on potato) by adjusting render scale, then effects.
+- `potato`: ~0.5 render scale, no post-processing, no shadows (blob shadows instead),
+  MeshLambert/basic materials, reduced scenery and particles, max 3 AI opponents by default,
+  lower pixel ratio cap, no SSR/AO/bloom/motion blur.
+- **Physics is identical on every tier** (fixed DT, same model). If the CPU can't keep up,
+  slow simulated time rather than lowering physics fidelity.
+- **No runtime network requests**: fonts are bundled (self-hosted woff2 in `public/` or a
+  bundled npm font package, with system-font fallbacks); no CDNs. School networks block them.
+- Small, fast-loading bundle: procedural textures only; lazy-load heavy optional modules
+  (post-FX, AI training) so the game starts quickly.
+- Two distributions: a normal Vite build (GitHub Pages) and a **single-file build**
+  (`npm run build:single` → one self-contained `index.html` that works from a USB stick or
+  download, offline). Web Workers must work in both (use `new Worker(new URL(...), {type:'module'})`
+  for Vite, with an inline Blob fallback for the single-file build).
+
 ## Physics model summary (for orientation)
 
 - 6-DOF sprung rigid body + 4 unsprung masses with vertical DOF, coil-over spring/damper, anti-roll bars,
