@@ -23,7 +23,7 @@ export function createLapTimer(track, opts = {}) {
   const cps = new Float64Array(NC);
   for (let k = 0; k < NC; k++) cps[k] = ((k + 1) * L) / K;
   const sectorCp = [m - 1, 2 * m - 1];   // checkpoint index closing sector 1 and sector 2
-  const offTrackLimit = opts.offTrackLimit ?? 12; // m of progress with all wheels off → invalid
+  const offTrackLimit = opts.offTrackLimit ?? 8; // m of progress with all wheels off → invalid
 
   const q = { s: 0, offset: 0, height: 0, nx: 0, ny: 0, nz: 1, surface: 0, index: -1 };
   const wq = [0, 1, 2, 3].map(() => ({ s: 0, offset: 0, height: 0, nx: 0, ny: 0, nz: 1, surface: 0, index: -1 }));
@@ -126,7 +126,9 @@ export function createLapTimer(track, opts = {}) {
       lt.cuts++;
       lt.lapValid = false;
     } else {
-      lt.progress += ds;
+      // progress while fully off track is capped at the distance actually travelled, so cutting
+      // across the inside of a corner/infield cannot gain more than driving would.
+      lt.progress += off && ds > moved ? moved : ds;
       if (lt.progress > lt.maxProgress) lt.maxProgress = lt.progress;
       const sNew = lastS + ds; // unwrapped
       if (ds > 0) {

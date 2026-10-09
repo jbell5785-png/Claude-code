@@ -18,9 +18,9 @@ export const GP_SEGMENTS = [
   { r: 65, a: 70 },                                        // 12
   { r: 48, a: -50 },                                       // 13
   { s: 500, z: -6 },                                       // 14 back straight
-  { r: 24, a: -50, mark: 'chicane' },                      // 15 chicane right
+  { r: 20, a: -70, mark: 'chicane' },                      // 15 chicane right
   { s: 12 },                                               // 16
-  { r: 24, a: 50, markEnd: 'chicane' },                    // 17 chicane left
+  { r: 20, a: 70, markEnd: 'chicane' },                    // 17 chicane left
   { s: 200, z: -8 },                                       // 18
   { r: 95, a: -60 },                                       // 19
   { s: 160 },                                              // 20

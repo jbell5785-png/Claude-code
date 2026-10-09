@@ -139,7 +139,7 @@ function buildTerrain(S, def, seed) {
   const R = tdef.radius ?? 80;
   const amp = tdef.amp ?? 1.5;
   const cell = tdef.cell ?? 8;
-  const margin = tdef.margin ?? 320;
+  const margin = tdef.margin ?? 360;
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity, zSum = 0, zMin = Infinity;
   for (let i = 0; i < n; i++) {
     minX = Math.min(minX, X[i]); maxX = Math.max(maxX, X[i]);
@@ -150,22 +150,28 @@ function buildTerrain(S, def, seed) {
   const x0 = minX - margin, y0 = minY - margin;
   const cols = Math.ceil((maxX - x0 + margin) / cell) + 1;
   const rows = Math.ceil((maxY - y0 + margin) / cell) + 1;
-  const sw = new Float64Array(cols * rows), swz = new Float64Array(cols * rows);
-  const stride = Math.max(1, Math.round(2 / S.ds));
-  const rc = Math.ceil(R / cell);
-  for (let i = 0; i < n; i += stride) {
-    const gx = Math.round((X[i] - x0) / cell), gy = Math.round((Y[i] - y0) / cell);
-    for (let yy = Math.max(0, gy - rc); yy <= Math.min(rows - 1, gy + rc); yy++) {
-      const py = y0 + yy * cell - Y[i];
-      for (let xx = Math.max(0, gx - rc); xx <= Math.min(cols - 1, gx + rc); xx++) {
-        const px = x0 + xx * cell - X[i];
-        const q = (px * px + py * py) / (R * R);
-        if (q >= 1) continue;
-        const w = (1 - q) * (1 - q) * (1 - q);
-        sw[xx + yy * cols] += w; swz[xx + yy * cols] += w * Z[i];
+  // two-scale compact-kernel splat of the centreline elevation: fine (radius R) follows the road,
+  // coarse (radius 3R) forms the surrounding hills; far away the terrain tends to the mean height.
+  const splat = (Rk, strideM) => {
+    const sw = new Float64Array(cols * rows), swz = new Float64Array(cols * rows);
+    const stride = Math.max(1, Math.round(strideM / S.ds));
+    const rc = Math.ceil(Rk / cell);
+    for (let i = 0; i < n; i += stride) {
+      const gx = Math.round((X[i] - x0) / cell), gy = Math.round((Y[i] - y0) / cell);
+      for (let yy = Math.max(0, gy - rc); yy <= Math.min(rows - 1, gy + rc); yy++) {
+        const py = y0 + yy * cell - Y[i];
+        for (let xx = Math.max(0, gx - rc); xx <= Math.min(cols - 1, gx + rc); xx++) {
+          const px = x0 + xx * cell - X[i];
+          const q = (px * px + py * py) / (Rk * Rk);
+          if (q >= 1) continue;
+          const w = (1 - q) * (1 - q) * (1 - q) * stride;
+          sw[xx + yy * cols] += w; swz[xx + yy * cols] += w * Z[i];
+        }
       }
     }
-  }
+    return { sw, swz };
+  };
+  const fine = splat(R, 2), coarse = splat(3 * R, 6);
   const r = rng(seed ^ 0x5bd1e995);
   const ph = [r() * TWO_PI, r() * TWO_PI, r() * TWO_PI, r() * TWO_PI];
   const H = new Float32Array(cols * rows);
@@ -174,10 +180,13 @@ function buildTerrain(S, def, seed) {
     for (let xx = 0; xx < cols; xx++) {
       const k = xx + yy * cols;
       const x = x0 + xx * cell, y = y0 + yy * cell;
-      const far = w0 / (sw[k] + w0);
+      const sw = fine.sw[k], swz = fine.swz[k];
+      const T2 = (coarse.swz[k] + w0 * zRef) / (coarse.sw[k] + w0);
+      const cw = 2.0; // weight of the coarse field against the fine one
+      const far = cw / (sw + cw);
       const noise = amp * (Math.sin(x / 97 + ph[0]) * Math.sin(y / 131 + ph[1])
         + 0.5 * Math.sin((x + y) / 59 + ph[2]) + 0.35 * Math.sin((x - 2 * y) / 173 + ph[3]));
-      H[k] = (swz[k] + w0 * zRef) / (sw[k] + w0) + far * noise;
+      H[k] = (swz + cw * T2) / (sw + cw) + far * noise;
     }
   }
   return { x0, y0, cell, cols, rows, heights: H };
@@ -718,7 +727,7 @@ export function createTrack(keyOrDef) {
     }
     obstacles.push(o);
   }
-  const raycast = buildRaycaster(segList, kindList, circles, def.rayCell ?? 10);
+  const raycast = buildRaycaster(Float32Array.from(segList), kindList, circles, def.rayCell ?? 10);
 
   // --- stats
   let zMin = Infinity, zMax = -Infinity, kMax = 0, bankMax = 0, gradeMax = 0, wSum = 0, kvMax = 0;
