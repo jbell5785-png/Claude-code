@@ -1,0 +1,17 @@
+{
+  "size": "1280x720",
+  "renderer": "swiftshader",
+  "results": [
+    {
+      "env": "night",
+      "q": "high",
+      "ms": 6790.633333333147
+    }
+  ],
+  "perQuality": [
+    {
+      "q": "high",
+      "ms": 6790.633333333147
+    }
+  ]
+}

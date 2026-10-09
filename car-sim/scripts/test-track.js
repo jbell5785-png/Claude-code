@@ -71,6 +71,13 @@ function bruteRay(track, x, y, dx, dy, maxDist, mask) {
   return best;
 }
 
+/** Best-of-3 timing of loop(): returns ns per iteration (robust to background load). */
+function bestNs(iters, loop) {
+  let best = Infinity;
+  for (let r = 0; r < 3; r++) { const t0 = performance.now(); loop(); best = Math.min(best, performance.now() - t0); }
+  return (best * 1e6) / iters;
+}
+
 // ------------------------------------------------------------------------------------------------
 // Synthetic car for lap timer tests
 function makeCar() {
@@ -305,18 +312,15 @@ for (const key of [...presets, ...randoms]) {
     xs[k] = p.x + o * p.nx; ys[k] = p.y + o * p.ny;
   }
   let sink = 0;
-  let t0 = performance.now();
-  for (let k = 0; k < NP; k++) { const j = k & 4095; if (j === 0) hint = -1; tr.query(xs[j], ys[j], hint, q); hint = q.index; sink += q.height; }
-  const nsHint = ((performance.now() - t0) * 1e6) / NP;
+  let t0 = 0;
+  const nsHint = bestNs(NP, () => { for (let k = 0; k < NP; k++) { const j = k & 4095; if (j === 0) hint = -1; tr.query(xs[j], ys[j], hint, q); hint = q.index; sink += q.height; } });
   const NG = QUICK ? 20000 : 100000;
   const gx = new Float64Array(1024), gy = new Float64Array(1024);
   for (let k = 0; k < 1024; k++) {
     tr.pointAt(rand() * L, p); const o = (rand() * 2 - 1) * 30;
     gx[k] = p.x + o * p.nx; gy[k] = p.y + o * p.ny;
   }
-  t0 = performance.now();
-  for (let k = 0; k < NG; k++) { const j = k & 1023; tr.query(gx[j], gy[j], -1, q); sink += q.height; }
-  const nsGlobal = ((performance.now() - t0) * 1e6) / NG;
+  const nsGlobal = bestNs(NG, () => { for (let k = 0; k < NG; k++) { const j = k & 1023; tr.query(gx[j], gy[j], -1, q); sink += q.height; } });
   check(nsHint < 300, `${name}: hinted query ${nsHint.toFixed(0)} ns`);
   // far off track (~3 km): a car that drove away, hint = its last index
   const fx = new Float64Array(1024), fy = new Float64Array(1024);
@@ -332,9 +336,7 @@ for (const key of [...presets, ...randoms]) {
   }
   const NF = QUICK ? 20000 : 100000;
   hint = -1;
-  t0 = performance.now();
-  for (let k = 0; k < NF; k++) { const j = (k >> 4) & 1023; tr.query(fx[j], fy[j], hint, q); hint = q.index; sink += q.height; }
-  const nsFar = ((performance.now() - t0) * 1e6) / NF;
+  const nsFar = bestNs(NF, () => { for (let k = 0; k < NF; k++) { const j = (k >> 4) & 1023; tr.query(fx[j], fy[j], hint, q); hint = q.index; sink += q.height; } });
   check(nsFar < 1000, `${name}: far-off-track query ${nsFar.toFixed(0)} ns`);
   // just beyond the terrain blend (owned cells, nobody owns the point)
   for (let k = 0; k < 1024; k++) {
@@ -344,9 +346,7 @@ for (const key of [...presets, ...randoms]) {
     gx[k] = p.x + o * p.nx; gy[k] = p.y + o * p.ny;
   }
   hint = -1;
-  t0 = performance.now();
-  for (let k = 0; k < NF; k++) { const j = (k >> 4) & 1023; tr.query(gx[j], gy[j], hint, q); hint = q.index; sink += q.height; }
-  const nsBeyond = ((performance.now() - t0) * 1e6) / NF;
+  const nsBeyond = bestNs(NF, () => { for (let k = 0; k < NF; k++) { const j = (k >> 4) & 1023; tr.query(gx[j], gy[j], hint, q); hint = q.index; sink += q.height; } });
   check(nsBeyond < 1000, `${name}: beyond-blend query ${nsBeyond.toFixed(0)} ns`);
 
   // --- raycast correctness vs brute force & performance
@@ -379,13 +379,14 @@ for (const key of [...presets, ...randoms]) {
   // perf: 15 rays (±105°) of 100 m from positions along the racing line
   const NRP = QUICK ? 30000 : 150000;
   for (let k = 0; k < 20000; k++) sink += tr.raycast(xs[k & 4095], ys[k & 4095], 1, 0, 100, 7, null);
-  t0 = performance.now();
+  const nsRay = bestNs(NRP, () => {
   for (let k = 0; k < NRP; k++) {
     const j = (k * 7) & 4095;
     const th = (((k % 15) - 7) / 7) * 1.83 + Math.atan2(ys[(j + 1) & 4095] - ys[j], xs[(j + 1) & 4095] - xs[j]);
     sink += tr.raycast(xs[j], ys[j], Math.cos(th), Math.sin(th), 100, 7, null);
   }
-  const nsRay = ((performance.now() - t0) * 1e6) / NRP;
+  });
+
   check(nsRay < 1000, `${name}: raycast ${nsRay.toFixed(0)} ns`);
   if (sink === 42) console.log('');
 

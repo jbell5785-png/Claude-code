@@ -18,6 +18,10 @@ lists conventions the contract leaves open, and extra fields. Nothing in the con
 - **`s = 0` is the start/finish line**; the track runs towards increasing `s`. `out.s` is in `[0, length)`.
 - **`query().index`** is the centreline *segment* index (sample `i` → `i+1`); pass it back as the hint.
   A NaN input returns flat grass with `index = -1`.
+- **Far from the track** (outside every segment's asphalt/run-off/blend footprint, rasterised into the
+  spatial hash): the result is terrain-only (exact height/normal, `GRASS`); `s`/`index` come from the hint
+  walk or a per-cell nearest sample and `offset` is the signed distance to that centreline point —
+  approximate but continuous enough for AI/lap timing. Cost ~0.1–0.3 µs regardless of distance.
 - **`startPose(slot)`** returns `{ x, y, heading, z, s, offset }` (z/s/offset are extras). Slot 0 is 6 m
   behind the line; each slot is 8 m further back, alternating left/right of the centreline.
 - Lap timer: `lap` = number of completed laps; `lastLap`, `bestLap`, sector times are **`null`** until set.

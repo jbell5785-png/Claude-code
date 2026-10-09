@@ -4,11 +4,14 @@
 // Called at DRIVER_HZ; the caller holds the controls between calls.
 
 import { createPursuitDriver } from './pursuit.js';
+import { createNeuralDriver } from './neural.js';
 
 export const DRIVER_HZ = 50;
 
 const KINDS = {
   pursuit: (opts) => createPursuitDriver(opts),
+  // Learned driver (F): opts = { brain } (brain JSON, e.g. fetched from public/brains/*.json)
+  neural: (opts) => createNeuralDriver(opts),
 };
 
 /** Register a driver kind (used by the learning AI module: 'neural', team drivers, ...). */
