@@ -43,12 +43,13 @@ export class MusicEngine {
     this.lastTick = 0;
     this.lookahead = LOOKAHEAD;
     this.activeOsc = 0;
+    this.voiceList = [];
     this.pendingDropAt = null;
     this.startSection = opts.startSection || null;
     this.lastStyle = null;
     this.user = new UserTracks(ctx, this.master.userIn, (info) => this.emitChange(info));
     this.mode = 'gen'; // 'gen' | 'user'
-    this.voiceEnd = (v) => { this.activeOsc -= v.oscCount || 0; };
+    this.voiceEnd = null;
   }
 
   now() {
@@ -56,13 +57,21 @@ export class MusicEngine {
   }
 
   // ------------------------------------------------------------------ voice budget
-  voiceBudget(n, prio) {
+  /**
+   * Voice budget, evaluated at the voice's scheduled time (works offline too, where onended
+   * callbacks only fire after everything has been scheduled).
+   */
+  voiceBudget(n, prio, t) {
     const limit = prio > 0 ? MAX_OSC : MAX_OSC * 0.75;
-    return this.activeOsc + n <= limit;
+    if (this.voiceList.length > 48) this.voiceList = this.voiceList.filter((v) => v.end > t);
+    let active = 0;
+    for (const v of this.voiceList) if (v.start <= t + 0.001 && v.end > t) active += v.oscCount;
+    this.activeOsc = active;
+    return active + n <= limit;
   }
 
   countVoice(v) {
-    this.activeOsc += v.oscCount || 0;
+    if (v.oscCount) this.voiceList.push(v);
     return v;
   }
 

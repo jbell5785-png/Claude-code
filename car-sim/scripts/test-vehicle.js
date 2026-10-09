@@ -85,14 +85,22 @@ console.log(`\n== Functional checks == (${((Date.now() - T0) / 1000).toFixed(0)}
   c.brake = 0; c.throttle = 0.4;
   for (let i = 0; i < 1500; i++) v.step(c);
   check(gearR === -1 && v.speed < -2, `auto reverse: gear ${gearR}, speed after 3 s ${v.speed.toFixed(2)} m/s`);
-  // brake to a stop and keep holding -> toggles back to N; throttle -> forward
+  // brake to a stop and keep holding -> stays in R (no toggle when braking into a stop)
   c.throttle = 0; c.brake = 1;
   for (let i = 0; i < 1500; i++) v.step(c);
+  const gearStill = v.gear;
+  // release, then a fresh press held at standstill -> N; throttle -> forward
+  c.brake = 0; for (let i = 0; i < 10; i++) v.step(c);
+  c.brake = 1; for (let i = 0; i < 400; i++) v.step(c);
   const gearN = v.gear;
   c.brake = 0; c.throttle = 0.4;
   for (let i = 0; i < 1500; i++) v.step(c);
-  check(gearN === 0, `auto: holding the brake at standstill in R selects N (gear ${gearN})`);
+  check(gearStill === -1 && gearN === 0, `auto: braking to rest keeps R (${gearStill}); fresh brake hold at rest selects N (${gearN})`);
   check(v.gear >= 1 && v.speed > 2, `auto leave reverse: gear ${v.gear}, speed ${v.speed.toFixed(2)} m/s`);
+  // braking to a stop in D and holding the brake must NOT select reverse
+  c.throttle = 0; c.brake = 1;
+  for (let i = 0; i < 3000; i++) v.step(c);
+  check(v.gear === 0, `auto: stopping and holding the brake in D gives N, not R (gear ${v.gear})`);
 
   // Manual mode: shift up through gears with paddles
   v = createVehicle(p, createFlatTrack(), { x: 0, y: 0, heading: 0 });
@@ -139,6 +147,47 @@ console.log(`\n== Functional checks == (${((Date.now() - T0) / 1000).toFixed(0)}
   const tMax = Math.max(...v.wheels.map((w) => w.brakeTempC));
   console.log(`  info brake fade: decel per stop [${decels.map((d) => d.toFixed(2)).join(', ')}] g, peak disc temp ${tMax.toFixed(0)} C (fade starts ${p.axles[0].brakeFadeStart} C)`);
   check(tMax > 100, 'brake temperatures rise under repeated stops');
+  // Fade: same stop with discs pre-heated well past the fade threshold
+  const stopDecel = (preheat) => {
+    const w = createVehicle(p, createFlatTrack(), { x: 0, y: 0, heading: 0 });
+    const cc = controls(); cc.throttle = 1;
+    while (w.speed < 110 / 3.6) w.step(cc);
+    if (preheat) for (const wh of w.wheels) wh.brakeTempC = p.axles[0].brakeFadeStart + 250;
+    cc.throttle = 0; cc.brake = 1;
+    const t0 = w.time, v0 = w.speed;
+    while (w.speed > 40 / 3.6) w.step(cc);
+    return (v0 - w.speed) / (w.time - t0) / G;
+  };
+  const dCold = stopDecel(false), dHot = stopDecel(true);
+  check(dHot < dCold * 0.9, `brake fade: decel cold ${dCold.toFixed(2)} g vs discs at fadeStart+250 C ${dHot.toFixed(2)} g`);
+  // ABS keeps braking slip near the peak (no lock-up)
+  {
+    const w = createVehicle(p, createFlatTrack(), { x: 0, y: 0, heading: 0 });
+    const cc = controls(); cc.throttle = 1;
+    while (w.speed < 100 / 3.6) w.step(cc);
+    cc.throttle = 0; cc.brake = 1;
+    let maxSlip = 0, absSeen = false;
+    while (w.speed > 5) {
+      w.step(cc);
+      if (w.aids.absActive) absSeen = true;
+      for (const wh of w.wheels) maxSlip = Math.max(maxSlip, -wh.slipRatio);
+    }
+    check(!p.electronics.abs || (absSeen && maxSlip < 0.35), `ABS: active ${absSeen}, max braking slip ratio ${maxSlip.toFixed(2)} (peak ${w.peakSlip.toFixed(2)})`);
+  }
+  // Handbrake turn: locks the rear wheels and rotates the car
+  {
+    const w = createVehicle(p, createFlatTrack(), { x: 0, y: 0, heading: 0 });
+    const cc = controls(); cc.throttle = 1;
+    while (w.speed < 60 / 3.6) w.step(cc);
+    cc.throttle = 0; cc.steer = 0.4; cc.handbrake = 1;
+    let maxYaw = 0, rearLocked = false;
+    for (let i = 0; i < 400; i++) {
+      w.step(cc);
+      maxYaw = Math.max(maxYaw, Math.abs(w.angVel[2]));
+      if (Math.abs(w.wheels[2].omega) < 0.5 && w.speed > 5) rearLocked = true;
+    }
+    check(rearLocked && maxYaw > 0.8, `handbrake: rear wheels lock ${rearLocked}, peak yaw rate ${maxYaw.toFixed(2)} rad/s`);
+  }
 }
 // Launch control (any preset with electronics.launch)
 for (const [key, pr] of Object.entries(PRESETS)) {

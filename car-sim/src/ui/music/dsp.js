@@ -284,9 +284,10 @@ export function renderBreakLoop(sr, rnd, bpm, kit, hits) {
   }
   biquad(room, 'lowpass', 4000, 0.7, sr);
   for (let i = 0; i < n; i++) out[i] += room[i] * 0.09;
-  biquad(out, 'highpass', 45, 0.7, sr);
-  biquad(out, 'lowpass', 9500, 0.7, sr);
-  biquad(out, 'peaking', 220, 1.0, sr, 2.5);
+  biquad(out, 'highpass', 60, 0.7, sr);
+  biquad(out, 'lowpass', 14000, 0.7, sr);
+  biquad(out, 'peaking', 3600, 0.9, sr, 4.5); // snare crack
+  biquad(out, 'peaking', 9000, 0.8, sr, 2.5); // air
   normalize(out, 0.9);
   saturate(out, 1.6);
   return normalize(out, 0.92);
@@ -338,15 +339,15 @@ export function driveCurve(amount) {
 }
 
 /** Soft limiter curve: linear to `knee`, then smoothly saturating to 1. */
-export function softClipCurve(knee = 0.85) {
+export function softClipCurve(knee = 0.85, ceil = 0.995) {
   const c = new Float32Array(2048);
   for (let i = 0; i < 2048; i++) {
     const x = (i / 2047) * 2 - 1;
     const ax = Math.abs(x);
     let y;
     if (ax <= knee) y = ax;
-    else y = knee + (1 - knee) * Math.tanh((ax - knee) / (1 - knee));
-    c[i] = Math.sign(x) * Math.min(y, 0.995);
+    else y = knee + (ceil - knee) * Math.tanh((ax - knee) / (ceil - knee));
+    c[i] = Math.sign(x) * Math.min(y, ceil);
   }
   return c;
 }

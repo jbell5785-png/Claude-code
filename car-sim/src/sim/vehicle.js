@@ -188,6 +188,21 @@ class Vehicle {
     this.s = W(4); this.sd = W(4); this.fbz = W(4); this.Jk = W(4); this.Fsusp = W(4);
     this.delta = W(4); this.vxW = W(4); this.absF = W(4); this.brakeCmd = W(4);
     this.wheelSteer = W(4);
+    this.qx = W(4); this.qy = W(4);
+    // body collision box (sprung body vs ground: rollovers, bottoming on crests/landings)
+    {
+      const len = geo.length || 4.3, wid = geo.width || 1.8, hgt = geo.height || 1.35;
+      const oh = Math.max(0.2, 0.5 * (len - L));
+      const xf = a + oh, xr = -(b + oh), yw = 0.5 * wid * 0.95;
+      const zb = -(cgH - (geo.rideHeight || 0.12)), zt = hgt - cgH;
+      this.bodyPts = new Float64Array([
+        xf, yw, zb, xf, -yw, zb, xr, yw, zb, xr, -yw, zb,
+        xf, yw, zt, xf, -yw, zt, xr, yw, zt, xr, -yw, zt,
+        0, yw, zt, 0, -yw, zt, 0, yw, zb, 0, -yw, zb,
+      ]);
+      this.kBody = this.mTot * G / 0.01;           // 1 cm penetration per car weight per point
+      this.cBody = 0.5 * Math.sqrt(this.kBody * this.mTot);
+    }
     this.env = { regen: 0, ambientT: 293.15, ambientP: 101325, nitrous: false };
 
     // ---------- public state ----------
@@ -278,11 +293,11 @@ class Vehicle {
     // ECU state
     this.gear = 0; this.clutch = 0; this.shifting = false; this.shiftTimer = 0; this.shiftDir = 0;
     this.sinceShift = 10; this.clutchLocked = false; this.holdTimer = 0; this.revArmed = true;
-    this.prevUp = false; this.prevDown = false; this.steerAngle = 0;
+    this.prevUp = false; this.prevDown = false; this.steerAngle = 0; this.prevBrk = false; this.pressAtRest = false;
     this.tcI = 0; this.launchState = 0; this.idleI = 0; this.lcScale = 1; this._rpmT = this.idleRpm;
     this.aids.absActive = this.aids.tcActive = this.aids.launchActive = false;
     this.drive.setGear(this.isEV ? 1 : 0);
-    this.damage = 0; this.failed = false;
+    this.damage = 0; this.failed = false; this.bodyContact = false;
     this.speed = 0; this.heading = Math.atan2(fy, fx);
     this._updateRot();
     this._wheelPos();
@@ -305,7 +320,6 @@ class Vehicle {
     let thr = clamp(c.throttle || 0, 0, 1), brk = clamp(c.brake || 0, 0, 1);
     const auto = c.gearMode !== 'manual';
     const n = this.nGears;
-    const es0 = this.engines[0];
     const rpm = this.isEV ? 0 : drv.omega[0] * RPM;
     const stopped = Math.abs(vFwd) < 0.6;
     this.sinceShift += dt;
@@ -332,10 +346,14 @@ class Vehicle {
       }
       if (this.isEV && want > 1) want = 1;
     } else {
-      // manual paddles still work in auto for N/R selection at standstill
+      // R <-> N toggle: a brake press that BEGINS at standstill and is held 0.6 s (throttle released).
+      // Braking to a stop and simply staying on the brake never selects reverse.
+      const pressed = brk > 0.2;
+      if (pressed && !this.prevBrk) this.pressAtRest = stopped;
+      if (!pressed) this.revArmed = true;
+      this.prevBrk = pressed;
       if (stopped) {
-        if (brk > 0.2 && thr < 0.05) this.holdTimer += dt; else this.holdTimer = 0;
-        if (brk < 0.1) this.revArmed = true;
+        if (pressed && thr < 0.05 && this.pressAtRest) this.holdTimer += dt; else this.holdTimer = 0;
         if (this.holdTimer > 0.6 && this.revArmed) {
           want = this.gear >= 0 ? -1 : 0;
           this.revArmed = false; this.holdTimer = 0;
@@ -608,6 +626,7 @@ class Vehicle {
       const vwz = R20 * ubx + R21 * uby + R22 * ubz;
       const q = this.q[i];
       track.query(pwx, pwy, hint[i], q);
+      this.qx[i] = pwx; this.qy[i] = pwy;
       hint[i] = q.index;
       const nx = q.nx, ny = q.ny, nz = q.nz;
       const rad = this.rad[i];
@@ -709,6 +728,40 @@ class Vehicle {
       Tx += hpY[i] * Fb; Ty -= hpX[i] * Fb;
     }
     Fz += Fsum;
+
+    // ---------------- body-ground contact (only matters when the body touches down) ----------
+    {
+      const P = this.bodyPts, np = P.length / 3, kB = this.kBody, cB = this.cBody;
+      this.bodyContact = false;
+      for (let j = 0; j < np; j++) {
+        const rx = P[3 * j], ry = P[3 * j + 1], rz = P[3 * j + 2];
+        const pz = pos[2] + R20 * rx + R21 * ry + R22 * rz;
+        // local ground plane from the nearest wheel's query (no extra track queries)
+        const w = (rx >= 0 ? 0 : 2) + (ry >= 0 ? 0 : 1);
+        const q = this.q[w];
+        const px = pos[0] + R00 * rx + R01 * ry + R02 * rz;
+        const py = pos[1] + R10 * rx + R11 * ry + R12 * rz;
+        const nx = q.nx, ny = q.ny, nz = q.nz;
+        const h = q.height - (nx * (px - this.qx[w]) + ny * (py - this.qy[w])) / nz;
+        const pen = (h - pz) * nz;
+        if (pen <= 0) continue;
+        // point velocity (body frame -> world)
+        const ux = vbx + wy * rz - wz * ry, uy = vby + wz * rx - wx * rz, uz = vbz + wx * ry - wy * rx;
+        const vx = R00 * ux + R01 * uy + R02 * uz, vy = R10 * ux + R11 * uy + R12 * uz, vz = R20 * ux + R21 * uy + R22 * uz;
+        const vn = vx * nx + vy * ny + vz * nz;
+        let Fn = kB * Math.min(pen, 0.2) - cB * vn;
+        if (Fn <= 0) continue;
+        const tx = vx - vn * nx, ty = vy - vn * ny, tz = vz - vn * nz;
+        const fr = -0.6 * Fn / Math.sqrt(tx * tx + ty * ty + tz * tz + 0.09);
+        const fwx = Fn * nx + fr * tx, fwy = Fn * ny + fr * ty, fwz = Fn * nz + fr * tz;
+        const fbx = R00 * fwx + R10 * fwy + R20 * fwz;
+        const fby = R01 * fwx + R11 * fwy + R21 * fwz;
+        const fbz = R02 * fwx + R12 * fwy + R22 * fwz;
+        Fx += fbx; Fy += fby; Fz += fbz;
+        Tx += ry * fbz - rz * fby; Ty += rz * fbx - rx * fbz; Tz += rx * fby - ry * fbx;
+        this.bodyContact = true;
+      }
+    }
 
     // ---------------- aero ----------------
     const v2 = vbx * vbx + vby * vby + vbz * vbz;

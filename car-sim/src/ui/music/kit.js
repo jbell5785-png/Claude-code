@@ -52,8 +52,8 @@ export function createKit(ctx, song) {
     kick: synthKick(sr, rnd, kickP),
     snare: synthSnare(sr, rnd, snareP),
     clap: synthClap(sr, rnd),
-    hat: synthHat(sr, rnd, { decay: 0.028, noise: 0.35, base: 330 + rnd() * 60, hp: 7500, lp: 11500 }),
-    ohat: synthHat(sr, rnd, { decay: 0.16, noise: 0.4, base: 330 + rnd() * 60, hp: 6500, lp: 11000 }),
+    hat: synthHat(sr, rnd, { decay: 0.03, noise: 0.45, base: 330 + rnd() * 60, hp: 6500, lp: 15000 }),
+    ohat: synthHat(sr, rnd, { decay: 0.16, noise: 0.5, base: 330 + rnd() * 60, hp: 6000, lp: 15000 }),
     ride: synthCymbal(sr, rnd, { dur: 1.4, base: 520, noise: 0.25, hp: 3500, decay: 0.45, bell: 2850, bellAmt: 0.18 }),
     crash: synthCymbal(sr, rnd, { dur: 2.4, base: 410, noise: 0.6, hp: 2500, decay: 0.7, bell: 1900, bellAmt: 0.05, attack: 0.002 }),
     tomHi: synthTom(sr, rnd, 170 * tune),
@@ -66,8 +66,8 @@ export function createKit(ctx, song) {
     kick: synthKick(sr, rnd, { f0: 150, f1: 62 * tune, pTau: 0.03, hold: 0.01, aTau: 0.1, click: 0.7, drive: 3, dur: 0.35 }),
     snare: synthSnare(sr, rnd, { tone: 215 * tune, toneDecay: 0.11, noise: 1, toneAmt: 1.0, noiseDecay: 0.15, nhp: 700, nlp: 8000, crack: 3000, drive: 3.2 }),
     ghost: null,
-    hat: synthHat(sr, rnd, { decay: 0.045, noise: 0.6, base: 300, hp: 5500, lp: 9000 }),
-    ohat: synthHat(sr, rnd, { decay: 0.2, noise: 0.6, base: 300, hp: 5000, lp: 9000 }),
+    hat: synthHat(sr, rnd, { decay: 0.045, noise: 0.6, base: 300, hp: 5000, lp: 13000 }),
+    ohat: synthHat(sr, rnd, { decay: 0.2, noise: 0.6, base: 300, hp: 4500, lp: 13000 }),
     ride: synthCymbal(sr, rnd, { dur: 1.0, base: 480, noise: 0.35, hp: 3000, decay: 0.35, bell: 2600, bellAmt: 0.25 }),
   };
   bk.ghost = bk.snare;

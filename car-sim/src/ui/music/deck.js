@@ -6,22 +6,25 @@ import { MonoSynth, BASS_PRESETS, playStab, playPad, playPluck, playLead, playVo
 import { planBar } from './sequencer.js';
 
 const CHANNELS = {
-  //          gain  reverb delay  (music = ducked by kick)
-  kick: [0.82, 0, 0, false],
-  snare: [0.42, 0.12, 0, false],
-  hats: [0.3, 0.04, 0, false],
-  perc: [0.3, 0.1, 0.06, false],
-  brk: [0.5, 0.04, 0, false],
-  bass: [0.42, 0, 0, true],
-  sub: [0.5, 0, 0, true],
-  acid: [0.36, 0.06, 0.12, true],
-  stab: [0.2, 0.28, 0.16, true],
-  pad: [0.12, 0.4, 0, true],
-  arp: [0.075, 0.25, 0.3, true],
-  lead: [0.16, 0.25, 0.18, true],
-  vox: [0.2, 0.25, 0.26, true],
-  fx: [0.32, 0.45, 0, false],
+  //     gain  reverb delay  music(ducked)  highpass Hz
+  kick: [0.82, 0, 0, false, 0],
+  snare: [0.42, 0.12, 0, false, 140],
+  hats: [0.3, 0.04, 0, false, 400],
+  perc: [0.3, 0.1, 0.06, false, 200],
+  brk: [0.5, 0.04, 0, false, 120],
+  bass: [0.42, 0, 0, true, 0],
+  sub: [0.5, 0, 0, true, 0],
+  acid: [0.36, 0.06, 0.12, true, 90],
+  stab: [0.2, 0.28, 0.16, true, 160],
+  pad: [0.12, 0.4, 0, true, 220],
+  arp: [0.075, 0.25, 0.3, true, 250],
+  lead: [0.16, 0.25, 0.18, true, 150],
+  vox: [0.2, 0.25, 0.26, true, 200],
+  fx: [0.32, 0.45, 0, false, 0],
 };
+
+/** Per-style channel trims (dB-calibrated from stem renders, see scripts/render-music.js --stems). */
+export const STYLE_MIX = {};
 
 const DUCK = { dnb: 0.5, breaks: 0.55, garage: 0.5, acid: 0.4 };
 
@@ -94,20 +97,30 @@ export class Deck {
     this.brkFilter.connect(this.filter);
     this.ch = {};
     this.nodes = [this.out, this.filter, this.duck, this.brkFilter, ...this.delay.nodes];
-    for (const [name, [g, rev, dly, music]] of Object.entries(CHANNELS)) {
+    const styleMix = STYLE_MIX[song.style] || {};
+    for (const [name, [g, rev, dly, music, hpf]] of Object.entries(CHANNELS)) {
       const n = ctx.createGain();
-      n.gain.value = g * (engine.mix && engine.mix[name] !== undefined ? engine.mix[name] : 1);
-      n.connect(name === 'brk' ? this.brkFilter : music ? this.duck : this.filter);
+      n.gain.value = g * (styleMix[name] ?? 1) * (engine.mix && engine.mix[name] !== undefined ? engine.mix[name] : 1);
+      let tail = n;
+      if (hpf) {
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.value = hpf;
+        hp.Q.value = 0.6;
+        tail = n.connect(hp);
+        this.nodes.push(hp);
+      }
+      tail.connect(name === 'brk' ? this.brkFilter : music ? this.duck : this.filter);
       if (rev) {
         const s = ctx.createGain();
         s.gain.value = rev;
-        n.connect(s).connect(engine.master.reverbIn);
+        tail.connect(s).connect(engine.master.reverbIn);
         this.nodes.push(s);
       }
       if (dly) {
         const s = ctx.createGain();
         s.gain.value = dly;
-        n.connect(s).connect(this.delay.input);
+        tail.connect(s).connect(this.delay.input);
         this.nodes.push(s);
       }
       this.ch[name] = n;
@@ -313,27 +326,27 @@ export class Deck {
         if (this.acid) this.acid.note(t, ev.midi, ev.dur, ev);
         break;
       case 'stab':
-        if (E.voiceBudget(ev.notes.length * 2, 1)) {
+        if (E.voiceBudget(ev.notes.length * (ev.kind === 'hoover' ? 3 : 2), 1, t)) {
           this.track(E.countVoice(playStab(ctx, this.ch.stab, t, ev.notes, { kind: ev.kind }, E.voiceEnd)));
         }
         break;
       case 'pad':
-        if (E.voiceBudget(ev.notes.length * 2, 0)) {
+        if (E.voiceBudget(ev.notes.length * 2, 0, t)) {
           this.track(E.countVoice(playPad(ctx, this.ch.pad, t, ev.notes, ev.dur, { cutoff: ev.cutoff, sweep: ev.sweep, gain: ev.gain }, E.voiceEnd)));
         }
         break;
       case 'arp':
-        if (E.voiceBudget(1, 0)) {
+        if (E.voiceBudget(1, 0, t)) {
           this.track(E.countVoice(playPluck(ctx, this.ch.arp, t, ev.midi, { wave: ev.wave, gain: 0.5 }, E.voiceEnd)));
         }
         break;
       case 'lead':
-        if (E.voiceBudget(5, 1)) {
+        if (E.voiceBudget(5, 1, t)) {
           this.track(E.countVoice(playLead(ctx, this.ch.lead, t, ev.midi, ev.dur, { kind: ev.kind, gain: ev.gain ?? 0.6 }, E.voiceEnd)));
         }
         break;
       case 'vox':
-        if (E.voiceBudget(1, 1)) {
+        if (E.voiceBudget(1, 1, t)) {
           this.track(E.countVoice(playVox(ctx, this.ch.vox, t, ev.midi, ev.dur, { v1: ev.v1, v2: ev.v2, gain: 0.6 }, E.voiceEnd)));
         }
         break;

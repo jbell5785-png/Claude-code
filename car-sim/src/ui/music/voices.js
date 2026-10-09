@@ -168,7 +168,7 @@ export const BASS_PRESETS = {
       { type: 'sawtooth', detune: 13, g: 0.45 },
       { type: 'sawtooth', detune: 6, mult: 2, g: 0.22 },
     ],
-    cutoff: 380, q: 3, q2: 0.7, env: 500, decay: 0.3, drive: 2.5, preGain: 1.2, hp: 70,
+    cutoff: 520, q: 3, q2: 0.7, env: 900, decay: 0.3, drive: 2.5, preGain: 1.2, hp: 150,
     sub: 0.8, glide: 0.08, attack: 0.006, release: 0.05, level: 0.9,
     lfo: { rate: 0.35, depth: 160 },
   },
@@ -177,7 +177,7 @@ export const BASS_PRESETS = {
       { type: 'square', detune: 0, g: 0.45 },
       { type: 'sawtooth', detune: 9, g: 0.4 },
     ],
-    cutoff: 260, q: 7, q2: 0.7, env: 260, decay: 0.12, drive: 2, hp: 60,
+    cutoff: 320, q: 7, q2: 0.7, env: 400, decay: 0.12, drive: 2, hp: 130,
     sub: 0.95, glide: 0.05, attack: 0.004, release: 0.03, level: 0.85,
     lfo: { rate: 4, depth: 0, wobDepth: 700 },
   },
@@ -186,7 +186,7 @@ export const BASS_PRESETS = {
       { type: 'sawtooth', detune: -8, g: 0.5 },
       { type: 'square', detune: 7, g: 0.35 },
     ],
-    cutoff: 330, q: 4, q2: 0.7, env: 1800, decay: 0.09, drive: 5, preGain: 1.3, hp: 65,
+    cutoff: 420, q: 4, q2: 0.7, env: 2400, decay: 0.09, drive: 5, preGain: 1.3, hp: 140,
     sub: 0.75, glide: 0.05, attack: 0.003, release: 0.03, level: 0.75,
   },
   acid: {
@@ -289,10 +289,10 @@ export function playStab(ctx, dest, t, notes, o, onEnd) {
     len += 0.45;
   } else {
     filt = stereoFilter(ctx, 'lowpass', 400, o.q ?? 5);
-    const top = o.bright ?? 4200;
+    const top = o.bright ?? 7000;
     for (const fp of filt.freqs) {
       fp.setValueAtTime(top, t);
-      fp.setTargetAtTime(450, t + 0.003, o.fdecay ?? 0.07);
+      fp.setTargetAtTime(1100, t + 0.003, o.fdecay ?? 0.09);
     }
     notes.forEach((m) => {
       const f = mtof(m);
@@ -373,7 +373,7 @@ export function playPluck(ctx, dest, t, midi, o, onEnd) {
 export function playLead(ctx, dest, t, midi, dur, o, onEnd) {
   const kind = o.kind || 'supersaw';
   const f = mtof(midi);
-  const filt = stereoFilter(ctx, 'lowpass', o.bright ?? (kind === 'hoover' ? 2400 : 4200), kind === 'square' ? 4 : 1);
+  const filt = stereoFilter(ctx, 'lowpass', o.bright ?? (kind === 'hoover' ? 3400 : 6500), kind === 'square' ? 4 : 1);
   const vca = ctx.createGain();
   const sources = [];
   const dets = kind === 'square' ? [[-6, 'L'], [6, 'R']] : [[-24, 'L'], [-8, 'R'], [9, 'L'], [23, 'R']];

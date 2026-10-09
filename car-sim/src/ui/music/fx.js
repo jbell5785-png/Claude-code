@@ -29,7 +29,7 @@ export function createMaster(ctx, destination, bypass = false) {
   limiter.release.value = 0.1;
 
   const clip = ctx.createWaveShaper();
-  clip.curve = softClipCurve(0.86);
+  clip.curve = softClipCurve(0.72, 0.85); // ceiling ~ -1.4 dBFS
   clip.oversample = '2x';
 
   // menu / pause filter applied to everything (generated + user tracks)

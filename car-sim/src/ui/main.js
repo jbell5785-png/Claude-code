@@ -33,7 +33,7 @@ const app = document.getElementById('app'); const canvas = document.getElementBy
 const shell = document.createElement('div'); shell.className = 'shell';
 shell.innerHTML = `
   <header class="topbar">
-    <button class="brand display" title="Main menu">APEX<span>LAB</span></button>
+    <button class="brand display" title="Main menu">NOVA<span>VADERSPEED</span></button>
     <nav class="modes"></nav>
     <div class="tb-right">
       <select class="tb-track" aria-label="Track"></select>
@@ -55,11 +55,12 @@ const $ = (s) => shell.querySelector(s);
 let world;
 try { world = new World(canvas, { preserveDrawingBuffer: new URLSearchParams(location.search).has('capture') }); }
 catch (err) {
-  console.error(err); document.getElementById('boot').innerHTML = '<div class="boot-logo">APEX<span>LAB</span></div><div class="boot-sub">WebGL is not available on this device/browser.</div>'; throw err;
+  console.error(err); document.getElementById('boot').innerHTML = '<div class="boot-logo"><span class="l1">NOVA</span><span class="l2">VADERSPEED</span></div><div class="boot-sub">WebGL is not available on this device/browser.</div>'; throw err;
 }
 const hud = new Hud(app); const telemetry = new Telemetry(app); const input = new Input(app); const audio = new CarAudio();
 
 // ---------------------------------------------------------------- shared state & context
+if (new URLSearchParams(location.search).has('debug') || localStorage.getItem('carsim.debug') === '1') document.body.classList.add('debug');
 const state = { spec: loadCurrentSpec(sim.DEFAULT_SPEC), params: null, trackKey: localStorage.getItem('carsim.track') || Object.keys(sim.TRACKS)[0], track: null, showFps: false };
 try { state.params = sim.build(state.spec); } catch (err) { console.error('[main] build of saved spec failed — using default', err); state.spec = JSON.parse(JSON.stringify(sim.DEFAULT_SPEC)); state.params = sim.build(state.spec); }
 if (!sim.TRACKS[state.trackKey]) state.trackKey = Object.keys(sim.TRACKS)[0];

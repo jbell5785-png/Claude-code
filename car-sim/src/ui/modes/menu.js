@@ -27,6 +27,7 @@ export function openOptions(ctx) {
     <label class="f range"><span>Master volume<output>${Math.round(ctx.audio.volume * 100)}%</output></span><input type="range" class="o-vol" min="0" max="1" step="0.05" value="${ctx.audio.volume}"></label>
     <label class="f toggle"><span>Mute</span><input type="checkbox" class="o-mute" ${ctx.audio.muted ? 'checked' : ''}><i></i></label>
     <label class="f toggle"><span>On-screen touch controls</span><input type="checkbox" class="o-touch" ${ctx.input.touchShown ? 'checked' : ''}><i></i></label>
+    <label class="f toggle"><span>Debug info (module sources)</span><input type="checkbox" class="o-dbg" ${document.body.classList.contains('debug') ? 'checked' : ''}><i></i></label>
     <label class="f toggle"><span>Show FPS</span><input type="checkbox" class="o-fps" ${ctx.state.showFps ? 'checked' : ''}><i></i></label>
     <details><summary>Controls</summary><div class="keys">${KEY_HELP.map(([k, d]) => `<kbd>${esc(k)}</kbd><span>${esc(d)}</span>`).join('')}<kbd>Gamepad</kbd><span>RT/LT pedals · stick steer · X nitrous · B handbrake · LB/RB shift · Y camera</span></div></details>
     <div class="res-btns"><button class="btn primary o-close">Done</button></div></div>`;
@@ -36,6 +37,7 @@ export function openOptions(ctx) {
   $('.o-vol').oninput = (e) => { ctx.audio.volume = Number(e.target.value); ctx.audio.setMuted(ctx.audio.muted); e.target.previousElementSibling.querySelector('output').textContent = Math.round(ctx.audio.volume * 100) + '%'; };
   $('.o-mute').onchange = (e) => ctx.setMuted(e.target.checked);
   $('.o-touch').onchange = (e) => { ctx.input._wantTouch = e.target.checked; ctx.input.setTouchVisible(e.target.checked); };
+  $('.o-dbg').onchange = (e) => { document.body.classList.toggle('debug', e.target.checked); try { localStorage.setItem('carsim.debug', e.target.checked ? '1' : '0'); } catch { /* ignore */ } };
   $('.o-fps').onchange = (e) => { ctx.state.showFps = e.target.checked; document.body.classList.toggle('show-fps', e.target.checked); };
   const close = () => { el.classList.add('closing'); setTimeout(() => el.remove(), 180); };
   $('.o-close').onclick = close; el.addEventListener('click', (e) => { if (e.target === el) close(); });
@@ -53,7 +55,7 @@ registerMode({
       ['options', 'OPTIONS', 'Graphics · audio · controls'],
     ];
     el.innerHTML = `
-      <div class="menu-title"><div class="logo display">APEX<span>LAB</span></div><div class="tagline">physics car sandbox · build · tune · race</div></div>
+      <div class="menu-title"><div class="logo"><div class="streaks"><i></i><i></i><i></i></div><span class="l1">NOVA</span><span class="l2">VADERSPEED</span></div><div class="tagline">build · tune · race · beyond the redline</div></div>
       <nav class="menu-items">${items.map(([id, t, d], i) => `<button class="mi" data-id="${id}" style="--i:${i}"><b class="display">${t}</b><small>${d}</small></button>`).join('')}</nav>
       <div class="menu-car"><span class="mc-lbl">CURRENT BUILD</span><b class="display">${esc(ctx.state.spec.name || 'Unnamed')}</b><small>${Math.round(ctx.state.params?.summary?.powerKW || 0)} kW · ${Math.round(ctx.state.params?.summary?.mass || 0)} kg · ${esc(ctx.state.params?.summary?.drivetrain || '')}</small></div>
       <div class="menu-foot mono">${esc(ctx.sourcesText())}</div>`;
