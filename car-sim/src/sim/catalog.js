@@ -1,62 +1,63 @@
 // Parts catalogue. Every option here is turned into physical parameters by build.js.
 // Units: SI unless the field name says otherwise (mm, kW, L, N/mm, deg).
 
+// clearance = stock static ground clearance of the chassis reference (m).
 export const CHASSIS = {
   kei: {
     label: 'Kei car', price: 6000,
     mass: 520, wheelbase: 2.36, trackF: 1.30, trackR: 1.29,
     length: 3.40, width: 1.48, height: 1.55, cgHeight: 0.48, cgFromRear: 0.52,
     Cd: 0.34, frontalArea: 1.95, Cl: 0.12, wheelRadius: 0.285,
-    maxTyreWidth: 205, placements: ['front', 'mid', 'rear'], style: 'kei',
+    maxTyreWidth: 205, placements: ['front', 'mid', 'rear'], clearance: 0.15, style: 'kei',
   },
   hatch: {
     label: 'Hot hatch', price: 14000,
     mass: 800, wheelbase: 2.63, trackF: 1.54, trackR: 1.51,
     length: 4.26, width: 1.80, height: 1.45, cgHeight: 0.50, cgFromRear: 0.50,
     Cd: 0.32, frontalArea: 2.20, Cl: 0.10, wheelRadius: 0.317,
-    maxTyreWidth: 255, placements: ['front', 'mid'], style: 'hatch',
+    maxTyreWidth: 255, placements: ['front', 'mid'], clearance: 0.14, style: 'hatch',
   },
   sedan: {
     label: 'Sports saloon', price: 18000,
     mass: 980, wheelbase: 2.85, trackF: 1.58, trackR: 1.60,
     length: 4.70, width: 1.85, height: 1.43, cgHeight: 0.50, cgFromRear: 0.50,
     Cd: 0.29, frontalArea: 2.25, Cl: 0.09, wheelRadius: 0.330,
-    maxTyreWidth: 285, placements: ['front'], style: 'sedan',
+    maxTyreWidth: 285, placements: ['front'], clearance: 0.13, style: 'sedan',
   },
   coupe: {
     label: 'Sports coupe', price: 20000,
     mass: 860, wheelbase: 2.57, trackF: 1.55, trackR: 1.57,
     length: 4.27, width: 1.78, height: 1.31, cgHeight: 0.44, cgFromRear: 0.48,
     Cd: 0.30, frontalArea: 2.00, Cl: 0.08, wheelRadius: 0.317,
-    maxTyreWidth: 285, placements: ['front', 'mid', 'rear'], style: 'coupe',
+    maxTyreWidth: 285, placements: ['front', 'mid', 'rear'], clearance: 0.12, style: 'coupe',
   },
   roadster: {
     label: 'Roadster', price: 16000,
     mass: 690, wheelbase: 2.31, trackF: 1.50, trackR: 1.50,
     length: 3.92, width: 1.73, height: 1.23, cgHeight: 0.42, cgFromRear: 0.50,
     Cd: 0.36, frontalArea: 1.85, Cl: 0.12, wheelRadius: 0.305,
-    maxTyreWidth: 255, placements: ['front', 'mid'], style: 'roadster',
+    maxTyreWidth: 255, placements: ['front', 'mid'], clearance: 0.12, style: 'roadster',
   },
   suv: {
     label: 'Performance SUV', price: 22000,
     mass: 1350, wheelbase: 2.90, trackF: 1.65, trackR: 1.66,
     length: 4.85, width: 1.95, height: 1.70, cgHeight: 0.66, cgFromRear: 0.50,
     Cd: 0.36, frontalArea: 2.80, Cl: 0.12, wheelRadius: 0.370,
-    maxTyreWidth: 315, placements: ['front'], style: 'suv',
+    maxTyreWidth: 315, placements: ['front'], clearance: 0.2, style: 'suv',
   },
   pickup: {
     label: 'Pickup truck', price: 17000,
     mass: 1500, wheelbase: 3.55, trackF: 1.70, trackR: 1.70,
     length: 5.50, width: 2.00, height: 1.85, cgHeight: 0.72, cgFromRear: 0.45,
     Cd: 0.42, frontalArea: 3.20, Cl: 0.10, wheelRadius: 0.390,
-    maxTyreWidth: 315, placements: ['front'], style: 'pickup',
+    maxTyreWidth: 315, placements: ['front'], clearance: 0.23, style: 'pickup',
   },
   supercar: {
     label: 'Supercar tub', price: 60000,
     mass: 760, wheelbase: 2.65, trackF: 1.67, trackR: 1.63,
     length: 4.55, width: 1.95, height: 1.17, cgHeight: 0.38, cgFromRear: 0.46,
     Cd: 0.33, frontalArea: 1.95, Cl: -0.10, wheelRadius: 0.340,
-    maxTyreWidth: 335, placements: ['mid'], style: 'supercar',
+    maxTyreWidth: 335, placements: ['mid'], clearance: 0.1, style: 'supercar',
   },
 };
 
@@ -104,6 +105,9 @@ export const INDUCTION = {
   twinScrew: { label: 'Twin-screw supercharger', kind: 'super', maxBoost: 1.0, curve: 'positive', compEff: 0.68, price: 6500, mass: 24 },
   centrifugal: { label: 'Centrifugal supercharger', kind: 'super', maxBoost: 1.1, curve: 'centrifugal', compEff: 0.74, price: 4500, mass: 16 },
 };
+
+// Anti-lag system (turbo only): price and hardware mass.
+export const ANTI_LAG = { label: 'Anti-lag (ignition retard + air bypass)', price: 1500, mass: 3 };
 
 export const INTERCOOLERS = {
   none: { label: 'None', effectiveness: 0.0, price: 0, mass: 0 },

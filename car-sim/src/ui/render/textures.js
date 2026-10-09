@@ -45,7 +45,7 @@ export function asphaltTexture() {
         g.fillStyle = `rgba(236,236,230,${0.86 + r() * 0.12})`; g.fillRect(x0, y, x1 - x0, 1);
       }
     };
-    line(6, 20); line(W - 20, W - 6);
+    line(5, 12); line(W - 12, W - 5);
     return tex(c);
   });
 }

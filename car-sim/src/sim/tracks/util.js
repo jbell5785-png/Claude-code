@@ -47,6 +47,7 @@ export function hashString(str) {
  *   optional on any segment: w (full width from here on), bank (deg, from here on),
  *   z (elevation key at the END of the segment), mark: 'name' / markEnd: 'name' (range markers),
  *   start: true (start/finish line at the START of this segment; startAt: metres into segment)
+ *   obstacles: [{ at: 0..1 (fraction of this segment), offset, kind: 'cylinder'|'box', r | hx,hy,heading, h }]
  * opts:
  *   close: [i, j]  indices of two non-parallel straights whose lengths are adjusted so the loop
  *                  closes exactly in x/y (the heading total must be ±360°, residual is added to
@@ -114,12 +115,17 @@ export function turtle(segs, opts = {}) {
   const zKeys = [];
   let startS = 0;
   const markStart = {}, marks = {};
+  const obsRaw = [];
   const emit = (px, py, ps) => pts.push({ x: px, y: py, s: ps, w, bank });
   for (const g of segs) {
     if (g.w != null) w = g.w;
     if (g.bank != null) bank = g.bank;
     if (g.start) startS = s + (g.startAt ?? 0) * scale;
     if (g.mark) markStart[g.mark] = s;
+    if (g.obstacles) {
+      const segLen = g.s != null ? g.s : Math.abs((g.a * Math.PI) / 180) * g.r;
+      for (const o of g.obstacles) obsRaw.push({ ...o, sAbs: s + (o.at ?? 0.5) * segLen });
+    }
     if (g.s != null) {
       const nStep = Math.max(1, Math.round(g.s / step));
       for (let k = 0; k < nStep; k++) {
@@ -150,7 +156,9 @@ export function turtle(segs, opts = {}) {
   const points = pts.map((p) => [p.x, p.y, zAt(p.s), p.w, p.bank]);
   const fr = {};
   for (const k in marks) fr[k] = [marks[k][0] / L, marks[k][1] / L];
-  return { points, startFrac: startS / L, marks: fr, length: L };
+  const startFrac = startS / L;
+  const obstacles = obsRaw.map(({ at, sAbs, ...o }) => ({ ...o, f: (((sAbs / L - startFrac) % 1) + 1) % 1 }));
+  return { points, startFrac, marks: fr, obstacles, length: L };
 }
 
 /**

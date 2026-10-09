@@ -489,7 +489,7 @@ export function buildCarModel(params, opts = {}) {
     eye.set(fx + 0.06, headY + 0.02, dz);
     if (!ghost) {
       const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.13, 16, 12), M.helmet); helmet.position.set(fx, headY, dz); shell.add(helmet);
-      const visor = new THREE.Mesh(new THREE.SphereGeometry(0.132, 16, 8, -0.9, 1.8, 1.1, 0.7), M.visor); visor.position.copy(helmet.position); visor.rotation.y = Math.PI / 2; shell.add(visor);
+      const visor = new THREE.Mesh(new THREE.SphereGeometry(0.132, 16, 8, -0.9, 1.8, 1.1, 0.7), M.visor); visor.position.copy(helmet.position); visor.rotation.y = Math.PI / 2; shell.add(visor); helmet.userData.helmet = true; visor.userData.helmet = true;
       steeringWheel = new THREE.Group(); steeringWheel.position.set(fx + 0.42, headY - 0.3, dz); steeringWheel.rotation.z = 0.0;
       const rimW = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.018, 8, 28), M.trim); rimW.rotation.y = Math.PI / 2;
       const spk = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.03, 0.32), M.trim);

@@ -26,6 +26,8 @@ const TWO_PI = 2 * Math.PI;
 const RPM = 60 / TWO_PI;          // rad/s -> rpm
 const T_AMB_C = 20;
 
+const CURVE_CACHE = new WeakMap();   // engineParams -> full-throttle curve (expensive sweep)
+
 function clamp(x, a, b) { return x < a ? a : x > b ? b : x; }
 
 /**
@@ -68,8 +70,9 @@ class Vehicle {
    * @param {object} track  createTrack() output (needs query(x, y, hint, out))
    * @param {{x:number,y:number,heading:number}} pose
    */
-  constructor(params, track, pose) {
+  constructor(params, track, pose, opts) {
     this.params = params;
+    this.opts = opts || {};
     this.track = track;
     const geo = params.geometry, mass = params.mass, ax = params.axles;
 
@@ -153,12 +156,13 @@ class Vehicle {
     this.limiterRpm = ep0.limiterRpm || this.redlineRpm + 200;
     this.maxRpm = ep0.maxRpm || this.limiterRpm + 500;
     if (!this.isEV) {
-      const curve = engineCurve(ep0);
+      let curve = CURVE_CACHE.get(ep0);
+      if (!curve) { curve = engineCurve(ep0); CURVE_CACHE.set(ep0, curve); }
       this.upRpm = computeShiftPoints(curve, dtp.gearRatios, this.limiterRpm);
       let pk = -1, pkRpm = 0.6 * this.redlineRpm;
       for (const p of curve) if (p.torque > pk) { pk = p.torque; pkRpm = p.rpm; }
       this.peakTorqueRpm = pkRpm;
-      this.launchRpm = clamp(0.75 * pkRpm, this.idleRpm * 2.5, 0.6 * this.redlineRpm);
+      this.launchRpm = clamp(pkRpm, this.idleRpm * 2.5, 0.65 * this.redlineRpm);
     } else {
       this.upRpm = new Float64Array(1); this.peakTorqueRpm = 0; this.launchRpm = 0;
     }
@@ -255,7 +259,9 @@ class Vehicle {
     this.s.fill(0); this.sd.fill(0); this.absF.fill(1); this.brakeCmd.fill(0);
     for (let i = 0; i < 4; i++) {
       const wh = this.wheels[i];
-      wh.tyre = createTyreState(this.tp[i]);
+      // tyres start at their optimum temperature ("after a warm-up lap") unless opts.tyreTempC given
+      const tt = this.opts.tyreTempC;
+      wh.tyre = createTyreState(this.tp[i], Number.isFinite(tt) ? tt : this.tp[i].tOpt);
       wh.spin = 0; wh.omega = 0; wh.brakeTempC = T_AMB_C; wh.Fz = this.F0[i] + this.mU[i] * G;
       wh.compression = 0; wh.contact = true; wh.steer = 0;
       this.delta[i] = this.delta0[i];
@@ -301,6 +307,9 @@ class Vehicle {
     const rpm = this.isEV ? 0 : drv.omega[0] * RPM;
     const stopped = Math.abs(vFwd) < 0.6;
     this.sinceShift += dt;
+    // shift scheduling uses a peak-hold pedal so brief lifts (driver/TC modulation) don't upshift early
+    this.thrHold = Math.max(thr, (this.thrHold || 0) - dt * 0.6);
+    const thrS = this.thrHold;
 
     // ---- gear selection ----
     const upEdge = !!c.shiftUp && !this.prevUp, downEdge = !!c.shiftDown && !this.prevDown;
@@ -344,15 +353,16 @@ class Vehicle {
         const idle = this.idleRpm;
         if (g < n && this.sinceShift > this.shiftTime + 0.3) {
           const upFull = this.upRpm[g - 1];
-          const upEff = Math.max(idle * 2.2, upFull * (0.5 + 0.5 * thr));
+          const upEff = Math.max(idle * 2.2, upFull * (0.5 + 0.5 * thrS));
           const rpmAfter = rpmOut * this.gearRatios[g] / ratioNow;
           if (rpmOut > upEff && rpmAfter > idle * 1.6) want = g + 1;
         }
         if (g > 1 && want === g && this.sinceShift > this.shiftTime + 0.15) {
           const rLow = this.gearRatios[g - 2];
           const rpmLower = rpmOut * rLow / ratioNow;
-          const lug = rpmOut < idle * (1.5 + 1.0 * thr);
-          const kick = thr > 0.6 && rpmLower < 0.9 * this.upRpm[g - 2] * (0.5 + 0.5 * thr);
+          const lug = rpmOut < idle * (1.5 + 1.0 * thrS);
+          // kickdown: only at (near) full pedal and only if the lower gear lands well below its shift point
+          const kick = thr > 0.9 && this.sinceShift > 1.0 && rpmLower < 0.8 * this.upRpm[g - 2];
           if ((lug || kick) && rpmLower < this.limiterRpm * 0.9) want = g - 1;
         }
       }
@@ -388,15 +398,15 @@ class Vehicle {
         if (k > kmax) kmax = k;
       }
       const err = kmax - this.peakSlip * 1.15;
-      this.tcI = clamp(this.tcI + dt * (err > 0 ? 25 * err : -3), 0, 0.9);
-      tcCut = clamp(this.tcI + (err > 0 ? 6 * err : 0), 0, 0.95);
+      this.tcI = clamp(this.tcI + dt * (err > 0 ? 12 * err : -2), 0, 0.8);
+      tcCut = clamp(this.tcI + (err > 0 ? 2.5 * err : 0), 0, 0.85);
     } else this.tcI = 0;
     this.aids.tcActive = tcCut > 0.02;
 
     // ---- throttle shaping ----
     let thrEff = thr;
     if (this.gear === 0 && this.isEV) thrEff = 0;
-    if (this.shifting) {
+    if (this.shifting && this.shiftTimer > 0.3 * this.shiftTime) {
       if (this.shiftDir > 0) thrEff = 0;
       else {
         // rev-match blip toward the new gear's input speed
@@ -420,25 +430,34 @@ class Vehicle {
     if (!this.isEV) {
       let target = 0, rateUp = 8, rateDn = 30;
       if (this.gear === 0) { target = 0; this.clutchLocked = false; }
-      else if (this.shifting) { target = 0; rateDn = 1e3; }
-      else {
+      else if (this.shifting) {
+        // torque interruption: open for the first 70 % of shiftTime, re-engage over the last 30 %
+        const fr = this.shiftTimer / this.shiftTime;
+        target = fr > 0.3 ? 0 : 1 - fr / 0.3; rateDn = 1e3; rateUp = 1e3;
+      } else {
         const rpmIn = Math.abs(drv.inputOmega()) * RPM;
         const slip = Math.abs(drv.omega[0] * RPM - rpmIn);
         if (this.clutchLocked) {
           if (rpmIn < this.idleRpm * 0.9 && !launch) this.clutchLocked = false;
-        } else if (rpmIn > this.idleRpm * 1.0 && slip < 150) this.clutchLocked = true;
+        } else if (this.clutch > 0.97 && slip < 80 && rpmIn > this.idleRpm) {
+          // don't call it synchronised while the driven wheels are spinning up (ground-speed check)
+          const rpmGround = Math.abs(vFwd / this.driveRad * drv.totalRatio()) * RPM;
+          if (Math.abs(drv.omega[0] * RPM - rpmGround) < Math.max(300, 0.15 * rpm)) this.clutchLocked = true;
+        }
         if ((c.handbrake || 0) > 0.5) { this.clutchLocked = false; }
-        if (this.clutchLocked) { target = 1; rateUp = this.sinceShift < 0.5 ? 1 / Math.max(0.03, this.shiftTime) : 4; }
+        if (this.clutchLocked) { target = 1; rateUp = 1e3; }
         else if ((c.handbrake || 0) > 0.5) target = 0;
         else if (launch && brk > 0.1) target = 0;
         else if (launch) { target = 1; rateUp = 6; }
         else {
-          // rpm-based engagement (centrifugal style): capacity rises with crank speed
-          const r0 = this.idleRpm * 1.15;
-          const r1 = Math.max(r0 + 600, r0 + thr * (this.launchRpm * 1.4 - r0));
-          const x = clamp((rpm - r0) / (r1 - r0), 0, 1);
-          target = x * x * (3 - 2 * x);
-          rateUp = 12;
+          // slip-controlled engagement: hold the crank at a throttle-dependent launch speed;
+          // capacity = engine torque (feed-forward) + P on the rpm error. Locks once synchronised.
+          const idle = this.idleRpm;
+          const rpmT = idle * 1.1 + Math.min(1, thr * 1.5) * (this.launchRpm - idle * 1.1);
+          const Te = this.engines[0].torque * this.eff;
+          const cap = (Te > 0 ? Te : 0) + 0.4 * (rpm - rpmT);
+          target = clamp(cap / this.clutchMax, 0, 1);
+          rateUp = 20; rateDn = 20;
         }
       }
       const e = this.clutch;
@@ -621,7 +640,10 @@ class Vehicle {
     const thrEff = this._thrEff;
     for (let u = 0; u < this.engines.length; u++) {
       const slot = this.unitSlot[u], es = this.engines[u], ep = this.units[u].engine;
-      let T = engineUpdate(es, ep, thrEff, wo[slot], dt, env);
+      // EV: engine.js picks the drive direction from sign(ω); we select direction with the
+      // (signed) reduction instead, so the motor is only ever asked to drive forwards.
+      const w = this.isEV && wo[slot] < 0 ? 0 : wo[slot];
+      let T = engineUpdate(es, ep, thrEff, w, dt, env);
       if (es.failed && T > 0) T = 0;
       drv.torque[slot] = T > 0 ? T * this.eff : T;
     }
@@ -750,10 +772,11 @@ class Vehicle {
 
 /**
  * Create a vehicle at `pose` on `track` (z resolved from the track; static equilibrium).
+ * @param {object} [opts] optional: { tyreTempC } initial tyre temperature (default: each tyre's tOpt)
  * @returns {Vehicle}
  */
-export function createVehicle(params, track, pose) {
-  return new Vehicle(params, track, pose);
+export function createVehicle(params, track, pose, opts) {
+  return new Vehicle(params, track, pose, opts);
 }
 
 export { Vehicle };

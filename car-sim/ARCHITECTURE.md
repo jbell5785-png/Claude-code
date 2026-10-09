@@ -238,6 +238,25 @@ Random tracks accept `{ type: 'random', seed, obstacles: n, difficulty: 0..1 }` 
 corners/zigzags). Obstacles sit on the racing surface and must leave a drivable gap (≥ 5 m).
 Car-car and car-wall/obstacle collision physics: separate collision module (wave 2), not owner C.
 
+## 7. AI drivers & Race mode (added — `src/ai/driver.js` orchestrator, extended by F)
+
+```js
+import { createDriver, registerDriverKind, DRIVER_HZ } from './src/ai/driver.js';
+const d = createDriver('pursuit', { skill: 0.85, aggression: 0.5 }); // built-in racing-line driver
+d.reset(vehicle, track);
+d.act(vehicle, track, { cars: allVehicles, time }, controlsOut);     // call at DRIVER_HZ (50 Hz)
+registerDriverKind('neural', opts => ...)                              // F adds learned drivers
+```
+
+`src/ai/racingline.js`: `racingLine(track)` (min-curvature line, obstacle-aware, cached) and
+`speedProfile(line, params, skill)`.
+
+**Race mode (E)**: player car (garage build) + up to 7 AI cars on `track.startPose(slot)`; each AI
+car = { spec (preset or team car.json), driver kind + opts }; start lights, live positions by
+lap timer progress, lap count selection, gaps, results table with best laps; spectate any car.
+Cars are ghosts until the collision module (wave 2) lands; then it is called once per step
+with all vehicles.
+
 ## Physics model summary (for orientation)
 
 - 6-DOF sprung rigid body + 4 unsprung masses with vertical DOF, coil-over spring/damper, anti-roll bars,

@@ -3,12 +3,12 @@ import { turtle } from './util.js';
 
 export function speedwayDef() {
   const t = turtle([
-    { s: 210, start: true, startAt: 150, w: 14, bank: 5 },  // front stretch, first leg
+    { s: 170, start: true, startAt: 120, w: 14, bank: 5 },  // front stretch, first leg
     { r: 600, a: 24, bank: 9 },                              // tri-oval dogleg
-    { s: 210, bank: 5 },                                     // front stretch, second leg
-    { r: 250, a: 168, bank: 22 },                            // turns 1-2
+    { s: 170, bank: 5 },                                     // front stretch, second leg
+    { r: 235, a: 168, bank: 22 },                            // turns 1-2
     { s: 300, bank: 4 },                                     // back straight
-    { r: 250, a: 168, bank: 22 },                            // turns 3-4
+    { r: 235, a: 168, bank: 22 },                            // turns 3-4
   ], { width: 14, step: 15, close: [0, 4] });
   return {
     key: 'speedway', label: 'Speedway (tri-oval)', points: t.points, width: 14,

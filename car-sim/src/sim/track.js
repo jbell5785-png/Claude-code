@@ -17,12 +17,15 @@
 
 import { SURFACE } from './constants.js';
 import { rng, hashString } from './tracks/util.js';
+import { buildSamples, computeFrame, boxCirc, minFilterCirc } from './tracks/geometry.js';
+import { buildRaycaster } from './tracks/raycast.js';
 import { gpDef } from './tracks/gp.js';
 import { clubDef } from './tracks/club.js';
 import { speedwayDef } from './tracks/speedway.js';
 import { mountainDef } from './tracks/mountain.js';
 import { skidpadDef, dragDef } from './tracks/testtracks.js';
 import { randomTrackDef } from './tracks/random.js';
+import { gauntletDef } from './tracks/gauntlet.js';
 
 export { createLapTimer } from './laptimer.js';
 
@@ -34,8 +37,12 @@ export const TRACKS = {
   mountain: { label: 'Mountain Loop', build: mountainDef },
   skidpad: { label: 'Skidpad (50 m radius)', build: skidpadDef },
   drag: { label: 'Drag Oval (1.6 km straights)', build: dragDef },
+  gauntlet: { label: 'Gauntlet (held-out test)', build: gauntletDef },
   random: { label: 'Random (seeded)', build: (seed = 1) => randomTrackDef(seed) },
 };
+
+/** Raycast mask bits / hit kinds. */
+export const RAY = { EDGE: 1, WALL: 2, OBSTACLE: 4 };
 
 // Cross-section constants.
 export const KERB_W = 1.1;          // m, kerb width outside the asphalt edge
@@ -59,183 +66,6 @@ function resolveDef(keyOrDef) {
   if (keyOrDef && keyOrDef.type === 'random') return randomTrackDef(keyOrDef.seed ?? 1, keyOrDef);
   if (keyOrDef && keyOrDef.points) return keyOrDef;
   throw new Error('createTrack: expected a track key or a track definition with points');
-}
-
-// ---------------------------------------------------------------------------------------------
-// Centreline construction
-// ---------------------------------------------------------------------------------------------
-
-function normalisePoints(def) {
-  const W = def.width ?? 12;
-  const out = [];
-  for (const p of def.points) {
-    let q;
-    if (Array.isArray(p)) q = { x: p[0], y: p[1], z: p[2] ?? 0, w: p[3] ?? W, b: p[4] ?? 0 };
-    else q = { x: p.x, y: p.y, z: p.z ?? 0, w: p.width ?? p.w ?? W, b: p.bank ?? 0 };
-    const last = out[out.length - 1];
-    if (last && Math.hypot(q.x - last.x, q.y - last.y, q.z - last.z) < 1e-6) continue;
-    out.push(q);
-  }
-  while (out.length > 1) { // drop a duplicated closing point
-    const a = out[0], b = out[out.length - 1];
-    if (Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) < 1e-6) out.pop(); else break;
-  }
-  if (out.length < 4) throw new Error('track needs at least 4 distinct control points');
-  return out;
-}
-
-/** Dense centripetal Catmull–Rom evaluation of the closed loop. */
-function catmullRomDense(P, step) {
-  const m = P.length;
-  const xs = [], ys = [], zs = [], ws = [], bs = [];
-  const dist = (a, b) => Math.max(1e-6, Math.hypot(b.x - a.x, b.y - a.y, b.z - a.z));
-  for (let k = 0; k < m; k++) {
-    const p0 = P[(k - 1 + m) % m], p1 = P[k], p2 = P[(k + 1) % m], p3 = P[(k + 2) % m];
-    const t0 = 0, t1 = t0 + Math.sqrt(dist(p0, p1));
-    const t2 = t1 + Math.sqrt(dist(p1, p2)), t3 = t2 + Math.sqrt(dist(p2, p3));
-    const nsub = Math.max(2, Math.ceil(dist(p1, p2) / step));
-    for (let j = 0; j < nsub; j++) {
-      const u = j / nsub, t = t1 + (t2 - t1) * u;
-      const ev = (c) => {
-        const a1 = ((t1 - t) * p0[c] + (t - t0) * p1[c]) / (t1 - t0);
-        const a2 = ((t2 - t) * p1[c] + (t - t1) * p2[c]) / (t2 - t1);
-        const a3 = ((t3 - t) * p2[c] + (t - t2) * p3[c]) / (t3 - t2);
-        const b1 = ((t2 - t) * a1 + (t - t0) * a2) / (t2 - t0);
-        const b2 = ((t3 - t) * a2 + (t - t1) * a3) / (t3 - t1);
-        return ((t2 - t) * b1 + (t - t1) * b2) / (t2 - t1);
-      };
-      xs.push(ev('x')); ys.push(ev('y')); zs.push(ev('z'));
-      ws.push(p1.w + (p2.w - p1.w) * u); bs.push(p1.b + (p2.b - p1.b) * u);
-    }
-  }
-  return { xs, ys, zs, ws, bs };
-}
-
-/** Linear resample of a closed polyline (with attributes) at uniform 3D arc-length spacing h. */
-function resampleLinear(cols, h) {
-  const { xs, ys, zs } = cols;
-  const N = xs.length;
-  const cum = new Float64Array(N + 1);
-  for (let i = 0; i < N; i++) {
-    const j = (i + 1) % N;
-    cum[i + 1] = cum[i] + Math.hypot(xs[j] - xs[i], ys[j] - ys[i], zs[j] - zs[i]);
-  }
-  const L = cum[N];
-  const M = Math.max(64, Math.round(L / h));
-  const keys = Object.keys(cols);
-  const out = {};
-  for (const k of keys) out[k] = new Float64Array(M);
-  let seg = 0;
-  for (let q = 0; q < M; q++) {
-    const s = (L * q) / M;
-    while (seg < N - 1 && cum[seg + 1] <= s) seg++;
-    const j = (seg + 1) % N;
-    const f = (s - cum[seg]) / Math.max(1e-12, cum[seg + 1] - cum[seg]);
-    for (const k of keys) out[k][q] = cols[k][seg] + (cols[k][j] - cols[k][seg]) * f;
-  }
-  return { cols: out, L, M };
-}
-
-/** Circular Gaussian smoothing (sigma in samples). */
-function smoothCirc(a, sigma) {
-  const N = a.length;
-  if (!(sigma > 0.3)) return Float64Array.from(a);
-  const r = Math.min(Math.floor(N / 2) - 1, Math.ceil(3 * sigma));
-  const w = new Float64Array(2 * r + 1);
-  let sw = 0;
-  for (let k = -r; k <= r; k++) { w[k + r] = Math.exp((-0.5 * k * k) / (sigma * sigma)); sw += w[k + r]; }
-  for (let k = 0; k < w.length; k++) w[k] /= sw;
-  const out = new Float64Array(N);
-  for (let i = 0; i < N; i++) {
-    let acc = 0;
-    for (let k = -r; k <= r; k++) {
-      let j = i + k;
-      if (j < 0) j += N; else if (j >= N) j -= N;
-      acc += w[k + r] * a[j];
-    }
-    out[i] = acc;
-  }
-  return out;
-}
-
-function boxCirc(a, r, passes = 1) {
-  let cur = Float64Array.from(a);
-  const N = a.length;
-  for (let p = 0; p < passes; p++) {
-    const out = new Float64Array(N);
-    for (let i = 0; i < N; i++) {
-      let acc = 0;
-      for (let k = -r; k <= r; k++) acc += cur[(i + k + N) % N];
-      out[i] = acc / (2 * r + 1);
-    }
-    cur = out;
-  }
-  return cur;
-}
-
-function minFilterCirc(a, r) {
-  const N = a.length, out = new Float64Array(N);
-  for (let i = 0; i < N; i++) {
-    let m = Infinity;
-    for (let k = -r; k <= r; k++) { const v = a[(i + k + N) % N]; if (v < m) m = v; }
-    out[i] = m;
-  }
-  return out;
-}
-
-function maxFilterCirc(a, r) {
-  const N = a.length, out = new Float64Array(N);
-  for (let i = 0; i < N; i++) {
-    let m = -Infinity;
-    for (let k = -r; k <= r; k++) { const v = a[(i + k + N) % N]; if (v > m) m = v; }
-    out[i] = m;
-  }
-  return out;
-}
-
-const wrapAngle = (a) => a - TWO_PI * Math.round(a / TWO_PI);
-
-function buildSamples(def) {
-  const P = normalisePoints(def);
-  const dense = catmullRomDense(P, 0.2);
-  const h = 0.25;
-  const { cols, L: L0 } = resampleLinear({ xs: dense.xs, ys: dense.ys, zs: dense.zs, ws: dense.ws, bs: dense.bs }, h);
-  const sig = (m) => m / h;
-  const sx = smoothCirc(cols.xs, sig(def.smooth ?? 4));
-  const sy = smoothCirc(cols.ys, sig(def.smooth ?? 4));
-  const sz = smoothCirc(cols.zs, sig(def.zSmooth ?? def.smooth ?? 4));
-  const sw = smoothCirc(cols.ws, sig(def.widthSmooth ?? 10));
-  const sb = smoothCirc(cols.bs, sig(def.bankSmooth ?? 15));
-  const M = sx.length;
-  // cumulative length of the smoothed polyline
-  const cum = new Float64Array(M + 1);
-  for (let i = 0; i < M; i++) {
-    const j = (i + 1) % M;
-    cum[i + 1] = cum[i] + Math.hypot(sx[j] - sx[i], sy[j] - sy[i], sz[j] - sz[i]);
-  }
-  const L = cum[M];
-  const n = Math.max(32, Math.round(L / (def.ds ?? 1)));
-  const ds = L / n;
-  const startS = (((def.startFrac ?? 0) % 1) + 1) % 1 * L;
-  const X = new Float64Array(n), Y = new Float64Array(n), Z = new Float64Array(n);
-  const Wd = new Float64Array(n), B = new Float64Array(n);
-  const cr = (a, i, f) => {
-    const p0 = a[(i - 1 + M) % M], p1 = a[i], p2 = a[(i + 1) % M], p3 = a[(i + 2) % M];
-    const f2 = f * f, f3 = f2 * f;
-    return 0.5 * (2 * p1 + (-p0 + p2) * f + (2 * p0 - 5 * p1 + 4 * p2 - p3) * f2 + (-p0 + 3 * p1 - 3 * p2 + p3) * f3);
-  };
-  for (let k = 0; k < n; k++) {
-    let s = startS + k * ds;
-    if (s >= L) s -= L;
-    // binary search interval
-    let lo = 0, hi = M - 1;
-    while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (cum[mid] <= s) lo = mid; else hi = mid - 1; }
-    const f = (s - cum[lo]) / Math.max(1e-12, cum[lo + 1] - cum[lo]);
-    X[k] = cr(sx, lo, f); Y[k] = cr(sy, lo, f); Z[k] = cr(sz, lo, f);
-    Wd[k] = sw[lo] + (sw[(lo + 1) % M] - sw[lo]) * f;
-    B[k] = sb[lo] + (sb[(lo + 1) % M] - sb[lo]) * f;
-  }
-  return { n, ds, L, X, Y, Z, Wd, B, rawLength: L0, startS };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -440,26 +270,7 @@ export function createTrack(keyOrDef) {
   const seed = hashString(String(def.key ?? def.label ?? 'track') + ':' + (def.seed ?? 0));
 
   // --- differential geometry
-  const TX = new Float64Array(n), TY = new Float64Array(n), TZ = new Float64Array(n);
-  const NX = new Float64Array(n), NY = new Float64Array(n);
-  const HD = new Float64Array(n), GR = new Float64Array(n);
-  for (let i = 0; i < n; i++) {
-    const a = (i - 1 + n) % n, b = (i + 1) % n;
-    let tx = X[b] - X[a], ty = Y[b] - Y[a], tz = Z[b] - Z[a];
-    const l = Math.hypot(tx, ty, tz);
-    tx /= l; ty /= l; tz /= l;
-    TX[i] = tx; TY[i] = ty; TZ[i] = tz;
-    const lh = Math.hypot(tx, ty);
-    NX[i] = -ty / lh; NY[i] = tx / lh;
-    HD[i] = Math.atan2(ty, tx);
-    GR[i] = (Z[b] - Z[a]) / (2 * ds);
-  }
-  let KAP = new Float64Array(n);
-  for (let i = 0; i < n; i++) {
-    const a = (i - 1 + n) % n, b = (i + 1) % n;
-    KAP[i] = wrapAngle(HD[b] - HD[a]) / Math.hypot(X[b] - X[a], Y[b] - Y[a]);
-  }
-  KAP = boxCirc(KAP, 1, 2);
+  const { TX, TY, TZ, NX, NY, GR, KAP } = computeFrame(S);
   // vertical curvature (for stats / AI): d(grade)/ds
   const KV = new Float64Array(n);
   for (let i = 0; i < n; i++) KV[i] = (GR[(i + 1) % n] - GR[(i - 1 + n) % n]) / (2 * ds);
@@ -485,7 +296,7 @@ export function createTrack(keyOrDef) {
     for (let side = 0; side < 2; side++) {
       const sg = side === 0 ? 1 : -1;
       let f = DMAX;
-      for (let d = 1; d <= DMAX; d += 1) {
+      for (let d = 1; d <= DMAX; d += d < 20 ? 1 : 2) {
         const j = nearest(X[i] + sg * d * NX[i], Y[i] + sg * d * NY[i]);
         let dj = Math.abs(j - i); if (dj > n / 2) dj = n - dj;
         if (dj > local) { f = d - 0.5; break; }
@@ -633,14 +444,6 @@ export function createTrack(keyOrDef) {
       _t = t >= 0 ? (t <= 1 ? t : 1) : 0;
     }
     return i;
-  }
-
-  /** Lateral distance outside the asphalt edge for (segment i, current _t, _o). */
-  function edgeDist(i) {
-    const j = i + 1 === n ? 0 : i + 1;
-    const t = _t;
-    if (_o >= 0) return { e: _o - (WL[i] + t * (WL[j] - WL[i])), end: EL[i] + t * (EL[j] - EL[i]) };
-    return { e: -_o - (WR[i] + t * (WR[j] - WR[i])), end: ER[i] + t * (ER[j] - ER[i]) };
   }
 
   /** True if the projection (_t,_o) on segment i lies in the region owned by that segment. */
@@ -807,9 +610,8 @@ export function createTrack(keyOrDef) {
     const p = pointAt(s);
     const lat = Math.min(p.widthL, p.widthR) * 0.42;
     const off = slot % 2 === 0 ? lat : -lat;
-    const pose = { x: p.x + off * p.nx, y: p.y + off * p.ny, z: 0, heading: p.heading, s: p.s ?? ((s % L) + L) % L, offset: off };
-    pose.s = ((s % L) + L) % L;
-    pose.z = heightAt(pose.x, pose.y);
+    const pose = { x: p.x + off * p.nx, y: p.y + off * p.ny, z: 0, heading: p.heading, s: ((s % L) + L) % L, offset: off };
+    pose.z = heightAt(pose.x, pose.y, p.index);
     return pose;
   }
 
@@ -829,6 +631,94 @@ export function createTrack(keyOrDef) {
     if (_q.offset >= 0) return _q.offset - (WL[i] + tt * (WL[j] - WL[i]));
     return -_q.offset - (WR[i] + tt * (WR[j] - WR[i]));
   }
+
+  // --- walls: barrier polylines (both sides) at the outer edge of the run-off
+  const bdef = def.barrier || {};
+  const barrierOff = (i, side) => {
+    const E = side > 0 ? EL[i] : ER[i];
+    const fixed = side > 0 ? (bdef.offsetL ?? bdef.offset) : (bdef.offsetR ?? bdef.offset);
+    if (fixed != null) return Math.max(KERB_W + 0.3, Math.min(fixed, E - 0.3));
+    const g = side > 0 ? GLs[i] : GRs[i];
+    const gEnd = side > 0 ? GEL[i] : GER[i];
+    const R0 = side > 0 ? RL[i] : RR[i];
+    const b = Math.max(R0 + 1.5, g > 0.05 ? gEnd + 1.5 : 0);
+    return Math.max(KERB_W + 0.5, Math.min(b, E * 0.9));
+  };
+  const wallStep = Math.max(1, Math.round(3 / ds));
+  const wallLines = [];
+  const segList = [], kindList = [];
+  for (const side of [1, -1]) {
+    const pts = [];
+    for (let i = 0; i < n; i += wallStep) {
+      const off = side * ((side > 0 ? WL[i] : WR[i]) + barrierOff(i, side));
+      pts.push(X[i] + off * NX[i], Y[i] + off * NY[i]);
+    }
+    wallLines.push({ side, pts, offsets: null });
+    const m = pts.length / 2;
+    for (let k = 0; k < m; k++) {
+      const k2 = (k + 1) % m;
+      segList.push(pts[2 * k], pts[2 * k + 1], pts[2 * k2], pts[2 * k2 + 1]); kindList.push(RAY.WALL);
+    }
+  }
+  const wallSegCount = kindList.length;
+  const walls = { segs: Float32Array.from(segList), n: wallSegCount, height: bdef.height ?? 0.9 };
+
+  // --- edge lines (asphalt + kerb boundary) for raycasts
+  const edgeStep = Math.max(1, Math.round(2 / ds));
+  const edgeLines = [];
+  for (const side of [1, -1]) {
+    const pts = [];
+    for (let i = 0; i < n; i += edgeStep) {
+      const k = side > 0 ? KLs[i] : KRs[i];
+      const off = side * ((side > 0 ? WL[i] : WR[i]) + KERB_W * Math.min(1, Math.max(0, k)));
+      pts.push(X[i] + off * NX[i], Y[i] + off * NY[i]);
+    }
+    edgeLines.push({ side, pts: Float32Array.from(pts) });
+    const m = pts.length / 2;
+    for (let k = 0; k < m; k++) {
+      const k2 = (k + 1) % m;
+      segList.push(pts[2 * k], pts[2 * k + 1], pts[2 * k2], pts[2 * k2 + 1]); kindList.push(RAY.EDGE);
+    }
+  }
+
+  // --- obstacles on the racing surface ({ s | f, offset, kind, ... } → world coordinates)
+  const obstacles = [];
+  const circles = [];
+  const pa = {};
+  for (const od of def.obstacles || []) {
+    const s0 = od.s != null ? od.s : (od.f ?? 0) * L;
+    pointAt(s0, pa);
+    const kind = od.kind === 'box' ? 'box' : 'cylinder';
+    const rel = ((od.heading ?? 0) * Math.PI) / 180;
+    const hx = od.hx ?? 1, hy = od.hy ?? 1, r = od.r ?? 0.6;
+    const ext = kind === 'box' ? Math.abs(hx * Math.sin(rel)) + Math.abs(hy * Math.cos(rel)) : r;
+    let off = od.offset ?? 0;
+    const MIN_GAP = 5.0;
+    let gapL = pa.widthL - (off + ext), gapR = pa.widthR + (off - ext);
+    let adjusted = false;
+    if (Math.max(gapL, gapR) < MIN_GAP) {
+      adjusted = true;
+      if (gapL >= gapR) off = pa.widthL - ext - MIN_GAP; else off = -pa.widthR + ext + MIN_GAP;
+      gapL = pa.widthL - (off + ext); gapR = pa.widthR + (off - ext);
+    }
+    const x = pa.x + off * pa.nx, y = pa.y + off * pa.ny;
+    const o = { kind, x, y, z: 0, s: ((s0 % L) + L) % L, offset: off, h: od.h ?? (kind === 'box' ? 1.0 : 1.2), gapL, gapR, adjusted };
+    if (kind === 'cylinder') {
+      o.r = r;
+      circles.push({ x, y, r, kind: RAY.OBSTACLE });
+    } else {
+      o.hx = hx; o.hy = hy; o.heading = pa.heading + rel;
+      const c = Math.cos(o.heading), sn = Math.sin(o.heading);
+      const cx = [hx, -hx, -hx, hx], cy = [hy, hy, -hy, -hy];
+      const P = cx.map((_, k) => [x + c * cx[k] - sn * cy[k], y + sn * cx[k] + c * cy[k]]);
+      for (let k = 0; k < 4; k++) {
+        const q2 = P[(k + 1) % 4];
+        segList.push(P[k][0], P[k][1], q2[0], q2[1]); kindList.push(RAY.OBSTACLE);
+      }
+    }
+    obstacles.push(o);
+  }
+  const raycast = buildRaycaster(segList, kindList, circles, def.rayCell ?? 10);
 
   // --- stats
   let zMin = Infinity, zMax = -Infinity, kMax = 0, bankMax = 0, gradeMax = 0, wSum = 0, kvMax = 0;
@@ -886,12 +776,14 @@ export function createTrack(keyOrDef) {
     terrain,
     surfaces: SURFACE,
     kerbWidth: KERB_W,
+    walls, obstacles, edgeLines, raycast, RAY,
     query, pointAt, startPose, heightAt, edgeDistance,
     terrainHeight: (x, y) => evalT(x, y).h,
     nearestIndex: nearest,
     scenery: null,
   };
-  track.scenery = buildScenery(track, def, seed);
+  for (const o of obstacles) o.z = heightAt(o.x, o.y);
+  track.scenery = buildScenery(track, def, seed, wallLines, barrierOff);
   return track;
 }
 
@@ -899,7 +791,7 @@ export function createTrack(keyOrDef) {
 // Scenery (renderer data). Deterministic per track.
 // ---------------------------------------------------------------------------------------------
 
-function buildScenery(track, def, seed) {
+function buildScenery(track, def, seed, wallLines, barrierOff) {
   const r = rng(seed ^ 0x2545f491);
   const S = track.samples;
   const { n, ds } = S;
@@ -909,31 +801,16 @@ function buildScenery(track, def, seed) {
   const p = {};
   const q = { s: 0, offset: 0, height: 0, nx: 0, ny: 0, nz: 1, surface: 0, index: 0 };
 
-  // barrier offset (outside the asphalt edge) per side
-  const barrierOff = (i, side) => {
-    const E = side > 0 ? S.edgeL[i] : S.edgeR[i];
-    const fixed = side > 0 ? (bdef.offsetL ?? bdef.offset) : (bdef.offsetR ?? bdef.offset);
-    if (fixed != null) return Math.max(KERB_W + 0.3, Math.min(fixed, E - 0.3));
-    const g = side > 0 ? S.gravelL[i] : S.gravelR[i];
-    const gEnd = side > 0 ? S.gravelEndL[i] : S.gravelEndR[i];
-    const R0 = side > 0 ? S.runoffL[i] : S.runoffR[i];
-    let b = Math.max(R0 + 1, g > 0.2 ? gEnd + 1.5 : 0);
-    return Math.max(KERB_W + 0.5, Math.min(b, E * 0.9));
-  };
-  const step = Math.max(1, Math.round(4 / ds));
   const barriers = [];
-  const sides = bdef.sides ?? [1, -1];
-  for (const side of sides) {
+  for (const wl of wallLines) {
     const pts = [];
-    for (let i = 0; i < n; i += step) {
-      const w = side > 0 ? S.widthL[i] : S.widthR[i];
-      const off = side * (w + barrierOff(i, side));
-      const x = S.x[i] + off * S.nx[i], y = S.y[i] + off * S.ny[i];
-      pts.push(x, y, track.query(x, y, i, q).height);
+    let hint = 0;
+    for (let k = 0; k < wl.pts.length; k += 2) {
+      track.query(wl.pts[k], wl.pts[k + 1], hint, q); hint = q.index;
+      pts.push(wl.pts[k], wl.pts[k + 1], q.height);
     }
-    barriers.push({ side: side > 0 ? 'left' : 'right', kind: bdef.kind ?? 'armco', height: bdef.height ?? 0.8, closed: true, points: Float32Array.from(pts) });
+    barriers.push({ side: wl.side > 0 ? 'left' : 'right', kind: bdef.kind ?? 'armco', height: track.walls.height, closed: true, points: Float32Array.from(pts), fence: bdef.fence ?? 0 });
   }
-  if (bdef.fence) barriers.forEach((b) => (b.fence = bdef.fence));
 
   // start / finish gantry
   track.pointAt(0, p);
@@ -1014,5 +891,5 @@ function buildScenery(track, def, seed) {
       trees.push({ x, y, z: q.height, scale: 0.7 + 0.7 * r(), rot: r() * TWO_PI, kind: r() < 0.6 ? 0 : 1 });
     }
   }
-  return { trees, barriers, gantry, grandstands, marshalPosts, bounds: track.bounds };
+  return { trees, barriers, gantry, grandstands, marshalPosts, obstacles: track.obstacles, bounds: track.bounds };
 }
