@@ -341,7 +341,7 @@ export function shareBattery(states) {
  * @param {number} throttle 0..1 driver demand
  * @param {number} omega crank (or motor) speed rad/s
  * @param {number} dt s
- * @param {object} [env] { regen, ambientT (K, or C if < 150), ambientP (Pa) }
+ * @param {object} [env] { regen, ambientT (K, or C if < 150), ambientP (Pa), nitrous (bool), reverse (bool, EV: drive backwards) }
  */
 export function engineUpdate(es, ep, throttle, omega, dt, env) {
   if (ep.isEV) return motorUpdate(es, ep, throttle, omega, dt, env);
@@ -589,10 +589,13 @@ function motorUpdate(es, ep, throttle, omega, dt, env) {
     const pReg = ep.regenPower * chargeOk;
     tReg = Math.min(ep.regenTorque, pReg / (aw > 1 ? aw : 1)) * regen * clamp(aw / 30, 0, 1);
   }
-  const sgn = omega >= 0 ? 1 : -1;
+  // Drive torque follows the COMMANDED direction (forward unless env.reverse), never the sign of a
+  // (possibly tiny, noisy) shaft speed; regen always opposes rotation and fades out near standstill.
+  const dir = env && env.reverse === true ? -1 : 1;
+  const rotSgn = omega >= 0 ? 1 : -1;
   // drag: bearings + windage
   const tDrag = (0.3 + 0.0002 * aw) * Math.tanh(omega / 5);
-  torque = sgn * (torque - tReg) - tDrag;
+  torque = dir * torque - rotSgn * tReg - tDrag;
   // battery energy
   const pOut = (torque + tDrag) * omega;           // mechanical power delivered by the motor (signed)
   const pBatt = pOut >= 0 ? pOut / eta : pOut * eta;

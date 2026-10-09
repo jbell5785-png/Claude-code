@@ -55,7 +55,7 @@ export const PRESETS = {
       name: 'Muscle V8', chassis: 'sedan', powertrain: 'ice',
       engine: { layout: 'V8', displacement: 5.0, placement: 'front', induction: 'na', boost: 0, intercooler: 'none',
         fuel: 'petrol98', fuelSystem: 'sport', cams: 'stock', intake: 'stock', exhaust: 'sport', internals: 'stock', flywheel: 'stock', ecu: 'stock', antiLag: false, nitrous: 'sport' },
-      drivetrain: { layout: 'RWD', gearbox: 'mt6', finalDrive: 3.73, frontDiff: 'open', rearDiff: 'lsd1way', centreDiff: 'open', centreSplit: 0 },
+      drivetrain: { layout: 'RWD', gearbox: 'mt6', finalDrive: 3.15, frontDiff: 'open', rearDiff: 'lsd1way', centreDiff: 'open', centreSplit: 0 },
       suspension: { type: 'solidAxle', dampers: 'sport', springF: 38, springR: 32, arbF: 28, arbR: 10, damping: 0.32, rideHeight: 0, camberF: -0.8, camberR: 0, toeF: 0, toeR: 0 },
       tyres: { compound: 'sport', widthF: 255, widthR: 285 },
       brakes: { kit: 'sport', bias: 0.66 },
@@ -111,7 +111,7 @@ export const PRESETS = {
     targets: { zeroTo100s: 3.4, topSpeedKph: 261, brake100to0m: 34.0, lateralG: 0.98, quarterMileS: 11.7 },
     spec: {
       name: 'EV saloon', chassis: 'sedan', powertrain: 'ev',
-      ev: { front: 'small', rear: 'medium', battery: 'b80' },
+      ev: { front: 'medium', rear: 'medium', battery: 'b60' },   // pack power limit (~370 kW) sets the peak, like the real car
       drivetrain: { layout: 'AWD', gearbox: 'ev1', finalDrive: 7.2, frontDiff: 'open', rearDiff: 'open', centreDiff: 'open', centreSplit: 0.4 },
       suspension: { type: 'doubleWishbone', dampers: 'sport', springF: 40, springR: 42, arbF: 25, arbR: 18, damping: 0.35, rideHeight: -10, camberF: -1.0, camberR: -1.2, toeF: 0, toeR: 0.15 },
       tyres: { compound: 'sport', widthF: 235, widthR: 235 },
@@ -129,14 +129,14 @@ export const PRESETS = {
     targets: { zeroTo100s: 9.0, topSpeedKph: null, brake100to0m: null, lateralG: null, quarterMileS: null },
     spec: {
       name: 'Kei car', chassis: 'kei', powertrain: 'ice',
-      engine: { layout: 'I3', displacement: 0.66, placement: 'front', induction: 'turboSmall', boost: 0.7, intercooler: 'stock',
+      engine: { layout: 'I3', displacement: 0.66, placement: 'front', induction: 'turboSmall', boost: 0.9, intercooler: 'stock',
         fuel: 'petrol95', fuelSystem: 'stock', cams: 'stock', intake: 'stock', exhaust: 'stock', internals: 'stock', flywheel: 'stock', ecu: 'stock', antiLag: false },
       drivetrain: { layout: 'FWD', gearbox: 'mt5', finalDrive: 4.8, frontDiff: 'open', rearDiff: 'open', centreDiff: 'open', centreSplit: 1 },
       suspension: { type: 'macpherson', dampers: 'stock', springF: 22, springR: 20, arbF: 10, arbR: 0, damping: 0.3, rideHeight: 0, camberF: -0.5, camberR: -1.0, toeF: 0, toeR: 0.1 },
       tyres: { compound: 'street', widthF: 165, widthR: 165 },
       brakes: { kit: 'stock', bias: 0.72 },
       aero: { splitter: 'none', wing: 'none', wingAngle: 8, diffuser: 'none', bodyKit: 'stock' },
-      weight: { reduction: 'none', ballastKg: 0, ballastPos: 0.5 },
+      weight: { reduction: 'light', ballastKg: 0, ballastPos: 0.5 },
       electronics: 'abs', fuelLitres: 27, steering: { ratio: 15.0, maxLock: 38, ackermann: 0.8 }, color: '#f2e6b0',
     },
   }),
@@ -145,7 +145,9 @@ export const PRESETS = {
     label: 'Time-attack aero build',
     description: 'Big-turbo AWD saloon on E85 with slicks, huge wing and flat floor. Built for one fast lap.',
     // Loosely after Evo/GT-R-based time-attack cars (~450 kW, ~1250 kg, >1.8 g with aero). No reliable stock figures.
-    targets: { zeroTo100s: null, topSpeedKph: null, brake100to0m: null, lateralG: 1.7, quarterMileS: null },
+    // lateralG null: the reference ~1.7 g is a high-speed-corner figure with full downforce; a 50 m skidpad
+    // (~100 km/h) gives only ~5 % extra load from aero, so it measures mechanical grip only.
+    targets: { zeroTo100s: null, topSpeedKph: null, brake100to0m: null, lateralG: null, quarterMileS: null },
     spec: {
       name: 'Time attack', chassis: 'coupe', powertrain: 'ice',
       engine: { layout: 'I4', displacement: 2.0, placement: 'front', induction: 'turboLarge', boost: 2.0, intercooler: 'fmic',
@@ -187,10 +189,10 @@ export const PRESETS = {
     spec: {
       name: 'Diesel pickup', chassis: 'pickup', powertrain: 'ice',
       engine: { layout: 'I4', displacement: 2.7, placement: 'front', induction: 'turboMedium', boost: 1.6, intercooler: 'stock',
-        fuel: 'diesel', fuelSystem: 'street', cams: 'stock', intake: 'stock', exhaust: 'stock', internals: 'stock', flywheel: 'stock', ecu: 'stage1', antiLag: false },
+        fuel: 'diesel', fuelSystem: 'street', cams: 'stock', intake: 'stock', exhaust: 'stock', internals: 'stock', flywheel: 'stock', ecu: 'stock', antiLag: false },
       drivetrain: { layout: 'AWD', gearbox: 'at8', finalDrive: 3.9, frontDiff: 'open', rearDiff: 'lsd1way', centreDiff: 'locked', centreSplit: 0.5 },
-      suspension: { type: 'solidAxle', dampers: 'stock', springF: 60, springR: 65, arbF: 20, arbR: 0, damping: 0.3, rideHeight: 0, camberF: -0.3, camberR: 0, toeF: 0, toeR: 0 },
-      tyres: { compound: 'eco', widthF: 265, widthR: 265 },
+      suspension: { type: 'solidAxle', dampers: 'stock', springF: 60, springR: 65, arbF: 60, arbR: 0, damping: 0.3, rideHeight: 60, camberF: -0.3, camberR: 0, toeF: 0, toeR: 0 },
+      tyres: { compound: 'rally', widthF: 245, widthR: 245 },   // all-terrain tyres
       brakes: { kit: 'stock', bias: 0.72 },
       aero: { splitter: 'none', wing: 'none', wingAngle: 8, diffuser: 'none', bodyKit: 'stock' },
       weight: { reduction: 'none', ballastKg: 0, ballastPos: 0.5 },

@@ -215,6 +215,20 @@ for (const [m, b] of [['small', 'b60'], ['medium', 'b80'], ['large', 'b100'], ['
   console.log(`EV energy: 1 s WOT used ${((e0 - e1) * 3600).toFixed(0)} kJ; 1 s full regen torque ${es.torque.toFixed(0)} Nm, recovered ${((es.batteryKwh - e1) * 3600).toFixed(0)} kJ, SoC ${es.soc.toFixed(4)}`);
 }
 
+// ----- EV drive direction (regression: direction must not follow the sign of a tiny shaft speed)
+{
+  const ep = makeMotorParams('medium', 'b60'); const es = createEngineState(ep);
+  es.batteryKwh = 0.5 * ep.batteryKwh;
+  const fwdAtRestNeg = engineUpdate(es, ep, 1, -1e-3, 1 / 500, null);
+  const fwdAtRest = engineUpdate(es, ep, 1, 0, 1 / 500, { reverse: false });
+  const revAtRest = engineUpdate(es, ep, 1, 1e-3, 1 / 500, { reverse: true });
+  const regenFwd = engineUpdate(es, ep, 0, 300, 1 / 500, { regen: 1 });
+  const regenRev = engineUpdate(es, ep, 0, -300, 1 / 500, { regen: 1, reverse: true });
+  const rollBack = engineUpdate(es, ep, 1, -20, 1 / 500, null);  // rolling backwards, driver wants forward
+  console.log(`EV direction: fwd@-0.001 ${fwdAtRestNeg.toFixed(0)} Nm, fwd@0 ${fwdAtRest.toFixed(0)}, reverse@+0.001 ${revAtRest.toFixed(0)}, regen@+300 ${regenFwd.toFixed(0)}, regen@-300 ${regenRev.toFixed(0)}, fwd while rolling back ${rollBack.toFixed(0)}`);
+  if (!(fwdAtRestNeg > 300 && fwdAtRest > 300 && revAtRest < -300 && regenFwd < -50 && regenRev > 50 && rollBack > 300)) { console.log('FAIL: EV torque direction'); fails++; }
+}
+
 // ----- hot path timing + allocation sanity
 {
   const ep = makeEngineParams(CASES[3].spec); const es = createEngineState(ep);

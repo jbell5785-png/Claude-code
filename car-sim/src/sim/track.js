@@ -72,14 +72,14 @@ function resolveDef(keyOrDef) {
 // Spatial hash over samples (global nearest-sample search)
 // ---------------------------------------------------------------------------------------------
 
-function buildHash(X, Y, n, cell) {
+function buildHash(X, Y, n, cell, margin = cell) {
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   for (let i = 0; i < n; i++) {
     if (X[i] < minX) minX = X[i]; if (X[i] > maxX) maxX = X[i];
     if (Y[i] < minY) minY = Y[i]; if (Y[i] > maxY) maxY = Y[i];
   }
-  const x0 = minX - cell, y0 = minY - cell;
-  const cols = Math.ceil((maxX - x0) / cell) + 2, rows = Math.ceil((maxY - y0) / cell) + 2;
+  const x0 = minX - margin, y0 = minY - margin;
+  const cols = Math.ceil((maxX + margin - x0) / cell) + 1, rows = Math.ceil((maxY + margin - y0) / cell) + 1;
   const count = new Int32Array(cols * rows + 1);
   const cellOf = new Int32Array(n);
   for (let i = 0; i < n; i++) {
@@ -214,20 +214,24 @@ function makeTerrainEval(T) {
     const wy2 = 0.5 * (-3 * v3 + 4 * v2 + v), wy3 = 0.5 * (v3 - v2);
     const dy0 = 0.5 * (-3 * v2 + 4 * v - 1), dy1 = 0.5 * (9 * v2 - 10 * v);
     const dy2 = 0.5 * (-9 * v2 + 8 * v + 1), dy3 = 0.5 * (3 * v2 - 2 * v);
-    let h = 0, gx = 0, gy = 0;
-    for (let b = 0; b < 4; b++) {
-      let yy = iy - 1 + b; if (yy < 0) yy = 0; else if (yy >= rows) yy = rows - 1;
-      const wy = b === 0 ? wy0 : b === 1 ? wy1 : b === 2 ? wy2 : wy3;
-      const dy = b === 0 ? dy0 : b === 1 ? dy1 : b === 2 ? dy2 : dy3;
-      const base = yy * cols;
-      let xm = ix - 1; if (xm < 0) xm = 0;
-      let xp = ix + 1; if (xp >= cols) xp = cols - 1;
-      let xq = ix + 2; if (xq >= cols) xq = cols - 1;
-      const h0 = H[base + xm], h1 = H[base + ix], h2 = H[base + xp], h3 = H[base + xq];
-      const rowV = wx0 * h0 + wx1 * h1 + wx2 * h2 + wx3 * h3;
-      const rowD = dx0 * h0 + dx1 * h1 + dx2 * h2 + dx3 * h3;
-      h += wy * rowV; gx += wy * rowD; gy += dy * rowV;
-    }
+    let xm = ix - 1; if (xm < 0) xm = 0;
+    let xp = ix + 1; if (xp >= cols) xp = cols - 1;
+    let xq = ix + 2; if (xq >= cols) xq = cols - 1;
+    let ym = iy - 1; if (ym < 0) ym = 0;
+    let yp = iy + 1; if (yp >= rows) yp = rows - 1;
+    let yq = iy + 2; if (yq >= rows) yq = rows - 1;
+    let r = ym * cols;
+    let a0 = H[r + xm], a1 = H[r + ix], a2 = H[r + xp], a3 = H[r + xq];
+    const rv0 = wx0 * a0 + wx1 * a1 + wx2 * a2 + wx3 * a3, rd0 = dx0 * a0 + dx1 * a1 + dx2 * a2 + dx3 * a3;
+    r = iy * cols; a0 = H[r + xm]; a1 = H[r + ix]; a2 = H[r + xp]; a3 = H[r + xq];
+    const rv1 = wx0 * a0 + wx1 * a1 + wx2 * a2 + wx3 * a3, rd1 = dx0 * a0 + dx1 * a1 + dx2 * a2 + dx3 * a3;
+    r = yp * cols; a0 = H[r + xm]; a1 = H[r + ix]; a2 = H[r + xp]; a3 = H[r + xq];
+    const rv2 = wx0 * a0 + wx1 * a1 + wx2 * a2 + wx3 * a3, rd2 = dx0 * a0 + dx1 * a1 + dx2 * a2 + dx3 * a3;
+    r = yq * cols; a0 = H[r + xm]; a1 = H[r + ix]; a2 = H[r + xp]; a3 = H[r + xq];
+    const rv3 = wx0 * a0 + wx1 * a1 + wx2 * a2 + wx3 * a3, rd3 = dx0 * a0 + dx1 * a1 + dx2 * a2 + dx3 * a3;
+    const h = wy0 * rv0 + wy1 * rv1 + wy2 * rv2 + wy3 * rv3;
+    const gx = wy0 * rd0 + wy1 * rd1 + wy2 * rd2 + wy3 * rd3;
+    const gy = dy0 * rv0 + dy1 * rv1 + dy2 * rv2 + dy3 * rv3;
     out.h = h;
     out.dx = clampX ? 0 : gx * inv;
     out.dy = clampY ? 0 : gy * inv;
@@ -295,7 +299,12 @@ export function createTrack(keyOrDef) {
   }
 
   // --- spatial hash
-  const hash = buildHash(X, Y, n, 12);
+  // hash grid extends beyond every owned region (asphalt + run-off + terrain blend), so cells
+  // outside it are terrain-only
+  let maxHalfW = 0;
+  for (let i = 0; i < n; i++) maxHalfW = Math.max(maxHalfW, WL[i], WR[i]);
+  const HCELL = 12;
+  const hash = buildHash(X, Y, n, HCELL, maxHalfW + (def.edgeMax ?? 30) + 2 + HCELL);
   const nearest = makeNearest(X, Y, hash);
 
   // --- free lateral distance per side (distance along the normal until another part of the
@@ -380,6 +389,72 @@ export function createTrack(keyOrDef) {
     GER[i] = Math.min(GRAVEL_START + (def.gravelDepth ?? 22), ER[i] - 1.5);
   }
 
+  // --- per hash cell: "owned" flag (some segment's asphalt/run-off/blend region overlaps the
+  //     cell) and an approximate nearest sample (for cheap s/offset of terrain-only queries)
+  const hx0 = hash.x0, hy0 = hash.y0, hcols = hash.cols, hrows = hash.rows, hinv = 1 / HCELL;
+  const cellOwned = new Uint8Array(hcols * hrows);
+  const ownLists = new Array(hcols * hrows);
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const aL = WL[i] + EL[i] + 0.5, bL = WL[j] + EL[j] + 0.5, aR = WR[i] + ER[i] + 0.5, bR = WR[j] + ER[j] + 0.5;
+    const px = [X[i] + aL * NX[i], X[j] + bL * NX[j], X[i] - aR * NX[i], X[j] - bR * NX[j]];
+    const py = [Y[i] + aL * NY[i], Y[j] + bL * NY[j], Y[i] - aR * NY[i], Y[j] - bR * NY[j]];
+    const c0 = Math.max(0, Math.floor((Math.min(...px) - 0.5 - hx0) * hinv)), c1 = Math.min(hcols - 1, Math.floor((Math.max(...px) + 0.5 - hx0) * hinv));
+    const r0 = Math.max(0, Math.floor((Math.min(...py) - 0.5 - hy0) * hinv)), r1 = Math.min(hrows - 1, Math.floor((Math.max(...py) + 0.5 - hy0) * hinv));
+    for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) {
+      const k = c + r * hcols;
+      cellOwned[k] = 1;
+      (ownLists[k] || (ownLists[k] = [])).push(i);
+    }
+  }
+  // compress each cell's owner list into runs of consecutive segment indices
+  const runStart = new Int32Array(hcols * hrows + 1);
+  const runA = [], runLen = [];
+  for (let k = 0; k < hcols * hrows; k++) {
+    const l = ownLists[k];
+    if (l) {
+      l.sort((a, b) => a - b);
+      let a = l[0], prev = l[0];
+      for (let q = 1; q <= l.length; q++) {
+        if (q < l.length && l[q] === prev + 1) { prev = l[q]; continue; }
+        runA.push(a); runLen.push(prev - a + 1);
+        if (q < l.length) { a = l[q]; prev = l[q]; }
+      }
+    }
+    runStart[k + 1] = runA.length;
+  }
+  const RUNA = Int32Array.from(runA), RUNL = Int32Array.from(runLen);
+  const REACH2 = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const r = Math.max(WL[i] + EL[i], WR[i] + ER[i]) + 2.5;
+    REACH2[i] = r * r;
+  }
+  const cellNear = new Int32Array(hcols * hrows).fill(-1);
+  {
+    const cd = new Float64Array(hcols * hrows).fill(Infinity);
+    const ctr = (c) => [hx0 + ((c % hcols) + 0.5) * HCELL, hy0 + (Math.floor(c / hcols) + 0.5) * HCELL];
+    const tryK = (c, k) => {
+      const [cx, cy] = ctr(c);
+      const d = (X[k] - cx) * (X[k] - cx) + (Y[k] - cy) * (Y[k] - cy);
+      if (d < cd[c]) { cd[c] = d; cellNear[c] = k; }
+    };
+    for (let i = 0; i < n; i++) tryK(Math.floor((X[i] - hx0) * hinv) + hcols * Math.floor((Y[i] - hy0) * hinv), i);
+    const fwd = [[-1, 0], [-1, -1], [0, -1], [1, -1]], bwd = [[1, 0], [1, 1], [0, 1], [-1, 1]];
+    for (let pass = 0; pass < 4; pass++) {
+      const nb = pass % 2 ? bwd : fwd;
+      for (let q = 0; q < hcols * hrows; q++) {
+        const c = pass % 2 ? hcols * hrows - 1 - q : q;
+        const cx = c % hcols, cy = (c - cx) / hcols;
+        for (const [ox, oy] of nb) {
+          const xx = cx + ox, yy = cy + oy;
+          if (xx < 0 || yy < 0 || xx >= hcols || yy >= hrows) continue;
+          const k = cellNear[xx + yy * hcols];
+          if (k >= 0) tryK(c, k);
+        }
+      }
+    }
+  }
+
   // --- terrain
   const terrain = buildTerrain(S, def, seed);
   const evalT = makeTerrainEval(terrain);
@@ -403,11 +478,10 @@ export function createTrack(keyOrDef) {
     const c0 = qx * n0y - qy * n0x;
     const c1 = (qx * dny - qy * dnx) - (dx * n0y - dy * n0x);
     const c2 = -(dx * dny - dy * dnx);
-    // c2 is tiny (normal change per segment): linear guess + 2 Newton steps on the quadratic
-    let t = -c0 / c1;
-    t -= (c0 + t * (c1 + c2 * t)) / (c1 + 2 * c2 * t);
-    t -= (c0 + t * (c1 + c2 * t)) / (c1 + 2 * c2 * t);
-    return t;
+    // c2 is tiny (normal change per segment): linear guess + one Newton step on the quadratic
+    // (quadratic convergence: residual ~ (c2 t^2 / c1)^2, far below 1e-12)
+    const t = -c0 / c1;
+    return t - (c0 + t * (c1 + c2 * t)) / (c1 + 2 * c2 * t);
   }
 
   /** Given segment i and local t, compute offset and the gradients of t and offset w.r.t. x,y. */
@@ -447,19 +521,6 @@ export function createTrack(keyOrDef) {
     return -1;
   }
 
-  function globalSeg(x, y) {
-    const j = nearest(x, y);
-    let i = walk(j, x, y, 6);
-    if (i < 0) {
-      // fold / degenerate region: pick the adjacent segment and clamp t
-      let t = solveT(j, x, y);
-      i = j;
-      if (!(t >= 0)) { i = j === 0 ? n - 1 : j - 1; t = solveT(i, x, y); }
-      _t = t >= 0 ? (t <= 1 ? t : 1) : 0;
-    }
-    return i;
-  }
-
   /** True if the projection (_t,_o) on segment i lies in the region owned by that segment. */
   function owned(i) {
     const j = i + 1 === n ? 0 : i + 1;
@@ -483,19 +544,65 @@ export function createTrack(keyOrDef) {
       out.surface = SURFACE.GRASS; out.index = -1;
       return out;
     }
-    let i = -1;
-    if (hint >= 0 && hint < n) {
-      i = walk(hint | 0, x, y, 24);
-      if (i >= 0) {
-        project(i, _t, x, y);
-        if (!owned(i)) i = -1;
+    // cells outside every owned region: terrain only (same height/normal/surface as the full
+    // evaluation would give), cheap s/offset
+    let cx = Math.floor((x - hx0) * hinv), cy = Math.floor((y - hy0) * hinv);
+    let inGrid = true;
+    if (cx < 0) { cx = 0; inGrid = false; } else if (cx >= hcols) { cx = hcols - 1; inGrid = false; }
+    if (cy < 0) { cy = 0; inGrid = false; } else if (cy >= hrows) { cy = hrows - 1; inGrid = false; }
+    const cell = cx + cy * hcols;
+    if (!inGrid || cellOwned[cell] === 0) {
+      let i = -1;
+      if (hint >= 0 && hint < n) i = walk(hint | 0, x, y, 4);
+      return terrainOnly(x, y, i, _t, cell, out);
+    }
+    // local walk from the hint (or from the cell's nearest sample)
+    const start = hint >= 0 && hint < n ? hint | 0 : cellNear[cell];
+    let i = walk(start, x, y, 24), tl = 0;
+    if (i >= 0) {
+      tl = _t;
+      project(i, tl, x, y);
+      if (owned(i)) return evaluate(i, x, y, out);
+    }
+    // exact owner search among the segments whose owned footprint overlaps this cell
+    // (owned regions are disjoint, so at most one segment owns the point)
+    for (let r = runStart[cell], re = runStart[cell + 1]; r < re; r++) {
+      const a = RUNA[r], e = a + RUNL[r];
+      for (let k = a; k < e; k++) {
+        if (k === i) continue;
+        const ddx = x - X[k], ddy = y - Y[k];
+        if (ddx * ddx + ddy * ddy > REACH2[k]) continue;
+        const t = solveT(k, x, y);
+        if (t >= 0 && t <= 1) {
+          project(k, t, x, y);
+          if (owned(k)) return evaluate(k, x, y, out);
+        }
       }
     }
+    return terrainOnly(x, y, i, tl, cell, out);
+  }
+
+  /** Terrain-only result (point outside every owned region). i/t: projection if known, else -1. */
+  function terrainOnly(x, y, i, t, cell, out) {
     if (i < 0) {
-      i = globalSeg(x, y);
-      project(i, _t, x, y);
+      i = cellNear[cell];
+      t = solveT(i, x, y);
+      if (!(t >= 0)) t = 0; else if (t > 1) t = 1;
     }
-    evaluate(i, x, y, out);
+    const j = i + 1 === n ? 0 : i + 1;
+    let nx = NX[i] + t * (NX[j] - NX[i]), ny = NY[i] + t * (NY[j] - NY[i]);
+    const nl = 1 / Math.sqrt(nx * nx + ny * ny);
+    const px = x - X[i] - t * (X[j] - X[i]), py = y - Y[i] - t * (Y[j] - Y[i]);
+    const o = (px * nx + py * ny) * nl;
+    const T = evalT(x, y);
+    const hx = T.dx, hy = T.dy, inv = 1 / Math.sqrt(hx * hx + hy * hy + 1);
+    const s = (i + t) * ds;
+    out.s = s >= L ? s - L : s;
+    out.offset = o >= 0 ? Math.max(o, Math.sqrt(px * px + py * py)) : -Math.sqrt(px * px + py * py);
+    out.height = T.h;
+    out.nx = -hx * inv; out.ny = -hy * inv; out.nz = inv;
+    out.surface = SURFACE.GRASS;
+    out.index = i;
     return out;
   }
 

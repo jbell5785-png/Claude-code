@@ -137,9 +137,10 @@ function curvature3(x1, y1, x2, y2, x3, y3) {
  * @param {number} skill  0..1 — fraction of the car's grip the driver dares to use
  * @returns {Float32Array} target speed (m/s) per sample
  */
-export function speedProfile(line, params, skill = 0.9) {
+export function speedProfile(line, params, skill = 0.9, opts = {}) {
   const n = line.n, ds = line.ds;
-  const mu = gripEstimate(params) * (0.72 + 0.26 * skill);
+  // Car-level grip is below tyre µ (load transfer, load sensitivity); skill sets the margin kept.
+  const mu = gripEstimate(params) * 0.85 * (0.78 + 0.16 * skill) * (opts.gripScale ?? 1);
   const m = params.mass.total;
   const clA = (params.aero.clAFront || 0) + (params.aero.clARear || 0);
   const kAero = (0.5 * RHO_AIR * clA) / m;                  // extra normal accel per v^2
@@ -151,13 +152,16 @@ export function speedProfile(line, params, skill = 0.9) {
     const den = k - mu * kAero;                              // v^2 k = mu (g + kAero v^2)
     v[i] = den <= 1e-6 ? vTop : Math.min(vTop, Math.sqrt((mu * G) / den));
   }
-  // Backward pass: braking capability (grip + aero + drag), two laps for wrap-around.
-  const brakeMu = mu * 0.95;
+  // Backward pass: braking within the friction circle (grip left after cornering) + aero + drag,
+  // two laps for wrap-around.
   for (let pass = 0; pass < 2; pass++) {
     for (let j = 2 * n - 1; j >= 0; j--) {
       const i = j % n, nx = (i + 1) % n;
       const vn = v[nx];
-      const a = brakeMu * (G + kAero * vn * vn) + kDrag * vn * vn;
+      const grip = mu * (G + kAero * vn * vn);
+      const lat = vn * vn * Math.abs(line.curvature[nx]);
+      const lon = Math.sqrt(Math.max(0.15 * grip * grip, grip * grip - lat * lat)) * 0.92;
+      const a = lon + kDrag * vn * vn;
       const vb = Math.sqrt(vn * vn + 2 * a * ds);
       if (vb < v[i]) v[i] = vb;
     }

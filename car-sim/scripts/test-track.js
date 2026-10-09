@@ -318,6 +318,36 @@ for (const key of [...presets, ...randoms]) {
   for (let k = 0; k < NG; k++) { const j = k & 1023; tr.query(gx[j], gy[j], -1, q); sink += q.height; }
   const nsGlobal = ((performance.now() - t0) * 1e6) / NG;
   check(nsHint < 300, `${name}: hinted query ${nsHint.toFixed(0)} ns`);
+  // far off track (~3 km): a car that drove away, hint = its last index
+  const fx = new Float64Array(1024), fy = new Float64Array(1024);
+  for (let k = 0; k < 1024; k++) {
+    const a = (k / 1024) * Math.PI * 2;
+    fx[k] = (tr.bounds.minX + tr.bounds.maxX) / 2 + (3000 + 50 * Math.sin(k)) * Math.cos(a);
+    fy[k] = (tr.bounds.minY + tr.bounds.maxY) / 2 + (3000 + 50 * Math.sin(k)) * Math.sin(a);
+  }
+  for (let k = 0; k < 64; k++) {
+    tr.query(fx[k], fy[k], -1, q);
+    check(q.surface === SURFACE.GRASS && Math.abs(q.height - tr.terrainHeight(fx[k], fy[k])) < 1e-9 && q.index >= 0 && Number.isFinite(q.s),
+      `${name}: far query result inconsistent`);
+  }
+  const NF = QUICK ? 20000 : 100000;
+  hint = -1;
+  t0 = performance.now();
+  for (let k = 0; k < NF; k++) { const j = (k >> 4) & 1023; tr.query(fx[j], fy[j], hint, q); hint = q.index; sink += q.height; }
+  const nsFar = ((performance.now() - t0) * 1e6) / NF;
+  check(nsFar < 1000, `${name}: far-off-track query ${nsFar.toFixed(0)} ns`);
+  // just beyond the terrain blend (owned cells, nobody owns the point)
+  for (let k = 0; k < 1024; k++) {
+    tr.pointAt(rand() * L, p);
+    const side = k & 1 ? 1 : -1, i = p.index;
+    const o = side * ((side > 0 ? S.widthL[i] + S.edgeL[i] : S.widthR[i] + S.edgeR[i]) + 3);
+    gx[k] = p.x + o * p.nx; gy[k] = p.y + o * p.ny;
+  }
+  hint = -1;
+  t0 = performance.now();
+  for (let k = 0; k < NF; k++) { const j = (k >> 4) & 1023; tr.query(gx[j], gy[j], hint, q); hint = q.index; sink += q.height; }
+  const nsBeyond = ((performance.now() - t0) * 1e6) / NF;
+  check(nsBeyond < 1000, `${name}: beyond-blend query ${nsBeyond.toFixed(0)} ns`);
 
   // --- raycast correctness vs brute force & performance
   const out = { dist: 0, kind: 0, nx: 0, ny: 0 };
@@ -385,7 +415,7 @@ for (const key of [...presets, ...randoms]) {
     gradErr: gradErr.toExponential(1), slopeOff: fmt(maxSlopeNear, 2), obst: tr.obstacles.length,
     trees: tr.scenery.trees.length, build: fmt(buildMs, 0) + 'ms',
   });
-  perfRows.push({ track: name, queryHint: nsHint.toFixed(0) + ' ns', queryGlobal: nsGlobal.toFixed(0) + ' ns', ray100m: nsRay.toFixed(0) + ' ns', laps: lr.laps, lap: fmt(lr.lapTime, 2), chicane: lr.chicane ?? '-' });
+  perfRows.push({ track: name, queryHint: nsHint.toFixed(0) + ' ns', queryGlobal: nsGlobal.toFixed(0) + ' ns', beyondBlend: nsBeyond.toFixed(0) + ' ns', far3km: nsFar.toFixed(0) + ' ns', ray100m: nsRay.toFixed(0) + ' ns', laps: lr.laps, lap: fmt(lr.lapTime, 2), chicane: lr.chicane ?? '-' });
 }
 
 // determinism of random generator

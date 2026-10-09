@@ -19,7 +19,7 @@ export function createMaster(ctx, destination, bypass = false) {
   glue.release.value = 0.2;
 
   const makeup = ctx.createGain();
-  makeup.gain.value = 1.5;
+  makeup.gain.value = 1.0;
 
   const limiter = ctx.createDynamicsCompressor();
   limiter.threshold.value = -3;

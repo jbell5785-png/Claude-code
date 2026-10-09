@@ -104,7 +104,7 @@ export function bannerTexture() {
   return memo('banner', () => {
     const c = canvas(1024, 64); const g = c.getContext('2d');
     const cols = ['#0d1117', '#ff5a36', '#1e6bd6', '#f2f2ee', '#16a34a', '#0d1117'];
-    const words = ['APEX LAB', 'GRIP+', 'TORQUE', 'SLIPSTREAM', 'REDLINE', 'OCTANE'];
+    const words = ['NOVA VADERSPEED', 'GRIP+', 'TORQUE', 'SLIPSTREAM', 'REDLINE', 'OCTANE'];
     for (let i = 0; i < 6; i++) {
       g.fillStyle = cols[i]; g.fillRect(i * 171, 0, 171, 64);
       g.fillStyle = cols[i] === '#f2f2ee' ? '#0d1117' : '#ffffff';

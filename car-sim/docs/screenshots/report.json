@@ -1,8 +1,5 @@
 {
   "console": {
-    "menu": [
-      "warning: THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
-    ],
     "garage": [
       "warning: THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
     ]

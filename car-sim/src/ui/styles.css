@@ -1,4 +1,4 @@
-/* Apex Lab — Y2K racing-game UI. Fonts are bundled (@fontsource), with system fallbacks. */
+/* Nova Vaderspeed — Y2K racing-game UI. Fonts are bundled (@fontsource), with system fallbacks. */
 :root {
   --bg: #07090d; --bg2: #0d1118; --panel: rgba(10, 14, 21, 0.86); --panel-solid: #0e131b; --line: rgba(160, 200, 255, 0.14);
   --text: #e8edf3; --muted: #8b97a8; --accent: #ff5a36; --accent2: #ffb020; --neon: #2de2ff; --lime: #b6ff3b; --purple: #b56cff; --red: #ff3b2f;
@@ -21,8 +21,15 @@ button { font-family: inherit; color: inherit; }
 /* ---------- boot / loading ---------- */
 .boot { position: fixed; inset: 0; display: grid; place-content: center; text-align: center; background: radial-gradient(ellipse at 50% 60%, #1a2230, #05070a 70%); z-index: 50; transition: opacity .35s; }
 .boot.hidden { opacity: 0; pointer-events: none; }
-.boot-logo, .logo { font-family: var(--display); font-style: italic; font-size: 54px; letter-spacing: .02em; background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 0 rgba(0,0,0,.6)); }
-.boot-logo span, .logo span { background: linear-gradient(180deg, #ffb59e, var(--accent) 55%, #b3230e); -webkit-background-clip: text; background-clip: text; margin-left: .12em; }
+.boot-logo, .logo { font-family: var(--display); font-style: italic; line-height: .86; position: relative; display: inline-flex; flex-direction: column; transform: skewX(-6deg); }
+.boot-logo .l1, .logo .l1 { font-size: 1.25em; letter-spacing: .04em; background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 3px 0 rgba(0,0,0,.65)) drop-shadow(0 0 18px rgba(200,225,255,.25)); }
+.boot-logo .l2, .logo .l2 { font-size: .62em; letter-spacing: .09em; margin-left: .55em; background: linear-gradient(180deg, #fff3c4 0%, #ffb020 30%, var(--accent) 60%, #ff2f6d 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 14px rgba(255,90,54,.7)) drop-shadow(0 2px 0 rgba(0,0,0,.7)); }
+.boot-logo { font-size: 48px; }
+.logo .streaks { position: absolute; left: -12%; right: 30%; top: 38%; height: 30%; pointer-events: none; }
+.logo .streaks i { position: absolute; left: 0; height: 3px; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(45,226,255,.9)); animation: streak 2.4s ease-in-out infinite; }
+.logo .streaks i:nth-child(1) { top: 0; width: 60%; } .logo .streaks i:nth-child(2) { top: 45%; width: 85%; animation-delay: .3s; background: linear-gradient(90deg, transparent, rgba(255,90,54,.9)); } .logo .streaks i:nth-child(3) { top: 90%; width: 45%; animation-delay: .6s; }
+@keyframes streak { 0% { transform: translateX(-30%); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateX(40%); opacity: 0; } }
+.menu-foot { display: none; } body.debug .menu-foot { display: block; }
 .boot-sub { color: var(--muted); letter-spacing: .3em; text-transform: uppercase; font-size: 12px; margin-top: 8px; animation: pulse 1.2s infinite alternate; }
 @keyframes pulse { from { opacity: .4 } to { opacity: 1 } }
 
@@ -35,7 +42,8 @@ button { font-family: inherit; color: inherit; }
   background: linear-gradient(180deg, rgba(5,7,10,0.92), rgba(5,7,10,0.55)); border-bottom: 1px solid var(--line); z-index: 20; }
 .topbar::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--neon) 30%, var(--accent) 70%, transparent); opacity: .5; }
 .brand { background: none; border: 0; font-size: 21px; cursor: pointer; padding: 0 6px 0 0; background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.brand span { color: var(--accent); -webkit-text-fill-color: var(--accent); margin-left: 2px; }
+.brand { font-size: 18px; letter-spacing: .03em; }
+.brand span { background: linear-gradient(180deg, #ffd27a, var(--accent) 60%, #ff2f6d); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-left: 4px; font-size: .78em; letter-spacing: .08em; }
 .modes { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; }
 .mtab { background: transparent; border: 0; padding: 8px 16px; font-family: var(--display); font-style: italic; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); cursor: pointer; transform: skewX(-14deg); white-space: nowrap; transition: color .15s, background .15s; }
 .mtab:hover { color: var(--text); background: rgba(255,255,255,0.05); }
@@ -102,7 +110,7 @@ details summary { cursor: pointer; color: var(--muted); text-transform: uppercas
 
 /* ---------- main menu ---------- */
 .menu { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; gap: 28px; background: linear-gradient(90deg, rgba(5,7,10,.88) 0%, rgba(5,7,10,.55) 35%, transparent 60%); }
-.menu-title .logo { font-size: clamp(54px, 9vw, 120px); line-height: .9; animation: skewIn .6s both; }
+.menu-title .logo { font-size: clamp(56px, 9.5vw, 132px); animation: skewIn .6s both; }
 .tagline { color: var(--neon); letter-spacing: .32em; text-transform: uppercase; font-size: 13px; margin-top: 10px; text-shadow: 0 0 12px rgba(45,226,255,.6); }
 .menu-items { display: flex; flex-direction: column; gap: 8px; width: min(440px, 88vw); }
 .mi { text-align: left; background: linear-gradient(90deg, rgba(14,19,27,.9), rgba(14,19,27,.4)); border: 0; border-left: 4px solid transparent; padding: 10px 20px; cursor: pointer; transform: skewX(-12deg); transition: transform .15s, background .15s, border-color .15s, padding .15s;

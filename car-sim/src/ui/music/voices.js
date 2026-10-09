@@ -252,7 +252,7 @@ export function playStab(ctx, dest, t, notes, o, onEnd) {
   let filt;
   let len = o.dur ?? 0.18;
   if (kind === 'organ') {
-    filt = stereoFilter(ctx, 'lowpass', o.bright ?? 3200, 0.8);
+    filt = stereoFilter(ctx, 'lowpass', o.bright ?? 5500, 0.8);
     const wave = organWave(ctx);
     notes.forEach((m, i) => {
       const osc = ctx.createOscillator();
@@ -288,11 +288,11 @@ export function playStab(ctx, dest, t, notes, o, onEnd) {
     vca.gain.setTargetAtTime(0, t + len, 0.09);
     len += 0.45;
   } else {
-    filt = stereoFilter(ctx, 'lowpass', 400, o.q ?? 5);
-    const top = o.bright ?? 7000;
+    filt = stereoFilter(ctx, 'lowpass', 2600, o.q ?? 3);
+    const top = o.bright ?? 10000;
     for (const fp of filt.freqs) {
       fp.setValueAtTime(top, t);
-      fp.setTargetAtTime(1100, t + 0.003, o.fdecay ?? 0.09);
+      fp.setTargetAtTime(2600, t + 0.003, o.fdecay ?? 0.12);
     }
     notes.forEach((m) => {
       const f = mtof(m);
@@ -357,8 +357,8 @@ export function playPluck(ctx, dest, t, midi, o, onEnd) {
   const f = ctx.createBiquadFilter();
   f.type = 'lowpass';
   f.Q.value = o.q ?? 3;
-  f.frequency.setValueAtTime(o.bright ?? 3500, t);
-  f.frequency.setTargetAtTime(500, t + 0.002, o.fdecay ?? 0.05);
+  f.frequency.setValueAtTime(o.bright ?? 7000, t);
+  f.frequency.setTargetAtTime(1800, t + 0.002, o.fdecay ?? 0.06);
   const vca = ctx.createGain();
   vca.gain.setValueAtTime(0, t);
   vca.gain.linearRampToValueAtTime(o.gain ?? 0.5, t + 0.002);
@@ -413,7 +413,7 @@ const VOWELS = {
   a: [800, 1150, 2900], e: [420, 1700, 2600], i: [300, 2200, 3000],
   o: [480, 820, 2800], u: [330, 720, 2500], y: [380, 1900, 2500],
 };
-const FORMANT_GAIN = [1, 0.6, 0.3];
+const FORMANT_GAIN = [1, 0.9, 0.6];
 
 /** Chopped "vocal" blip: buzzy source through three moving formant band-passes. */
 export function playVox(ctx, dest, t, midi, dur, o, onEnd) {

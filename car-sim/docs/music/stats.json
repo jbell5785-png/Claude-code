@@ -6,30 +6,30 @@
       "Velocity Strobe (Warehouse Mix) [acid 143bpm Eb phrygian]"
     ],
     "full": {
-      "peakDb": -0.12,
-      "rmsDb": -6.87,
-      "lufs": -6.3,
-      "crestDb": 6.7,
+      "peakDb": -0.92,
+      "rmsDb": -7.3,
+      "lufs": -6.7,
+      "crestDb": 6.4,
       "clips": 0,
       "balancePct": {
-        "sub": 59.8,
-        "low": 34.6,
-        "lowmid": 4.3,
+        "sub": 58.9,
+        "low": 34.8,
+        "lowmid": 4.9,
         "highmid": 0.9,
         "high": 0.5
       },
       "frames": 515
     },
     "drop": {
-      "peakDb": -0.12,
-      "rmsDb": -6.19,
-      "lufs": -6.3,
-      "crestDb": 6.1,
+      "peakDb": -0.92,
+      "rmsDb": -6.65,
+      "lufs": -6.6,
+      "crestDb": 5.7,
       "clips": 0,
       "balancePct": {
-        "sub": 58.5,
-        "low": 35.9,
-        "lowmid": 4.1,
+        "sub": 57.5,
+        "low": 36.2,
+        "lowmid": 4.9,
         "highmid": 0.9,
         "high": 0.5
       },

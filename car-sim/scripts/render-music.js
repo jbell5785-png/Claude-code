@@ -239,11 +239,13 @@ if (args.includes('--stems')) {
   const CH = ['kick', 'snare', 'hats', 'perc', 'brk', 'bass', 'sub', 'acid', 'stab', 'pad', 'arp', 'lead', 'vox', 'fx'];
   jobs = [];
   for (const style of STYLES) {
+    const only = arg('channels', '').split(',').filter(Boolean);
     for (const c of CH) {
+      if (only.length && !only.includes(c)) continue;
       const mix = Object.fromEntries(CH.map((k) => [k, k === c ? 1 : 0]));
       jobs.push({ name: `stem-${style}-${c}`, style, seed: SEED, seconds: SECONDS, startSection: 'build', mix, bypassMaster: true, stem: true });
     }
-    jobs.push({ name: `stem-${style}-ALL`, style, seed: SEED, seconds: SECONDS, startSection: 'build', bypassMaster: true, stem: true });
+    if (!arg('channels', '')) jobs.push({ name: `stem-${style}-ALL`, style, seed: SEED, seconds: SECONDS, startSection: 'build', bypassMaster: true, stem: true });
   }
 }
 if (RACE) {

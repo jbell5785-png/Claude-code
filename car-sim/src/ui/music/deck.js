@@ -17,14 +17,19 @@ const CHANNELS = {
   acid: [0.36, 0.06, 0.12, true, 90],
   stab: [0.2, 0.28, 0.16, true, 160],
   pad: [0.12, 0.4, 0, true, 220],
-  arp: [0.075, 0.25, 0.3, true, 250],
+  arp: [0.14, 0.25, 0.3, true, 250],
   lead: [0.16, 0.25, 0.18, true, 150],
   vox: [0.2, 0.25, 0.26, true, 200],
   fx: [0.32, 0.45, 0, false, 0],
 };
 
 /** Per-style channel trims (dB-calibrated from stem renders, see scripts/render-music.js --stems). */
-export const STYLE_MIX = {};
+export const STYLE_MIX = {
+  dnb: { kick: 0.309, snare: 0.879, hats: 3.471, perc: 9.333, brk: 1.172, bass: 0.331, stab: 2.603, lead: 2.688, fx: 1.279 },
+  breaks: { kick: 0.239, snare: 0.68, hats: 3.972, perc: 9.55, brk: 0.981, bass: 0.333, stab: 3.361, lead: 3.42, fx: 1.085 },
+  garage: { kick: 0.333, snare: 1.551, hats: 3.913, perc: 5.788, brk: 0.857, bass: 0.337, stab: 2.168, vox: 1.4, fx: 1.085 },
+  acid: { kick: 0.187, snare: 2.138, hats: 3.776, perc: 13.092, brk: 0.961, sub: 0.243, acid: 0.796, stab: 2.028, lead: 3.528, fx: 1.146 },
+};
 
 const DUCK = { dnb: 0.5, breaks: 0.55, garage: 0.5, acid: 0.4 };
 

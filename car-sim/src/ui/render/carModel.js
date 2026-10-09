@@ -68,7 +68,7 @@ function mats() {
   MAT.trim = new THREE.MeshStandardMaterial({ color: 0x111214, roughness: 0.55, metalness: 0.1 });
   MAT.carbon = new THREE.MeshStandardMaterial({ color: 0x1a1c20, roughness: 0.3, metalness: 0.35 });
   MAT.grille = new THREE.MeshStandardMaterial({ color: 0x050506, roughness: 0.75, metalness: 0.2, side: THREE.DoubleSide });
-  MAT.glass = new THREE.MeshPhysicalMaterial({ color: 0x0b1118, roughness: 0.03, metalness: 0.25, transparent: true, opacity: 0.74, clearcoat: 1, depthWrite: false, side: THREE.DoubleSide });
+  MAT.glass = new THREE.MeshPhysicalMaterial({ color: 0x0a0f16, roughness: 0.04, metalness: 0.55, clearcoat: 1, clearcoatRoughness: 0.02, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   MAT.interior = new THREE.MeshStandardMaterial({ color: 0x0c0c0e, roughness: 0.92, side: THREE.BackSide });
   MAT.interiorF = new THREE.MeshStandardMaterial({ color: 0x0c0c0e, roughness: 0.92 });
   MAT.housing = new THREE.MeshStandardMaterial({ color: 0x1b1e23, roughness: 0.18, metalness: 0.9 });
@@ -234,37 +234,75 @@ function cabinHalfRing(lay, cf, x, D) {
   return pts;
 }
 
+/** Evaluate the cabin cross-section at station x. */
+function cabinSection(cf, x) {
+  const yb = cf.belt(x) - 0.06; const yt = Math.max(cf.top(x), yb + 0.065); const h = yt - yb;
+  const hwb = Math.max(cf.half(x, yb + 0.06), 0.001), hwt = Math.max(cf.half(x, yt), 0.001);
+  const rc = Math.min(0.11, h * 0.4, hwt * 0.5);
+  return { yb, yt, hwb, hwt, rc };
+}
+/** Side-wall z of the cabin at (x, y). */
+function cabinSideZ(cf, x, y) {
+  const c = cabinSection(cf, x); const ys = c.yt - c.rc;
+  if (y <= ys) { const t = clamp((y - c.yb) / Math.max(ys - c.yb, 1e-4), 0, 1); return lerp(c.hwb, c.hwt, t) + Math.sin(Math.PI * t) * 0.006; }
+  const dy = Math.min(y - ys, c.rc); return c.hwt - c.rc + Math.sqrt(Math.max(0, c.rc * c.rc - dy * dy));
+}
+/** Top-surface y of the cabin at (x, z). */
+function cabinTopY(cf, x, z) {
+  const c = cabinSection(cf, x); const az = Math.abs(z); const zf = c.hwt - c.rc;
+  if (az <= zf) return c.yt + 0.018 * (1 - (az / c.hwt) ** 2);
+  const dz = Math.min(az - zf, c.rc); return c.yt - c.rc + Math.sqrt(Math.max(0, c.rc * c.rc - dz * dz));
+}
+/** Bisection: x in [xa, xb] where cf.top(x) = y (top must be monotonic there). */
+function solveTop(cf, xa, xb, y) {
+  let lo = xa, hi = xb; const fa = cf.top(xa) - y;
+  for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; const fm = cf.top(m) - y; if ((fm > 0) === (fa > 0)) lo = m; else hi = m; }
+  return (lo + hi) / 2;
+}
+/** Grid patch from a param function (u,v) -> [x,y,z]; returns a BufferGeometry. */
+function patch(nu, nv, f) {
+  const pos = []; const idx = [];
+  for (let j = 0; j <= nv; j++) for (let i = 0; i <= nu; i++) { const p = f(i / nu, j / nv); pos.push(p[0], p[1], p[2]); }
+  for (let j = 0; j < nv; j++) for (let i = 0; i < nu; i++) { const a = j * (nu + 1) + i, b = a + 1, c = a + nu + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+
 function buildCabin(lay, fn, D) {
   const cf = cabinFns(lay, fn); const n = D.cab; const xs = [];
   for (let i = 0; i <= n; i++) { const t = i / n; xs.push(lerp(cf.x0, cf.x1, 0.5 - 0.5 * Math.cos(Math.PI * t))); }
-  const { g, M, R } = loft(xs, (x) => cabinHalfRing(lay, cf, x, D));
+  const { g } = loft(xs, (x) => cabinHalfRing(lay, cf, x, D));
   g.computeVertexNormals();
-  // classify faces: glass vs paint (pillars and roof stay painted)
-  const pos = g.attributes.position; const idx = g.index.array; const paintI = [], glassI = [];
-  const S = lay.S; const v = [new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]; const e1 = new THREE.Vector3(), e2 = new THREE.Vector3(), nrm = new THREE.Vector3();
-  const sideEnd = 6;
-  const xB = S.bPillar != null ? lay.X(S.bPillar) : null;
-  const aRun = cf.x1 - cf.xRoofF, cRun = cf.xRoofR - cf.x0;
-  for (let k = 0; k < idx.length; k += 3) {
-    for (let q = 0; q < 3; q++) v[q].fromBufferAttribute(pos, idx[k + q]);
-    const cx = (v[0].x + v[1].x + v[2].x) / 3, cy = (v[0].y + v[1].y + v[2].y) / 3, cz = (v[0].z + v[1].z + v[2].z) / 3;
-    e1.subVectors(v[1], v[0]); e2.subVectors(v[2], v[0]); nrm.crossVectors(e1, e2).normalize();
-    const j = idx[k] % R; const jh = j < M ? j : R - j;
-    const belt = cf.belt(cx); const top = cf.top(cx); const hw = cf.half(cx, cy);
-    let glass = false;
-    if (jh >= 2 && jh <= sideEnd + 1 && Math.abs(nrm.z) > 0.55) {
-      const xa = cf.x1 - aRun * 0.55, xc = cf.x0 + cRun * (lay.style === 'coupe' || lay.style === 'supercar' ? 0.35 : 0.55);
-      glass = cy > belt + 0.045 && cy < top - 0.05 && cx < xa && cx > xc && (xB == null || Math.abs(cx - xB) > 0.05);
-    } else if (jh > sideEnd) {
-      const inner = Math.abs(cz) < hw * 0.86 - 0.04;
-      if (cx > cf.xRoofF - 0.02 && nrm.x > 0.3 && inner && cy > belt + 0.03) glass = true;
-      else if (cx < cf.xRoofR + 0.02 && nrm.x < -0.2 && inner && cy > belt + 0.05) glass = true;
+  // ---- glass patches evaluated on the cabin surface (clean pillar lines)
+  const S = lay.S; const glass = []; const NU = Math.max(6, D.cab >> 1), NV = Math.max(3, D.cabArc + 2); const off = 0.007;
+  const roofY = Math.min(cf.top(cf.xRoofR + 0.02), cf.top(cf.xRoofF - 0.02));
+  const fastback = lay.style === 'coupe' || lay.style === 'supercar';
+  // side windows: rows in y between belt and roof; each row spans from the C-pillar line to the A-pillar line
+  const aP = lay.style === 'supercar' ? 0.07 : 0.06, cP = fastback ? 0.09 : 0.1;
+  const yLo = (x) => cf.belt(x) + 0.05;
+  const xMid = (cf.xRoofR + cf.xRoofF) / 2; const yTopW = roofY - 0.065; const yBot = yLo(xMid);
+  if (yTopW > yBot + 0.08) {
+    const front = (y) => solveTop(cf, cf.xRoofF - 0.02, cf.x1, y + 0.05) - aP;
+    const rear = (y) => solveTop(cf, cf.x0, cf.xRoofR + 0.02, y + 0.05) + cP;
+    const xB = S.bPillar != null ? lay.X(S.bPillar) : null;
+    const spans = xB != null ? [[rear, (y) => xB - 0.045], [(y) => xB + 0.045, front]] : [[rear, front]];
+    for (const sgn of [-1, 1]) for (const [fa, fb] of spans) {
+      glass.push(patch(NU, NV, (u, v) => {
+        const y = lerp(yBot, yTopW, v); const xa = fa(y), xb = fb(y); const x = lerp(xa, Math.max(xa + 0.01, xb), u);
+        const yy = Math.max(y, yLo(x)); return [x, yy, sgn * (cabinSideZ(cf, x, yy) + off)];
+      }));
     }
-    (glass ? glassI : paintI).push(idx[k], idx[k + 1], idx[k + 2]);
   }
-  const paint = new THREE.BufferGeometry(); paint.setAttribute('position', pos); paint.setAttribute('normal', g.attributes.normal); paint.setIndex(paintI);
-  const glass = new THREE.BufferGeometry(); glass.setAttribute('position', pos); glass.setAttribute('normal', g.attributes.normal); glass.setIndex(glassI);
-  return { paint, glass, shell: g, cf };
+  // windscreen / rear screen: from just above the belt up to the roof edge, inset from the pillars
+  const screen = (xa, xb, front) => patch(NU, NV, (u, v) => {
+    const y = lerp(cf.belt(front ? xb : xa) + 0.035, roofY - 0.035, front ? 1 - v : v);
+    const x = front ? solveTop(cf, xa, xb, y) : solveTop(cf, xa, xb, y);
+    const c = cabinSection(cf, x); const zl = (c.hwt * 0.86 - 0.05) * (2 * u - 1);
+    return [x + (front ? off : -off), cabinTopY(cf, x, zl) + off * 0.5, zl];
+  });
+  glass.push(screen(cf.xRoofF - 0.02, cf.x1, true));
+  glass.push(screen(cf.x0, cf.xRoofR + 0.02, false));
+  const glassGeo = mergeGeometries(glass.map((q) => q.toNonIndexed()), false); glassGeo.computeVertexNormals();
+  return { paint: g, glass: glassGeo, shell: g, cf };
 }
 
 // ------------------------------------------------------------------ wheels
@@ -356,8 +394,7 @@ export function buildCarModel(params, opts = {}) {
     cab = buildCabin(lay, fn, D);
     const cp = new THREE.Mesh(cab.paint, paint); cp.castShadow = !ghost; cp.name = 'cabin'; shell.add(cp); parts.bodyMeshes.push(cp);
     if (!ghost) {
-      const gl = new THREE.Mesh(cab.glass, M.glass); gl.renderOrder = 2; gl.name = 'glass'; shell.add(gl); parts.glass = gl;
-      const inner = new THREE.Mesh(cab.shell, M.interior); inner.scale.set(0.985, 0.985, 0.97); inner.position.y = 0.01; shell.add(inner);
+      const gl = new THREE.Mesh(cab.glass, M.glass); gl.name = 'glass'; gl.userData.helmet = true; shell.add(gl); parts.glass = gl;
     } else shell.add(new THREE.Mesh(cab.glass, paint));
   }
   const xn = lay.xNose, xt = lay.xTail;

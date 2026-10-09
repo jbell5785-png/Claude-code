@@ -19,6 +19,9 @@ No contract field was removed or renamed.
   0.317 m wheels; build scales disc size (torque and heat capacity) by `1.25·mass·radius / (1350·0.317)`
   so every car can lock its tyres at full pedal (stock ≈ 1.3 g, `summary.brakeCapG`).
 - **`env.ambientT`** in K (values < 150 are treated as °C), `env.ambientP` in Pa; `env` may be null.
+- **EV drive direction**: motor drive torque follows the COMMANDED direction, not the sign of ω: forward
+  unless `env.reverse === true` (optional bool). Regen always opposes rotation and fades below |ω| ≈ 30 rad/s.
+  A vehicle that implements EV reverse with a negative (signed) reduction ratio does not need `env.reverse`.
 - **EV battery**: each motor's `ep` owns a power-proportional share of the pack (`batteryKwh`,
   `batteryMaxPower`), so with proportional use both shares drain together. Optional helper
   `shareBattery([es0, es1])` makes several motor states draw from one shared pack object.
@@ -71,6 +74,14 @@ No contract field was removed or renamed.
   compressor choke above 0.85 flowMax, first-order spool τ = tau·(flowFull/flow)^0.8, slower spin-down.
 - Knock index KI = (MAP/2.05)^0.75 (T/330)^3 (CR/10)^1.3 timing^8 vs fuel knockLimit → timing retard (≤25 % torque);
   saturated retard → detonation damage.
+
+## Preset tuning (vehicle validation round)
+
+Parts only, no physics constants changed: kei boost 0.9 + 'light' weight reduction; EV twin 250 kW motors on
+the 60 kWh pack (pack power ~370 kW sets the peak, like the reference car); muscle V8 final drive 3.15
+(100 km/h in 2nd); diesel pickup stock ECU map, +60 mm lift, all-terrain ('rally') tyres, stiff front bar;
+time-attack `lateralG` target set to null (1.7 g is a high-speed downforce figure; a 50 m skidpad at ~100 km/h
+adds only ~5 % load from aero). All presets now within 10 % of their targets in `test-vehicle.js --quick`.
 
 ## Known weaknesses
 

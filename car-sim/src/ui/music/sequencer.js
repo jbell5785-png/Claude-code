@@ -384,7 +384,7 @@ export function planBar(deck, info) {
   if (L.pad && chordStart) {
     const v = voiceChord(scale, tonic, chordDeg, Math.min(size, 4), 61, deck.padVoicing);
     deck.padVoicing = v;
-    emit({ t: t0, type: 'pad', notes: v, dur: barDur * cb + 0.05, cutoff: L.halftime ? 1300 : 1700, gain: 1 });
+    emit({ t: t0, type: 'pad', notes: v, dur: barDur * cb + 0.05, cutoff: L.halftime ? 1600 : 2600, gain: 1 });
   }
   if (L.stab) {
     const v = voiceChord(scale, tonic, chordDeg, size, S.stab === 'organ' ? 64 : 67, deck.stabVoicing);
@@ -440,10 +440,10 @@ export function planBar(deck, info) {
         if (n.s % 4 === 0 || n.l >= 4) d = snapToChord(d, chordDeg, 3);
         const dur = Math.max(sd * 0.8, n.l * sd - 0.01);
         if (useVox) {
-          emit({ t: st(n.s), type: 'vox', midi: melMidi(d, 24), dur: Math.min(dur, sd * 2), v1: n.v1 || 'a', v2: n.v2 || 'o' });
+          emit({ t: st(n.s), type: 'vox', midi: melMidi(d, 36), dur: Math.min(dur, sd * 2), v1: n.v1 || 'a', v2: n.v2 || 'o' });
         } else {
           const kind = S.lead === 'vox' ? 'square' : S.lead;
-          emit({ t: st(n.s), type: 'lead', midi: melMidi(d, kind === 'hoover' ? 12 : 24), dur, kind });
+          emit({ t: st(n.s), type: 'lead', midi: melMidi(d, 24), dur, kind });
           if (sec.final && kind !== 'hoover') emit({ t: st(n.s), type: 'lead', midi: melMidi(d, 36), dur, kind, gain: 0.4 });
         }
       }

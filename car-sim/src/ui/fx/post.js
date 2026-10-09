@@ -284,7 +284,9 @@ export function createPostFX(renderer, scene, camera, opts = {}) {
     makeSceneRT();
     // AO
     if (q.ao && !gtao) {
-      gtao = new GTAOPass(scene, camera, 2, 2, { depthTexture: gbuf.depthTexture, normalTexture: gbuf.texture });
+      gtao = new GTAOPass(scene, camera, 2, 2);
+      gtao.setGBuffer(gbuf.depthTexture, gbuf.texture); // (passing it to the constructor trips a three bug)
+      gtao.normalRenderTarget.dispose(); gtao.normalRenderTarget = { setSize() {}, dispose() {}, depthTexture: null };
       gtao.output = GTAOPass.OUTPUT.Off;
       gtao.updateGtaoMaterial({ radius: 1.4, distanceExponent: 1.5, thickness: 2.5, scale: 1.2, samples: q.ao >= 1 ? 16 : 12, distanceFallOff: 1, screenSpaceRadius: false });
       gtao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: q.ao >= 1 ? 16 : 8 });
