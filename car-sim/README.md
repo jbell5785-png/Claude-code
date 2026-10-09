@@ -55,6 +55,14 @@ for each module's documented deviations.
 
 ## Status & known issues (where to pick up)
 
+0. **Visual quality is the weakest area (user feedback: "looks like shit" even with GPU
+   acceleration fixed).** Cause: no real art assets — procedural geometry/textures + low-poly CC0
+   cars. Options: (a) a dedicated art pass in the browser — Poly Haven CC0 HDRIs, PBR asphalt/grass/
+   concrete textures and props, higher-quality car models (Sketchfab CC-BY), real trackside
+   buildings; or (b) port rendering to a game engine (Unity/Godot/Unreal) and port the `src/sim`
+   physics. (a) keeps school-laptop support; (b) suits the "NFS remaster on an RTX 3070 Ti" goal.
+   Note: on Windows, `chrome://gpu` must show WebGL "Hardware accelerated" or the game runs ~10 fps.
+
 1. **Trained neural AI plateaus** (~fitness 350–400) and leaves unseen tracks within a few hundred
    metres; 10× more compute did not help → fix the setup, not the budget: reward shaping (progress
    + speed, smoother penalties), curriculum (easy → hard tracks), observation normalisation,
