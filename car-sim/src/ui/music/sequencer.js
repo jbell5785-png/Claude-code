@@ -172,7 +172,11 @@ export function planBar(deck, info) {
   const I = info.intensity;
   const { bar, bars, name, nextName } = info;
   const L = layersFor(name, style, I, bar, bars);
-  const AB = style === 'acidBreaks';
+  const HC = style === 'hardcore';
+  const AB = style === 'acidBreaks' || HC;
+  const jungle = HC && (name === 'drop2' || name === 'bridge' || name === 'break' || name === 'build2');
+  const gabber = HC && !jungle && !L.halftime;
+  if (gabber && name !== 'intro') L.bass = 0; // the distorted kick is the bass
   if (AB) { L.lead = 0; L.vox = 0; } // the 303 is the lead; vocal chops are hype ad-libs only
   const rng = makeRng((song.chopSeed + info.globalBar * 7919 + bar * 31) >>> 0);
   const emit = (ev) => deck.emit(ev);
@@ -254,6 +258,7 @@ export function planBar(deck, info) {
   } else {
     if (L.kick) {
       let kicks = bar % 2 === 0 ? song.kickA : song.kickB;
+      if (HC) kicks = jungle ? (bar % 2 ? [0, 2, 10] : [0, 10]) : [0, 4, 8, 12];
       if (name === 'build' && bar < bars / 2 && style !== 'acid') kicks = [0, 8];
       for (const s of kicks) {
         if (preDropGap && s >= 12) continue;
@@ -264,7 +269,7 @@ export function planBar(deck, info) {
     if (L.snare) {
       for (const s of S.snares) {
         if ((preDropGap || fill === 2) && s === 12) continue;
-        if (style === 'acid') emit({ t: st(s), type: 'hit', s: 'clap', g: 0.75, ch: 'snare' });
+        if (style === 'acid' || gabber) emit({ t: st(s), type: 'hit', s: 'clap', g: 0.75, ch: 'snare' });
         else {
           emit({ t: st(s), type: 'hit', s: 'snare', g: style === 'dnb' ? 0.85 : 0.8, ch: 'snare' });
           if (style === 'garage') emit({ t: st(s), type: 'hit', s: 'clap', g: 0.5, ch: 'snare' });
@@ -279,7 +284,7 @@ export function planBar(deck, info) {
           else if (s % 2 === 1) emit({ t: st(s), type: 'hit', s: 'hat', g: 0.28, ch: 'hats' });
           else if (L.hats16) emit({ t: st(s), type: 'hit', s: 'hat', g: 0.13, ch: 'hats' });
         }
-      } else if (style === 'acid') {
+      } else if (style === 'acid' || gabber) {
         for (let s = 0; s < 16; s++) {
           if (s % 4 === 2) emit({ t: st(s), type: 'hit', s: 'ohat', g: 0.3, ch: 'hats' });
           else if (L.hats16 || s % 2 === 0) emit({ t: st(s), type: 'hit', s: 'hat', g: s % 4 === 0 ? 0.12 : 0.2, ch: 'hats' });
@@ -295,7 +300,10 @@ export function planBar(deck, info) {
     }
     if (L.ride) for (let s = 0; s < 16; s += 2) emit({ t: st(s), type: 'hit', s: 'ride', g: s % 4 === 0 ? 0.2 : 0.14, ch: 'hats' });
     if (L.perc) {
-      if (style === 'garage') {
+      if (HC) { // industrial clank: pitched-down rims + metallic tom hits
+        for (const s of [3, 7, 11, 15]) emit({ t: st(s), type: 'hit', s: 'rim', g: 0.32, ch: 'perc', rate: 0.62 });
+        if (bar % 2) emit({ t: st(14), type: 'hit', s: 'tomHi', g: 0.35, ch: 'perc', rate: 2.2 });
+      } else if (style === 'garage') {
         for (const s of song.rimSteps) emit({ t: st(s), type: 'hit', s: 'rim', g: 0.3, ch: 'perc' });
         for (let s = 0; s < 16; s++) emit({ t: st(s), type: 'hit', s: 'shaker', g: s % 2 ? 0.14 : 0.08, ch: 'perc' });
       } else if (style === 'acid') {
@@ -336,8 +344,8 @@ export function planBar(deck, info) {
 
   // ---- breakbeat
   if (L.brk && !L.halftime && !isCountdown) {
-    const level = S.breakLevel * (L.brkLP ? 0.9 : 1);
-    const slices = chopBar(rng, info.globalBar, L.chop, fill, toDrop && L.chop > 0);
+    const level = S.breakLevel * (L.brkLP ? 0.9 : 1) * (gabber ? 0.4 : 1);
+    const slices = chopBar(rng, info.globalBar, jungle ? Math.max(L.chop, 0.85) : L.chop, jungle && fill === 0 && bar % 2 ? 1 : fill, toDrop && L.chop > 0);
     for (const x of slices) {
       if (preDropGap && x.s >= 15 && !x.rev && x.src % 16 !== 12) continue;
       emit({ t: t0 + x.s * sd + (Number.isInteger(x.s) && x.s % 2 ? swingOff * 0.5 : 0), type: 'slice', src: x.src, len: x.len, rate: x.rate, rev: x.rev, g: x.g * level });
@@ -477,6 +485,7 @@ function planAcid(deck, info, acid, chordDeg, bassMidi, st, sd, emit, I, name, b
   if (name === 'intro') base *= 0.35 + 0.4 * (info.bar / info.bars);
   if (name === 'build' || name === 'build2') base *= 0.4 + 0.6 * ((info.bar + 1) / info.bars); // builds through the section
   if (name === 'switch') base *= 0.7;
+  if (deck.song.style === 'hardcore') base *= 1.35; // screaming
   if (name === 'final') base *= 1.4;
   const envAmt = 900 + 1800 * cyc * I;
   for (let s = 0; s < 16; s++) {

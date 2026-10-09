@@ -156,6 +156,7 @@ export class World {
 
   /** Per-frame: effects, shadows following the focus car, camera, render. vehicleOf(cv) -> vehicle state. */
   frame(dt, vehicleOf) {
+    rc.vehicleOf = vehicleOf;
     this.dynres.tick(dt, this.q);
     if (this.active === 'studio') {
       const st = this.studio; if (st.car && this.autoRotate !== false) st.table.rotation.y += dt * 0.25;

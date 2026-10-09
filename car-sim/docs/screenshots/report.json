@@ -1,8 +1,20 @@
 {
   "console": {
-    "garage": [
+    "race": [
+      "warning: THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead.",
       "warning: THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
     ]
   },
-  "perf": {}
+  "perf": {
+    "race": {
+      "avg": 889.8250000000917,
+      "p95": 1083.1999999999825,
+      "frames": 4
+    },
+    "raceSim": {
+      "cars": 8,
+      "slow": 0.47999999999999965,
+      "simTime": 7.457999999999401
+    }
+  }
 }

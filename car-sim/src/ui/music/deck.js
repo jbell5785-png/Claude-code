@@ -28,11 +28,12 @@ export const STYLE_MIX = {
   dnb: { kick: 0.309, snare: 0.879, hats: 3.471, perc: 9.333, brk: 1.172, bass: 0.331, stab: 2.603, lead: 2.688, fx: 1.279 },
   breaks: { kick: 0.239, snare: 0.68, hats: 3.972, perc: 9.55, brk: 0.981, bass: 0.333, stab: 3.361, lead: 3.42, fx: 1.085 },
   garage: { kick: 0.333, snare: 1.551, hats: 3.913, perc: 5.788, brk: 0.857, bass: 0.337, stab: 2.168, vox: 1.4, fx: 1.085 },
+  hardcore: { kick: 0.17, snare: 0.75, hats: 3.8, perc: 6, brk: 1.0, bass: 0.3, stab: 2.4, acid: 0.7, vox: 1.3, fx: 1.1 },
   acidBreaks: { kick: 0.25, snare: 0.75, hats: 3.8, perc: 9, brk: 0.95, bass: 0.36, stab: 2.4, acid: 0.85, vox: 1.3, fx: 1.1 },
   acid: { kick: 0.187, snare: 2.138, hats: 3.776, perc: 13.092, brk: 0.961, sub: 0.243, acid: 0.796, stab: 2.028, lead: 3.528, fx: 1.146 },
 };
 
-const DUCK = { dnb: 0.5, breaks: 0.55, garage: 0.5, acid: 0.4, acidBreaks: 0.5 };
+const DUCK = { dnb: 0.5, breaks: 0.55, garage: 0.5, acid: 0.4, acidBreaks: 0.5, hardcore: 0.4 };
 
 /** Section lists for each playback mode. */
 export function modeSections(mode, song) {
@@ -40,7 +41,7 @@ export function modeSections(mode, song) {
     case 'free': return song.arrangement.map((s) => ({ ...s }));
     case 'chill': return [{ name: 'chill', bars: 16 }, { name: 'chillB', bars: 16 }, { name: 'chill', bars: 8 }, { name: 'chillB', bars: 16 }];
     case 'race': {
-      const b = song.style === 'acidBreaks' ? 'switch' : 'bridge';
+      const b = song.style === 'acidBreaks' ? 'switch' : song.style === 'hardcore' ? 'drop2' : 'bridge';
       return [{ name: 'race', bars: 16 }, { name: b, bars: 8 }, { name: 'drop2', bars: 16 }, { name: 'race', bars: 16 }, { name: b, bars: 8 }, { name: 'drop2', bars: 16 }];
     }
     case 'raceIn': return [{ name: 'build2', bars: 4 }, ...modeSections('race', song)];
@@ -137,7 +138,7 @@ export class Deck {
     }
 
     // ---- persistent mono synths
-    const bassType = { dnb: 'reese', breaks: 'bigbeat', garage: 'wobble', acid: 'acid', acidBreaks: 'grime' }[song.style];
+    const bassType = { dnb: 'reese', breaks: 'bigbeat', garage: 'wobble', acid: 'acid', acidBreaks: 'grime', hardcore: 'reese' }[song.style];
     const preset = { ...BASS_PRESETS[bassType] };
     if (preset.lfo) preset.lfo = { ...preset.lfo, rate: bassType === 'reese' ? song.bpm / 60 / 8 : preset.lfo.rate };
     if (bassType === 'acid' && (song.seed & 1)) preset.oscs = [{ type: 'square', detune: 0, g: 0.8 }];
@@ -149,8 +150,9 @@ export class Deck {
       this.sub.start(startTime);
       this.synths.push(this.sub);
     }
-    if ((song.style === 'breaks' || song.style === 'acidBreaks') && song.acid) {
-      this.acid = new MonoSynth(ctx, this.ch.acid, { ...BASS_PRESETS.acid, level: song.style === 'acidBreaks' ? 0.5 : 0.4 });
+    if ((song.style === 'breaks' || song.style === 'acidBreaks' || song.style === 'hardcore') && song.acid) {
+      const scream = song.style === 'hardcore' ? { q: 19, drive: 7, preGain: 1.8, level: 0.4, hp: 160 } : {};
+      this.acid = new MonoSynth(ctx, this.ch.acid, { ...BASS_PRESETS.acid, level: song.style === 'acidBreaks' ? 0.5 : 0.4, ...scream });
       this.acid.start(startTime);
       this.synths.push(this.acid);
     }

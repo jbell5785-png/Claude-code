@@ -254,3 +254,4 @@ export function initFX(o) {
   if (q.post) loadPost();
   return api;
 }
+export { installFx } from './install.js';

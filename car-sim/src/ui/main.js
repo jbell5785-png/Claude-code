@@ -172,7 +172,8 @@ window.addEventListener('pointerdown', startAudio); window.addEventListener('key
 
 // ---------------------------------------------------------------- visuals plug-in (engineer H)
 const loadFx = Object.values(fxMods)[0];
-if (loadFx && !new URLSearchParams(location.search).has('nofx')) {
+// Opt-in until the FX tone-mapping/exposure clash with the base renderer is fixed: ?fx in the URL.
+if (loadFx && new URLSearchParams(location.search).has('fx')) {
   loadFx().then((m) => (m.installFx || m.default)?.(renderContext, { quality: getQuality(), onQualityChange })).catch((err) => console.warn('[fx] failed to install', err));
 }
 

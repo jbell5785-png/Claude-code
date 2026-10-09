@@ -107,7 +107,7 @@ registerMode({
         const aggression = 0.3 + Math.random() * 0.5;
         let driver; try { driver = api ? api.createDriver('pursuit', { skill: Math.min(0.99, skill + (Math.random() - 0.5) * 0.04), aggression, seed: slot }) : fallbackDriver(skill); } catch (err) { console.error('[race] driver', err); driver = fallbackDriver(skill); }
         try { driver.reset(car.v, track); } catch (err) { console.error('[race] driver.reset', err); }
-        Object.assign(car, { name: `${DRIVER_NAMES[(ai + slot * 3) % DRIVER_NAMES.length]}`, carName: preset.label, driver, color: spec.color });
+        Object.assign(car, { name: DRIVER_NAMES[ai % DRIVER_NAMES.length], carName: preset.label, driver, color: spec.color });
         ai++;
       }
       Object.assign(car, { slot, behind, controls: NEUTRAL(), finished: false, finishTime: null, dist: -behind });
@@ -176,7 +176,7 @@ registerMode({
           c.cv.capturePrev(c.v);
           if (c.player && !c.finished) Object.assign(c.controls, pc);
           else if (doAct) { try { c.driver.act(c.v, this.track, { cars: this.vehicles, time: this.simTime }, c.controls); } catch (err) { if (!this._drvErr) { console.error('[race] driver.act', err); this._drvErr = true; } } }
-          if (grid) { c.controls.brake = 1; c.controls.handbrake = 1; if (!c.player) c.controls.throttle = 0.25; }
+          if (grid) { c.controls.brake = 0; c.controls.handbrake = 1; c.controls.throttle = 0; c.controls.shiftDown = false; } // brake at standstill would make the ECU select reverse
           c.v.step(c.controls);
         }
         if (collide) collide(this.vehicles);

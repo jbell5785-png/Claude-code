@@ -165,7 +165,7 @@ export function generateSong(seed, style) {
     stabRhythm: rng.pick(S.stabRhythms),
     riff,
     riffLen: S.riffLen,
-    acid: style === 'acid' || style === 'acidBreaks' || (style === 'breaks' && rng.chance(0.35)) ? makeAcid(rng.fork('acid')) : null,
+    acid: style === 'acid' || style === 'acidBreaks' || style === 'hardcore' || (style === 'breaks' && rng.chance(0.35)) ? makeAcid(rng.fork('acid')) : null,
     kickA,
     kickB,
     breakHits: makeBreak(rng.fork('break')),
@@ -174,7 +174,12 @@ export function generateSong(seed, style) {
     rimSteps: rng.pick([[3, 7, 14], [6, 9, 15], [3, 10], [7, 13, 14]]),
     finalTranspose: rng.pick([1, 2, 2]),
     chopSeed: rng.int(1, 1e9),
-    arrangement: style === 'acidBreaks' ? [
+    arrangement: style === 'hardcore' ? [
+      // 4/4 gabber blocks ('drop') alternate with chopped jungle blocks ('drop2')
+      { name: 'intro', bars: 8 }, { name: 'build', bars: 8 }, { name: 'drop', bars: 8 }, { name: 'drop2', bars: 8 },
+      { name: 'drop', bars: 8 }, { name: 'break', bars: 8 }, { name: 'build2', bars: 4 }, { name: 'drop2', bars: 16 },
+      { name: 'drop', bars: 8 }, { name: 'outro', bars: 8 },
+    ] : style === 'acidBreaks' ? [
       // grime-style 8/16-bar blocks with a half-time switch-up
       { name: 'intro', bars: 8 }, { name: 'build', bars: 8 }, { name: 'drop', bars: 8 }, { name: 'switch', bars: 8 },
       { name: 'drop2', bars: 16 }, { name: 'switch', bars: 8 }, { name: 'outro', bars: 8 },

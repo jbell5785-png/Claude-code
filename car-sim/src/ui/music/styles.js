@@ -31,6 +31,29 @@ const GRIME_RIFFS = [ // 16 steps, 808-style sliding sub
 ];
 
 export const STYLES = {
+  hardcore: {
+    label: 'Hardcore / Gabber Jungle',
+    bpm: [168, 178],
+    swing: [0.5, 0.51],
+    scales: ['phrygian', 'harmonicMinor', 'phrygian', 'aeolian'],
+    progressions: [[0, 0, 1, 0], [0, 6, 5, 6], [0, 0, 5, 1], [0, 0, 6, 4]],
+    chordBars: [2],
+    chordSize: 3,
+    bass: 'reese',
+    riffs: REESE_RIFFS,
+    riffLen: 32,
+    stab: 'hoover',
+    lead: 'acid',
+    arp: 'square',
+    kicks: [[[0, 4, 8, 12], [0, 4, 8, 12]]],
+    snares: [4, 12],
+    breakLevel: 0.95,
+    motifRhythms: [[[0, 3], [3, 3], [6, 2], [10, 6]]],
+    stabRhythms: [[0, 3, 6], [0, 10], [0, 6, 14], [0]],
+    rootRange: [33, 40],
+    words: ['Gabber', 'Hardcore', 'Rotterdam', 'Thunderdome', 'Amen', 'Acid', 'Terror', 'Hoover', 'Rave'],
+    suffixes: ['(Hardcore Mix)', '(Rotterdam Edit)', 'VIP', '(Terror Mix)', '', ''],
+  },
   acidBreaks: {
     label: 'Acid Breaks',
     bpm: [138, 142],

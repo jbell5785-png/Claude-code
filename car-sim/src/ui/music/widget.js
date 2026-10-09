@@ -30,7 +30,7 @@ const CSS = `
 `;
 
 const STYLE_OPTS = [
-  ['auto', 'Auto mix'], ['acidBreaks', 'Acid Breaks'], ['dnb', 'Drum & Bass'], ['breaks', 'Big Beat / Breaks'], ['garage', '2-Step Garage'], ['acid', 'Acid Techno'],
+  ['auto', 'Auto mix'], ['acidBreaks', 'Acid Breaks'], ['hardcore', 'Hardcore / Gabber'], ['dnb', 'Drum & Bass'], ['breaks', 'Big Beat / Breaks'], ['garage', '2-Step Garage'], ['acid', 'Acid Techno'],
 ];
 
 function injectCss() {
