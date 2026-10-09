@@ -55,18 +55,19 @@ for ( int fxi = 0; fxi < FX_MAX_LIGHTS; fxi ++ ) {
 `;
 
 /**
- * Chain an onBeforeCompile hook. Each hook gets (shader, renderer); keys are concatenated for
- * the program cache.
+ * Chain an onBeforeCompile hook by name (re-adding a name replaces it). keyFn() feeds the program
+ * cache key so variants (e.g. light budget) compile separately.
  */
-export function addShaderHook(material, key, hook) {
-  const ud = material.userData; if (!ud.fxHooks) {
+export function addShaderHook(material, name, fn, keyFn) {
+  const ud = material.userData;
+  if (!ud.fxHooks) {
     ud.fxHooks = [];
     const prevKey = material.customProgramCacheKey ? material.customProgramCacheKey.bind(material) : null;
     material.onBeforeCompile = (shader, r) => { for (const h of ud.fxHooks) h.fn(shader, r); };
-    material.customProgramCacheKey = () => (prevKey ? prevKey() : '') + '|' + ud.fxHooks.map((h) => (typeof h.key === 'function' ? h.key() : h.key)).join(',');
+    material.customProgramCacheKey = () => (prevKey ? prevKey() : '') + '|' + ud.fxHooks.map((h) => h.name + (h.keyFn ? h.keyFn() : '')).join(',');
   }
-  const ex = ud.fxHooks.find((h) => h.key === key || (h.name && h.name === key));
-  if (ex) ex.fn = hook; else ud.fxHooks.push({ key, name: typeof key === 'string' ? key : undefined, fn: hook });
+  const ex = ud.fxHooks.find((h) => h.name === name);
+  if (ex) { ex.fn = fn; ex.keyFn = keyFn; } else ud.fxHooks.push({ name, fn, keyFn });
   material.needsUpdate = true;
 }
 
@@ -75,15 +76,13 @@ export function injectFxLights(material) {
   if (!material || material.userData.fxLights) return material;
   if (!(material.isMeshStandardMaterial || material.isMeshLambertMaterial || material.isMeshPhongMaterial)) return material;
   material.userData.fxLights = true; patched.add(material);
-  addShaderHook(material, { toString: () => 'fxl' + maxLights }, (shader) => {
+  addShaderHook(material, 'fxl', (shader) => {
     shader.defines = shader.defines || {}; shader.defines.FX_MAX_LIGHTS = maxLights;
     Object.assign(shader.uniforms, fxLightUniforms);
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <lights_pars_begin>', '#include <lights_pars_begin>\n' + FRAG_DECL)
       .replace('#include <lights_fragment_end>', FRAG_LOOP + '\n#include <lights_fragment_end>');
-  });
-  // the key object above stringifies to the current budget
-  material.userData.fxHooks[material.userData.fxHooks.length - 1].key = () => 'fxl' + maxLights;
+  }, () => maxLights);
   return material;
 }
 export function forgetFxLights(material) { patched.delete(material); }
