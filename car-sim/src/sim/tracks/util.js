@@ -98,7 +98,7 @@ export function turtle(segs, opts = {}) {
     const ux = Math.cos(dirs[i]), uy = Math.sin(dirs[i]);
     const vx = Math.cos(dirs[j]), vy = Math.sin(dirs[j]);
     const det = ux * vy - uy * vx;
-    if (Math.abs(det) < 0.2) throw new Error('turtle: closing straights nearly parallel');
+    if (Math.abs(det) < 0.1) throw new Error('turtle: closing straights nearly parallel');
     // ux*da + vx*db = -x ; uy*da + vy*db = -y
     const da = (-x * vy + y * vx) / det;
     const db = (-y * ux + x * uy) / det;

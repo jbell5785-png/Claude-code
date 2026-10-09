@@ -18,7 +18,7 @@
 // Drivetrain: see drivetrain.js (PGS over crank / motors / wheels).
 
 import { DT, G, RHO_AIR, SURFACE } from './constants.js';
-import { createTyreState, tyreForces } from './tyre.js';
+import { createTyreState, tyreForces, tyreSteadyForces } from './tyre.js';
 import { createEngineState, engineUpdate, engineCurve } from './engine.js';
 import { Drivetrain } from './drivetrain.js';
 
@@ -204,20 +204,17 @@ class Vehicle {
     this.reset(pose);
   }
 
-  /** Find the longitudinal slip ratio at peak Fx by probing the tyre model (one-off, at build). */
+  /** Longitudinal slip ratio at peak Fx from the tyre's steady-state curve (one-off, at build). */
   _estimatePeakSlip() {
-    try {
-      const tp = this.tp[2], ts = createTyreState(tp);
-      const out = { Fx: 0, Fy: 0, Mz: 0, slipRatio: 0, slipAngle: 0, usage: 0, sliding: false, rollResTorque: 0 };
-      const inp = { Fz: this.F0[2] + this.mU[2] * G, vx: 25, vy: 0, omega: 0, camber: 0, surface: SURFACE.ASPHALT };
-      let best = 0, bestK = 0.1;
-      for (let k = 0.02; k <= 0.4; k += 0.01) {
-        inp.omega = inp.vx * (1 + k) / tp.radius;
-        for (let n = 0; n < 60; n++) tyreForces(ts, tp, inp, DT, out);
-        if (out.Fx > best) { best = out.Fx; bestK = k; }
-      }
-      return clamp(bestK, 0.04, 0.3);
-    } catch (e) { return 0.1; }
+    const tp = this.tp[2];
+    const out = { Fx: 0, Fy: 0, Mz: 0, usage: 0, mu: 0 };
+    const Fz = this.F0[2] + this.mU[2] * G;
+    let best = -1, bestK = 0.1;
+    for (let k = 0.01; k <= 0.5; k += 0.005) {
+      tyreSteadyForces(tp, Fz, k, 0, 0, SURFACE.ASPHALT, out);
+      if (out.Fx > best) { best = out.Fx; bestK = k; }
+    }
+    return clamp(bestK, 0.03, 0.3);
   }
 
   /** Reset to a pose on the ground in static equilibrium. */
@@ -416,13 +413,7 @@ class Vehicle {
     let failed = false;
     for (let u = 0; u < this.engines.length; u++) if (this.engines[u].failed) failed = true;
     if (failed) thrEff = 0;
-    // idle governor (ICE): keep the engine from stalling
-    if (!this.isEV && !failed) {
-      const e = (this.idleRpm - rpm) / this.idleRpm;
-      this.idleI = clamp(this.idleI + dt * 2 * e, 0, 0.15);
-      const idleThr = clamp(this.idleI + 2.5 * e, 0, 0.4);
-      if (idleThr > thrEff) thrEff = idleThr;
-    }
+    // (idle speed control lives in engine.js)
     this._thrEff = thrEff;
 
     // ---- clutch (ICE) ----

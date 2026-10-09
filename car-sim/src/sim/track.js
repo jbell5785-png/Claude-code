@@ -912,7 +912,8 @@ function buildScenery(track, def, seed) {
   // barrier offset (outside the asphalt edge) per side
   const barrierOff = (i, side) => {
     const E = side > 0 ? S.edgeL[i] : S.edgeR[i];
-    if (bdef.offset != null) return Math.min(bdef.offset, E - 0.3);
+    const fixed = side > 0 ? (bdef.offsetL ?? bdef.offset) : (bdef.offsetR ?? bdef.offset);
+    if (fixed != null) return Math.max(KERB_W + 0.3, Math.min(fixed, E - 0.3));
     const g = side > 0 ? S.gravelL[i] : S.gravelR[i];
     const gEnd = side > 0 ? S.gravelEndL[i] : S.gravelEndR[i];
     const R0 = side > 0 ? S.runoffL[i] : S.runoffR[i];
