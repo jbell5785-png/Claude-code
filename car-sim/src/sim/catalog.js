@@ -112,10 +112,10 @@ export const INDUCTION = {
 // the actual gain comes from the engine model).
 export const NITROUS = {
   none: { label: 'None', kW: 0, flow: 0, bottleKg: 0, mass: 0, armRpm: 0, price: 0 },
-  street: { label: 'Street wet kit (50 kW shot)', kW: 50, flow: 25, bottleKg: 2.3, mass: 9, armRpm: 2500, price: 900 },
-  sport: { label: 'Sport wet kit (100 kW shot)', kW: 100, flow: 50, bottleKg: 4.5, mass: 12, armRpm: 3000, price: 1600 },
-  race: { label: 'Race plate kit (150 kW shot)', kW: 150, flow: 75, bottleKg: 4.5, mass: 13, armRpm: 3500, price: 2600 },
-  drag: { label: 'Drag direct-port (250 kW shot)', kW: 250, flow: 125, bottleKg: 6.8, mass: 17, armRpm: 4000, price: 4800 },
+  street: { label: 'Street wet kit (50 kW shot)', kW: 50, flow: 20, bottleKg: 2.3, mass: 9, armRpm: 2500, price: 900 },
+  sport: { label: 'Sport wet kit (100 kW shot)', kW: 100, flow: 40, bottleKg: 4.5, mass: 12, armRpm: 3000, price: 1600 },
+  race: { label: 'Race plate kit (150 kW shot)', kW: 150, flow: 60, bottleKg: 4.5, mass: 13, armRpm: 3500, price: 2600 },
+  drag: { label: 'Drag direct-port (250 kW shot)', kW: 250, flow: 100, bottleKg: 6.8, mass: 17, armRpm: 4000, price: 4800 },
 };
 
 // Anti-lag system (turbo only): price and hardware mass.

@@ -1,6 +1,7 @@
 // Engine model validation: steady-state curves of real-world-like configurations vs published figures,
 // turbo spool lag, fuel/knock behaviour, EV motor, and hot-path timing.
 // Run: node scripts/test-engine.js
+import { NITROUS } from '../src/sim/catalog.js';
 import { makeEngineParams, makeMotorParams, createEngineState, engineUpdate, engineCurve, curvePeaks } from '../src/sim/engine.js';
 
 const base = { cams: 'stock', intake: 'stock', exhaust: 'stock', internals: 'stock', flywheel: 'stock',
@@ -146,6 +147,55 @@ for (const fuel of ['petrol95', 'petrol98', 'race102', 'e85', 'methanol']) {
   const ep = makeEngineParams(spec); const es = createEngineState(ep); let t = 0;
   while (!es.failed && t < 60) { engineUpdate(es, ep, 1, 6500 * Math.PI / 30, 1 / 500, null); t += 1 / 500; }
   console.log(`Overboost on stock internals (MAP ${es.mapBar.toFixed(2)} bar vs max ${ep.maxPressure}): ${es.failed ? 'failed after ' + t.toFixed(1) + ' s' : 'survived 60 s'}`);
+}
+
+// ----- nitrous oxide
+console.log('\n=== Nitrous (wet kits) ===');
+{
+  const v8 = E({ layout: 'V8', displacement: 5.0, exhaust: 'sport', fuelSystem: 'race' });
+  const p0 = curvePeaks(engineCurve(makeEngineParams(v8))).powerKW;
+  console.log('Gain vs shot size, 5.0 NA V8 (race fuel system), steady WOT with env.nitrous:');
+  let last = 0;
+  for (const n of ['street', 'sport', 'race', 'drag']) {
+    const ep = makeEngineParams({ ...v8, nitrous: n });
+    const cur = engineCurve(ep, 60, { nitrous: true }); const pk = curvePeaks(cur);
+    const at = cur.find((q) => q.rpm === pk.peakPowerRpm);
+    console.log(`  ${n.padEnd(7)} nominal ${String(NITROUS[n].kW).padStart(3)} kW: ${pk.powerKW.toFixed(0)} kW (+${(pk.powerKW - p0).toFixed(0)}), ${pk.torqueNm.toFixed(0)} Nm, charge ${at.chargeTempC.toFixed(0)} C, fuel ${at.fuelFlowGs.toFixed(1)} g/s`);
+    if (!(pk.powerKW - p0 > last)) { console.log('FAIL: bigger shot should give more power'); fails++; }
+    if (Math.abs((pk.powerKW - p0) / NITROUS[n].kW - 1) > 0.25) { console.log('FAIL: shot gain far from nominal'); fails++; }
+    last = pk.powerKW - p0;
+  }
+  // fuel-system cap: wet shot fuel goes through the same pump/injectors
+  const i4 = E({ layout: 'I4', displacement: 2.0, cams: 'fastRoad', nitrous: 'race' });
+  const pkS = curvePeaks(engineCurve(makeEngineParams({ ...i4, fuelSystem: 'stock' }), 60, { nitrous: true }));
+  const pkR = curvePeaks(engineCurve(makeEngineParams({ ...i4, fuelSystem: 'race' }), 60, { nitrous: true }));
+  const pkN = curvePeaks(engineCurve(makeEngineParams({ ...i4, fuelSystem: 'stock' })));
+  console.log(`Fuel cap: 2.0 NA + 150 kW shot: stock pump ${pkS.powerKW.toFixed(0)} kW vs race pump ${pkR.powerKW.toFixed(0)} kW (no shot ${pkN.powerKW.toFixed(0)} kW)`);
+  if (!(pkR.powerKW > pkS.powerKW * 1.08)) { console.log('FAIL: weak pump should limit the shot'); fails++; }
+  // knock: 2.0 turbo at stock boost + race shot on RON95 vs race fuel; dynamic damage at 4500 rpm
+  const knockRes = {};
+  for (const [fuel, internals] of [['petrol95', 'billet'], ['race102', 'billet'], ['race102', 'stock']]) {
+    const spec = E({ layout: 'I4', displacement: 2.0, induction: 'turboMedium', boost: 1.2, intercooler: 'stock', fuel, fuelSystem: 'drag', nitrous: 'race', internals });
+    const ep = makeEngineParams(spec);
+    const cur = engineCurve(ep, 60, { nitrous: true }); const pk = curvePeaks(cur);
+    const es = createEngineState(ep); let t = 0; const env = { nitrous: true };
+    while (!es.failed && t < 20 && es.nitrousKg > 0) { engineUpdate(es, ep, 1, 4500 * Math.PI / 30, 1 / 500, env); t += 1 / 500; }
+    console.log(`Knock: 2.0T 1.0 bar + 150 kW shot, ${fuel.padEnd(8)} ${internals.padEnd(6)} internals: ${pk.powerKW.toFixed(0)} kW, max retard ${Math.max(...cur.map((q) => q.knockRetard)).toFixed(2)}, held at 4500 rpm: ${es.failed ? 'ENGINE FAILED after ' + t.toFixed(1) + ' s' : 'damage ' + es.damage.toFixed(2) + ' after ' + t.toFixed(1) + ' s (bottle ' + (es.nitrousKg > 0 ? 'left' : 'empty') + ')'}`);
+    knockRes[fuel + internals] = es;
+  }
+  if (!knockRes.petrol95billet.failed || knockRes.race102billet.failed || !knockRes.race102stock.failed) { console.log('FAIL: expected RON95 detonation failure, race fuel survival on billet, stock internals failure'); fails++; }
+  // arming + bottle duration
+  const ep = makeEngineParams({ ...v8, nitrous: 'sport' }); const es = createEngineState(ep); const env = { nitrous: true };
+  engineUpdate(es, ep, 0.8, 5000 * Math.PI / 30, 1 / 500, env); const a1 = es.nitrousActive;
+  engineUpdate(es, ep, 1, 2000 * Math.PI / 30, 1 / 500, env); const a2 = es.nitrousActive;
+  engineUpdate(es, ep, 1, 5000 * Math.PI / 30, 1 / 500, { nitrous: false }); const a3 = es.nitrousActive;
+  let t = 0;
+  while (es.nitrousKg > 0 && t < 600) { engineUpdate(es, ep, 1, 5000 * Math.PI / 30, 1 / 500, env); t += 1 / 500; }
+  console.log(`Arming: throttle 0.8 -> ${a1}, 2000 rpm -> ${a2}, button off -> ${a3}; ${ep.nitrousCapacity} kg bottle (sport) empties in ${t.toFixed(1)} s, then active=${(engineUpdate(es, ep, 1, 5000 * Math.PI / 30, 1 / 500, env), es.nitrousActive)}`);
+  if (a1 || a2 || a3 || es.nitrousActive) { console.log('FAIL: nitrous arming'); fails++; }
+  const evp = makeMotorParams('medium', 'b60'); const evs = createEngineState(evp);
+  engineUpdate(evs, evp, 1, 500, 1 / 500, { nitrous: true });
+  if (evs.nitrousActive || evs.nitrousKg !== 0) { console.log('FAIL: EV nitrous should be a no-op'); fails++; }
 }
 
 // ----- EV motor

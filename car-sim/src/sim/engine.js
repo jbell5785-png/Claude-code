@@ -89,7 +89,8 @@ export const MODEL = {
   n2oCoolingLatent: 1.5e5,       // J/kg effective evaporative cooling of the charge (liquid flash, ~half reaches the charge)
   n2oCp: 880,                    // J/(kg K) N2O vapour
   n2oMolar: 0.044, airMolar: 0.02896,
-  n2oPressureGain: 2.2,          // cylinder-pressure equivalence: energy per kg N2O charge / per kg air
+  n2oPressureGain: 3.0,          // peak-pressure equivalence per kg N2O vs per kg air: 2.2x energy x ~1.35 faster burn
+  n2oKnockCoolingFrac: 0.3,      // share of the N2O charge cooling that survives to the end gas (faster burn heats it)
   n2oLeanDamage: 3.0,            // damage per s per unit fuel shortfall while spraying (lean burn on the shot)
   n2oArmThrottle: 0.9,
   // EV
@@ -460,7 +461,7 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
 
   // --- nitrous: liquid N2O flashes in the intake (charge cooling), displaces some air by volume,
   // and brings 1.57x its mass in air-equivalent oxygen plus its decomposition heat.
-  let n2oPerRev = 0, n2oFlow = 0, airFrac = 1;
+  let n2oPerRev = 0, n2oFlow = 0, airFrac = 1, dTn2o = 0;
   const nos = ep.nitrousFlow > 0 && combust && env !== null && env !== undefined && env.nitrous === true
     && throttle >= MODEL.n2oArmThrottle && rpm > ep.nitrousArmRpm && es.nitrousKg > 0;
   es.nitrousActive = nos;
@@ -469,8 +470,9 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
     n2oFlow = ep.nitrousFlow * clamp(fill / 0.15, 0.3, 1);   // bottle pressure sags when nearly empty
     n2oPerRev = n2oFlow / nRps;
     const air0 = ve * pMan / (R_AIR * Tc) * ep.vdEff * 0.5;
-    Tc -= n2oPerRev * MODEL.n2oCoolingLatent / (air0 * CP_AIR + n2oPerRev * MODEL.n2oCp);
-    if (Tc < 200) Tc = 200;
+    dTn2o = n2oPerRev * MODEL.n2oCoolingLatent / (air0 * CP_AIR + n2oPerRev * MODEL.n2oCp);
+    if (Tc - dTn2o < 200) dTn2o = Tc - 200;
+    Tc -= dTn2o;
     const nN = n2oPerRev / MODEL.n2oMolar, nA = air0 / MODEL.airMolar;
     airFrac = nA / (nA + nN);                               // N2O vapour takes part of the cylinder volume
   }
@@ -481,7 +483,7 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
   const airPerRev = ve * rho * ep.vdEff * 0.5 * airFrac;  // kg per crank revolution
   const oxPerRev = airPerRev + n2oPerRev * MODEL.n2oOxygenRatio; // air-equivalent oxygen
   const airFlow = airPerRev * w / TWO_PI;                // kg/s
-  es.airFlow = airFlow;
+  es.airFlow = airFlow + n2oFlow;                         // exhaust-driving mass flow (turbo spool sees the shot too)
   es.lambda = lambda;
   es.mapBar = pMan / 1e5;
 
@@ -496,7 +498,8 @@ export function engineUpdate(es, ep, throttle, omega, dt, env) {
     const K = MODEL.knock;
     // nitrous raises the energy (and peak pressure) per cycle like extra charge density
     const pEff = pMan * (1 + MODEL.n2oPressureGain * n2oPerRev / (airPerRev > 1e-9 ? airPerRev : 1e-9));
-    const ki = Math.pow(pEff / 1e5 / K.pRef, K.a) * Math.pow(Tc / K.TRef, K.b)
+    const Tk = Tc + (1 - MODEL.n2oKnockCoolingFrac) * dTn2o;
+    const ki = Math.pow(pEff / 1e5 / K.pRef, K.a) * Math.pow(Tk / K.TRef, K.b)
       * Math.pow(ep.compression / 10, K.c) * Math.pow(ep.timing, K.d);
     es.knockIndex = ki;
     if (ki > ep.knockLimit) retard = clamp((1 - ep.knockLimit / ki) / K.retardRange, 0, 1);

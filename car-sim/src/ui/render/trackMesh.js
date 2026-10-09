@@ -151,7 +151,7 @@ export function buildTrackScene(track, opts = {}) {
   const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2; const half = Math.max(maxX - minX, maxY - minY) / 2 + 700;
   const bounds = { minX, maxX, minY, maxY, cx, cy, half, minZ };
   {
-    const G = lowDetail ? 70 : 120; const pos = [], col = [], uv = [], ind = [];
+    const G = opts.terrainGrid || (lowDetail ? 70 : 120); const pos = [], col = [], uv = [], ind = [];
     let hint = -1;
     for (let j = 0; j <= G; j++) for (let i = 0; i <= G; i++) {
       const x = cx - half + (2 * half * i) / G, y = cy - half + (2 * half * j) / G;
@@ -341,7 +341,7 @@ export function buildTrackScene(track, opts = {}) {
         trees.push({ x, y, z: q.height + hillsAt(x, y, Math.abs(q.offset), edge) - 0.2, s: 0.7 + r() * 0.8, rot: r() * 6.28, kind: r() < 0.55 ? 0 : 1 });
       }
     }
-    if (lowDetail && trees.length > 1200) trees = trees.filter((_, k) => k % 3 === 0);
+    const tf = opts.trees ?? (lowDetail ? 0.35 : 1); if (tf < 1) { const keep = Math.max(1, Math.round(1 / Math.max(tf, 0.05))); trees = trees.filter((_, k) => k % keep === 0); }
     const trunkG = new THREE.CylinderGeometry(0.18, 0.28, 3, 6); trunkG.translate(0, 1.5, 0);
     const pineG = new THREE.ConeGeometry(2.2, 7.5, 8); pineG.translate(0, 6.2, 0);
     const pine2 = new THREE.ConeGeometry(1.6, 5, 8); pine2.translate(0, 8.4, 0);

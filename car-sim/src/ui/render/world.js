@@ -8,19 +8,18 @@ import { CarView } from './carModel.js';
 import { Particles, SkidMarks, WheelFx } from './effects.js';
 import { CameraRig } from './cameras.js';
 import { renderContext as rc, emit } from './context.js';
+import { getQuality, onQualityChange, downgradeMaterials, DynamicResolution } from '../quality.js';
 
 const isCoarse = typeof matchMedia !== 'undefined' && matchMedia('(pointer: coarse)').matches;
 
 export class World {
   constructor(canvas, opts = {}) {
     this.canvas = canvas;
-    const lowPower = opts.lowPower ?? isCoarse;
-    this.quality = lowPower ? 'low' : 'high';
-    const r = new THREE.WebGLRenderer({ canvas, antialias: !lowPower, powerPreference: 'high-performance', preserveDrawingBuffer: !!opts.preserveDrawingBuffer });
-    r.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1.5 : 2));
+    const q = getQuality(); this.q = q; this.quality = q.name;
+    const r = new THREE.WebGLRenderer({ canvas, antialias: q.antialias, powerPreference: 'high-performance', preserveDrawingBuffer: !!opts.preserveDrawingBuffer });
+    this.renderer = r; this.renderScale = q.renderScale; this._applyPixelRatio();
     r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 0.62;
-    r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.renderer = r;
+    r.shadowMap.enabled = q.shadows; r.shadowMap.type = THREE.PCFSoftShadowMap;
     this.camera = new THREE.PerspectiveCamera(60, 1, 0.08, 9000);
     this.rig = new CameraRig(this.camera, canvas);
     this.pmrem = new THREE.PMREMGenerator(r);
@@ -28,14 +27,14 @@ export class World {
     // ---- outdoor scene
     const scene = new THREE.Scene(); this.scene = scene;
     this.sunDir = new THREE.Vector3().setFromSphericalCoords(1, THREE.MathUtils.degToRad(90 - 38), THREE.MathUtils.degToRad(215));
-    const sky = new Sky(); sky.scale.setScalar(8000); this.sky = sky;
+    const sky = new Sky(); sky.scale.setScalar(8000); this.sky = sky; sky.visible = q.sky; scene.background = new THREE.Color(0x9fc0e0);
     const u = sky.material.uniforms; u.turbidity.value = 5.5; u.rayleigh.value = 1.35; u.mieCoefficient.value = 0.004; u.mieDirectionalG.value = 0.82;
     u.sunPosition.value.copy(this.sunDir);
     scene.add(sky);
     scene.fog = new THREE.FogExp2(0xb9cbe0, 0.00055);
     const hemi = new THREE.HemisphereLight(0xcfe3ff, 0x4a5a35, 1.15); scene.add(hemi);
-    const sun = new THREE.DirectionalLight(0xfff1dc, 3.1); sun.castShadow = true;
-    const sm = lowPower ? 1024 : 2048; sun.shadow.mapSize.set(sm, sm);
+    const sun = new THREE.DirectionalLight(0xfff1dc, 3.1); sun.castShadow = q.shadows;
+    const sm = q.shadowMap || 1024; sun.shadow.mapSize.set(sm, sm);
     const sc = sun.shadow.camera; sc.left = -38; sc.right = 38; sc.top = 38; sc.bottom = -38; sc.near = 1; sc.far = 260;
     sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03; sun.shadow.radius = 3;
     scene.add(sun); scene.add(sun.target); this.sun = sun;
@@ -47,8 +46,8 @@ export class World {
       envScene.add(ground);
       this.skyEnv = this.pmrem.fromScene(envScene, 0.02).texture; scene.environment = this.skyEnv; scene.environmentIntensity = 0.7;
     }
-    this.particles = new Particles(isCoarse ? 900 : 1800); scene.add(this.particles.points); this.particles.setFog(scene.fog);
-    this.skids = new SkidMarks(isCoarse ? 2500 : 6000); scene.add(this.skids.mesh);
+    this.particles = new Particles(q.particles); scene.add(this.particles.points); this.particles.setFog(scene.fog);
+    this.skids = new SkidMarks(q.skids); scene.add(this.skids.mesh);
     this.trackGroup = null; this.track = null; this.trackInfo = null;
 
     // ---- studio scene (garage)
@@ -57,7 +56,22 @@ export class World {
     this.cars = new Set(); this.fx = new Map(); this.focus = null; this.active = 'track';
     this.hemi = hemi;
     Object.assign(rc, { renderer: r, scene, studioScene: this.studio.scene, camera: this.camera, world: this, cars: this.cars, sun, hemi, sky, quality: this.quality, activeScene: 'track' });
+    this.dynres = new DynamicResolution((s) => { this.renderScale = s; this._applyPixelRatio(); this.resize(); });
+    this.dynres.scale = q.renderScale;
+    onQualityChange((nq) => this.applyQuality(nq));
     this.resize(); window.addEventListener('resize', () => this.resize());
+  }
+  _applyPixelRatio() { const q = this.q; this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, q.pixelRatioCap) * this.renderScale); }
+  /** Live quality change (materials tier changes apply on next track/car build). */
+  applyQuality(q) {
+    const old = this.q; this.q = q; this.quality = q.name; rc.quality = q.name;
+    this.renderScale = q.renderScale; this.dynres.scale = q.renderScale; this._applyPixelRatio();
+    this.renderer.shadowMap.enabled = q.shadows; this.sun.castShadow = q.shadows; this.sky.visible = q.sky;
+    if (q.shadowMap && q.shadowMap !== this.sun.shadow.mapSize.x) { this.sun.shadow.mapSize.set(q.shadowMap, q.shadowMap); if (this.sun.shadow.map) { this.sun.shadow.map.dispose(); this.sun.shadow.map = null; } }
+    for (const sc of [this.scene, this.studio.scene]) sc.traverse((o) => { if (o.material) (Array.isArray(o.material) ? o.material : [o.material]).forEach((m) => { m.needsUpdate = true; }); });
+    for (const cv of this.cars) cv.setBlobShadow(!q.shadows);
+    if (this.track && (old.materials !== q.materials || old.trees !== q.trees || old.terrainGrid !== q.terrainGrid)) this.setTrack(this.track);
+    this.resize(); emit('quality', q);
   }
 
   _buildStudio() {
@@ -89,7 +103,9 @@ export class World {
   /** Build the environment for a track (§6 object). */
   setTrack(track) {
     if (this.trackGroup) { this.scene.remove(this.trackGroup); this.trackGroup.traverse((o) => { if (o.geometry) o.geometry.dispose(); }); }
-    this.track = track; const info = buildTrackScene(track, { lowDetail: this.quality === 'low' });
+    this.track = track; const q = this.q;
+    const info = buildTrackScene(track, { lowDetail: q.name === 'potato' || q.name === 'low', trees: q.trees, terrainGrid: q.terrainGrid });
+    if (q.materials === 'lambert') downgradeMaterials(info.group);
     this.trackGroup = info.group; this.trackInfo = info; this.scene.add(info.group);
     rc.trackGroup = info.group; rc.track = track; emit('track', info.group, track);
     this.rig.setTvCams(info.tvCams);
@@ -106,6 +122,8 @@ export class World {
    */
   addCar(params, opts = {}) {
     const cv = new CarView(params, opts); this.scene.add(cv.group); this.cars.add(cv);
+    if (this.q.materials === 'lambert') downgradeMaterials(cv.group);
+    cv.setBlobShadow(!this.q.shadows || !!opts.ghost);
     if (opts.effects ?? !opts.ghost) this.fx.set(cv, new WheelFx(this.particles, this.skids));
     emit('carAdded', cv); return cv;
   }
@@ -138,6 +156,7 @@ export class World {
 
   /** Per-frame: effects, shadows following the focus car, camera, render. vehicleOf(cv) -> vehicle state. */
   frame(dt, vehicleOf) {
+    this.dynres.tick(dt, this.q);
     if (this.active === 'studio') {
       const st = this.studio; if (st.car && this.autoRotate !== false) st.table.rotation.y += dt * 0.25;
       this.rig.update(dt, null, null);

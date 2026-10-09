@@ -537,6 +537,16 @@ export function buildCarModel(params, opts = {}) {
   return { root, body, shell, wheels, holders, steerGroups, discs, parts, lay, steeringWheel, eye, paint };
 }
 
+let _blobMat = null;
+function blobMaterial() {
+  if (_blobMat) return _blobMat;
+  const c = document.createElement('canvas'); c.width = 128; c.height = 64; const g = c.getContext('2d');
+  const gr = g.createRadialGradient(64, 32, 4, 64, 32, 62); gr.addColorStop(0, 'rgba(0,0,0,0.75)'); gr.addColorStop(0.55, 'rgba(0,0,0,0.45)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+  g.setTransform(1, 0, 0, 0.5, 0, 16); g.fillStyle = gr; g.fillRect(0, -32, 128, 128);
+  _blobMat = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -8, polygonOffsetUnits: -8 });
+  return _blobMat;
+}
+
 /** Linear blend between two snapshots of vehicle render state. */
 class Snapshot {
   constructor() { this.pos = new THREE.Vector3(); this.quat = new THREE.Quaternion(); this.wpos = [0, 1, 2, 3].map(() => new THREE.Vector3()); this.spin = [0, 0, 0, 0]; this.steer = [0, 0, 0, 0]; }
@@ -566,7 +576,11 @@ export class CarView {
     this.prev = new Snapshot(); this.cur = new Snapshot(); this.render = new Snapshot();
     this.hasState = false; this.flameT = 0; this.prevThrottle = 0; this.popTimer = 0;
     this.brake = 0;
+    // blob shadow (contact shadow; the only shadow on the potato tier)
+    const lay = this.model.lay; const blob = new THREE.Mesh(new THREE.PlaneGeometry(lay.L * 1.15, lay.W * 1.25), blobMaterial());
+    blob.rotation.x = -Math.PI / 2; blob.renderOrder = 1; this.blob = blob; this.blobOn = false; this.group.add(blob); blob.visible = false;
   }
+  setBlobShadow(on) { this.blobOn = on; this.blob.visible = on; }
   get eye() { return this.model.eye; }
   /** Call right before the last physics substep of a frame (stores the interpolation start). */
   capturePrev(v) { if (!this.hasState) { this.cur.copyFromVehicle(v); this.hasState = true; } this.prev.copyFromVehicle(v); }
@@ -576,6 +590,10 @@ export class CarView {
     const P = this.prev, C = this.cur, R = this.render;
     R.pos.lerpVectors(P.pos, C.pos, alpha); R.quat.slerpQuaternions(P.quat, C.quat, alpha);
     const root = this.model.root; root.position.copy(R.pos); root.quaternion.copy(R.quat);
+    if (this.blobOn) {
+      const w = this.cur.wpos; const gy = (w[0].y + w[1].y + w[2].y + w[3].y) / 4 - (this.model.lay.rF + this.model.lay.rR) / 2 + 0.03;
+      this.blob.position.set(R.pos.x, gy, R.pos.z); _v.set(1, 0, 0).applyQuaternion(R.quat); this.blob.rotation.set(-Math.PI / 2, 0, Math.atan2(-_v.z, _v.x));
+    }
     for (let i = 0; i < 4; i++) {
       const h = this.model.holders[i]; h.position.lerpVectors(P.wpos[i], C.wpos[i], alpha); h.quaternion.copy(R.quat);
       this.model.steerGroups[i].rotation.y = lerp(P.steer[i], C.steer[i], alpha);
