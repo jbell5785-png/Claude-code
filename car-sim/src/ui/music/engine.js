@@ -78,6 +78,7 @@ export class MusicEngine {
   // ------------------------------------------------------------------ songs
   pickStyle() {
     if (this.style !== 'auto' && STYLE_KEYS.includes(this.style)) return this.style;
+    if (this.raceState != null) return 'acidBreaks'; // house style for menus and races
     // rotate through styles without immediate repeats
     const choices = STYLE_KEYS.filter((s) => s !== this.lastStyle);
     return choices[hashSeed(this.seed + ':' + this.songIndex) % choices.length];

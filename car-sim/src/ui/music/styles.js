@@ -23,7 +23,37 @@ const BIGBEAT_RIFFS = [ // 16 steps
   [{ s: 0, l: 1, d: 0 }, { s: 2, l: 1, d: 0 }, { s: 4, l: 2, d: 7 }, { s: 7, l: 1, d: 0 }, { s: 8, l: 2, d: 2 }, { s: 10, l: 2, d: 0 }, { s: 13, l: 3, d: -1, sl: 1 }],
 ];
 
+const GRIME_RIFFS = [ // 16 steps, 808-style sliding sub
+  [{ s: 0, l: 6, d: 0 }, { s: 6, l: 2, d: 0 }, { s: 8, l: 4, d: 7, sl: 1 }, { s: 12, l: 4, d: 0, sl: 1 }],
+  [{ s: 0, l: 3, d: 0 }, { s: 3, l: 5, d: 0 }, { s: 10, l: 4, d: -2, sl: 1 }, { s: 14, l: 2, d: 0, sl: 1 }],
+  [{ s: 0, l: 8, d: 0 }, { s: 8, l: 2, d: 4 }, { s: 11, l: 5, d: 0, sl: 1 }],
+  [{ s: 0, l: 2, d: 0 }, { s: 3, l: 4, d: 0 }, { s: 7, l: 3, d: 7, sl: 1 }, { s: 10, l: 6, d: 0, sl: 1 }],
+];
+
 export const STYLES = {
+  acidBreaks: {
+    label: 'Acid Breaks',
+    bpm: [138, 142],
+    swing: [0.53, 0.56],
+    scales: ['phrygian', 'aeolian', 'phrygian', 'harmonicMinor'],
+    progressions: [[0, 0, 1, 0], [0, 0, 5, 6], [0, 0, 0, 1], [0, 6, 0, 5]],
+    chordBars: [2],
+    chordSize: 3,
+    bass: 'grime',
+    riffs: GRIME_RIFFS,
+    riffLen: 16,
+    stab: 'eskimo',
+    lead: 'acid',
+    arp: 'square',
+    kicks: [[[0, 10], [0, 7, 10]], [[0, 3, 10], [0, 10]], [[0, 10, 11], [0, 6, 10]]],
+    snares: [4, 12],
+    breakLevel: 0.95,
+    motifRhythms: [[[0, 3], [3, 3], [6, 2], [10, 6]], [[0, 2], [3, 2], [6, 4], [12, 4]]],
+    stabRhythms: [[0, 3], [0, 6, 14], [3, 11], [0, 10]],
+    rootRange: [33, 40],
+    words: ['Acid', 'Grime', 'Eskimo', 'Squelch', 'Breaks', 'Riddim', 'Pirate', 'Roadman', 'Endz'],
+    suffixes: ['(Pirate Radio Mix)', '(Eskimo Dub)', 'VIP', '(Acid Breaks Mix)', '', ''],
+  },
   dnb: {
     label: 'Drum & Bass',
     bpm: [170, 176],
@@ -158,6 +188,7 @@ export const SECTIONS = {
   lift: { energy: 0.8, filter: 6000, filterEnd: 18000 },
   final: { energy: 1, filter: 18000, impact: true, dev: true, final: true },
   victory: { energy: 0.75, filter: 14000, impact: true },
+  switch: { energy: 0.75, filter: 18000, halftime: true },
   chill: { energy: 0.25, filter: 1500, halftime: true },
   chillB: { energy: 0.35, filter: 2100, halftime: true },
 };

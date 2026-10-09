@@ -71,6 +71,9 @@ export function layersFor(name, style, I, barInSection, bars) {
     case 'victory':
       L.halftime = 1; L.kick = L.snare = L.hats = 1; L.pad = 1; L.lead = 1; L.bass = 1; L.ride = 1;
       break;
+    case 'switch':
+      L.halftime = 1; L.kick = L.snare = L.hats = 1; L.bass = 1; L.stab = 1; L.perc = 0;
+      break;
     case 'chill':
     case 'chillB':
       L.halftime = 1; L.kick = L.snare = L.hats = 1; L.pad = 1; L.bass = 1;
@@ -169,6 +172,8 @@ export function planBar(deck, info) {
   const I = info.intensity;
   const { bar, bars, name, nextName } = info;
   const L = layersFor(name, style, I, bar, bars);
+  const AB = style === 'acidBreaks';
+  if (AB) { L.lead = 0; L.vox = 0; } // the 303 is the lead; vocal chops are hype ad-libs only
   const rng = makeRng((song.chopSeed + info.globalBar * 7919 + bar * 31) >>> 0);
   const emit = (ev) => deck.emit(ev);
   const tr = info.transpose || 0;
@@ -232,7 +237,8 @@ export function planBar(deck, info) {
       if (bar % 2 === 1 || style === 'dnb') emit({ t: st(10), type: 'kick', g: 0.7 });
     }
     if (L.snare) {
-      emit({ t: st(8), type: 'hit', s: style === 'garage' ? 'clap' : 'snare', g: 0.7, ch: 'snare' });
+      emit({ t: st(8), type: 'hit', s: style === 'garage' ? 'clap' : 'snare', g: name === 'switch' ? 1 : 0.7, ch: 'snare' });
+      if (name === 'switch') emit({ t: st(8), type: 'hit', s: 'clap', g: 0.6, ch: 'snare' });
       if (style === 'garage') emit({ t: st(8), type: 'hit', s: 'rim', g: 0.3, ch: 'perc' });
     }
     if (L.hats) {
@@ -318,6 +324,16 @@ export function planBar(deck, info) {
     }
   }
 
+  // ---- hype ad-libs (synthesised formant shouts) at drops, fills and switch-ups
+  if (AB && !isCountdown) {
+    const shout = tonic + 36;
+    if (sec.impact && bar === 0) emit({ t: st(2), type: 'vox', midi: shout, dur: 0.17, v1: 'o', v2: 'i' });
+    if (name === 'switch' && bar === 0) emit({ t: st(0), type: 'vox', midi: shout - 2, dur: 0.3, v1: 'i', v2: 'a' });
+    if (fill === 2 && (DROP_SECTIONS.has(name) || name === 'build' || name === 'switch')) {
+      for (let k = 0; k < 4; k++) emit({ t: st(14) + (k * sd) / 2, type: 'vox', midi: shout + (k === 3 ? 2 : 0), dur: sd * 0.42, v1: 'e', v2: 'i' });
+    }
+  }
+
   // ---- breakbeat
   if (L.brk && !L.halftime && !isCountdown) {
     const level = S.breakLevel * (L.brkLP ? 0.9 : 1);
@@ -332,7 +348,7 @@ export function planBar(deck, info) {
   if (L.bass && !isCountdown) {
     if (style === 'acid' && !L.halftime) {
       planAcid(deck, info, song.acid, chordDeg, bassMidi, st, sd, emit, I, name, bar, preDropGap, 'bass');
-    } else if (L.halftime) {
+    } else if (L.halftime && !AB) {
       if (chordStart) emit({ t: st(0), type: 'bass', midi: bassMidi(chordDeg, 0), dur: barDur * cb - 0.05, cutoff: 160, env: 120 });
     } else {
       const riff = song.riff;
@@ -364,7 +380,8 @@ export function planBar(deck, info) {
       emit({ t: st(s), type: 'sub', midi: bassMidi(chordDeg, 0), dur: sd * 1.6 });
     }
   }
-  if (L.acid2 && song.acid && style === 'breaks') {
+  const acidOn = AB ? !['chill', 'chillB', 'countdown', 'victory'].includes(name) && !(name === 'outro' && bar >= bars / 2) : L.acid2;
+  if (acidOn && song.acid && (style === 'breaks' || AB)) {
     planAcid(deck, info, song.acid, chordDeg, (c, d) => bassMidi(c, d) + 12, st, sd, emit, I, name, bar, preDropGap, 'acid');
   }
 
@@ -387,7 +404,7 @@ export function planBar(deck, info) {
     emit({ t: t0, type: 'pad', notes: v, dur: barDur * cb + 0.05, cutoff: L.halftime ? 1600 : 2600, gain: 1 });
   }
   if (L.stab) {
-    const v = voiceChord(scale, tonic, chordDeg, size, S.stab === 'organ' ? 64 : 67, deck.stabVoicing);
+    const v = voiceChord(scale, tonic, chordDeg, size, S.stab === 'organ' ? 64 : S.stab === 'eskimo' ? 74 : 67, deck.stabVoicing);
     deck.stabVoicing = v;
     const phrasePos = bar % 4;
     const dev = sec.dev || name === 'final';
@@ -457,7 +474,9 @@ function planAcid(deck, info, acid, chordDeg, bassMidi, st, sd, emit, I, name, b
   const cyc = 0.5 - 0.5 * Math.cos((2 * Math.PI * info.globalBar) / 16);
   const sec = SECTIONS[name] || SECTIONS.drop;
   let base = 140 + (250 + 1700 * cyc) * (0.35 + 0.65 * sec.energy) * (0.5 + 0.5 * I);
-  if (name === 'intro') base *= 0.5 + 0.5 * (info.bar / info.bars);
+  if (name === 'intro') base *= 0.35 + 0.4 * (info.bar / info.bars);
+  if (name === 'build' || name === 'build2') base *= 0.4 + 0.6 * ((info.bar + 1) / info.bars); // builds through the section
+  if (name === 'switch') base *= 0.7;
   if (name === 'final') base *= 1.4;
   const envAmt = 900 + 1800 * cyc * I;
   for (let s = 0; s < 16; s++) {

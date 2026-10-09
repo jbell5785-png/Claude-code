@@ -1,183 +1,38 @@
 [
   {
-    "name": "dnb",
+    "name": "acidbreaks",
     "titles": [
-      "The Redline Funk [dnb 174bpm C harmonicMinor]"
+      "Riddim Express [acidBreaks 139bpm C# minor]"
     ],
     "full": {
-      "peakDb": -1.34,
-      "rmsDb": -13.97,
-      "lufs": -11,
-      "crestDb": 12.6,
-      "clips": 0,
-      "balancePct": {
-        "sub": 17.6,
-        "low": 42,
-        "lowmid": 19.8,
-        "highmid": 12.7,
-        "high": 7.9
-      },
-      "frames": 351
-    },
-    "drop": {
-      "peakDb": -1.34,
-      "rmsDb": -14.03,
+      "peakDb": -1.24,
+      "rmsDb": -14.18,
       "lufs": -11.1,
-      "crestDb": 12.7,
-      "clips": 0,
-      "balancePct": {
-        "sub": 19,
-        "low": 43.8,
-        "lowmid": 16.5,
-        "highmid": 11.9,
-        "high": 8.9
-      },
-      "frames": 222
-    }
-  },
-  {
-    "name": "breaks",
-    "titles": [
-      "Slipstream Rush [breaks 131bpm C minor]"
-    ],
-    "full": {
-      "peakDb": -1.14,
-      "rmsDb": -14.02,
-      "lufs": -11,
       "crestDb": 12.9,
       "clips": 0,
       "balancePct": {
-        "sub": 17.4,
-        "low": 42.5,
-        "lowmid": 18.5,
-        "highmid": 13.9,
-        "high": 7.6
-      },
-      "frames": 351
-    },
-    "drop": {
-      "peakDb": -1.14,
-      "rmsDb": -14.17,
-      "lufs": -11.2,
-      "crestDb": 13,
-      "clips": 0,
-      "balancePct": {
-        "sub": 19.9,
-        "low": 39.4,
-        "lowmid": 16.9,
-        "highmid": 14,
-        "high": 9.8
-      },
-      "frames": 179
-    }
-  },
-  {
-    "name": "garage",
-    "titles": [
-      "Launch Control Sunday [garage 131bpm Eb minor]"
-    ],
-    "full": {
-      "peakDb": -1.28,
-      "rmsDb": -14.25,
-      "lufs": -11.4,
-      "crestDb": 13,
-      "clips": 0,
-      "balancePct": {
-        "sub": 20.6,
-        "low": 34.8,
-        "lowmid": 25.8,
-        "highmid": 8.2,
-        "high": 10.6
-      },
-      "frames": 351
-    },
-    "drop": {
-      "peakDb": -1.28,
-      "rmsDb": -14.19,
-      "lufs": -11.2,
-      "crestDb": 12.9,
-      "clips": 0,
-      "balancePct": {
-        "sub": 19.9,
-        "low": 31,
-        "lowmid": 27.7,
-        "highmid": 8.9,
-        "high": 12.5
-      },
-      "frames": 179
-    }
-  },
-  {
-    "name": "acid",
-    "titles": [
-      "Afterburner Fury '97 [acid 141bpm E minor]"
-    ],
-    "full": {
-      "peakDb": -1.24,
-      "rmsDb": -14.38,
-      "lufs": -11.4,
-      "crestDb": 13.1,
-      "clips": 0,
-      "balancePct": {
-        "sub": 19.9,
-        "low": 30.9,
-        "lowmid": 31.3,
-        "highmid": 9.5,
-        "high": 8.4
-      },
-      "frames": 351
-    },
-    "drop": {
-      "peakDb": -1.24,
-      "rmsDb": -14.33,
-      "lufs": -11.4,
-      "crestDb": 13.1,
-      "clips": 0,
-      "balancePct": {
-        "sub": 19.1,
-        "low": 32,
+        "sub": 12.8,
+        "low": 37.8,
         "lowmid": 29.7,
-        "highmid": 8.7,
-        "high": 10.5
+        "highmid": 13,
+        "high": 6.7
       },
-      "frames": 191
-    }
-  },
-  {
-    "name": "race-demo",
-    "titles": [
-      "Turbo Signal [breaks 131bpm E phrygian]",
-      "Velocity Strobe (Warehouse Mix) [acid 143bpm Eb phrygian]"
-    ],
-    "full": {
-      "peakDb": -1,
-      "rmsDb": -14.91,
-      "lufs": -11,
-      "crestDb": 13.9,
-      "clips": 0,
-      "balancePct": {
-        "sub": 15.6,
-        "low": 32.7,
-        "lowmid": 27.9,
-        "highmid": 12.4,
-        "high": 11.4
-      },
-      "frames": 515
+      "frames": 527
     },
     "drop": {
-      "peakDb": -1,
-      "rmsDb": -14.33,
+      "peakDb": -1.24,
+      "rmsDb": -14.22,
       "lufs": -11,
-      "crestDb": 13.3,
+      "crestDb": 13,
       "clips": 0,
       "balancePct": {
-        "sub": 15.5,
-        "low": 31.6,
-        "lowmid": 26.9,
-        "highmid": 13.5,
-        "high": 12.5
+        "sub": 12.1,
+        "low": 37.1,
+        "lowmid": 28.8,
+        "highmid": 14.1,
+        "high": 7.8
       },
-      "frames": 410
+      "frames": 365
     }
   }
 ]

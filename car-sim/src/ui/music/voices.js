@@ -194,6 +194,11 @@ export const BASS_PRESETS = {
     cutoff: 300, q: 15, q2: 0.9, env: 2200, decay: 0.16, drive: 3.5, preGain: 1.4, hp: 90,
     sub: 0, glide: 0.055, attack: 0.002, release: 0.025, level: 0.55,
   },
+  grime: {
+    oscs: [{ type: 'square', detune: 0, g: 0.28 }],
+    cutoff: 700, q: 1, q2: 0.7, env: 500, decay: 0.15, drive: 1.8, hp: 110,
+    sub: 1, glide: 0.11, attack: 0.003, release: 0.08, level: 0.85,
+  },
   sub: {
     oscs: [{ type: 'triangle', detune: 0, g: 0.25 }],
     cutoff: 300, q: 0.7, env: 120, decay: 0.08, sub: 1, attack: 0.003, release: 0.04, level: 0.85,
@@ -268,6 +273,24 @@ export function playStab(ctx, dest, t, notes, o, onEnd) {
     vca.gain.setTargetAtTime(g * 0.6, t + 0.01, 0.08);
     vca.gain.setTargetAtTime(0, t + len, 0.035);
     len += 0.25;
+  } else if (kind === 'eskimo') {
+    // cold square/pulse stab: no filter sweep, glassy octave, very short
+    filt = stereoFilter(ctx, 'lowpass', o.bright ?? 5200, 0.7);
+    notes.forEach((m, i) => {
+      for (const [mult, side, det] of [[1, 'L', -5], [2, 'R', 5]]) {
+        const osc = ctx.createOscillator();
+        osc.type = 'square';
+        osc.frequency.value = mtof(m) * mult;
+        osc.detune.value = det;
+        osc.connect(filt[side]);
+        if (i === 0 && mult === 1) osc.connect(filt.R);
+        sources.push(osc);
+      }
+    });
+    vca.gain.setValueAtTime(0, t);
+    vca.gain.linearRampToValueAtTime(g * 0.8, t + 0.002);
+    vca.gain.setTargetAtTime(0, t + 0.01, 0.07);
+    len = 0.45;
   } else if (kind === 'hoover') {
     filt = stereoFilter(ctx, 'lowpass', o.bright ?? 2600, 1.2);
     notes.forEach((m) => {

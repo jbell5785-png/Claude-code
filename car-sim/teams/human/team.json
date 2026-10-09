@@ -1,0 +1,7 @@
+{
+  "name": "Human",
+  "model": "human",
+  "notes": "Hand-coded driver in driver.js (no learning). Edit the rules and the car below.",
+  "car": { "preset": "hotHatch", "overrides": { "name": "Human hatch", "color": "#2d9c5a" } },
+  "driver": { "kind": "human", "module": "driver.js", "arch": null, "learner": null }
+}

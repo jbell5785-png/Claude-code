@@ -20,7 +20,7 @@ const arg = (name, def) => {
 };
 const SECONDS = +arg('seconds', 30);
 const SEED = +arg('seed', 7);
-const STYLES = arg('styles', 'dnb,breaks,garage,acid').split(',');
+const STYLES = arg('styles', 'acidBreaks,dnb,breaks,garage,acid').split(',');
 const RACE = !args.includes('--no-race');
 const SR = 48000;
 
@@ -233,7 +233,7 @@ page.on('pageerror', (e) => console.log('  [pageerror]', e.message));
 await page.goto(`http://127.0.0.1:${port}/__render.html`);
 fs.mkdirSync(OUT, { recursive: true });
 
-let jobs = STYLES.map((style) => ({ name: style, style, seed: SEED, seconds: SECONDS, startSection: 'build' }));
+let jobs = STYLES.map((style) => ({ name: style.toLowerCase(), style, seed: SEED, seconds: SECONDS, startSection: 'build' }));
 if (args.includes('--stems')) {
   // debug: render each mixer channel alone, master processing bypassed
   const CH = ['kick', 'snare', 'hats', 'perc', 'brk', 'bass', 'sub', 'acid', 'stab', 'pad', 'arp', 'lead', 'vox', 'fx'];

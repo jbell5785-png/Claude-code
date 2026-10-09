@@ -31,6 +31,10 @@ const STYLE_KIT = {
     kick: { f0: 170, f1: 48, pTau: 0.032, hold: 0.04, aTau: 0.22, click: 0.35, drive: 1.6, dur: 0.55 },
     snare: { tone: 230, toneDecay: 0.05, noise: 0.9, toneAmt: 0.6, noiseDecay: 0.1, nhp: 1800, nlp: 11000, crack: 5000, drive: 1.6 },
   },
+  acidBreaks: {
+    kick: { f0: 210, f1: 50, pTau: 0.03, hold: 0.025, aTau: 0.17, click: 0.6, drive: 2.8, dur: 0.45 },
+    snare: { tone: 190, toneDecay: 0.07, noise: 1.0, toneAmt: 0.85, noiseDecay: 0.14, nhp: 1000, nlp: 11000, crack: 3800, drive: 3.0 },
+  },
   acid: {
     kick: { f0: 190, f1: 46, pTau: 0.03, hold: 0.06, aTau: 0.21, click: 0.45, drive: 2.6, dur: 0.55 },
     snare: { tone: 200, toneDecay: 0.06, noise: 1.0, toneAmt: 0.6, noiseDecay: 0.13, nhp: 1200, nlp: 10000, crack: 4000, drive: 2.0 },
