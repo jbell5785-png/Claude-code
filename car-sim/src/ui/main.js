@@ -163,7 +163,7 @@ const startAudio = async () => {
   if (loadMusic) {
     try {
       const m = await loadMusic(); const player = m.createMusicPlayer?.({ audioContext: audio.ctx, destination: audio.master });
-      ctx.music = player || null; if (player && m.mountMusicWidget) m.mountMusicWidget(player, $('.tb-right'));
+      ctx.music = player || null; if (player && m.mountMusicWidget) m.mountMusicWidget($(".tb-right"), player);
       ctx.music?.setRaceState?.(currentId === 'race' ? 'countdown' : 'menu');
     } catch (err) { console.warn('[music] unavailable', err); }
   }

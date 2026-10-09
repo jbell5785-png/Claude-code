@@ -52,7 +52,7 @@ async function open(name, query, viewport = { width: 1600, height: 900 }) {
   return page;
 }
 async function hold(page, key, ms) { await page.keyboard.down(key); await sleep(ms); await page.keyboard.up(key); }
-async function shot(page, file) { await page.screenshot({ path: path.join(outDir, file) }); console.log('saved', file); }
+async function shot(page, file) { await page.screenshot({ path: path.join(outDir, file), timeout: 120000 }); console.log('saved', file); }
 /** Average frame time over `ms` measured with rAF inside the page. */
 async function frameTime(page, ms = 4000) {
   return page.evaluate((ms) => new Promise((res) => { const t = []; let last = performance.now(); const t0 = last; const f = (now) => { t.push(now - last); last = now; if (now - t0 < ms) requestAnimationFrame(f); else { t.sort((a, b) => a - b); res({ avg: t.reduce((a, b) => a + b, 0) / t.length, p95: t[Math.floor(t.length * 0.95)], frames: t.length }); } }; requestAnimationFrame(f); }), ms);
@@ -60,14 +60,14 @@ async function frameTime(page, ms = 4000) {
 
 try {
   if (want('menu')) {
-    const p = await open('menu', 'mode=menu&quality=high'); await sleep(2500); await shot(p, 'menu.png'); await p.close();
+    const p = await open('menu', 'mode=menu&quality=medium'); await sleep(2500); await shot(p, 'menu.png'); await p.close();
   }
   if (want('garage')) {
-    const p = await open('garage', 'mode=garage&quality=high'); await sleep(2500); await shot(p, 'garage.png');
+    const p = await open('garage', 'mode=garage&quality=medium'); await sleep(2500); await shot(p, 'garage.png');
     await p.click('.g-tabs .tab[data-t="engine"]').catch(() => {}); await sleep(600); await shot(p, 'garage-engine.png'); await p.close();
   }
   if (want('drive')) {
-    const p = await open('drive', 'mode=drive&quality=high');
+    const p = await open('drive', 'mode=drive&quality=medium');
     await sleep(1500); await p.mouse.click(800, 450);
     await hold(p, 'KeyW', 5000); await p.keyboard.down('KeyW'); await shot(p, 'drive.png');
     await p.keyboard.press('KeyT'); await sleep(1500); await shot(p, 'drive-telemetry.png'); await p.keyboard.press('KeyT');
@@ -77,7 +77,7 @@ try {
     report.perf.driveHigh = await frameTime(p, 3000); await p.keyboard.up('KeyW'); await p.close();
   }
   if (want('race')) {
-    const p = await open('race', 'mode=race&quality=high');
+    const p = await open('race', 'mode=race&quality=medium');
     await sleep(1500); await shot(p, 'race-setup.png');
     await p.click('.rs-go'); await p.waitForSelector('.race-ui', { timeout: 120000 }); await sleep(1500); await shot(p, 'race-grid.png');
     await p.waitForFunction(() => window.__carsim.currentMode().phase === 'racing', null, { timeout: 180000 });
