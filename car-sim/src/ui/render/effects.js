@@ -20,7 +20,7 @@ export class Particles {
     g.setAttribute('rot', new THREE.BufferAttribute(this.rot, 1).setUsage(THREE.DynamicDrawUsage));
     g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e7);
     const mat = new THREE.ShaderMaterial({
-      uniforms: { map: { value: smokeSprite() }, scale: { value: 600 }, fogColor: { value: new THREE.Color() }, fogDensity: { value: 0 } },
+      uniforms: { map: { value: smokeSprite() }, scale: { value: 600 }, fogColor: { value: new THREE.Color() }, fogDensity: { value: 0 }, brightness: { value: 1 } },
       vertexShader: `
         attribute float size; attribute float alpha; attribute float rot; attribute vec3 color;
         varying float vA; varying vec3 vC; varying float vR; varying float vFog;
@@ -33,13 +33,13 @@ export class Particles {
           float d = -mv.z; vFog = 1.0 - exp(-fogDensity * fogDensity * d * d);
         }`,
       fragmentShader: `
-        uniform sampler2D map; uniform vec3 fogColor; varying float vA; varying vec3 vC; varying float vR; varying float vFog;
+        uniform sampler2D map; uniform vec3 fogColor; uniform float brightness; varying float vA; varying vec3 vC; varying float vR; varying float vFog;
         void main() {
           vec2 p = gl_PointCoord - 0.5; float c = cos(vR), s = sin(vR);
           vec2 uv = vec2(c * p.x - s * p.y, s * p.x + c * p.y) + 0.5;
           vec4 t = texture2D(map, uv);
           float a = t.a * vA; if (a < 0.003) discard;
-          gl_FragColor = vec4(mix(vC, fogColor, vFog), a);
+          gl_FragColor = vec4(mix(vC * brightness, fogColor, vFog), a);
           #include <colorspace_fragment>
         }`,
       transparent: true, depthWrite: false,

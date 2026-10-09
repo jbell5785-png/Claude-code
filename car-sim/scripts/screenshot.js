@@ -47,7 +47,7 @@ async function open(name, query, viewport = { width: 1600, height: 900 }) {
   const logs = []; report.console[name] = logs;
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') logs.push(`${m.type()}: ${m.text()}`); });
   page.on('pageerror', (e) => logs.push(`pageerror: ${e.message}`));
-  await page.goto(`${BASE}?capture&${query}`, { waitUntil: 'load' });
+  await page.goto(`${BASE}?capture&${query}${process.env.SHOT_QUERY ? '&' + process.env.SHOT_QUERY : ''}`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.__carsim && document.getElementById('boot')?.classList.contains('hidden'), null, { timeout: 120000 });
   return page;
 }

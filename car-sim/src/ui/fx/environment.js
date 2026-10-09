@@ -36,7 +36,7 @@ export const ENVIRONMENTS = {
     sky: { zenith: 0x02040d, horizon: 0x1a1838, ground: 0x0a0806, sunColor: 0x000000, sunSize: 0.0, sunGlow: 0, sunDisk: 0, haze: 0.2,
       clouds: 0.3, cloudScale: 0.8, cloudColor: 0x3a2a4a, cloudShade: 0x0a0a14, glowColor: 0xff6a20, horizonGlow: 0.22, glowHeight: 0.06,
       stars: 1.0, moon: 1, moonDir: [0.5, 0.55, -0.6] },
-    bloom: { strength: 0.75, radius: 0.75, threshold: 0.9 },
+    bloom: { strength: 0.45, radius: 0.6, threshold: 1.0 },
     grade: { contrast: 1.18, saturation: 1.25, lift: [0.0, 0.006, 0.03], gain: [1.05, 1.0, 1.02], shadowTint: [-0.02, 0.02, 0.1], highlightTint: [0.1, 0.03, -0.05], vignette: 0.42 },
     streetlights: true, neon: 1, skyline: 'city', edgeStrips: false, envLights: 'sodium',
   },

@@ -31,8 +31,8 @@ export class CarFX {
       const f = flameMesh(ex.radius); f.position.copy(ex.mesh.position); f.position.x -= 0.1; ex.mesh.parent.add(f); this.flames.push(f);
     }
     // halos on head/tail lights
-    for (const m of this.parts.tail) { const s = haloSprite(0xff2a1a, 0.9); s.position.copy(m.position); s.position.x -= 0.06; m.parent.add(s); this.halos.push({ s, kind: 'tail', mesh: m }); }
-    for (const m of this.parts.headlight) { const s = haloSprite(0xdde8ff, 1.5); s.position.copy(m.position); s.position.x += 0.06; m.parent.add(s); this.halos.push({ s, kind: 'head', mesh: m }); }
+    for (const m of this.parts.tail) { const s = haloSprite(0xff2a1a, 0.5); s.position.copy(m.position); s.position.x -= 0.06; m.parent.add(s); this.halos.push({ s, kind: 'tail', mesh: m }); }
+    for (const m of this.parts.headlight) { const s = haloSprite(0xdde8ff, 0.5); s.position.copy(m.position); s.position.x += 0.06; m.parent.add(s); this.halos.push({ s, kind: 'head', mesh: m }); }
     // fx lights: two headlight beams + brake spill
     const L = ctx.lights;
     this.head = L.add({ color: 0xe6eeff, intensity: 0, range: 55, angle: 0.42, penumbra: 0.6, decay: 1.2, priority: opts.player ? 6 : 1.4, group: this });
@@ -103,7 +103,7 @@ export class CarFX {
     // halos: tail brighter on brake, heads only at dusk/night
     for (const h of this.halos) {
       const m = h.s.material;
-      if (h.kind === 'tail') { const k = (0.35 + brake * 2.6) * (0.25 + 0.75 * dark); m.color.copy(h.s.userData.base).multiplyScalar(k * 2); h.s.scale.setScalar(0.7 + brake * 0.5 + dark * 0.4); }
+      if (h.kind === 'tail') { const k = (0.3 + brake * 0.9) * (0.25 + 0.75 * dark); m.color.copy(h.s.userData.base).multiplyScalar(k * 1.2); h.s.scale.setScalar(0.45 + brake * 0.2 + dark * 0.15); }
       else { const k = 0.15 + 0.85 * dark; m.color.copy(h.s.userData.base).multiplyScalar(k * 2.5); h.s.scale.setScalar(1.2 + dark * 1.0); }
       h.s.visible = visible;
     }
@@ -111,10 +111,10 @@ export class CarFX {
     const hl = visible && dark > 0.05;
     for (const [L, side] of [[this.head, 1], [this.head2, -1]]) {
       _v.copy(this.headLocal); _v.z = side * Math.max(0.45, Math.abs(this.headLocal.z || 0.6)); _v.x += 0.3; _v.applyMatrix4(root.matrixWorld);
-      L.pos.copy(_v); L.dir.copy(_fwd).addScaledVector(_up, -0.09).normalize(); L.intensity = hl ? 420 * dark : 0;
+      L.pos.copy(_v); L.dir.copy(_fwd).addScaledVector(_up, -0.09).normalize(); L.intensity = hl ? 60 * dark : 0;
     }
     _v.copy(this.tailLocal); _v.x -= 0.25; _v.applyMatrix4(root.matrixWorld);
-    this.tailL.pos.copy(_v); this.tailL.dir.copy(_fwd).negate().addScaledVector(_up, -0.5).normalize(); this.tailL.intensity = visible ? (0.4 + brake * 3) * (2 + 10 * dark) : 0;
+    this.tailL.pos.copy(_v); this.tailL.dir.copy(_fwd).negate().addScaledVector(_up, -0.5).normalize(); this.tailL.intensity = visible ? (0.2 + brake * 1.2) * (1 + 4 * dark) : 0;
 
     // nitrous flames + light + trail
     const ctx = this.ctx;

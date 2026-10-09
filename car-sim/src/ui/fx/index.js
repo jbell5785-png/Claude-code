@@ -140,7 +140,8 @@ export function initFX(o) {
   function removeCar(group) { const c = cars.get(group); if (!c) return; c.fx.dispose(); cars.delete(group); setCheapMaterials(group, false); }
 
   // smoke from E's effects.js → lit/soft
-  scene.traverse((x) => { if (x.isPoints && x.parent !== root) upgradeSmokePoints(x); });
+  // E's smoke is kept as-is: the lit upgrade blooms into a white halo in the night grade.
+  void upgradeSmokePoints;
 
   // ---------------------------------------------------------------- init
   applyQuality(); setEnvironment(o.preset || 'day'); setTrack(track, trackGroup);
@@ -241,7 +242,7 @@ export function initFX(o) {
       sparks.spawn(p, n, intensity, vel || null, p.y - 0.25);
     },
     /** Rescan the scene for foreign lights/sky (e.g. after E rebuilds) and smoke particles. */
-    rescan() { env.rehide(); scene.traverse((x) => { if (x.isPoints && x.parent !== root) upgradeSmokePoints(x); }); if (cheapOn) setCheapMaterials(scene, true, env.envCube); },
+    rescan() { env.rehide(); if (cheapOn) setCheapMaterials(scene, true, env.envCube); },
     stats() { return { tier, renderScale, shed, frameMs, pixelRatio: renderer.getPixelRatio(), fxLights: lights.lights.length, post: !!post, env: envName }; },
     dispose() {
       for (const g of [...cars.keys()]) removeCar(g);

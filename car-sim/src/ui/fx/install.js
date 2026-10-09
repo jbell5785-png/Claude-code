@@ -5,6 +5,10 @@
 
 import { initFX } from './index.js';
 
+// The base scene's materials/emissives were tuned for exposure ~0.62; the FX environments assume
+// ~1.0–1.25. Trim the FX exposure so the two agree (otherwise the frame washes out).
+const EXPOSURE_TRIM = 0.5;
+
 export function installFx(rc, { quality = 'auto', onQualityChange } = {}) {
   let fx = null;
   let q = quality;
@@ -17,6 +21,10 @@ export function installFx(rc, { quality = 'auto', onQualityChange } = {}) {
     if (fx || !enabled() || !rc.renderer || !rc.scene || !rc.camera || !rc.track || !rc.trackGroup) return fx;
     fx = initFX({ renderer: rc.renderer, scene: rc.scene, camera: rc.camera, track: rc.track, trackGroup: rc.trackGroup,
       cars: [], preset, quality: q, autoScale: true, targetFps: 60 });
+    rc.renderer.toneMappingExposure *= EXPOSURE_TRIM;
+    // Unlit smoke is tuned for daylight; under the night grade + bloom it glows. Dim it.
+    const smoke = rc.world?.particles?.mat?.uniforms?.brightness;
+    if (smoke) smoke.value = preset.startsWith('night') || preset.startsWith('futuristic') ? 0.18 : 0.6;
     return fx;
   }
 
@@ -56,6 +64,6 @@ export function installFx(rc, { quality = 'auto', onQualityChange } = {}) {
 
   return {
     get fx() { return fx; },
-    setEnvironment(p) { try { localStorage.setItem('nv.fx.env', p); } catch { /* ignore */ } fx?.setEnvironment(p); },
+    setEnvironment(p) { try { localStorage.setItem('nv.fx.env', p); } catch { /* ignore */ } if (fx) { fx.setEnvironment(p); rc.renderer.toneMappingExposure *= EXPOSURE_TRIM; } },
   };
 }

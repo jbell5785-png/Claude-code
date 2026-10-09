@@ -126,7 +126,7 @@ export function upgradeCarMaterials(carGroup, opts = {}) {
           else { m.opacity = 0.7; }
           m.userData.fxReflect = 0.6; injectFxLights(m); break;
         case 'tail': emissiveBoost(m, 3.2); m.userData.fxReflect = 0.3; break;
-        case 'headlight': emissiveBoost(m, 5); m.roughness = 0.05; break;
+        case 'headlight': emissiveBoost(m, 2); m.roughness = 0.05; break;
         case 'indicator': emissiveBoost(m, 3); break;
         case 'disc': emissiveBoost(m, 5); m.roughness = 0.38; m.metalness = 0.9; found.discs.push(m); injectFxLights(m); break;
         case 'rim': if (!m.userData.fxUp) { m.userData.fxUp = true; m.color.set(0xd6dae0); m.roughness = 0.16; m.metalness = 1; m.envMapIntensity = 1.3; m.userData.fxReflect = 0.5; injectFxLights(m); } break;
