@@ -141,7 +141,8 @@ Axle object (`axles[0]` front, `axles[1]` rear):
 ```js
 createEngineState(ep) -> es
 engineUpdate(es, ep, throttle /*0..1*/, omega /*rad/s crank*/, dt, env) -> torque  // Nm net at crank
-   // env = { regen: 0..1 (EV only, braking regen demand), ambientT, ambientP }
+   // env = { regen: 0..1 (EV only, braking regen demand), ambientT, ambientP,
+   //         nitrous: bool (added — only effective with a nitrous kit, throttle > 0.9, rpm > arming rpm) }
    // Includes friction/pumping (negative torque when throttle closed), boost dynamics, knock
    // retard, fuel-flow cap, rev limiter (fuel cut), damage accumulation & failure, fuel/battery use.
 engineCurve(ep) -> [{ rpm, torque, powerKW, boostBar }]  // steady-state full-throttle sweep, ~60 points
@@ -152,7 +153,10 @@ limiterRpm, maxRpm, cylinders, rotary, layout, loudness, induction kind ('na'|'t
 
 `es` must expose at least (read by UI/AI/vehicle): `rpm, omega, throttle, torque, powerKW, boostBar,
 chargeTempC, knockRetard (0..1), fuelFlowGs, fuelKg, batteryKwh, soc (0..1, EV), damage (0..1),
-failed (bool), overRev (bool), limiter (bool), antiLagActive (bool)`.
+failed (bool), overRev (bool), limiter (bool), antiLagActive (bool)`,
+added: `nitrousActive (bool), nitrousKg (remaining), nitrousCapacityKg`.
+
+Spec addition: `engine.nitrous: 'none' | NITROUS key` (catalog `NITROUS`: shot size, bottle kg, price).
 
 ## 4. Tyre API (`src/sim/tyre.js`, owner B)
 
@@ -182,7 +186,8 @@ createVehicle(params, track, pose /* { x, y, heading } on the ground; z resolved
 v.step(controls)              // advances exactly DT
 v.reset(pose)
 controls = { steer: -1..1, throttle: 0..1, brake: 0..1, handbrake: 0..1,
-             shiftUp: bool, shiftDown: bool, gearMode: 'auto' | 'manual' }
+             shiftUp: bool, shiftDown: bool, gearMode: 'auto' | 'manual',
+             nitrous: bool /* added: hold to inject; vehicle passes it to engineUpdate via env.nitrous */ }
 ```
 
 Public state (read by renderer, telemetry, AI — keep these names):
