@@ -74,6 +74,30 @@ console.log('== PIT manoeuvre (rear-quarter hit) ==');
   check(yawB > 0.3, `PIT: target car heading change ${(yawB * 57.3).toFixed(0)} deg`);
 }
 
+console.log('== car vs obstacle (gauntlet, first obstacle, 30 m/s) ==');
+{
+  const tr = createTrack('gauntlet');
+  for (const ob of tr.obstacles.slice(0, 2)) for (const lat of [0, 0.8]) {                       // dead-centre and offset (glancing) hits
+    const pa = {}; tr.pointAt(ob.s - 30, pa);
+    const hd = Math.atan2(ob.y - pa.y, ob.x - pa.x), ux = Math.cos(hd), uy = Math.sin(hd);
+    const x0 = ob.x - 30 * ux - lat * uy, y0 = ob.y - 30 * uy + lat * ux;
+    const v = createVehicle(P, tr, { x: x0, y: y0, heading: hd });
+    v.vel[0] = 30 * ux; v.vel[1] = 30 * uy;
+    const w = createCollisionWorld(tr); const c = ctl();
+    let hit = false, minLat = 1e9, maxAlong = -1e9;
+    for (let s = 0; s < 1500; s++) {
+      v.step(c); w.step([v]);
+      for (let k = w.stepEventStart; k < w.eventHead; k++) if (w.events[k % 256].type === 'obstacle') hit = true;
+      const rx = v.pos[0] - ob.x, ry = v.pos[1] - ob.y, al = rx * ux + ry * uy, la = Math.abs(-rx * uy + ry * ux);
+      maxAlong = Math.max(maxAlong, al);
+      if (al > -0.5 && al < 0.5) minLat = Math.min(minLat, la);   // CG passing the obstacle's position
+    }
+    const sp = Math.hypot(v.vel[0], v.vel[1]);
+    check(finite(v) && hit && (maxAlong < -(ob.r ?? ob.hx) || minLat > (ob.r ?? ob.hy) + 0.6),
+      `${ob.kind} lateral ${lat} m: obstacle event ${hit}, max along ${maxAlong.toFixed(2)} m, min lateral when level ${minLat > 1e8 ? '-' : minLat.toFixed(2)} m, end speed ${sp.toFixed(1)} m/s`);
+  }
+}
+
 console.log('== 8-car pack, club, AI driver, 120 s ==');
 {
   const tr = createTrack('club');

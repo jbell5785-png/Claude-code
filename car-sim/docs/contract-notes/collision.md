@@ -9,9 +9,9 @@ import { createCollisionWorld, collide, eventsSince } from './src/sim/collision.
 const world = createCollisionWorld(track, { ghosts: false, restitution: 0.3, friction: 0.45,
                                             wallRestitution, wallFriction });   // all optional
 world.step(vehicles);        // once per physics step, AFTER every vehicle.step()
-world.events                 // ring buffer (256) of { type: 'car'|'wall', kind: 'impact'|'scrape',
+world.events                 // ring buffer (256) of { type: 'car'|'wall'|'obstacle', kind: 'impact'|'scrape',
                              //   pos:[x,y,z], normal (push direction on car a), impulse (N s), speed (m/s),
-                             //   a: vehicleIndex, b: other vehicle index | wall segment index, time }
+                             //   a: vehicleIndex, b: other vehicle index | wall segment index | obstacle index, time }
 world.eventHead, world.eventCount (this step), world.stepEventStart, world.contacts
 eventsSince(world, seq, cb) -> newSeq   // renderer/audio: read everything since the last frame
 collide(vehicles, opts?)     // race-mode convenience (race.js already imports it): one world per track
@@ -28,11 +28,13 @@ collide(vehicles, opts?)     // race-mode convenience (race.js already imports i
   restitution (car 0.3, armco 0.1, concrete 0.15, tyres 0.3) applied above 1 m/s closing speed, Coulomb
   friction along the slip direction; split position correction (20–30 %/step, 5 mm slop). Writes
   `v.vel`, `v.angVel`, `v.pos`, wheel `pos`, recomputes `v.speed`.
+- Obstacles (`track.obstacles`): static colliders — boxes as footprint OBBs (SAT), cylinders as circles vs
+  the car footprint, with vertical overlap; restitution `obstacleRestitution` (0.15), friction
+  `obstacleFriction` (= wall friction). Broad phase: bounding-circle reject (obstacles are few).
 - `ghosts: true` disables car-car contacts (walls stay solid) for AI training.
 - Deterministic (no randomness, stable ordering).
 
 ## Not done (budget cut) — proposals
-- Obstacles (`track.obstacles`) are not yet solid.
 - Damage model (`opts.damage`, `v.damage.zones`) not implemented. Note `v.damage` is a number today
   (engine damage); a zones object should live in a new field (e.g. `v.bodyDamage`) or carry `valueOf()`.
 - Car-car contact is upright-only (footprint SAT); rolled cars use their projected footprint.

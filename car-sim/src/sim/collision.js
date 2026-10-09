@@ -179,37 +179,74 @@ export function createCollisionWorld(track, opts = {}) {
   const ptsX = new Float64Array(8), ptsY = new Float64Array(8);
   // 2D footprint OBB pair (i, j): returns true and fills contact data if overlapping
   const ct = { nx: 0, ny: 0, depth: 0, px: 0, py: 0, pz: 0 };
-  function carCar(i, j) {
-    const a = i * 24, b = j * 24;
-    const zlo = Math.max(C[a + 16], C[b + 16]), zhi = Math.min(C[a + 17], C[b + 17]);
+  function carCar(i, j) { return obbPair(C, i * 24, C, j * 24); }
+  // footprint OBB pair in arrays A (offset a) and B (offset b), same 24-float layout as C
+  function obbPair(A, a, B, b) {
+    const zlo = Math.max(A[a + 16], B[b + 16]), zhi = Math.min(A[a + 17], B[b + 17]);
     if (zhi <= zlo) return false;
-    const dx = C[b] - C[a], dy = C[b + 1] - C[a + 1];
-    const axes = [C[a + 18], C[a + 19], -C[a + 19], C[a + 18], C[b + 18], C[b + 19], -C[b + 19], C[b + 18]];
+    const dx = B[b] - A[a], dy = B[b + 1] - A[a + 1];
     let best = Infinity, bnx = 0, bny = 0;
     for (let k = 0; k < 4; k++) {
-      const lx = axes[2 * k], ly = axes[2 * k + 1];
-      const ra = C[a + 20] * Math.abs(lx * C[a + 18] + ly * C[a + 19]) + C[a + 21] * Math.abs(-lx * C[a + 19] + ly * C[a + 18]);
-      const rb = C[b + 20] * Math.abs(lx * C[b + 18] + ly * C[b + 19]) + C[b + 21] * Math.abs(-lx * C[b + 19] + ly * C[b + 18]);
+      const X = k < 2 ? A : B, o = k < 2 ? a : b;
+      const lx = k & 1 ? -X[o + 19] : X[o + 18], ly = k & 1 ? X[o + 18] : X[o + 19];
+      const ra = A[a + 20] * Math.abs(lx * A[a + 18] + ly * A[a + 19]) + A[a + 21] * Math.abs(-lx * A[a + 19] + ly * A[a + 18]);
+      const rb = B[b + 20] * Math.abs(lx * B[b + 18] + ly * B[b + 19]) + B[b + 21] * Math.abs(-lx * B[b + 19] + ly * B[b + 18]);
       const d = dx * lx + dy * ly, pen = ra + rb - Math.abs(d);
       if (pen <= 0) return false;
       if (pen < best) { best = pen; const sg = d >= 0 ? 1 : -1; bnx = sg * lx; bny = sg * ly; }
     }
     // contact point: average of footprint corners lying inside the other footprint
     let n = 0;
-    const corners = (o, other) => {
+    const corners = (P, o, Q, other) => {
       for (let s1 = -1; s1 <= 1; s1 += 2) for (let s2 = -1; s2 <= 1; s2 += 2) {
-        const x = C[o] + s1 * C[o + 20] * C[o + 18] - s2 * C[o + 21] * C[o + 19];
-        const y = C[o + 1] + s1 * C[o + 20] * C[o + 19] + s2 * C[o + 21] * C[o + 18];
-        const rx = x - C[other], ry = y - C[other + 1];
-        const lx = rx * C[other + 18] + ry * C[other + 19], ly = -rx * C[other + 19] + ry * C[other + 18];
-        if (Math.abs(lx) <= C[other + 20] + 1e-3 && Math.abs(ly) <= C[other + 21] + 1e-3) { ptsX[n] = x; ptsY[n] = y; n++; }
+        const x = P[o] + s1 * P[o + 20] * P[o + 18] - s2 * P[o + 21] * P[o + 19];
+        const y = P[o + 1] + s1 * P[o + 20] * P[o + 19] + s2 * P[o + 21] * P[o + 18];
+        const rx = x - Q[other], ry = y - Q[other + 1];
+        const lx = rx * Q[other + 18] + ry * Q[other + 19], ly = -rx * Q[other + 19] + ry * Q[other + 18];
+        if (Math.abs(lx) <= Q[other + 20] + 1e-3 && Math.abs(ly) <= Q[other + 21] + 1e-3) { ptsX[n] = x; ptsY[n] = y; n++; }
       }
     };
-    corners(a, b); corners(b, a);
+    corners(A, a, B, b); corners(B, b, A, a);
     let px, py;
     if (n) { px = 0; py = 0; for (let k = 0; k < n; k++) { px += ptsX[k]; py += ptsY[k]; } px /= n; py /= n; }
-    else { px = 0.5 * (C[a] + C[b]); py = 0.5 * (C[a + 1] + C[b + 1]); }
+    else { px = 0.5 * (A[a] + B[b]); py = 0.5 * (A[a + 1] + B[b + 1]); }
     ct.nx = bnx; ct.ny = bny; ct.depth = best; ct.px = px; ct.py = py; ct.pz = 0.5 * (zlo + zhi);
+    return true;
+  }
+
+  // ---- obstacles: static colliders (box -> footprint OBB in the C layout; cylinder -> circle) ----
+  const OBS = (track && track.obstacles) || [];
+  const nObs = OBS.length;
+  const OB = new Float64Array(Math.max(1, nObs) * 24);
+  const eObs = opts.obstacleRestitution ?? 0.15, muObs = opts.obstacleFriction ?? muWall;
+  for (let k = 0; k < nObs; k++) {
+    const ob = OBS[k], o = k * 24, z0 = ob.z || 0, h = ob.h || 1;
+    OB[o] = ob.x; OB[o + 1] = ob.y; OB[o + 2] = z0 + 0.5 * h;
+    OB[o + 16] = z0; OB[o + 17] = z0 + h;
+    if (ob.kind === 'box') {
+      OB[o + 18] = Math.cos(ob.heading); OB[o + 19] = Math.sin(ob.heading);
+      OB[o + 20] = ob.hx; OB[o + 21] = ob.hy; OB[o + 15] = Math.hypot(ob.hx, ob.hy); OB[o + 22] = 1;
+    } else { OB[o + 15] = ob.r; OB[o + 22] = 0; }
+  }
+  // circle (obstacle k) vs car footprint i: contact normal from obstacle to car
+  function cylCar(k, i) {
+    const o = k * 24, a = i * 24;
+    const zlo = Math.max(OB[o + 16], C[a + 16]), zhi = Math.min(OB[o + 17], C[a + 17]);
+    if (zhi <= zlo) return false;
+    const fx = C[a + 18], fy = C[a + 19], ex = C[a + 20], ey = C[a + 21], r = OB[o + 15];
+    const rx = OB[o] - C[a], ry = OB[o + 1] - C[a + 1];
+    const lx = rx * fx + ry * fy, ly = -rx * fy + ry * fx;
+    const qx = Math.max(-ex, Math.min(ex, lx)), qy = Math.max(-ey, Math.min(ey, ly));
+    let nlx, nly, depth;
+    const dx = lx - qx, dy = ly - qy, d = Math.hypot(dx, dy);
+    if (d > 1e-9) { if (d >= r) return false; nlx = -dx / d; nly = -dy / d; depth = r - d; }
+    else { // centre inside the footprint: push out through the nearest face
+      const px = ex - Math.abs(lx), py = ey - Math.abs(ly);
+      if (px < py) { nlx = lx > 0 ? -1 : 1; nly = 0; depth = px + r; } else { nlx = 0; nly = ly > 0 ? -1 : 1; depth = py + r; }
+    }
+    // normal (obstacle -> car) in world, contact point on the car surface
+    ct.nx = nlx * fx - nly * fy; ct.ny = nlx * fy + nly * fx; ct.depth = depth;
+    ct.px = C[a] + qx * fx - qy * fy; ct.py = C[a + 1] + qx * fy + qy * fx; ct.pz = 0.5 * (zlo + zhi);
     return true;
   }
 
@@ -313,6 +350,27 @@ export function createCollisionWorld(track, opts = {}) {
             else if (vt > 1.5 && scrape[i]++ % 10 === 0) emit('wall', 'scrape', px, py, pz, nx, ny, 0, P, vt, i, k);
           }
         }
+      }
+    }
+    // ---- car-obstacle (broad phase: bounding circles; obstacles are few and static) ----
+    for (let i = 0; i < n && nObs; i++) {
+      const v = vehicles[i], o = i * 24;
+      for (let k = 0; k < nObs; k++) {
+        const ko = k * 24, dx = C[o] - OB[ko], dy = C[o + 1] - OB[ko + 1], rr = C[o + 15] + OB[ko + 15];
+        if (dx * dx + dy * dy > rr * rr) continue;
+        let hit;
+        if (OB[ko + 22]) { hit = obbPair(OB, ko, C, o); } else hit = cylCar(k, i);
+        if (!hit) continue;
+        const nx = ct.nx, ny = ct.ny;
+        pointVel(v, ct.px, ct.py, ct.pz);
+        const vn = pv[0] * nx + pv[1] * ny, vt = Math.hypot(pv[0] - vn * nx, pv[1] - vn * ny);
+        let P = 0;
+        for (let it = 0; it < 3; it++) P += resolve(null, v, ct.px, ct.py, ct.pz, nx, ny, 0, eObs, muObs);
+        const corr = 0.3 * Math.max(0, ct.depth - 0.005);
+        translate(v, nx * corr, ny * corr); C[o] += nx * corr; C[o + 1] += ny * corr;
+        world.contacts++;
+        if (vn < -1) emit('obstacle', 'impact', ct.px, ct.py, ct.pz, nx, ny, 0, P, -vn, i, k);
+        else if (vt > 1.5 && scrape[i]++ % 10 === 0) emit('obstacle', 'scrape', ct.px, ct.py, ct.pz, nx, ny, 0, P, vt, i, k);
       }
     }
     for (let i = 0; i < n; i++) { const v = vehicles[i], R = v.R; v.speed = R[0] * v.vel[0] + R[3] * v.vel[1] + R[6] * v.vel[2]; }
