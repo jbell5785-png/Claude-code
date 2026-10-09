@@ -401,10 +401,11 @@ export function createTrack(keyOrDef) {
     const c0 = qx * n0y - qy * n0x;
     const c1 = (qx * dny - qy * dnx) - (dx * n0y - dy * n0x);
     const c2 = -(dx * dny - dy * dnx);
-    let disc = c1 * c1 - 4 * c2 * c0;
-    if (disc < 0) disc = 0;
-    const den = c1 + (c1 >= 0 ? Math.sqrt(disc) : -Math.sqrt(disc));
-    return -2 * c0 / den;
+    // c2 is tiny (normal change per segment): linear guess + 2 Newton steps on the quadratic
+    let t = -c0 / c1;
+    t -= (c0 + t * (c1 + c2 * t)) / (c1 + 2 * c2 * t);
+    t -= (c0 + t * (c1 + c2 * t)) / (c1 + 2 * c2 * t);
+    return t;
   }
 
   /** Given segment i and local t, compute offset and the gradients of t and offset w.r.t. x,y. */
