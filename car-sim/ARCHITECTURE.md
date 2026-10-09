@@ -1,4 +1,4 @@
-# Car Sim — Architecture & Module Contracts
+# NOVA VADERSPEED — Architecture & Module Contracts
 
 This file is the **contract** between modules. Several engineers (agents) build modules in
 parallel; each must code against the interfaces here exactly. If you believe a contract must

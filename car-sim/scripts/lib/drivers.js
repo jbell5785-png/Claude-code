@@ -43,6 +43,16 @@ function brakeSlip(v) {
  * @returns {{t60:number,t100:number,tQuarter:number,vQuarter:number,vTop:number,ok:boolean}}
  */
 export function accelRun(params, maxTime = 150) {
+  // ideal driver modulating throttle at the traction limit; cars with TC also try flat-out on TC
+  const a = accelRunOnce(params, maxTime, false);
+  if (!params.electronics || !params.electronics.tc) return a;
+  const b = accelRunOnce(params, maxTime, true);
+  const best = (b.t100 && (!a.t100 || b.t100 < a.t100)) ? b : a;
+  best.vTop = Math.max(a.vTop, b.vTop);
+  return best;
+}
+
+function accelRunOnce(params, maxTime, flatOut) {
   const v = createVehicle(params, createFlatTrack(), { x: 0, y: 0, heading: 0 });
   const c = controls();
   for (let i = 0; i < 250; i++) v.step(c); // settle
@@ -55,7 +65,7 @@ export function accelRun(params, maxTime = 150) {
   const target = v.peakSlip;
   while (v.time - t0 < maxTime) {
     const k = drivenSlip(v);
-    thr = Math.min(1, Math.max(0.2, thr + DT * 30 * (target * 1.1 - k)));
+    thr = flatOut ? 1 : Math.min(1, Math.max(0.2, thr + DT * 30 * (target * 1.1 - k)));
     c.throttle = thr;
     v.step(c);
     if (!finiteState(v)) { ok = false; break; }
@@ -69,7 +79,7 @@ export function accelRun(params, maxTime = 150) {
       lastCheckV = spd; lastCheckT = t;
     }
   }
-  return { t60, t100, tQuarter: tQ, vQuarter: vQ, vTop, ok };
+  return { t60, t100, tQuarter: tQ, vQuarter: vQ, vTop, ok, mode: flatOut ? 'TC' : 'driver' };
 }
 
 /** 100→0 km/h with full braking (ideal threshold braking if no ABS). @returns distance m */

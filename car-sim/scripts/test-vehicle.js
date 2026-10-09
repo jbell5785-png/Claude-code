@@ -19,6 +19,7 @@ const args = process.argv.slice(2);
 const quick = args.includes('--quick');
 const only = args.filter((a) => !a.startsWith('--'));
 let failures = 0;
+const T0 = Date.now();
 const fail = (msg) => { failures++; console.log(`  FAIL ${msg}`); };
 const pass = (msg) => console.log(`  ok   ${msg}`);
 const check = (cond, msg) => (cond ? pass(msg) : fail(msg));
@@ -71,7 +72,7 @@ for (const r of rows) {
 // ---------------------------------------------------------------------------------------------
 // 2. Functional checks (gearbox, aids, failures, fade)
 // ---------------------------------------------------------------------------------------------
-console.log('\n== Functional checks ==');
+console.log(`\n== Functional checks == (${((Date.now() - T0) / 1000).toFixed(0)} s)`);
 {
   const key = PRESETS.naCoupe ? 'naCoupe' : Object.keys(PRESETS)[0];
   const p = build(PRESETS[key].spec);
@@ -84,15 +85,13 @@ console.log('\n== Functional checks ==');
   c.brake = 0; c.throttle = 0.4;
   for (let i = 0; i < 1500; i++) v.step(c);
   check(gearR === -1 && v.speed < -2, `auto reverse: gear ${gearR}, speed after 3 s ${v.speed.toFixed(2)} m/s`);
-  // brake to a stop, hold brake again -> back to N, throttle -> forward
+  // brake to a stop and keep holding -> toggles back to N; throttle -> forward
   c.throttle = 0; c.brake = 1;
   for (let i = 0; i < 1500; i++) v.step(c);
-  c.brake = 0;
-  for (let i = 0; i < 10; i++) v.step(c);
-  c.brake = 1;
-  for (let i = 0; i < 600; i++) v.step(c);
+  const gearN = v.gear;
   c.brake = 0; c.throttle = 0.4;
   for (let i = 0; i < 1500; i++) v.step(c);
+  check(gearN === 0, `auto: holding the brake at standstill in R selects N (gear ${gearN})`);
   check(v.gear >= 1 && v.speed > 2, `auto leave reverse: gear ${v.gear}, speed ${v.speed.toFixed(2)} m/s`);
 
   // Manual mode: shift up through gears with paddles
@@ -129,7 +128,7 @@ console.log('\n== Functional checks ==');
   v = createVehicle(p, createFlatTrack(), { x: 0, y: 0, heading: 0 });
   c = controls();
   const decels = [];
-  for (let k = 0; k < 8; k++) {
+  for (let k = 0; k < 15; k++) {
     c.brake = 0; c.throttle = 1;
     while (v.speed < 160 / 3.6 && v.time < 400) v.step(c);
     c.throttle = 0; c.brake = 1;
@@ -161,10 +160,11 @@ for (const [key, pr] of Object.entries(PRESETS)) {
 // ---------------------------------------------------------------------------------------------
 // 3. Real tracks: spawn equilibrium + long runs with a path-following driver
 // ---------------------------------------------------------------------------------------------
-console.log('\n== Real tracks (spawn equilibrium, long runs, NaN) ==');
+console.log(`\n== Real tracks (spawn equilibrium, long runs, NaN) == (${((Date.now() - T0) / 1000).toFixed(0)} s)`);
 function trackDriver(v, track, pt, mu) {
   const L = v.params.geometry.wheelbase, lock = v.params.steering.maxLock;
   const c = controls();
+  let n = 0, vt = 80;
   return () => {
     const s = v.trackState.s, spd = Math.max(0, v.speed);
     const Ld = 6 + 0.35 * spd;
@@ -173,13 +173,15 @@ function trackDriver(v, track, pt, mu) {
     const lx = Math.cos(h) * dx + Math.sin(h) * dy, ly = -Math.sin(h) * dx + Math.cos(h) * dy;
     const k = 2 * ly / (lx * lx + ly * ly);
     c.steer = Math.max(-1, Math.min(1, Math.atan(L * k) / lock));
-    let vt = 80;
-    const look = 20 + spd * spd / (2 * 5);
-    for (let d = 0; d < look; d += 5) {
+    if ((n++ % 25) === 0) {
+      vt = 80;
+      const look = 20 + spd * spd / (2 * 5);
+      for (let d = 0; d < look; d += 5) {
       track.pointAt(s + d, pt);
       const kk = Math.abs(pt.curvature) + 1e-4;
       const vc = Math.sqrt(mu * G / kk + 2 * 5 * d);
-      if (vc < vt) vt = vc;
+        if (vc < vt) vt = vc;
+      }
     }
     const ev = vt - spd;
     c.throttle = Math.max(0, Math.min(1, 0.5 * ev));
@@ -201,18 +203,19 @@ function trackDriver(v, track, pt, mu) {
       const v = createVehicle(p, track, pose);
       const drive = trackDriver(v, track, pt, 0.8);
       const secs = quick ? 60 : 180;
-      let ok = true, maxSpd = 0, offTrack = 0;
+      let ok = true, maxSpd = 0, offTrack = 0, dist = 0;
       const t0 = process.hrtime.bigint();
       for (let i = 0; i < secs / DT; i++) {
         v.step(drive());
         if ((i & 255) === 0 && !finiteState(v)) { ok = false; break; }
         if (v.speed > maxSpd) maxSpd = v.speed;
+        dist += v.speed * DT;
         if (!v.wheels[0].onTrack && !v.wheels[1].onTrack) offTrack += DT;
       }
       const ns = process.hrtime.bigint() - t0;
       totalNs += ns; totalSteps += secs / DT;
       check(ok && finiteState(v) && sp.dz < 0.005,
-        `${tk.padEnd(9)} ${pk.padEnd(12)} spawn bounce ${(sp.dz * 1000).toFixed(3)} mm, ${secs}s run: dist ${(v.trackState.s).toFixed(0)} m, vmax ${(maxSpd * 3.6).toFixed(0)} km/h, off-track ${offTrack.toFixed(1)} s, ${(Number(ns) / 1e3 / (secs / DT)).toFixed(2)} us/step`);
+        `${tk.padEnd(9)} ${pk.padEnd(12)} spawn bounce ${(sp.dz * 1000).toFixed(3)} mm, ${secs}s run: dist ${dist.toFixed(0)} m, vmax ${(maxSpd * 3.6).toFixed(0)} km/h, off-track ${offTrack.toFixed(1)} s, ${(Number(ns) / 1e3 / (secs / DT)).toFixed(2)} us/step`);
     }
   }
   console.log(`  info mean step cost on tracks: ${(Number(totalNs) / 1e3 / totalSteps).toFixed(2)} us/step (incl. driver)`);
@@ -221,7 +224,7 @@ function trackDriver(v, track, pt, mu) {
 // ---------------------------------------------------------------------------------------------
 // 4. Performance: 100 cars x 500 Hz
 // ---------------------------------------------------------------------------------------------
-console.log('\n== Performance ==');
+console.log(`\n== Performance == (${((Date.now() - T0) / 1000).toFixed(0)} s)`);
 {
   const track = createTrack(TRACKS.gp ? 'gp' : Object.keys(TRACKS)[0]);
   const keys = Object.keys(PRESETS);

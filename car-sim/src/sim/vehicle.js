@@ -188,12 +188,12 @@ class Vehicle {
     this.s = W(4); this.sd = W(4); this.fbz = W(4); this.Jk = W(4); this.Fsusp = W(4);
     this.delta = W(4); this.vxW = W(4); this.absF = W(4); this.brakeCmd = W(4);
     this.wheelSteer = W(4);
-    this.env = { regen: 0, ambientT: 293.15, ambientP: 101325 };
+    this.env = { regen: 0, ambientT: 293.15, ambientP: 101325, nitrous: false };
 
     // ---------- public state ----------
     this.pos = [0, 0, 0]; this.quat = [0, 0, 0, 1]; this.vel = [0, 0, 0]; this.angVel = [0, 0, 0];
     this.accBody = [0, 0, 0];
-    this.controls = { steer: 0, throttle: 0, brake: 0, handbrake: 0, shiftUp: false, shiftDown: false, gearMode: 'auto' };
+    this.controls = { steer: 0, throttle: 0, brake: 0, handbrake: 0, shiftUp: false, shiftDown: false, gearMode: 'auto', nitrous: false };
     this.aids = { absActive: false, tcActive: false, launchActive: false };
     this.trackState = { s: 0, offset: 0, index: -1, surface: 0 };
     this.wheels = [];
@@ -285,6 +285,7 @@ class Vehicle {
     this.damage = 0; this.failed = false;
     this.speed = 0; this.heading = Math.atan2(fy, fx);
     this._updateRot();
+    this._wheelPos();
     this._updatePublic();
   }
 
@@ -529,6 +530,7 @@ class Vehicle {
     const ctl = this.controls;
     ctl.steer = c.steer || 0; ctl.throttle = thrEff; ctl.brake = brk; ctl.handbrake = hb;
     ctl.shiftUp = !!c.shiftUp; ctl.shiftDown = !!c.shiftDown; ctl.gearMode = auto ? 'auto' : 'manual';
+    ctl.nitrous = !!c.nitrous;
     return brk;
   }
 
@@ -578,12 +580,11 @@ class Vehicle {
     const d0 = this.steerAngle, L = this.L;
     const ws = this.wheelSteer;
     if (Math.abs(d0) > 1e-5) {
-      const t = Math.tan(d0), ht = 0.5 * this.hpY[0] * 2 * 0.5; // half front track
+      const t = Math.tan(d0);
       const hT = this.hpY[0];
       const dL = Math.atan(L * t / (L - hT * t)), dR = Math.atan(L * t / (L + hT * t));
       const A = this.ackermann;
       ws[0] = d0 + A * (dL - d0); ws[1] = d0 + A * (dR - d0);
-      void ht;
     } else { ws[0] = d0; ws[1] = d0; }
     ws[0] -= this.toe[0]; ws[1] += this.toe[1]; ws[2] = -this.toe[2]; ws[3] = this.toe[3];
 
@@ -664,13 +665,13 @@ class Vehicle {
       wh.usage = out.usage; wh.sliding = out.sliding; wh.surface = q.surface; wh.camber = camber;
       wh.onTrack = q.surface === SURFACE.ASPHALT || q.surface === SURFACE.KERB;
       wh.steer = st;
-      wh.pos[0] = pwx; wh.pos[1] = pwy; wh.pos[2] = pwz;
       const clr = -s[i] - ((delta > 0 ? delta : 0) - this.delta0[i]);
       if (i < 2) clearF += 0.5 * clr; else clearR += 0.5 * clr;
     }
 
     // ---------------- power units + drivetrain ----------------
     const env = this.env;
+    env.nitrous = !this.isEV && !!c.nitrous;
     env.regen = (this.isEV && brk > 0 && Math.abs(vbx) > 1.5 && !this.aids.absActive) ? brk : 0;
     const thrEff = this._thrEff;
     for (let u = 0; u < this.engines.length; u++) {
@@ -776,12 +777,25 @@ class Vehicle {
       wh.spin = sp;
       const Tb = Math.min(drv.brakeTorque[i], this.brakeCmd[i]);
       const hc = this.heatCap[i];
-      wh.brakeTempC += (Tb * Math.abs(w) - hc * (0.004 + 0.0006 * speedAbs) * (wh.brakeTempC - T_AMB_C)) * dt / hc;
+      wh.brakeTempC += (Tb * Math.abs(w) - hc * (0.0015 + 0.0002 * speedAbs) * (wh.brakeTempC - T_AMB_C)) * dt / hc;
       wh.compression = s[i];
     }
+    this._wheelPos();
 
     this.time += dt;
     this._updatePublic();
+  }
+
+  /** World wheel-centre positions from the current body pose and suspension travel. */
+  _wheelPos() {
+    const R = this.R, pos = this.pos;
+    for (let i = 0; i < 4; i++) {
+      const p = this.wheels[i].pos;
+      const rx = this.hpX[i], ry = this.hpY[i], rz = this.hpZ[i] + this.s[i];
+      p[0] = pos[0] + R[0] * rx + R[1] * ry + R[2] * rz;
+      p[1] = pos[1] + R[3] * rx + R[4] * ry + R[5] * rz;
+      p[2] = pos[2] + R[6] * rx + R[7] * ry + R[8] * rz;
+    }
   }
 
   _updatePublic() {

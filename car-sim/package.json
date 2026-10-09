@@ -1,9 +1,9 @@
 {
-  "name": "car-sim",
+  "name": "nova-vaderspeed",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Physics-based car builder and neural-network driving sandbox",
+  "description": "NOVA VADERSPEED — physics-based car builder, racer and neural-network driving sandbox",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
