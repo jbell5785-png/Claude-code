@@ -1,6 +1,53 @@
 # XMAX V3/V4 Pro capsule loader and unloader
 
-A 3D-printable station that loads, packs, and unloads **6 dosing capsules at once**. Set `N_CAPS` to change the count.
+There are two printable devices here:
+
+1. **Pocket capsule pack** (`portable_capsule_pack.scad`): carry 6 filled capsules and reload the vaporiser one-handed while you're out.
+2. **Home filling station** (`xmax_capsule_station.scad`): fill and tamp 6 capsules at once, then load them into the pack.
+
+---
+
+## 1. Pocket capsule pack
+
+About the size of a cigarette packet: **68 × 22 × 90 mm**.
+
+| Front | Cutaway |
+|---|---|
+| ![pack](images/pack_assembly.png) | ![cutaway](images/pack_cutaway.png) |
+
+- **Full side** holds 6 filled capsules: 5 in a column plus 1 waiting in a sliding shuttle. To load the vaporiser, hold the pack top-down over the open chamber and slide the thumb button across. Exactly one capsule drops out. Slide the button back to queue the next one. The windows on the front show how many are left.
+- **Spent side** holds 6 used capsules. Swing the lid open, tip the vaporiser over the hole, and swing the lid shut. To empty it at home, open the lid and tip it out.
+- **Refill at home:** stand the pack upright and slide the button across. Drop a capsule into the exit hole, then slide the button back so it falls into the column. Repeat up to 6 times.
+
+### Parts (all printed, no supports)
+
+| STL | Qty | Print | Assembly |
+|---|---|---|---|
+| `pack_body.stl` | 1 | Upright, with a brim (it's tall and thin) | |
+| `pack_shuttle.stl` | 1 | Flat | Slides into the open slot on the right-hand side |
+| `pack_nub.stl` | 1 | Grip face down | Push its peg through the front slot into the shuttle. Add a drop of superglue if it's loose. |
+| `pack_lid.stl` | 1 | As it comes | |
+| `pack_pin.stl` | 1 | Head down | Goes through the lid into the hole on top. A drop of glue in the **body** hole only, so the lid can still swing. |
+
+**Material: PETG or ASA, not PLA.** Spent capsules come out of the oven very hot. PLA softens at about 60 °C and will be marked or deformed by them. The spent bore has stand-off ribs and vents to keep contact and heat down, but give a capsule about 30 seconds to cool before you tip it in.
+
+### Measure first
+
+The escapement depends on the capsule's **closed length** (`cap_len`) and its **widest diameter** (`lid_d`). If `cap_len` is set too short, the shuttle jams. If it's set too long, two capsules can drop at once. Measure a filled, closed capsule with calipers, edit the top of `portable_capsule_pack.scad`, and rebuild:
+
+```
+for p in body shuttle nub lid pin; do
+  openscad -D "part=\"$p\"" -o stl/pack_$p.stl portable_capsule_pack.scad
+done
+```
+
+If the button doesn't click into place at each end, raise `detent` a little. If it's too stiff, lower it.
+
+---
+
+## 2. Home filling station
+
+The home station loads, packs, and unloads **6 dosing capsules at once**. Set `N_CAPS` to change the count.
 
 ![assembly](images/assembly.png)
 
