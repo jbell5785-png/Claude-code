@@ -2,7 +2,7 @@
 
 ## 1. The current site (caffemamma.co.uk)
 
-**How I got it.** You supplied screenshots of the current site and two recent visitor photos of the dining room and the Kew Road frontage, about five months old. The screenshots are in `research-assets/`; the visitor photos belong to someone else, so they are used only as reference and are not in the repo. The live site returns 403 to automated requests and the Wayback Machine connection kept resetting, so the facts below come from two places. One is your mobile screenshots (`research-assets/`). The other is search-engine snippets of the site's own pages: `/`, `about-us.php`, `menu-food.php`, `menu-drinks.php`, `menu-children.php`, `menu-lunch.php`, `menu-party.php`, `offers.php`, `bookings.php` and `find-us.php`. I've cross-checked them against Time Out, OpenTable and Urbanary. Anything I could only find on a third-party site is marked as such.
+**How I got it.** You supplied screenshots of the current site and two recent visitor photos of the dining room and the Kew Road frontage, about five months old. The screenshots are in `research-assets/`; the visitor photos belong to someone else, so they are used only as reference and are not in the repo. The live site returns 403 to automated requests and the Wayback Machine connection kept resetting, so the rest of the facts below come from search-engine snippets of the site's own pages: `/`, `about-us.php`, `menu-food.php`, `menu-drinks.php`, `menu-children.php`, `menu-lunch.php`, `menu-party.php`, `offers.php`, `bookings.php` and `find-us.php`. I've cross-checked them against Time Out, OpenTable and Urbanary. Anything I could only find on a third-party site is marked as such.
 
 ### Content that exists
 
