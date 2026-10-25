@@ -51,13 +51,22 @@
   wallEl.className = 'twall';
   wallEl.setAttribute('role', 'tablist');
   wallEl.setAttribute('aria-label', 'Tasting menu, 14 dishes as 14 slats');
+  var listLabel = list.getAttribute('aria-label');
+  var panels = items.map(function (li, i) {   // each dish's words go in a div that can be a tabpanel
+    var div = d.createElement('div');
+    div.className = 'steps__panel';
+    div.id = 'tp-' + (i + 1);
+    while (li.firstChild) div.appendChild(li.firstChild);
+    li.appendChild(div);
+    return div;
+  });
   var tabs = items.map(function (li, i) {
     var b = d.createElement('button');
     b.type = 'button';
     b.className = 'twall__slat';
     b.id = 'tslat-' + (i + 1);
     b.setAttribute('role', 'tab');
-    b.setAttribute('aria-controls', li.id);
+    b.setAttribute('aria-controls', 'tp-' + (i + 1));
     b.setAttribute('aria-label', li.querySelector('.steps__name').textContent + ', dish ' + (i + 1) + ' of 14');
     b.style.setProperty('--i', i);
     b.style.setProperty('--gx', -((i * 23) % 64) + 'px');
@@ -68,7 +77,7 @@
     c.className = 'steps__count';
     c.setAttribute('aria-hidden', 'true');
     c.textContent = 'Dish ' + (i + 1) + ' of 14';
-    li.insertBefore(c, li.firstChild);
+    panels[i].insertBefore(c, panels[i].firstChild);
     return b;
   });
   tasting.insertBefore(wallEl, list);
@@ -86,10 +95,12 @@
   function enable(yes) {
     on = yes;
     tasting.classList.toggle('is-wall', yes);
-    if (yes) list.setAttribute('role', 'presentation'); else list.removeAttribute('role');
+    if (yes) { list.setAttribute('role', 'presentation'); list.removeAttribute('aria-label'); }
+    else { list.removeAttribute('role'); list.setAttribute('aria-label', listLabel); }
     items.forEach(function (li, j) {
-      if (yes) { li.setAttribute('role', 'tabpanel'); li.setAttribute('aria-labelledby', 'tslat-' + (j + 1)); li.tabIndex = 0; }
-      else { li.removeAttribute('role'); li.removeAttribute('aria-labelledby'); li.removeAttribute('tabindex'); li.hidden = false; }
+      var pn = panels[j];
+      if (yes) { li.setAttribute('role', 'presentation'); pn.setAttribute('role', 'tabpanel'); pn.setAttribute('aria-labelledby', 'tslat-' + (j + 1)); pn.tabIndex = 0; }
+      else { li.removeAttribute('role'); pn.removeAttribute('role'); pn.removeAttribute('aria-labelledby'); pn.removeAttribute('tabindex'); li.hidden = false; }
     });
     if (hint) hint.textContent = yes ? 'Fourteen dishes, fourteen slats, in the order the menu lists them. Point at a slat, or tab to the wall and use the arrow keys.' : hintText;
     select(sel, false);

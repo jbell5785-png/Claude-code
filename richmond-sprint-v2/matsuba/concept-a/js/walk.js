@@ -44,7 +44,7 @@
     over:   { cx: 790, cy: 480, z: 1.06 },
     bar:    { cx: 330, cy: 360, z: 1.55 },
     brick:  { cx: 1190, cy: 400, z: 1.4 },
-    booths: { cx: 590, cy: 530, z: 2.1 },
+    booths: { cx: 575, cy: 540, z: 2.6 },
     far:    { cx: 780, cy: 468, z: 3.25 }
   };
 
@@ -66,12 +66,16 @@
     sw = stage.clientWidth || window.innerWidth;
     // frontage: the visible rect that "xMidYMax slice" gives for the art box, so zooming never jumps
     var bw = art.clientWidth || sw, bh = art.clientHeight || vh, a = bw / bh, va = 1600 / 1640;
-    if (a > va) { var h = 1600 / a; frRest = [0, 1220 - h, 1600, h]; }
+    if (a > va) {
+      // phones: hold in on the shopfront, door to railings, both awnings in frame
+      var fw = sw < 700 ? Math.max(1380, Math.min(1600, 1220 * a)) : 1600, h = fw / a;
+      frRest = [sw < 700 ? Math.min(1600 - fw, Math.max(0, 815 - fw / 2)) : 0, 1220 - h, fw, h];
+    }
     else { var w = 1640 * a; frRest = [800 - w / 2, -420, w, 1640]; }
     var eh = DOOR.h * 0.62, ew = eh * a;
     frEnd = [DOOR.cx - ew / 2, DOOR.cy - eh / 2, ew, eh];
-    A = vh * 0.42;                // awning fully rolled
-    B = vh * 1.05;                // through the door
+    A = vh * 0.34;                // awning fully rolled
+    B = vh * 0.95;                // through the door
     var bt = beatsEl.offsetTop;
     keys = beats.map(function (b) { return bt + b.offsetTop + b.offsetHeight - vh * (window.innerWidth >= 900 ? 0.96 : 1); });
     last = -1;
@@ -87,9 +91,11 @@
     roll.setAttribute('opacity', r > 0.01 ? 1 : 0);
     shade.setAttribute('opacity', (1 - r).toFixed(3));
     glow.style.opacity = (0.85 + 0.15 * r).toFixed(3);
-    text.style.opacity = clamp(1 - r * 1.7, 0, 1).toFixed(3);
-    text.style.transform = 'translateY(' + (-18 * r).toFixed(1) + 'px)';
-    text.style.visibility = r > 0.66 ? 'hidden' : '';
+    var tf = clamp(t * 2.4, 0, 1);
+    text.style.opacity = (1 - tf).toFixed(3);
+    text.style.transform = 'translateY(' + (-16 * tf).toFixed(1) + 'px)';
+    text.style.visibility = tf >= 1 ? 'hidden' : '';
+    walk.classList.toggle('is-zooming', t > 0 && t < 1);
     // then the view moves through the door
     var e = t * t;
     var w = frRest[2] * Math.pow(frEnd[2] / frRest[2], e);
@@ -103,7 +109,7 @@
     if (t <= 0) { roomFig.classList.remove('is-open'); return; }
     roomFig.classList.add('is-open');
     var sr = stage.getBoundingClientRect(), d = door.getBoundingClientRect();
-    var k = 1 - smooth(clamp(t * 1.15 - 0.1, 0, 1));
+    var k = 1 - smooth(clamp((t - 0.5) / 0.5, 0, 1));
     var ct = Math.max(0, d.top - sr.top) * k, cl = Math.max(0, d.left - sr.left) * k;
     var cr = Math.max(0, sr.right - d.right) * k, cb = Math.max(0, sr.bottom - d.bottom) * k;
     roomFig.style.setProperty('--ct', ct.toFixed(1) + 'px');
@@ -160,7 +166,7 @@
     if (Math.abs(s - last) < 0.5) return;
     last = s;
     var r = clamp(s / A, 0, 1);
-    var t = clamp((s - A * 0.85) / (B - A * 0.85), 0, 1);
+    var t = clamp((s - A * 0.7) / (B - A * 0.7), 0, 1);
     setFrontage(smooth(r), t);
     setDoorClip(t);
     setRoom(s, t);

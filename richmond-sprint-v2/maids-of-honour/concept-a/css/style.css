@@ -792,3 +792,7 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
 }
 .teanote { font-style: italic; color: var(--ink-soft); font-size: var(--step--1); max-width: 62ch; }
 .menu-end { margin-top: 3rem; }
+.cgroup h3, .cgroup-h {
+  margin: 0 0 .3rem; font-size: .84rem; letter-spacing: .14em; text-transform: uppercase; color: var(--clay); font-weight: 700; font-family: var(--font-text);
+}
+.cgroup-h { margin-top: 1.2rem; }

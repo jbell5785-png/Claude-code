@@ -150,6 +150,8 @@ p { margin: 0 0 1em; }
   .hero__art { order: 2; aspect-ratio: auto; height: 100%; min-height: max(640px, 100svh); }
   .hero__text { order: 1; align-self: center; padding: calc(var(--top-h) + 32px) clamp(24px, 3vw, 56px) 48px clamp(24px, 4.5vw, 80px); max-width: none; }
   .hero__lede { max-width: 34ch; }
+  .hero__art::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 9%; z-index: 1; pointer-events: none; background: linear-gradient(90deg, var(--slate-deep), rgba(26,36,45,0)); }
+  .is-zooming .hero__art::before { display: none; }
 }
 
 /* awning hint on load: lifts a little, like someone checking the blind */
@@ -182,17 +184,20 @@ p { margin: 0 0 1em; }
 /* ---------- live mode: the stage pins while the cards walk past ---------- */
 .is-live .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .is-live .hero { height: 100%; }
-.is-live .hero__art { aspect-ratio: auto; height: min(56%, calc(100vw * 1.0)); }
+.is-live .hero__art { aspect-ratio: auto; height: min(50%, calc(100vw * .92)); }
 @media (min-width: 900px) { .is-live .hero { min-height: 0; } .is-live .hero__art { height: 100%; min-height: 0; } }
-.is-live .hero__text { will-change: opacity, transform; }
+.is-live .hero__text { will-change: opacity, transform; position: relative; z-index: 2; }
+.is-live.is-zooming .hero__art, .is-live.is-zooming .frontage { overflow: visible; }
+.is-live.is-zooming .hero__art { z-index: 1; }
+.is-live.is-zooming .hero__art::after { display: none; }
 .is-live .room { position: absolute; inset: 0; aspect-ratio: auto; z-index: 3; clip-path: inset(var(--ct, 50%) var(--cr, 50%) var(--cb, 50%) var(--cl, 50%)); visibility: hidden; }
 .is-live .room.is-open { visibility: visible; }
 .is-live .beats { display: block; margin-top: -100vh; margin-top: -100svh; padding: 0; max-width: none; z-index: 5; pointer-events: none; }
-.is-live .beat { display: flex; min-height: 82svh; padding: 0 var(--gutter) calc(var(--gutter) + 8px); align-items: flex-end; }
+.is-live .beat { display: flex; min-height: 82svh; padding: 0 var(--gutter) calc(var(--bar-h) + env(safe-area-inset-bottom) + 18px); align-items: flex-end; }
 .is-live .beat--spacer { display: block; min-height: 0; height: 175svh; }
 .is-live .beat:last-child { min-height: 100svh; }
-.is-live .card { pointer-events: auto; opacity: .35; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease), border-color .6s; }
-.is-live .card.is-here { opacity: 1; transform: none; border-color: rgba(242,182,90,.35); }
+.is-live .card { pointer-events: auto; opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .6s var(--ease), border-color .6s; }
+.is-live .card.is-here, .is-live .card:focus-within { opacity: 1; transform: none; border-color: rgba(242,182,90,.35); }
 .is-live .rm-lamp .rm-lit, .is-live .rm-lamp .rm-glow, .is-live .rm-pool { opacity: 0; }
 .is-live .rm-swag-glow { opacity: 0; }
 .is-live .rm-swag-dots { fill: #6e604c; transition: fill .5s var(--ease); }
@@ -218,13 +223,13 @@ p { margin: 0 0 1em; }
 .corridor::before {
   left: 0;
   background:
-    linear-gradient(90deg, rgba(26,36,45,.92), rgba(26,36,45,.55) 70%, rgba(26,36,45,.2)),
+    linear-gradient(90deg, rgba(26,36,45,.95), rgba(26,36,45,.7) 60%, rgba(26,36,45,.38)),
     repeating-linear-gradient(90deg, #8d5434 0 6px, #a8653f 6px 8px, #2d2b29 8px 16px);
 }
 .corridor::after {
   right: 0;
   background:
-    linear-gradient(270deg, rgba(26,36,45,.92), rgba(26,36,45,.58) 70%, rgba(26,36,45,.25)),
+    linear-gradient(270deg, rgba(26,36,45,.95), rgba(26,36,45,.7) 60%, rgba(26,36,45,.4)),
     url("../img/brick-tile.svg") 0 0 / 72px 40px;
 }
 .col { width: min(var(--col), calc(100% - 2 * (var(--gutter) + 10px))); margin-inline: auto; }
@@ -240,7 +245,7 @@ p { margin: 0 0 1em; }
 
 /* booking at the far wall */
 .book { padding-top: 0 !important; }
-.book__wall { position: relative; height: clamp(150px, 26vw, 300px); margin: 0 calc(-1 * var(--wall)); overflow: hidden; background: #8a857f; }
+.book__wall { position: relative; height: clamp(150px, 26vw, 300px); overflow: hidden; background: #8a857f; }
 .book__wall svg { width: 100%; height: 100%; }
 .book__panel { position: relative; margin-top: -48px; background: var(--slate); border: 1px solid rgba(245,243,238,.1); padding: 28px 22px 24px; box-shadow: 0 30px 60px rgba(15,23,29,.45); }
 .book__panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--oak); }
@@ -284,7 +289,8 @@ p { margin: 0 0 1em; }
 
 /* visit */
 .visit__grid { display: grid; gap: 8px 40px; }
-@media (min-width: 700px) { .visit__grid { grid-template-columns: 1fr 1.25fr; } }
+@media (min-width: 700px) { .visit__grid { grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); } }
+.hours td { white-space: normal; }
 .visit address { font-style: normal; margin-bottom: .6em; }
 .visit h3:first-child { margin-top: .4em; }
 .hours { border-collapse: collapse; width: 100%; font-variant-numeric: lining-nums; }
@@ -316,6 +322,7 @@ p { margin: 0 0 1em; }
 .plinth__inner { position: relative; padding-top: 52px; }
 .plinth .mark { display: block; font-size: 1.3rem; margin-bottom: 14px; }
 .plinth p { margin-bottom: .6em; }
+.plinth a[href^="tel"], .nowrap { white-space: nowrap; }
 .plinth a { color: var(--awning); text-underline-offset: .2em; text-decoration-color: rgba(242,182,90,.7); }
 .honest { max-width: 52ch; }
 

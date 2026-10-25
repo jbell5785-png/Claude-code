@@ -142,7 +142,7 @@ abbr[title] { text-decoration: none; }
 .wall__probe { position: absolute; width: 1px; height: var(--drop); visibility: hidden; }
 
 @media (min-width: 760px) {
-  .wall { --top0: 30lvh; --sx: 72%; --sy: 30lvh; }
+  .wall { --top0: 30lvh; --sx: 84%; --sy: 15lvh; }
 }
 @media (min-width: 1200px) {
   .wall { --top0: 27lvh; --sx: 70%; --sy: 35lvh; }
@@ -151,8 +151,8 @@ abbr[title] { text-decoration: none; }
 /* Signature, on load: the front layer rises into place one slat at a time, then the sconce warms up.
    Only when JS has confirmed motion is allowed (html.motion); otherwise the wall is simply there. */
 .motion .wall__front i { animation: slat-rise 1.05s var(--ease) backwards; animation-delay: calc(120ms + var(--i) * 46ms); }
-.motion .wall__sconce .s-bulb, .motion .wall__sconce .s-halo { animation: warm 1.5s ease-out backwards; animation-delay: 1.05s; }
-.motion .wall__pool, .motion .wall__light { animation: bloom 2.2s ease-out backwards; animation-delay: 1.1s; }
+.motion .wall__sconce .s-bulb, .motion .wall__sconce .s-halo { animation: warm 1.4s ease-out backwards; animation-delay: 1.55s; }
+.motion .wall__pool, .motion .wall__light { animation: bloom 2.2s ease-out backwards; animation-delay: 1.65s; }
 @keyframes slat-rise { from { transform: translateY(105lvh); } }
 @keyframes warm { 0% { opacity: .08; } 22% { opacity: .55; } 30% { opacity: .38; } 100% { opacity: 1; } }
 @keyframes bloom { from { opacity: 0; } }
@@ -254,7 +254,7 @@ abbr[title] { text-decoration: none; }
 .status--head .status__text { white-space: nowrap; }
 .site-nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
 .site-nav .btn { min-height: 42px; }
-.hide-s { display: none !important; }
+.hide-s, .hide-m { display: none !important; }
 .frieze { position: absolute; left: 0; right: 0; top: 100%; height: 8px; overflow: hidden; pointer-events: none;
   --fu: 5px;
   background: linear-gradient(#7F7E79, #8E8D88);
@@ -269,6 +269,7 @@ abbr[title] { text-decoration: none; }
   transition: transform .4s var(--ease) calc(var(--j, 0) * 12ms); }
 @media (min-width: 560px) { .status--head { display: flex; } }
 @media (max-width: 380px) { .status--head .status__text { font-size: .74rem; } .wordmark { letter-spacing: .4em; margin-right: -.4em; } }
+@media (min-width: 760px) { .hide-m { display: inline-flex !important; } }
 @media (min-width: 960px) {
   .hide-s { display: inline-flex !important; }
   .wordmark { font-size: 1.25rem; }
@@ -381,9 +382,8 @@ h3.caps { margin: 0 0 1rem; }
 /* ---------- Fourteen dishes, fourteen slats (homepage) ---------- */
 .miniwall { position: relative; height: clamp(150px, 20vw, 230px); margin: 6px 0 26px; overflow: hidden;
   --mu: calc(100% / 28);
-  background-color: #8C8B86;
-  background-image: repeating-linear-gradient(90deg, transparent 0 calc(var(--mu) * .14), #A56C45 calc(var(--mu) * .14) calc(var(--mu) * .86), rgba(40, 34, 30, .3) calc(var(--mu) * .86) calc(var(--mu) * 1.1), transparent calc(var(--mu) * 1.1) calc(var(--mu) * 2));
-  box-shadow: inset 0 0 0 1px rgba(30, 33, 36, .15); }
+  background: #8C8B86 url(../img/backwall.svg) 0 -40px / calc(var(--mu) * 2) auto repeat-x;
+  box-shadow: inset 0 0 0 1px rgba(30, 33, 36, .15), inset 0 -24px 30px -18px rgba(20, 16, 12, .35); }
 .miniwall__front i { position: absolute; bottom: 0; width: calc(var(--mu) * .72); left: calc((var(--i) * 2 + 1) * var(--mu) + var(--mu) * .14);
   height: calc(86% - var(--i) * 4.6%); --t: .55;
   box-shadow: inset 0 2px 0 rgba(255, 232, 198, .5), 3px 2px 5px rgba(30, 20, 14, .4); }
@@ -466,13 +466,8 @@ h3.caps { margin: 0 0 1rem; }
    ====================================================================== */
 .page-menu {
   background-color: var(--wall);
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(0, 0, 0, .1)),
-    repeating-linear-gradient(90deg,
-      transparent 0 calc((var(--u) - var(--w)) / 2),
-      #A9714A calc((var(--u) - var(--w)) / 2) calc((var(--u) + var(--w)) / 2),
-      rgba(40, 34, 30, .26) calc((var(--u) + var(--w)) / 2) calc((var(--u) + var(--w)) / 2 + var(--w) * .35),
-      transparent calc((var(--u) + var(--w)) / 2 + var(--w) * .35) calc(var(--u) * 2));
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(20, 16, 12, .16)), url(../img/backwall.svg);
+  background-size: 100% 100%, calc(var(--u) * 2) auto;
   background-attachment: fixed;
 }
 .page-menu .site-header { position: relative; }
@@ -596,6 +591,10 @@ h3.caps { margin: 0 0 1rem; }
   .course__head { position: sticky; top: calc(var(--hh) + 96px); margin-bottom: 0; }
   .course > :not(.course__head) { grid-column: 2; }
   .course__head { grid-row: 1 / span 20; }
+  #tasting { grid-template-columns: minmax(220px, 3fr) 9fr; }
+  #tasting .course__head { position: static; grid-row: auto; grid-column: 1; }
+  #tasting > :not(.course__head) { grid-column: 1 / -1; }
+  #tasting .tasting__hint { margin-top: 26px; }
 }
 
 /* Tasting: fourteen dishes, fourteen slats.
@@ -616,11 +615,10 @@ h3.caps { margin: 0 0 1rem; }
 /* With JS on wide screens: a real stepped wall of 14 buttons and one white card that shows the dish */
 .twall { display: none; }
 @media (min-width: 960px) {
-  .tasting.is-wall { display: grid; grid-template-columns: minmax(0, 7fr) minmax(260px, 5fr); gap: clamp(28px, 3vw, 48px); align-items: stretch; }
+  .tasting.is-wall { display: grid; grid-template-columns: minmax(0, 8fr) minmax(280px, 4fr); gap: clamp(28px, 3vw, 48px); align-items: stretch; }
   .tasting.is-wall .twall { display: block; position: relative; height: 440px;
     --mu: calc(100% / 29);
-    background-color: #8C8B86;
-    background-image: repeating-linear-gradient(90deg, transparent 0 calc(var(--mu) * .14), #A56C45 calc(var(--mu) * .14) calc(var(--mu) * .86), rgba(40, 34, 30, .3) calc(var(--mu) * .86) calc(var(--mu) * 1.12), transparent calc(var(--mu) * 1.12) calc(var(--mu) * 2));
+    background: #8C8B86 url(../img/backwall.svg) 0 -120px / calc(var(--mu) * 2) auto repeat-x;
     box-shadow: inset 0 0 0 1px rgba(30, 33, 36, .18), inset 0 -30px 40px -20px rgba(20, 16, 12, .35); }
   .twall__slat {
     position: absolute; bottom: 0; left: calc((var(--i) * 2 + 1) * var(--mu) + var(--mu) * .1); width: calc(var(--mu) * .8);
@@ -629,12 +627,12 @@ h3.caps { margin: 0 0 1rem; }
     --fix-gap: 9999px; --fix-y: 10px;
     box-shadow: inset 0 2px 0 rgba(255, 232, 198, .5), 6px 4px 9px rgba(30, 20, 14, .4);
     transition: transform .32s var(--ease), box-shadow .32s var(--ease); }
-  .twall__slat::before { content: ""; position: absolute; left: 50%; top: 34px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%;
+  .twall__slat::before { content: ""; position: absolute; left: 50%; top: 34px; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%;
     background: radial-gradient(circle at 35% 30%, #F4D893, #B48632 55%, #6B4A10); box-shadow: 0 2px 3px rgba(0, 0, 0, .35); transform: scale(0); transition: transform .3s var(--ease-pop); }
-  .twall__slat::after { content: ""; position: absolute; left: -20px; right: -20px; top: 26px; height: 30px; pointer-events: none;
+  .twall__slat::after { content: ""; position: absolute; left: -24px; right: -24px; top: 25px; height: 36px; pointer-events: none;
     background:
-      radial-gradient(circle 15px at 15px 50%, rgba(255, 248, 231, .95) 0 3px, rgba(246, 199, 122, .75) 6px, rgba(246, 199, 122, 0) 15px),
-      radial-gradient(circle 15px at calc(100% - 15px) 50%, rgba(255, 248, 231, .95) 0 3px, rgba(246, 199, 122, .75) 6px, rgba(246, 199, 122, 0) 15px);
+      radial-gradient(circle 18px at 18px 50%, rgba(255, 250, 236, 1) 0 4px, rgba(246, 199, 122, .8) 7px, rgba(246, 199, 122, 0) 18px),
+      radial-gradient(circle 18px at calc(100% - 18px) 50%, rgba(255, 250, 236, 1) 0 4px, rgba(246, 199, 122, .8) 7px, rgba(246, 199, 122, 0) 18px);
     opacity: 0; transition: opacity .3s ease .1s; }
   .twall__slat:hover { transform: translateY(-8px); }
   .twall__slat[aria-selected="true"] { --t: .15; transform: translateY(-16px); box-shadow: inset 0 2px 0 rgba(255, 244, 220, .85), 10px 16px 18px rgba(30, 20, 14, .38); }

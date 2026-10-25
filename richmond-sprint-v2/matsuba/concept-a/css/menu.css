@@ -2,7 +2,7 @@
    The frame and glow are the setting; the paper inside is set for fast reading on a phone. */
 
 .page-menu .top { background: var(--slate-deep); box-shadow: 0 1px 0 rgba(245,243,238,.08); }
-.shopfront { position: relative; background: var(--slate); padding-top: var(--top-h); overflow: hidden; }
+.shopfront { position: relative; background: var(--slate); padding-top: var(--top-h); overflow-x: clip; }
 /* painted timber boards of the frontage */
 .shopfront::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
   background: repeating-linear-gradient(90deg, transparent 0 139px, rgba(15,23,29,.45) 139px 141px); }
@@ -63,7 +63,7 @@
 .tab[aria-selected="true"] { color: var(--bulb); }
 .tab[aria-selected="true"]::after { opacity: 1; transform: none; box-shadow: 0 0 10px 1px rgba(242,182,90,.7); }
 .tab:focus-visible { outline-offset: -4px; }
-@media (min-width: 1000px) { .tabs__list { flex-wrap: wrap; justify-content: center; } }
+@media (min-width: 1000px) { .tabs__list { flex-wrap: wrap; justify-content: center; } .tab { padding: 4px 9px 2px calc(9px + .14em); letter-spacing: .14em; font-size: .66rem; } .tab::after { left: 8px; right: 8px; } }
 
 /* ---------- the paper ---------- */
 .case__paper {
@@ -106,7 +106,7 @@
 .dish__price { flex: 0 0 auto; font-variant-numeric: lining-nums tabular-nums; font-weight: 500; color: var(--slate); white-space: nowrap; }
 .dish__price--supp { font-size: .86rem; font-weight: 600; color: var(--gold-text); white-space: normal; text-align: right; max-width: 9.5rem; }
 .dish__desc { margin: 3px 0 0; font-style: italic; color: var(--ink-soft); font-size: .95rem; line-height: 1.45; }
-.dt { font-family: var(--sans); font-weight: 600; font-style: normal; font-size: .74rem; letter-spacing: .04em; color: var(--vg); text-decoration: none; margin: 0 .1em; cursor: help; }
+.dt { white-space: nowrap; font-family: var(--sans); font-weight: 600; font-style: normal; font-size: .74rem; letter-spacing: .04em; color: var(--vg); text-decoration: none; margin: 0 .1em; cursor: help; }
 .aside { margin: 6px 0 0; padding-left: 10px; border-left: 2px solid var(--oak); font-size: .88rem; color: #6a4a35; font-style: italic; }
 
 .bento { display: grid; gap: 6px 22px; padding: 10px 0 14px; border-bottom: 1px dotted #dccfb6; }

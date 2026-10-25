@@ -100,8 +100,8 @@
     this.floor = mk('path', { fill: COL.tile }, svg);
     this.floorShade = mk('path', { fill: 'url(#v-floorshade)' }, svg);
     this.grout = mk('path', { fill: 'none', stroke: COL.grout, 'stroke-width': 1 }, svg);
-    this.patchA = mk('path', { fill: '#8C8177', opacity: 0.32 }, svg);
-    this.patchB = mk('path', { fill: '#5C5249', opacity: 0.22 }, svg);
+    this.patchA = mk('path', { fill: '#9A6E5C', opacity: 0.26 }, svg);
+    this.patchB = mk('path', { fill: '#6A5045', opacity: 0.24 }, svg);
     this.buildPatches();
 
     // the far wall, with the garden seen through its door
@@ -125,22 +125,23 @@
   Vault.prototype.buildDefs = function (defs) {
     var r = rng(11);
     // façade brick, stretcher bond, 8 bricks x 12 courses per tile (cm)
-    var pat = mk('pattern', { id: 'v-brick', width: 180, height: 90, patternUnits: 'userSpaceOnUse' }, defs);
-    mk('rect', { width: 180, height: 90, fill: '#9E968A' }, pat);
+    var TW = 450, TH = 180;
+    var pat = mk('pattern', { id: 'v-brick', width: TW, height: TH, patternUnits: 'userSpaceOnUse' }, defs);
+    mk('rect', { width: TW, height: TH, fill: '#ABA396' }, pat);
     var tones = ['#47413B', '#3B342E', '#4E4640', '#635D58', '#54403A', '#3F3833', '#5B4A42', '#6A5148', '#433C37', '#4A4039'];
     var buckets = {};
-    for (var c = 0; c < 12; c++) {
+    for (var c = 0; c < 24; c++) {
       var off = (c % 2) * 11.25;
-      for (var b = -1; b < 9; b++) {
+      for (var b = -1; b < 21; b++) {
         var x = b * 22.5 + off, y = c * 7.5;
-        var x0 = Math.max(x + 0.5, 0), x1 = Math.min(x + 22, 180);
+        var x0 = Math.max(x + 0.5, 0), x1 = Math.min(x + 22, TW);
         if (x1 - x0 < 1) continue;
-        var tone = tones[Math.floor(r() * r() * tones.length)];
+        var tone = tones[Math.floor(r() * tones.length)];
         (buckets[tone] = buckets[tone] || []).push('M' + n1(x0) + ' ' + n1(y + 0.5) + 'h' + n1(x1 - x0) + 'v6.5h' + n1(x0 - x1) + 'z');
       }
     }
     for (var t in buckets) mk('path', { d: buckets[t].join(''), fill: t }, pat);
-    mk('path', { d: 'M0 .8H180M0 8.3H180M0 15.8H180M0 23.3H180M0 30.8H180M0 38.3H180M0 45.8H180M0 53.3H180M0 60.8H180M0 68.3H180M0 75.8H180M0 83.3H180', stroke: '#fff', 'stroke-opacity': 0.06, 'stroke-width': 0.8 }, pat);
+    var hl = ''; for (var c2 = 0; c2 < 24; c2++) hl += 'M0 ' + (c2 * 7.5 + 0.9) + 'H' + TW; mk('path', { d: hl, stroke: '#fff', 'stroke-opacity': 0.07, 'stroke-width': 0.8 }, pat);
 
     var g;
     g = mk('linearGradient', { id: 'v-soot', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
@@ -284,6 +285,7 @@
       }
     }
     for (var tn in vb) mk('path', { d: vb[tn].join(''), fill: tn }, g);
+    mk('path', { d: 'M-1500 -1400H1500V0H-1500Z' + innerPath, fill: 'url(#v-soot)', 'fill-rule': 'evenodd', opacity: 0.55 }, g);
     // a little light catching the lower lip of the ring
     mk('path', { d: innerPath, fill: 'none', stroke: '#C9C1B4', 'stroke-opacity': 0.35, 'stroke-width': 2 }, g);
 
@@ -364,7 +366,7 @@
 
     // door frame, fanlight and the two glazed leaves (they open at the end)
     mk('path', { d: 'M-58 0V-206H58V0', fill: 'none', stroke: '#33403B', 'stroke-width': 5 }, g);
-    mk('path', { d: 'M-58 -206H58 M0 -206V' + (spring - R0 + 4) + 'M-40 -206L-55 -170 M40 -206L55 -170', fill: 'none', stroke: '#33403B', 'stroke-width': 2.4 }, g);
+    mk('path', { d: 'M-58 -206H58 M0 -206V' + (spring - R0 + 4), fill: 'none', stroke: '#33403B', 'stroke-width': 2.4 }, g);
     this.farLeaves = [];
     var self = this;
     [-1, 1].forEach(function (s) {
@@ -415,29 +417,42 @@
       d += 'M' + n1(sx - srx) + ' ' + n1(sy) + 'a' + n1(srx) + ' ' + n1(srx * 0.28) + ' 0 1 0 ' + n1(srx * 2) + ' 0a' + n1(srx) + ' ' + n1(srx * 0.28) + ' 0 1 0 ' + n1(-srx * 2) + ' 0';
     }
     mk('path', { d: d, fill: '#A39D93', opacity: 0.35 }, g);
-    // a plane tree: mottled, flaking trunk
-    mk('path', { d: 'M180 300C200 120 205 -120 190 -420C186 -560 170 -700 150 -1000H330C320 -700 300 -560 304 -420C320 -140 340 120 380 300Z', fill: '#9C8B6F' }, g);
-    d = ''; var d2 = '';
-    for (i = 0; i < 46; i++) {
-      var tx = 200 + r() * 110, ty = -900 + r() * 1150, tw = 10 + r() * 26, th = 14 + r() * 40;
-      var s = 'M' + n1(tx) + ' ' + n1(ty) + 'q' + n1(tw * 0.6) + ' ' + n1(-th * 0.2) + ' ' + n1(tw) + ' ' + n1(th * 0.3) + 'q' + n1(-tw * 0.1) + ' ' + n1(th * 0.6) + ' ' + n1(-tw * 0.7) + ' ' + n1(th * 0.7) + 'q' + n1(-tw * 0.4) + ' ' + n1(-th * 0.5) + ' ' + n1(-tw * 0.3) + ' ' + n1(-th) + 'z';
-      if (i % 3) d += s; else d2 += s;
-    }
-    mk('path', { d: d, fill: '#C9BFA2', opacity: 0.85 }, g);
-    mk('path', { d: d2, fill: '#5E5238', opacity: 0.6 }, g);
-    mk('path', { d: 'M190 -420C230 -360 260 -360 304 -420', fill: 'none', stroke: '#47402B', 'stroke-width': 4, opacity: 0.4 }, g);
-    // canopy: plane leaves in three greens
-    var greens = ['#3D411C', '#6D704A', '#9BA476'];
-    greens.forEach(function (col, ci) {
+    // a plane tree: mottled, flaking trunk (patches of olive, cream and grey)
+    var trunk = 'M170 300C196 120 204 -120 188 -420C184 -560 168 -700 146 -1000H336C324 -700 304 -560 308 -420C324 -140 346 120 392 300Z';
+    mk('path', { d: trunk, fill: '#8A7B5F' }, g);
+    var bark = [['#C9BFA2', 30], ['#A9A07E', 26], ['#5E5238', 18], ['#D9D2BC', 14]];
+    var cpT = mk('clipPath', { id: 'v-trunkclip' }, g); mk('path', { d: trunk }, cpT);
+    var barkG = mk('g', { 'clip-path': 'url(#v-trunkclip)' }, g);
+    bark.forEach(function (bk) {
       var dd = '';
-      for (var k = 0; k < 60; k++) {
-        var lx = -700 + r() * 1400, ly = -1000 + r() * (ci === 2 ? 300 : 380) + Math.abs(lx) * 0.05, ls = 22 + r() * 30;
-        dd += 'M' + n1(lx) + ' ' + n1(ly) + 'l' + n1(ls * 0.5) + ' ' + n1(ls * 0.15) + 'l' + n1(-ls * 0.1) + ' ' + n1(ls * 0.35) + 'l' + n1(ls * 0.35) + ' ' + n1(ls * 0.25) + 'l' + n1(-ls * 0.45) + ' ' + n1(ls * 0.1) + 'l' + n1(-ls * 0.3) + ' ' + n1(ls * 0.45) + 'l' + n1(-ls * 0.3) + ' ' + n1(-ls * 0.45) + 'l' + n1(-ls * 0.45) + ' ' + n1(-ls * 0.1) + 'l' + n1(ls * 0.35) + ' ' + n1(-ls * 0.25) + 'l' + n1(-ls * 0.1) + ' ' + n1(-ls * 0.35) + 'z';
+      for (var k = 0; k < bk[1]; k++) {
+        var tx = 150 + r() * 220, ty = -1000 + r() * 1300, tw = 26 + r() * 46, th = 30 + r() * 70;
+        dd += 'M' + n1(tx) + ' ' + n1(ty) + 'c' + n1(tw * 0.5) + ' ' + n1(-th * 0.2) + ' ' + n1(tw) + ' ' + n1(th * 0.1) + ' ' + n1(tw * 0.9) + ' ' + n1(th * 0.45) + 'c' + n1(-tw * 0.05) + ' ' + n1(th * 0.35) + ' ' + n1(-tw * 0.5) + ' ' + n1(th * 0.6) + ' ' + n1(-tw * 0.8) + ' ' + n1(th * 0.5) + 'c' + n1(-tw * 0.3) + ' ' + n1(-th * 0.2) + ' ' + n1(-tw * 0.2) + ' ' + n1(-th * 0.7) + ' ' + n1(-tw * 0.1) + ' ' + n1(-th * 1.05) + 'z';
       }
-      mk('path', { d: dd, fill: col, opacity: ci === 2 ? 0.8 : 1 }, g);
+      mk('path', { d: dd, fill: bk[0] }, barkG);
     });
-    // a pair of garden chairs and a table, simply
-    mk('path', { d: 'M-160 40h90v6h-90z M-150 46v60M-80 46v60 M-210 60v50M-230 60h40v4h-40zM-230 64v46M-190 64v46M-230 20v40', stroke: '#2E2B26', 'stroke-width': 4, fill: '#2E2B26' }, g);
+    mk('path', { d: 'M170 300C196 120 204 -120 188 -420C184 -560 168 -700 146 -1000H190C200 -700 214 -560 220 -420C236 -140 236 120 230 300Z', fill: '#3A3322', opacity: 0.25 }, barkG);
+    // canopy: masses of plane leaves, darkest underneath, sun on the top edges
+    [['#3D411C', 0, 1], ['#55592F', 14, 0.95], ['#6D704A', 30, 0.9], ['#9BA476', 46, 0.75]].forEach(function (lay) {
+      var dd = '';
+      for (var k = 0; k < 42; k++) {
+        var lx = -720 + r() * 1440, ly = -1010 + r() * 280 + Math.pow(Math.abs(lx - 250) / 700, 2) * 120 - lay[1], rr = 34 + r() * 54;
+        dd += 'M' + n1(lx - rr) + ' ' + n1(ly) + 'a' + n1(rr) + ' ' + n1(rr * 0.82) + ' 0 1 0 ' + n1(rr * 2) + ' 0a' + n1(rr) + ' ' + n1(rr * 0.82) + ' 0 1 0 ' + n1(-rr * 2) + ' 0';
+      }
+      mk('path', { d: dd, fill: lay[0], opacity: lay[2] }, g);
+    });
+    // a few single leaves at the canopy's lower edge (five-pointed, plane-like)
+    var lv = '';
+    for (var k2 = 0; k2 < 34; k2++) {
+      var vx = -680 + r() * 1360, vy = -760 + r() * 90 + Math.pow(Math.abs(vx - 250) / 700, 2) * 110, vs = 14 + r() * 10;
+      lv += 'M' + n1(vx) + ' ' + n1(vy) + 'l' + n1(-vs * .9) + ' ' + n1(-vs * .2) + 'l' + n1(vs * .35) + ' ' + n1(-vs * .45) + 'l' + n1(-vs * .25) + ' ' + n1(-vs * .6) + 'l' + n1(vs * .55) + ' ' + n1(vs * .3) + 'l' + n1(vs * .25) + ' ' + n1(-vs * .6) + 'l' + n1(vs * .25) + ' ' + n1(vs * .6) + 'l' + n1(vs * .55) + ' ' + n1(-vs * .3) + 'l' + n1(-vs * .25) + ' ' + n1(vs * .6) + 'l' + n1(vs * .35) + ' ' + n1(vs * .45) + 'z';
+    }
+    mk('path', { d: lv, fill: '#4E5328' }, g);
+    // garden furniture: a wooden chair, a dark green plastic chair, a dark table
+    mk('path', { d: 'M-190 60h120v7h-120z M-180 67v64M-80 67v64', stroke: '#2E2B26', 'stroke-width': 5, fill: '#2E2B26' }, g);
+    mk('path', { d: 'M-262 82h46v5h-46zM-260 87v48M-218 87v48M-262 34v50M-216 34v50M-262 40h46M-262 54h46', stroke: '#7A5A3B', 'stroke-width': 4, fill: '#7A5A3B' }, g);
+    mk('path', { d: 'M-40 86c0-30 4-48 24-50h26c20 2 24 20 24 50zM-40 86h74l-6 6h-62zM-34 92l-6 42M28 92l6 42', fill: '#2F4A35', stroke: '#2F4A35', 'stroke-width': 4 }, g);
+    mk('path', { d: 'M-300 140h420', stroke: '#8E877C', 'stroke-width': 3, opacity: 0.35 }, g);
   };
 
   // ---------- sprites (cm, origin at their anchor) ----------
@@ -668,12 +683,12 @@
     this.portrait = portrait;
     var s0, floorY, cx0;
     if (portrait) {
-      s0 = (w * 1.0) / (2 * (A + RING) + 0.5);
+      s0 = (w * 1.04) / (2 * (A + RING) + 0.5);
       s0 = Math.min(s0, (h * 0.36) / (HS + B + RING));
       floorY = h * 0.64;
       cx0 = w / 2;
     } else {
-      s0 = Math.min((h * 0.5) / (HS + B + RING + 0.2), (w * 0.54) / (2 * (A + RING) + 0.4));
+      s0 = Math.min((h * 0.56) / (HS + B + RING + 0.2), (w * 0.56) / (2 * (A + RING) + 0.4));
       floorY = h * 0.8;
       cx0 = w * 0.6;
     }
@@ -684,7 +699,7 @@
     this.cx0 = cx0;
     this.floorY = floorY;
     // end of the walk: through the far door, the garden fills the frame
-    var dEnd = Math.max(0.9, Math.min(3.2, (2.05 * this.f) / (h * 1.45)));
+    var dEnd = portrait ? (2.04 * this.f) / (w * 1.12) : Math.max(1.2, (2.6 * this.f) / (h * 1.0));
     var zEnd = L - dEnd;
     this.zAt = monotone([0, 0.05, 0.22, 0.5, 0.84, 1], [this.zStart, this.zStart + 0.35, 0.7, 9.0, zEnd - 2.2, zEnd]);
     this.svg.setAttribute('viewBox', '0 0 ' + n1(w) + ' ' + n1(h));
