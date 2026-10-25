@@ -884,3 +884,4 @@ table { border-collapse: collapse; }
 .supp, .sample-flag, .veg, .contact-line__k, .foot h2, .find__fig small, .tier__price small, .wine__prices dt,
 .hours__today, .mnav a, .cider__table thead th, .anat__label, .msec__meta span, .anat__text { font-family: var(--f-cond); }
 .steak .aperitif .price { color: var(--crust); }
+@media (max-width: 359px) { .masthead__nav a { font-size: .6875rem; letter-spacing: .05em; } .wordmark__name { font-size: 1.125rem; } }
