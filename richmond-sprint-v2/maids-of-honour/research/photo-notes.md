@@ -3,7 +3,7 @@ Source: Google Maps photos found and supplied by the client on 25 October 2026 (
 
 - **Frontage** (posted by the business, about 6 years ago):
   - A cream-rendered two-storey building. A long dark-green fascia board along the roofline reads "The Original Maids of Honour" in gold blackletter or gothic capitals, with a raised central gable panel reading "TEAS".
-  - A clay-tile pentice roof (canopy) runs over the ground-floor shopfront, with "Newens" in gold script on it and a hanging lantern below.
+  - A clay-tile pentice roof (canopy) runs over the ground-floor shopfront, with "Newens" in gold blackletter on it (corrected from "script" by the researcher) and a hanging lantern below.
   - Dark small-paned windows, a wrought-iron balcony rail on the first floor, and hanging flower baskets.
   - A side-wall painted sign: "Newens / The Original Maids of Honour / HOME MADE BREAD, CAKES & PASTRIES / MORNING COFFEE / LUNCHEONS / TEAS".
   - Topiary cones in white planters, white wrought-iron café chairs and tables, and a vintage car parked beside it.
