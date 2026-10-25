@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menu · Matsuba, 10 Red Lion Street, Richmond</title>
+<meta name="description" content="Matsuba's dine-in menu, set in the style of its own printed menus: appetizers, a la carte, sushi and sashimi, eight aburi nigiri, Special Rolls, lunch, kids, the tasting menu and the Lunch & Early Evening card.">
+<meta name="theme-color" content="#640934">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Matsuba · The menu">
+<meta property="og:description" content="The printed menu, online. Press Aburi to see every dish the menu calls seared.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23640934'/%3E%3Crect x='2.5' y='2.5' width='27' height='27' fill='none' stroke='%23D1A75B'/%3E%3Cpath d='M16 6c1.6 3.8 6 6.6 6 11.6 0 4-2.7 6.9-6 6.9s-6-2.9-6-6.9c0-2.8 1.6-4.4 2.8-5.8.2 2 1 3.2 2 3.8-.5-3.4.2-6.8 1.2-9.6z' fill='%23D1A75B'/%3E%3Cpath d='M16 15.5c1.3 1.9 2.6 3.1 2.6 5.1 0 1.7-1.2 2.8-2.6 2.8s-2.6-1.1-2.6-2.8c0-1.8 1.5-3 2.6-5.1z' fill='%233A7BD5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300..700;1,300..500&family=Marcellus&display=swap">
+<link rel="stylesheet" href="css/aburi.css">
+<script>
+  (function () {
+    var d = document.documentElement, ok = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    d.classList.add('js');
+    if (ok) d.classList.add('js-motion');
+    if (ok && window.CSS && CSS.registerProperty && window.IntersectionObserver) d.classList.add('sear-on');
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Matsuba",
+  "url": "https://matsuba.co.uk/",
+  "servesCuisine": "Japanese",
+  "telephone": "+44 20 8605 3513",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "10 Red Lion Street",
+    "addressLocality": "Richmond",
+    "postalCode": "TW9 1RW",
+    "addressCountry": "GB"
+  },
+  "menu": "https://matsuba.co.uk/matsuba-menu/"
+}
+</script>
+<script src="js/aburi.js" defer></script>
+</head>
+<body class="menu-page">
+<a class="skip" href="#main">Skip to the menu</a>
+<div class="frame" aria-hidden="true"></div>
+<!-- Shared drawing parts: the torch flame and the menu's torch mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-flame-outer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3A7BD5" stop-opacity=".2"/>
+      <stop offset=".16" stop-color="#3A7BD5" stop-opacity=".8"/>
+      <stop offset=".4" stop-color="#9DBFEF" stop-opacity=".55"/>
+      <stop offset=".6" stop-color="#F7C46A" stop-opacity=".92"/>
+      <stop offset=".86" stop-color="#F09A2E"/>
+      <stop offset="1" stop-color="#D9701C"/>
+    </linearGradient>
+    <linearGradient id="g-flame-core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4F8FF"/>
+      <stop offset=".35" stop-color="#9CC2F5"/>
+      <stop offset=".75" stop-color="#3A7BD5"/>
+      <stop offset="1" stop-color="#3A7BD5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g-nozzle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5A4120"/>
+      <stop offset=".45" stop-color="#D3B47A"/>
+      <stop offset=".7" stop-color="#8A6421"/>
+      <stop offset="1" stop-color="#43301A"/>
+    </linearGradient>
+    <linearGradient id="g-mark-outer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C8681C"/>
+      <stop offset="1" stop-color="#8E3F0C"/>
+    </linearGradient>
+    <linearGradient id="g-mark-core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E9FE6"/>
+      <stop offset="1" stop-color="#2D62B0"/>
+    </linearGradient>
+  </defs>
+  <symbol id="flame" viewBox="0 0 24 60">
+    <rect x="7.5" y="0" width="9" height="7" rx="1.2" fill="url(#g-nozzle)"/>
+    <rect x="9" y="6.4" width="6" height="2.2" fill="#3F2B1C"/>
+    <path d="M12 8.5C17.5 15 20 23 17.6 33 16 40.5 13.6 50 12 59.5 10.4 50 8 40.5 6.4 33 4 23 6.5 15 12 8.5Z" fill="url(#g-flame-outer)"/>
+    <path d="M12 9C14.6 13 15.6 18 14.6 23.5 13.9 27 12.8 30.5 12 33 11.2 30.5 10.1 27 9.4 23.5 8.4 18 9.4 13 12 9Z" fill="url(#g-flame-core)"/>
+    <path d="M12 10.2C12.8 14 12.9 18 12 22 11.1 18 11.2 14 12 10.2Z" fill="#fff" opacity=".85"/>
+  </symbol>
+  <symbol id="torch" viewBox="0 0 16 20">
+    <path d="M8 1C9.5 4.5 14 7.5 14 12.5 14 16.5 11.3 19 8 19S2 16.5 2 12.5C2 9.6 3.6 8 4.8 6.6 5 8.6 5.8 9.8 6.8 10.4 6.4 7 7 3.6 8 1Z" fill="url(#g-mark-outer)"/>
+    <path d="M8 9.5C9.3 11.4 10.6 12.6 10.6 14.6 10.6 16.3 9.4 17.4 8 17.4S5.4 16.3 5.4 14.6C5.4 12.8 6.9 11.6 8 9.5Z" fill="url(#g-mark-core)"/>
+  </symbol>
+</svg>
+
+<header class="bar">
+  <nav class="bar__in" aria-label="Primary">
+    <div class="bar__side">
+      <a class="bar__link" href="menu.html" aria-current="page">Menu</a>
+      <a class="bar__link" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order<span class="vh"> online with Toast (opens in a new tab)</span></a>
+    </div>
+    <a class="wordmark" href="index.html"><span>Matsuba</span><span class="vh">, home</span></a>
+    <div class="bar__side bar__side--end">
+      <a class="bar__link" href="tel:+442086053513">020 8605 3513</a>
+      <a class="btn btn--primary" href="index.html#book"><span>Book</span></a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <header class="mtitle">
+    <h1><span>Menu</span></h1>
+    <p class="mtitle__gold">Monday <!-- [TO CONFIRM] Monday opening --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> – Friday&ensp;12pm – 3pm <!-- [TO CONFIRM] lunch end time --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> &amp; 5pm – 10pm&ensp;·&ensp;Saturday&ensp;12pm – 10pm</p>
+    <p class="mtitle__burg">Pull up a chair. Take a taste. Come join us.</p>
+    <p class="mtitle__note">Transcribed word for word from matsuba.co.uk on 25 October 2026, spellings and all. Prices in £, as printed. Please check with the restaurant before you visit.</p>
+  </header>
+
+  <div class="courses">
+    <div class="courses__in">
+      <button class="filter" type="button" aria-pressed="false" aria-controls="menu-body" data-aburi-filter>
+        <svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span>Aburi</span><span class="filter__count" aria-hidden="true">13</span><span class="vh">: show only seared dishes</span>
+      </button>
+      <nav class="courses__nav" aria-label="Courses">
+        <ul>
+          <li data-has-seared><a href="#appetizers">Appetizers</a></li>
+          <li><a href="#a-la-carte">A la carte</a></li>
+          <li data-has-seared><a href="#sushi">Sushi &amp; Sashimi</a></li>
+          <li><a href="#rolls">Rolls &amp; Maki</a></li>
+          <li><a href="#sides">Sides &amp; Dessert</a></li>
+          <li><a href="#lunch">Lunch</a></li>
+          <li><a href="#kids">Kids</a></li>
+          <li data-has-seared><a href="#tasting">Tasting</a></li>
+          <li><a href="#early-evening">Early Evening</a></li>
+        </ul>
+      </nav>
+      <p class="status" id="aburi-status" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="mbody" id="menu-body">
+<section class="course" id="appetizers" aria-labelledby="appetizers-h" data-has-seared>
+<h2 class="head head--burgundy" id="appetizers-h"><span>APPETIZERS</span></h2>
+<div class="group" data-has-seared>
+<ul class="dishes"><li class="dish"><p class="dish__name">Edamame (Steamed) <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Lightly salted soybean pods</p><p class="dish__price"><span class="vh">£</span>5.9</p></li><li class="dish"><p class="dish__name">Edamame (Spicy / Garlic Butter) <abbr class="mk" title="suitable for vegetarians">v</abbr></p><p class="dish__desc">Soybean pods grilled in Japanese spicy powder or fresh garlic</p><p class="dish__price"><span class="vh">£</span>6.9/6.9</p></li><li class="dish"><p class="dish__name">Matsuba Salad <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Fresh crispy salad with our own Matsuba dressing</p><p class="dish__price"><span class="vh">£</span>8.9</p></li><li class="dish"><p class="dish__name">Agedashi Tofu <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Crispy coated tofu in tempura sauce</p><p class="dish__price"><span class="vh">£</span>8.5</p></li><li class="dish"><p class="dish__name">Zucchini Iridashi <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Crispy coated courgettes with light dipping</p><p class="dish__price"><span class="vh">£</span>8.5</p></li><li class="dish"><p class="dish__name">Pumpkin Korokke <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Crispy panko coated croquettes filled with pumpkin</p><p class="dish__price"><span class="vh">£</span>8.5</p></li><li class="dish"><p class="dish__name">Nasu Dengaku <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Lightly fried aubergine coated in sweet miso sauce</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish"><p class="dish__name">Yakitori</p><p class="dish__desc">Grilled skewers of chicken pieces in teriyaki sauce</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish"><p class="dish__name">Chicken Kara-age</p><p class="dish__desc">Large balls of tender chicken with dribbles of sweet chilli sauce</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish"><p class="dish__name">Vegetable Gyoza <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Pan grilled vegetable dumplings</p><p class="dish__price"><span class="vh">£</span>9.5</p></li><li class="dish"><p class="dish__name">Chicken Gyoza</p><p class="dish__desc">Pan grilled chicken and vegetable dumplings</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish"><p class="dish__name">Eby Fry (3pcs/6pcs)</p><p class="dish__desc">Crispy coated Jumbo prawn with panko breadcrumbs</p><p class="dish__price"><span class="vh">£</span>10.9/18.9</p></li><li class="dish"><p class="dish__name">Squid Shichimi-Age</p><p class="dish__desc">Deep fried squid in light batter with shichimi chilli pepper</p><p class="dish__price"><span class="vh">£</span>11.9</p></li><li class="dish"><p class="dish__name">Softshell Crab</p><p class="dish__desc">Deep fried soft shell crab</p><p class="dish__price"><span class="vh">£</span>13.9</p></li><li class="dish"><p class="dish__name">Grilled Scallops</p><p class="dish__desc">Grilled scallops with unagi sauce and wasabi mayo</p><p class="dish__price"><span class="vh">£</span>15.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Salmon Aburi Carpaccio">Salmon Aburi Carpaccio</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">Torch-seared salmon pieces with yuzu miso dressing</p><p class="dish__price"><span class="vh">£</span>13.9</p></li><li class="dish"><p class="dish__name">Salmon Carpaccio</p><p class="dish__desc">Thin sliced fresh salmon pieces with yuzu ponzu and jalapeño</p><p class="dish__price"><span class="vh">£</span>13.9</p></li><li class="dish"><p class="dish__name">Sashimi Ceviche</p><p class="dish__desc">South American style salad with sashimi, green leaves and ponzu seasoning</p><p class="dish__price"><span class="vh">£</span>13.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Tuna Tataki">Tuna Tataki</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">Torched-seared tuna slices with mooli and ponzu sauce</p><p class="dish__price"><span class="vh">£</span>14.9</p></li><li class="dish"><p class="dish__name">Seabass Carpaccio</p><p class="dish__desc">Thin sliced fresh seabass pieces with yuzu ponzu and tobiko</p><p class="dish__price"><span class="vh">£</span>14.9</p></li><li class="dish"><p class="dish__name">Yellowtail Carpaccio</p><p class="dish__desc">Thin sliced fresh yellowtail pieces with yuzu ponzu and jalapeño</p><p class="dish__price"><span class="vh">£</span>15.9</p></li></ul>
+</div>
+</section>
+<section class="course" id="a-la-carte" aria-labelledby="a-la-carte-h">
+<h2 class="head head--burgundy" id="a-la-carte-h"><span>MAIN A LA CARTE</span></h2>
+<div class="group">
+<ul class="dishes"><li class="dish"><p class="dish__name">Gyu Teriyaki</p><p class="dish__desc">Sirloin beef steak grilled with balsamic teriyaki sauce</p><p class="dish__price"><span class="vh">£</span>26.9</p></li><li class="dish"><p class="dish__name">Chicken Teriyaki</p><p class="dish__desc">Grilled chicken fillet with teriyaki sauce</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Salmon Teriyaki</p><p class="dish__desc">Grilled Scottish salmon with teriyaki sauce</p><p class="dish__price"><span class="vh">£</span>19.9</p></li><li class="dish"><p class="dish__name">Uangi Steak</p><p class="dish__desc">Grilled fillet of eel with unagi sauce</p><p class="dish__price"><span class="vh">£</span>23.9</p></li><li class="dish"><p class="dish__name">Tofu Teriyaki Steak <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Deep fried tofu in teriyaki sauce</p><p class="dish__price"><span class="vh">£</span>16.9</p></li><li class="dish"><p class="dish__name">Black Cod Saikyo-yaki</p><p class="dish__desc">Pre-marinated fillet of black cod in Saikyo miso sauce</p><p class="dish__price"><span class="vh">£</span>36.9</p></li><li class="dish"><p class="dish__name">Beef BBQ</p><p class="dish__desc">BBQ style sirloin beef in sweet marinade</p><p class="dish__price"><span class="vh">£</span>18.9</p></li><li class="dish"><p class="dish__name">Chicken BBQ</p><p class="dish__desc">Spicy pre-marinated BBQ style chicken</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Pork BBQ</p><p class="dish__desc">Strips of pork belly marinated in spicy BBQ sauce</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Ebi Tempura</p><p class="dish__desc">Deep fried king prawns in light batter</p><p class="dish__price"><span class="vh">£</span>18.9</p></li><li class="dish"><p class="dish__name">Tempura Mori</p><p class="dish__desc">Deep fried king prawn and vegetable in light batter</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Yasai Tempura <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Deep fried mixed vegetables in light batter</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Katsu Curry (Chicken or Prawn or Pumpkin <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Crispy coated chicken, prawn, or pumpkin katsu with our own curry on rice</p><p class="dish__price"><span class="vh">£</span>18.9/17.9</p></li><li class="dish"><p class="dish__name">Katsu (Chicken or Prawn or Pumpkin <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Crispy coated chicken, prawn, or pumpkin katsu with cabbage salad &amp; rice</p><p class="dish__price"><span class="vh">£</span>18.9/17.9</p></li><li class="dish"><p class="dish__name">Stonepot Bibimbap (Beef or Veg <abbr class="mk" title="suitable for vegetarians">v</abbr>)</p><p class="dish__desc">Assorted vegetables, chopped beef or tofu &amp; egg topped on rice with spicy paste</p><p class="dish__price"><span class="vh">£</span>18.9/17.9</p></li><li class="dish"><p class="dish__name">Tempura Udon (Prawn or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">White noodles in light broth with tempura accompaniments</p><p class="dish__price"><span class="vh">£</span>17.9/16.9</p></li><li class="dish"><p class="dish__name">Yaki Soba (Seafood / Chicken or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Pan grilled chicken/seafood and vegetable in soba noodles</p><p class="dish__price"><span class="vh">£</span>16.9/15.9</p></li><li class="dish"><p class="dish__name">Yaki Udon (Seafood / Chicken or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Pan grilled chicken/seafood and vegetable in udon noodles</p><p class="dish__price"><span class="vh">£</span>17.9/16.9</p></li></ul>
+</div>
+</section>
+<section class="course" id="sushi" aria-labelledby="sushi-h" data-has-seared>
+<h2 class="head head--burgundy" id="sushi-h"><span>SUSHI &amp; SASHIMI</span></h2>
+<div class="group" data-has-seared>
+<h3 class="subhead"><span aria-hidden="true">• </span>SUSHI MORI<span aria-hidden="true"> •</span></h3>
+<ul class="dishes"><li class="dish"><p class="dish__name">Matsu Set</p><p class="dish__desc">9 pieces nigiri &amp; 6 pieces maki</p><p class="dish__price"><span class="vh">£</span>29.9</p></li><li class="dish"><p class="dish__name">Sushi &amp; Sashimi Combo</p><p class="dish__desc">6 pieces nigiri &amp; 6 pieces sashimi</p><p class="dish__price"><span class="vh">£</span>29.9</p></li><li class="dish"><p class="dish__name">Salmon Combo_A</p><p class="dish__desc">3 pieces salmon sashimi, 4 pieces nigiri &amp; 6 pieces maki</p><p class="dish__price"><span class="vh">£</span>20.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Salmon Combo_B">Salmon Combo_B</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">Salmon Combo_B 4 pieces sashimi, 4 pieces nigiri, 4 pieces aburi nigiri, 8 pieces special maki (all samon)</p><p class="dish__price"><span class="vh">£</span>40.9</p></li><li class="dish"><p class="dish__name">Geisha Combo</p><p class="dish__desc">33 piece chef’s selection of assorted sushi &amp; sashimi</p><p class="dish__price"><span class="vh">£</span>79.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>NIGIRI<span aria-hidden="true"> •</span></h3>
+<p class="strap">2 piece portions of fish topped sushi rice</p>
+<ul class="dishes dishes--compact"><li class="dish"><p class="dish__name">Toro</p><p class="dish__desc">fatty tuna</p><p class="dish__price"><span class="vh">£</span>11.5</p></li><li class="dish"><p class="dish__name">Maguro</p><p class="dish__desc">tuna</p><p class="dish__price"><span class="vh">£</span>9.5</p></li><li class="dish"><p class="dish__name">Suzuki</p><p class="dish__desc">seabass</p><p class="dish__price"><span class="vh">£</span>8.5</p></li><li class="dish"><p class="dish__name">Hamachi</p><p class="dish__desc">yellow tail</p><p class="dish__price"><span class="vh">£</span>9.5</p></li><li class="dish"><p class="dish__name">Hotate</p><p class="dish__desc">scallop</p><p class="dish__price"><span class="vh">£</span>9.5</p></li><li class="dish"><p class="dish__name">Unagi</p><p class="dish__desc">eel</p><p class="dish__price"><span class="vh">£</span>8.5</p></li><li class="dish"><p class="dish__name">Shake</p><p class="dish__desc">salmon</p><p class="dish__price"><span class="vh">£</span>7.5</p></li><li class="dish"><p class="dish__name">Inari</p><p class="dish__desc">seasoned tofu</p><p class="dish__price"><span class="vh">£</span>5.5</p></li></ul>
+</div>
+<div class="group" data-has-seared>
+<h3 class="subhead"><span aria-hidden="true">• </span>ABURI NIGIRI<span aria-hidden="true"> •</span></h3>
+<p class="strap">2 piece portions of flame seared nigiri</p>
+<ul class="dishes dishes--compact"><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Toro">Toro</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">fatty tuna</p><p class="dish__price"><span class="vh">£</span>11.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Shake">Shake</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">salmon</p><p class="dish__price"><span class="vh">£</span>7.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Hotate">Hotate</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">scallop</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Suzuki">Suzuki</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">seabass</p><p class="dish__price"><span class="vh">£</span>8.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Maguro">Maguro</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">tuna</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Hamachi">Hamachi</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">yellow tail</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Saba">Saba</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">mackerel</p><p class="dish__price"><span class="vh">£</span>6.9</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Unagi">Unagi</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">eel</p><p class="dish__price"><span class="vh">£</span>8.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>GUNKAN NIGIRI<span aria-hidden="true"> •</span></h3>
+<p class="strap">2 piece nigiri wrapped in seaweed</p>
+<ul class="dishes dishes--compact"><li class="dish"><p class="dish__name">Tobiko</p><p class="dish__desc">flying fish roe</p><p class="dish__price"><span class="vh">£</span>7.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>SASHIMI MORIAWASE<span aria-hidden="true"> •</span></h3>
+<p class="strap">Chef’s choice of assorted sets of fresh sliced raw fish on daikon</p>
+<ul class="dishes dishes--compact"><li class="dish"><p class="dish__name">Nami</p><p class="dish__desc">3 sashimi selection (9 pieces)</p><p class="dish__price"><span class="vh">£</span>27.9</p></li><li class="dish"><p class="dish__name">Omakase</p><p class="dish__desc">6 kinds of the freshest fish selected by the chef (18 pieces)</p><p class="dish__price"><span class="vh">£</span>65.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>SASHIMI IRO IRO<span aria-hidden="true"> •</span></h3>
+<p class="strap">5 piece sashimi a la carte</p>
+<ul class="dishes dishes--compact"><li class="dish"><p class="dish__name">Maguro</p><p class="dish__desc">tuna</p><p class="dish__price"><span class="vh">£</span>20.9</p></li><li class="dish"><p class="dish__name">Toro</p><p class="dish__desc">fatty tuna</p><p class="dish__price"><span class="vh">£</span>25.9</p></li><li class="dish"><p class="dish__name">Hamachi</p><p class="dish__desc">yellow tail</p><p class="dish__price"><span class="vh">£</span>22.9</p></li><li class="dish"><p class="dish__name">Shake</p><p class="dish__desc">salmon</p><p class="dish__price"><span class="vh">£</span>16.9</p></li><li class="dish"><p class="dish__name">Saba</p><p class="dish__desc">mackerel</p><p class="dish__price"><span class="vh">£</span>13.9</p></li><li class="dish"><p class="dish__name">Suzuki</p><p class="dish__desc">seabass</p><p class="dish__price"><span class="vh">£</span>18.9</p></li><li class="dish"><p class="dish__name">Hotate</p><p class="dish__desc">scallop</p><p class="dish__price"><span class="vh">£</span>20.9</p></li></ul>
+</div>
+</section>
+<section class="course" id="rolls" aria-labelledby="rolls-h">
+<h2 class="head head--burgundy" id="rolls-h"><span>ROLLS &amp; MAKI</span></h2>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>SPECIAL ROLLS<span aria-hidden="true"> •</span></h3>
+<p class="strap">large 8 piece rolls exclusively created by MATSUBA</p>
+<ul class="dishes"><li class="dish"><p class="dish__name">Matsuba Roll</p><p class="dish__desc">Prawn tempura, avocado, cucumber, spring onion, crispy coating, tobiko, lemon mayo</p><p class="dish__price"><span class="vh">£</span>12.9/22.9</p></li><li class="dish"><p class="dish__name">Spider Roll</p><p class="dish__desc">Soft shell crab, avocado, cucumber, spring onion, tobiko, lemon mayo</p><p class="dish__price"><span class="vh">£</span>13.9/23.9</p></li><li class="dish"><p class="dish__name">Crunch Tuna Roll</p><p class="dish__desc">Crispy coated tuna, avocado, cucumber, spring onion, spicy mayo</p><p class="dish__price"><span class="vh">£</span>23.9</p></li><li class="dish"><p class="dish__name">Dynamite Roll</p><p class="dish__desc">Prawn tempura, spicy tuna, salmon, cucumber, jalapeño, spicy mayo</p><p class="dish__price"><span class="vh">£</span>24.9</p></li><li class="dish"><p class="dish__name">Chicken Katsu Roll</p><p class="dish__desc">Crispy coated chicken katsu, cucumber, salad, Tonkatsu sauce</p><p class="dish__price"><span class="vh">£</span>21.9</p></li><li class="dish"><p class="dish__name">Special K Roll (Beef or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Carrot, spinach, pickled radish, sesame seed, cucumber, seasoned tofu</p><p class="dish__price"><span class="vh">£</span>17.9/16.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>MAKI<span aria-hidden="true"> •</span></h3>
+<p class="strap">Single sushi rolls in 6 pieces</p>
+<ul class="dishes dishes--compact"><li class="dish"><p class="dish__name">Tekka</p><p class="dish__desc">tuna</p><p class="dish__price"><span class="vh">£</span>8.9</p></li><li class="dish"><p class="dish__name">Kappa <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">cucumber</p><p class="dish__price"><span class="vh">£</span>6.5</p></li><li class="dish"><p class="dish__name">Shake</p><p class="dish__desc">salmon</p><p class="dish__price"><span class="vh">£</span>7.9</p></li><li class="dish"><p class="dish__name">Avocado <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__price"><span class="vh">£</span>6.9</p></li><li class="dish"><p class="dish__name">Spicy Tuna</p><p class="dish__desc">Tuna, spring onion, spicy sauce</p><p class="dish__price"><span class="vh">£</span>10.9</p></li><li class="dish"><p class="dish__name">California</p><p class="dish__desc">Prawn, avocado, cucumber, tobiko, sesame seed, lemon mayo</p><p class="dish__price"><span class="vh">£</span>10.9</p></li><li class="dish"><p class="dish__name">Tempura</p><p class="dish__desc">Prawn tempura, avocado, sesame seed, lemon mayo</p><p class="dish__price"><span class="vh">£</span>11.9</p></li><li class="dish"><p class="dish__name">Calamari Roll</p><p class="dish__desc">Crispy coated baby squid maki</p><p class="dish__price"><span class="vh">£</span>12.9</p></li><li class="dish"><p class="dish__name">Unagi Cucumber</p><p class="dish__desc">Eel, cucumber, sesame seed</p><p class="dish__price"><span class="vh">£</span>12.9</p></li><li class="dish"><p class="dish__name">Crunch Yellowtail</p><p class="dish__desc">Crispy coated yellowtail roll with lemon mayo and pomegranate</p><p class="dish__price"><span class="vh">£</span>12.9</p></li><li class="dish"><p class="dish__name">Vegetarian <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Cucumber, asparagus, avocado, sesame seed</p><p class="dish__price"><span class="vh">£</span>8.9</p></li><li class="dish"><p class="dish__name">Salmon Avocado</p><p class="dish__desc">Salmon &amp; avocado, sesame seed, lemon mayo</p><p class="dish__price"><span class="vh">£</span>9.9</p></li><li class="dish"><p class="dish__name">Tuna Avocado</p><p class="dish__desc">Tuna &amp; avocado, sesame seed, lemon mayo</p><p class="dish__price"><span class="vh">£</span>11.9</p></li><li class="dish"><p class="dish__name">Salmon Lover</p><p class="dish__desc">Salmon, avocado, lemon mayo</p><p class="dish__price"><span class="vh">£</span>13.9</p></li><li class="dish"><p class="dish__name">Black Cod Roll</p><p class="dish__desc">Grilled black cod, spring onion, saikyo miso</p><p class="dish__price"><span class="vh">£</span>14.9</p></li></ul>
+</div>
+</section>
+<section class="course" id="sides" aria-labelledby="sides-h">
+<h2 class="head head--taupe" id="sides-h"><span>SIDES &amp; DESSERT</span></h2>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>SIDES<span aria-hidden="true"> •</span></h3>
+<ul class="dishes"><li class="dish"><p class="dish__name">Miso Shiru <abbr class="mk" title="suitable for vegetarians">v</abbr></p><p class="dish__desc">Soybean paste soup made from bean curd</p><p class="dish__price"><span class="vh">£</span>4.5</p></li><li class="dish"><p class="dish__name">Rice <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Plain steamed white rice</p><p class="dish__price"><span class="vh">£</span>4.5</p></li><li class="dish"><p class="dish__name">Pickles <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Assorted Japanese pickled vegetables</p><p class="dish__price"><span class="vh">£</span>6.9</p></li><li class="dish"><p class="dish__name">Broccoli miso <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Steamed broccoli with Japanese miso sauce</p><p class="dish__price"><span class="vh">£</span>7.9</p></li><li class="dish"><p class="dish__name">Namool <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Assorted vegetables</p><p class="dish__price"><span class="vh">£</span>7.9</p></li><li class="dish"><p class="dish__name">Horensou no goma ae <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Blanched spinach leaves with sesame sauce</p><p class="dish__price"><span class="vh">£</span>8.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>DESSERT<span aria-hidden="true"> •</span></h3>
+<ul class="dishes"><li class="dish"><p class="dish__name">Matcha Tiramisu</p><p class="dish__desc">Layers of soft sponge soaked in premium Japanese matcha with mascarpone cream</p><p class="dish__price"><span class="vh">£</span>11.9</p></li><li class="dish"><p class="dish__name">Iced Mochi</p><p class="dish__desc">Ice cream filled Japanese rice cake marshmallow</p><p class="dish__price"><span class="vh">£</span>9.9</p></li></ul>
+</div>
+</section>
+<section class="course" id="lunch" aria-labelledby="lunch-h">
+<h2 class="head head--taupe" id="lunch-h"><span>LUNCH MENU</span></h2>
+<div class="group">
+<p class="strap">Available between 12pm – 2:45pm <!-- [TO CONFIRM] lunch end time: 3pm (footer), 2:45pm (Lunch Menu tab), 2:30pm (Lunch & Early Evening card) --> <span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>BENTO BOX<span aria-hidden="true"> •</span></h3>
+<p class="strap">Served with today’s appetizer, salad, rice, miso soup &amp; pickles</p>
+<ul class="dishes"><li class="dish"><p class="dish__name">Matsuba Special</p><p class="dish__desc">sashimi, sushi, tempura and chicken teriyaki</p><p class="dish__price"><span class="vh">£</span>32.9</p></li><li class="dish"><p class="dish__name">Matsuba V Special <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">veg sushi &amp; maki, veg tempura, tofu teriyaki</p><p class="dish__price"><span class="vh">£</span>29.9</p></li><li class="dish"><p class="dish__name">Sashimi</p><p class="dish__desc">fresh pieces of assorted raw fish sashimi</p><p class="dish__price"><span class="vh">£</span>28.9</p></li><li class="dish"><p class="dish__name">Sushi</p><p class="dish__desc">assortment of nigiri and maki rolls</p><p class="dish__price"><span class="vh">£</span>28.9</p></li><li class="dish"><p class="dish__name">Tempura</p><p class="dish__desc">deep fried king prawn and vegetable in light batter</p><p class="dish__price"><span class="vh">£</span>18.9</p></li><li class="dish"><p class="dish__name">Gyu Teriyaki</p><p class="dish__desc">grilled sirloin beef steak with teriyaki</p><p class="dish__price"><span class="vh">£</span>27.9</p></li><li class="dish"><p class="dish__name">Chicken Teriyaki</p><p class="dish__desc">grilled chicken with teriyaki</p><p class="dish__price"><span class="vh">£</span>18.9</p></li><li class="dish"><p class="dish__name">Salmon Teriyaki</p><p class="dish__desc">grilled salmon with teriyaki</p><p class="dish__price"><span class="vh">£</span>20.9</p></li><li class="dish"><p class="dish__name">Tofu Teriyaki <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">deep fried tofu with teriyaki</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Beef BBQ</p><p class="dish__desc">sweet marinated BBQ beef</p><p class="dish__price"><span class="vh">£</span>19.9</p></li><li class="dish"><p class="dish__name">Chicken BBQ</p><p class="dish__desc">spicy marinated BBQ chicken</p><p class="dish__price"><span class="vh">£</span>18.9</p></li><li class="dish"><p class="dish__name">Pork BBQ</p><p class="dish__desc">spicy marinated BBQ pork</p><p class="dish__price"><span class="vh">£</span>18.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>RICE SET<span aria-hidden="true"> •</span></h3>
+<ul class="dishes"><li class="dish"><p class="dish__name">Oyakodon</p><p class="dish__desc">Chicken, onion, egg rice bowl</p><p class="dish__price"><span class="vh">£</span>12.9</p></li><li class="dish"><p class="dish__name">Tendon</p><p class="dish__desc">Deep fried king prawn &amp; veg tempura on rice</p><p class="dish__price"><span class="vh">£</span>16.9</p></li><li class="dish"><p class="dish__name">Katsu Curry (Chicken or Prawn or Pumpkin <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Crispy coated chicken or prawn or pumpkin katsu with our own curry</p><p class="dish__price"><span class="vh">£</span>15.9</p></li><li class="dish"><p class="dish__name">Stonepot Bibimbap (Beef or Veg <abbr class="mk" title="suitable for vegetarians">v</abbr>)</p><p class="dish__desc">Assorted vegetables, beef or tofu &amp; egg topped on rice with spicy paste</p><p class="dish__price"><span class="vh">£</span>17.9/16.9</p></li><li class="dish"><p class="dish__name">Unaju</p><p class="dish__desc">Grilled fillet of eel with rice</p><p class="dish__price"><span class="vh">£</span>22.9</p></li></ul>
+</div>
+<div class="group">
+<h3 class="subhead"><span aria-hidden="true">• </span>SOUP BASED DISHES &amp; NOODLES<span aria-hidden="true"> •</span></h3>
+<ul class="dishes"><li class="dish"><p class="dish__name">Sushi &amp; Udon set</p><p class="dish__desc">5 pieces nigiri and veg udon</p><p class="dish__price"><span class="vh">£</span>20.9</p></li><li class="dish"><p class="dish__name">Special K Roll <abbr class="mk" title="suitable for vegans">vg</abbr> &amp; Udon <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">5 piece veg K rolls and veg udon soup</p><p class="dish__price"><span class="vh">£</span>17.9</p></li><li class="dish"><p class="dish__name">Tempura Udon (Prawn or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Udon noodles in light broth with king prawn or veg tempura</p><p class="dish__price"><span class="vh">£</span>15.9/14.9</p></li><li class="dish"><p class="dish__name">Yaki Soba (Seafood / Chicken or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Pan grilled chicken or seafood and vegetable in soba noodles</p><p class="dish__price"><span class="vh">£</span>14.9/13.9</p></li><li class="dish"><p class="dish__name">Yaki Udon (Seafood / Chicken or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Pan grilled chicken or seafood and vegetable in udon noodles</p><p class="dish__price"><span class="vh">£</span>15.9/14.9</p></li></ul>
+</div>
+</section>
+
+<section class="course kids" id="kids" aria-labelledby="kids-h">
+<h2 class="head" id="kids-h"><span>KIDS MENU</span></h2>
+<div class="group">
+<div class="kids__grid">
+  <div class="kids__box">
+    <h3>Kids Bento</h3>
+    <ul>
+      <li class="dish"><p class="dish__name">Steamed Edamame</p><p class="dish__desc">Lightly salted soybean pods</p></li>
+      <li class="dish"><p class="dish__name">Salmon Hosomaki</p><p class="dish__desc">Salmon sushi rolls 8 pieces</p></li>
+      <li class="dish"><p class="dish__name">Chicken Teriyaki or Chicken Katsu</p><p class="dish__desc">Grilled chicken fillet with teriyaki sauce or crispy coated chicken katsu</p></li>
+      <li class="dish"><p class="dish__name">Rice</p></li>
+      <li class="dish"><p class="dish__name">Miso Soup</p></li>
+    </ul>
+    <p class="kids__price">£15.95</p>
+  </div>
+  <div class="kids__box">
+    <h3>Kids Vegan Bento</h3>
+    <ul>
+      <li class="dish"><p class="dish__name">Steamed Edamame</p><p class="dish__desc">Lightly salted soybean pods</p></li>
+      <li class="dish"><p class="dish__name">Cucumber Hosomaki</p><p class="dish__desc">Cucumber sushi rolls 8 pieces</p></li>
+      <li class="dish"><p class="dish__name">Tofu Teriyaki or Pumpkin Katsu</p><p class="dish__desc">Grilled tofu with teriyaki sauce or crispy coated pumpkin katsu</p></li>
+      <li class="dish"><p class="dish__name">Rice</p></li>
+      <li class="dish"><p class="dish__name">Miso Soup</p></li>
+    </ul>
+    <p class="kids__price">£13.95</p>
+  </div>
+</div>
+<h3 class="subhead"><span aria-hidden="true">• </span>KIDS DRINK<span aria-hidden="true"> •</span></h3>
+<ul class="dishes">
+  <li class="dish"><p class="dish__name">Ramune Soda</p><p class="dish__desc">Japan's famous marble soda, sweet, fizzy and fun to open</p><p class="dish__price">£4.9</p></li>
+  <li class="dish"><p class="dish__name">Innocent Kids Juicy Water</p><p class="dish__desc">apples &amp; mangoes / apples &amp; strawberries</p><p class="dish__price">£2.9</p></li>
+</ul>
+<h3 class="subhead"><span aria-hidden="true">• </span>KIDS DESSERT<span aria-hidden="true"> •</span></h3>
+<ul class="dishes">
+  <li class="dish"><p class="dish__name">French Macarons</p><p class="dish__desc">Delicate almond meringue cookies with a smooth sweet filling</p><p class="dish__price">£4.9</p></li>
+  <li class="dish"><p class="dish__name">Vanilla Ice Cream</p><p class="dish__desc">Creamy and smooth vanilla ice cream</p><p class="dish__price">£4.9</p></li>
+</ul>
+</div>
+</section>
+
+<section class="course" id="tasting" aria-labelledby="tasting-h" data-has-seared>
+<h2 class="head head--burgundy" id="tasting-h"><span>TASTING MENU</span></h2>
+<div class="course__intro"><p class="big">Tasting menu £100 per person (minimum 2 persons)</p><p class="pre">A PRE-ORDER IS REQUIRED</p><p class="soft">Complimentary glass of Prosecco</p></div>
+<div class="group" data-has-seared>
+<ul class="dishes"><li class="dish"><p class="dish__name">Dobin Mushi</p><p class="dish__desc">Clear fish soup with prawn</p></li><li class="dish"><p class="dish__name">Garlic Butter Edamame</p><p class="dish__desc">Soybean pods tossed in butter and fresh garlic</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Salmon Aburi Carpaccio">Salmon Aburi Carpaccio</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">Torch-seared salmon pieces with yuzu miso dressing</p></li><li class="dish"><p class="dish__name">Sashimi Ceviche</p><p class="dish__desc">South Amerian style crispy salad with sashimi &amp; ponzu</p></li><li class="dish"><p class="dish__name">Grilled Scallops</p><p class="dish__desc">Grilled scallops with unagi sauce &amp; wasabi bean mayo</p></li><li class="dish"><p class="dish__name">Gyoza (chicken or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Pan grilled dumplings</p></li><li class="dish"><p class="dish__name">Sashimi</p><p class="dish__desc">Fresh tuna and salmon sashimi</p></li><li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Lion King nigiri">Lion King nigiri</span><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg><span class="vh">, seared</span></p><p class="dish__desc">Salmon aburi nigiri with cheddar</p></li><li class="dish"><p class="dish__name">Dynamite Roll</p><p class="dish__desc">Prawn tempura, spicy tuna, salmon, avocado, cucumber, Jalapeño, spicy mayo</p></li><li class="dish"><p class="dish__name">Zucchini Iridashi <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Chrispy coated courgettes with light dipping</p></li><li class="dish"><p class="dish__name">Squid Shichimi Age</p><p class="dish__desc">Deep fried squid in light batter with shichimi chilli papper</p></li><li class="dish"><p class="dish__name">Black Cod Saikyo-yaki</p><p class="dish__desc">Pre-marinated fillet of grilled black cod in Saikyo miso sauce</p></li><li class="dish"><p class="dish__name">Teriyaki with Rice (Beef or Chicken or Salmon)</p><p class="dish__desc">Grilled (sirloin beef or chicken or salmon) with teriyaki sauce</p></li><li class="dish"><p class="dish__name">Yuzu Te &amp; Macaron</p><p class="dish__desc">Honey and citron fruit tea &amp; Macaron</p></li></ul>
+</div>
+</section>
+
+
+<section class="course" id="early-evening" aria-labelledby="lee-h">
+<h2 class="head head--taupe" id="lee-h"><span>The printed card</span></h2>
+<p class="strap">Lunch &amp; Early Evening, set as Matsuba print it. <!-- [TO CONFIRM] whether the set menu is still offered --><span class="tbc" title="To be confirmed with the restaurant">to confirm still running</span></p>
+<div class="group lee">
+  <p class="lee__title"><span>Lunch &amp; Early Evening</span></p>
+  <p class="lee__hours">Tuesday - Friday&ensp;12 - 2.30pm&ensp;&amp;&ensp;5 - 6.30pm</p>
+  <p class="lee__price">2 courses £20.95&ensp;/&ensp;3 courses £24.95</p>
+
+  <h3 class="head head--taupe"><span>DRINKS</span></h3>
+  <ul class="lee__drinks">
+    <li class="dish"><p class="dish__name">Nihonshu Sake <em>(hot) 150ml</em> <b>£6.95</b></p></li>
+    <li class="dish"><p class="dish__name">Prosecco or Aperol Com Fanta <b>£6.95</b></p></li>
+    <li class="dish"><p class="dish__name">Premium Japanese Hojicha or Jasmine Tea <b>£2.95</b></p></li>
+  </ul>
+
+  <h3 class="head"><span>STARTERS</span></h3>
+  <ul class="dishes">
+    <li class="dish"><p class="dish__name">Agedashi Tofu</p><p class="dish__desc">Crispy coated tofu in tempura sauce</p></li>
+    <li class="dish"><p class="dish__name">Edamame (Spicy or Garlic Butter)</p><p class="dish__desc">Soybean pods tossed in butter &amp; spicy powder or fresh garlic</p></li>
+    <li class="dish"><p class="dish__name">Gyoza (Chicken &amp; Veg or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">4 pieces deep fry dumplings</p></li>
+    <li class="dish"><p class="dish__name">Nigiri (Salmon or Inari <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">2 pieces salmon or inari topped sushi rice</p></li>
+    <li class="dish"><p class="dish__name">Maki (Salmon or Kappa <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">6 pieces salmon or cucumber rolls</p></li>
+  </ul>
+
+  <h3 class="head"><span>MAINS</span></h3>
+  <p class="subhead"><span aria-hidden="true">• </span>RICE SET<span aria-hidden="true"> •</span></p>
+  <ul class="dishes">
+    <li class="dish"><p class="dish__name">Salmon Combo A</p><p class="dish__desc">3 pcs salmon sashimi, 4 pcs nigiri &amp; 6 pcs maki</p><p class="sup">£3.95 supplement</p></li>
+    <li class="dish"><p class="dish__name">Bibimbap (Beef or Veg <abbr class="mk" title="suitable for vegetarians">v</abbr>)</p><p class="dish__desc">Assorted vegetable, (beef) &amp; egg topped on rice with spicy paste</p><p class="sup">£1.95 supplement (Beef)</p></li>
+    <li class="dish"><p class="dish__name">BBQ (Beef or Pork or Chicken)</p><p class="dish__desc">Marinated BBQ with rice</p><p class="sup">£1.95 supplement (Beef)</p></li>
+    <li class="dish"><p class="dish__name">Katsu Curry (Chicken or Prawn or Pumpkin <abbr class="mk" title="suitable for vegetarians">v</abbr>)</p><p class="dish__desc">Crispy coated chicken / prawn / pumpkin katsu with Japanese curry</p></li>
+    <li class="dish"><p class="dish__name">Tofu teriyaki <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Deep fried tofu teriyaki with rice</p></li>
+  </ul>
+  <p class="subhead"><span aria-hidden="true">• </span>NOODLES<span aria-hidden="true"> •</span></p>
+  <ul class="dishes">
+    <li class="dish"><p class="dish__name">Special K Roll <abbr class="mk" title="suitable for vegans">vg</abbr> &amp; Udon <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">5 pieces roll with carrot, spinach, pickled radish, sesame seed, cucumber, fried tofu and udon soup</p></li>
+    <li class="dish"><p class="dish__name">Yaki Soba / Udon (Chicken or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Pan grilled chicken or vegetable soba / udon</p></li>
+  </ul>
+
+  <h3 class="head head--taupe"><span>SIDES</span></h3>
+  <ul class="dishes">
+    <li class="dish"><p class="dish__name">Miso Soup <abbr class="mk" title="suitable for vegetarians">v</abbr></p><p class="dish__desc">Soybean paste soup made from bean curd</p><p class="dish__price">£2.95</p></li>
+    <li class="dish"><p class="dish__name">Pickles <abbr class="mk" title="suitable for vegans">vg</abbr> or Broccoli Miso <abbr class="mk" title="suitable for vegans">vg</abbr></p><p class="dish__desc">Assorted Japanese pickled or Steamed broccoli with miso</p><p class="dish__price">£4.95</p></li>
+  </ul>
+
+  <h3 class="head"><span>DESSERTS</span></h3>
+  <ul class="dishes">
+    <li class="dish"><p class="dish__name">Iced Mochi</p><p class="dish__desc">2 pieces ice cream filled Japanese rice cake marshmallow</p></li>
+    <li class="dish"><p class="dish__name">Vanilla Ice Cream</p><p class="dish__desc">2 Scoops of Cornish dairy</p></li>
+    <li class="dish"><p class="dish__name">Affogato</p><p class="dish__desc">Vanila creamy ice cream served with espresso</p></li>
+  </ul>
+
+  <p class="lee__key"><span><abbr class="mk" title="suitable for vegetarians">v</abbr>suitable for vegetarians</span><span><abbr class="mk" title="suitable for vegans">vg</abbr>suitable for vegans</span></p>
+</div>
+</section>
+
+<footer class="mfoot">
+  <p class="key"><span><abbr class="mk" title="suitable for vegetarians">v</abbr>suitable for vegetarians</span><span><abbr class="mk" title="suitable for vegans">vg</abbr>suitable for vegans</span></p>
+  <p>If you have a food allergy or a special dietary requirement, please inform a member of the staff.</p>
+  <p>A discretionary 12.5% service charge will be added to your bill. All prices are inclusive of VAT.</p>
+  <p class="mfoot__pdfs">
+    <a href="https://matsuba.co.uk/wp-content/uploads/2026/06/MATSUBA-TA10-kids.pdf" target="_blank" rel="noopener">Takeaway menu (PDF)<span class="vh">, opens in a new tab</span></a>
+    <a href="https://matsuba.co.uk/wp-content/uploads/2024/10/MATSUBA-menu-202409-vegan4.pdf" target="_blank" rel="noopener">Vegan menu (PDF, 2024)<span class="vh">, opens in a new tab</span></a>
+    <a href="https://matsuba.co.uk/wp-content/uploads/2024/10/MATSUBA-menu-202409-GF3.pdf" target="_blank" rel="noopener">Gluten-free menu (PDF, 2024)<span class="vh">, opens in a new tab</span></a>
+    <!-- [TO CONFIRM] vegan and GF PDFs date from 2024 and differ from the live menu --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span>
+  </p>
+</footer>
+  </div>
+</main>
+
+<footer class="foot on-dark">
+  <div class="wrap">
+    <p class="wordmark" aria-hidden="true"><span>Matsuba</span></p>
+    <p class="foot__line">We look forward to welcoming you to MATSUBA!</p>
+    <nav class="foot__links" aria-label="Footer">
+      <a href="index.html">Home</a>
+      <a href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book a table<span class="vh"> (opens in a new tab)</span></a>
+      <a href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order online<span class="vh"> (opens in a new tab)</span></a>
+      <a href="tel:+442086053513">020 8605 3513</a>
+    </nav>
+    <p class="foot__legal">A speculative design proposal by an independent studio. Not the official Matsuba website, and not commissioned or endorsed by Matsuba. The restaurant's own website is <a href="https://matsuba.co.uk/">matsuba.co.uk</a>.</p>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Quick actions">
+  <a href="index.html#book"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="14" height="12" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 8.5h14M7 2.5v4M13 2.5v4" stroke="currentColor" stroke-width="1.4"/></svg>Book</a>
+  <a href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 7h12l-1 10H5Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Order<span class="vh"> online (opens in a new tab)</span></a>
+  <a href="index.html#find"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 18s5.5-5.2 5.5-9.5a5.5 5.5 0 0 0-11 0C4.5 12.8 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="8.5" r="2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Find</a>
+  <a href="tel:+442086053513"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6.5 3 8.5 7 7 8.5c.9 1.9 2.6 3.6 4.5 4.5L13 11.5l4 2-1 3.2C10 16.5 3.5 10 3.3 4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Call</a>
+</nav>
+</body>
+</html>
