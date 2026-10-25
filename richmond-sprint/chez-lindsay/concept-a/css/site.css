@@ -588,6 +588,7 @@ button { font: inherit; }
 @container (min-width: 600px) {
   .ritual { grid-template-columns: minmax(150px, .62fr) minmax(0, 1.6fr); }
   .offers li { grid-template-columns: 6.2rem minmax(0, 1fr) auto; grid-template-areas: "name what price"; }
+  .offers li:not(:has(.offers__name)) { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "what price"; }
 }
 
 /* Wine bar (dark panel) */

@@ -216,6 +216,7 @@
   function renderSummary(s, preview) {
     setText(whenEl, 'when', (preview ? 'Preview · ' : 'Now · ') + s.dayName + ', ' + s.time + (preview ? '' : ', London time'));
     setText(titleEl, 'title', s.title);
+    if (/^Fermé/.test(s.title)) titleEl.setAttribute('lang', 'fr'); else titleEl.removeAttribute('lang');
     setText(detailEl, 'detail', s.detail);
     var menus = s.menus.length ? s.menus.slice(0, 3) : ['galettes', 'set-lunch'];
     var key = menus.join(',');

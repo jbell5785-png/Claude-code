@@ -22,6 +22,7 @@
     if (key !== lastKey) {
       lastKey = key;
       barKicker.textContent = s.barKicker;
+      if (/^Fermé/.test(s.barKicker)) barKicker.setAttribute('lang', 'fr'); else barKicker.removeAttribute('lang');
       barMain.textContent = s.barMain;
       bar.classList.toggle('is-closed', !s.open);
       var target = (onMenuPage ? '' : 'menu.html') + '#' + s.primaryTab;
