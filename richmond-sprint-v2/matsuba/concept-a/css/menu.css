@@ -1,0 +1,132 @@
+/* Menu page: the lit menu case on the pier between the windows.
+   The frame and glow are the setting; the paper inside is set for fast reading on a phone. */
+
+.page-menu .top { background: var(--slate-deep); box-shadow: 0 1px 0 rgba(245,243,238,.08); }
+.shopfront { position: relative; background: var(--slate); padding-top: var(--top-h); overflow: hidden; }
+/* painted timber boards of the frontage */
+.shopfront::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background: repeating-linear-gradient(90deg, transparent 0 139px, rgba(15,23,29,.45) 139px 141px); }
+
+/* the underside edge of the awning, stitched valance and all */
+.valance { position: relative; height: 34px; background: linear-gradient(#3a4b58, #2b3944); box-shadow: 0 10px 22px rgba(15,23,29,.55); z-index: 1; }
+.valance::before, .valance::after { content: ""; position: absolute; left: 0; right: 0; border-top: 1px dashed rgba(245,243,238,.3); }
+.valance::before { top: 6px; }
+.valance::after { bottom: 6px; }
+
+/* windows either side of the pier, where there is room for them */
+@media (min-width: 1180px) {
+  .pier::before, .pier::after {
+    content: ""; position: absolute; top: 36px; bottom: 150px; width: calc((100vw - 100%) / 2 - 36px); max-width: 520px;
+    border: 12px solid #1d2933; border-top-width: 14px; pointer-events: none;
+    background:
+      linear-gradient(115deg, rgba(201,214,222,.06) 0 18%, transparent 18% 30%, rgba(201,214,222,.04) 30% 34%, transparent 34%),
+      radial-gradient(circle at 30% 18%, rgba(255,233,189,.55) 0 3px, rgba(242,182,90,.2) 4px, transparent 90px),
+      radial-gradient(circle at 72% 22%, rgba(255,233,189,.5) 0 3px, rgba(242,182,90,.18) 4px, transparent 80px),
+      linear-gradient(#3a271c, #22170f 45%, #2c1d14);
+  }
+  .pier::before { right: calc(100% + 18px); }
+  .pier::after { left: calc(100% + 18px); }
+}
+
+.pier { position: relative; width: min(58rem, 100%); margin: 0 auto; padding: 22px 10px 0; z-index: 1; }
+.pier__intro { font-family: var(--sans); font-weight: 600; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--bulb); text-align: center; margin: 0 auto 18px; max-width: 34ch; line-height: 1.7; }
+
+/* ---------- the case ---------- */
+.case {
+  position: relative; padding: 6px; border-radius: 3px;
+  background: linear-gradient(90deg, #6f787e, #d9dde0 28%, #a3abb1 55%, #c9ced2 78%, #6b747b);
+  box-shadow: 0 0 0 1px var(--slate-ink), 0 0 60px 8px rgba(255,236,196,.2), 0 0 180px 50px rgba(242,182,90,.13), 0 40px 60px rgba(15,23,29,.4);
+}
+@media (min-width: 700px) { .case { padding: 11px; } }
+@keyframes case-on { 0% { box-shadow: 0 0 0 1px var(--slate-ink), 0 0 0 0 rgba(255,236,196,0), 0 0 0 0 rgba(242,182,90,0), 0 40px 60px rgba(15,23,29,.4); }
+  20% { box-shadow: 0 0 0 1px var(--slate-ink), 0 0 40px 4px rgba(255,236,196,.16), 0 0 120px 30px rgba(242,182,90,.1), 0 40px 60px rgba(15,23,29,.4); }
+  30% { box-shadow: 0 0 0 1px var(--slate-ink), 0 0 10px 0 rgba(255,236,196,.05), 0 0 40px 0 rgba(242,182,90,.03), 0 40px 60px rgba(15,23,29,.4); } }
+@keyframes paper-on { 0% { filter: brightness(.55); } 20% { filter: brightness(.92); } 30% { filter: brightness(.7); } 100% { filter: none; } }
+.motion-ok .case { animation: case-on 1.3s ease-out .15s 1 backwards; }
+.motion-ok .case__paper { animation: paper-on 1.3s ease-out .15s 1 backwards; }
+
+.case__plate { margin: 0; padding: 6px 0 4px .45em; background: #3b444b; color: #e9e6de; text-align: center; font-family: var(--sans); font-size: .62rem; letter-spacing: .45em; }
+
+/* course tabs along the top of the case */
+.tabs { position: sticky; top: var(--top-h); z-index: 6; background: #2b333a; border-top: 1px solid #4a535a; box-shadow: 0 6px 14px rgba(15,23,29,.25); }
+.tabs__list { list-style: none; margin: 0; padding: 0 4px; display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
+.tabs__list::-webkit-scrollbar { display: none; }
+.tabs__list li { flex: 0 0 auto; scroll-snap-align: start; }
+.tab {
+  position: relative; display: flex; align-items: center; min-height: 48px; padding: 4px 13px 2px calc(13px + .18em);
+  font-family: var(--sans); font-weight: 600; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; white-space: nowrap;
+  color: #dcd9d1; text-decoration: none; transition: color .3s;
+}
+.tab::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 7px; height: 2px; background: var(--bulb); opacity: 0; transform: scaleX(.3); transition: opacity .35s var(--ease), transform .35s var(--ease), box-shadow .35s; }
+.tab:hover { color: #fff; }
+.tab:hover::after { opacity: .45; transform: scaleX(.6); }
+.tab[aria-selected="true"] { color: var(--bulb); }
+.tab[aria-selected="true"]::after { opacity: 1; transform: none; box-shadow: 0 0 10px 1px rgba(242,182,90,.7); }
+.tab:focus-visible { outline-offset: -4px; }
+@media (min-width: 1000px) { .tabs__list { flex-wrap: wrap; justify-content: center; } }
+
+/* ---------- the paper ---------- */
+.case__paper {
+  background: var(--paper); color: var(--ink); padding: 26px 18px 22px;
+  box-shadow: inset 0 0 70px rgba(242,182,90,.16), inset 0 0 0 1px rgba(255,255,255,.8);
+  font-variant-numeric: lining-nums;
+}
+@media (min-width: 700px) { .case__paper { padding: 44px clamp(28px, 5vw, 64px) 36px; } }
+.case__head { text-align: center; margin-bottom: 8px; }
+.case__meta { font-size: var(--step--1); color: var(--ink-soft); max-width: 44ch; margin: 0 auto 6px; font-style: italic; }
+
+/* tracked serif capitals flanked by thin gold rules, as on Matsuba's print menus */
+.ruled { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0 0 14px; font-family: var(--serif); font-weight: 500; font-size: clamp(1.2rem, 1rem + 1vw, 1.75rem); letter-spacing: .3em; color: var(--slate); text-align: center; line-height: 1.2; }
+.ruled span { padding-left: .3em; }
+.ruled::before, .ruled::after { content: ""; flex: 1 1 0; max-width: 9rem; min-width: 18px; height: 1px; background: var(--gold-rule); }
+.ruled--title { font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.8rem); letter-spacing: .42em; margin-bottom: 10px; }
+.ruled--title span { padding-left: .42em; }
+.ruled:focus { outline: none; }
+
+.course { padding-top: 26px; scroll-margin-top: calc(var(--top-h) + 60px); }
+.course + .course { border-top: 1px solid #eadfca; margin-top: 18px; }
+.js .course[hidden] { display: none; }
+
+.sub { display: block; text-align: center; font-family: var(--serif); font-weight: 600; font-size: .84rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-text); margin: 30px 0 4px; padding-left: .28em; }
+.sub span { color: var(--gold-rule); }
+.strap { text-align: center; font-style: italic; color: var(--ink-soft); font-size: .95rem; margin: 2px auto 10px; max-width: 46ch; }
+.note { text-align: center; font-size: var(--step--1); color: var(--ink-soft); margin: 8px auto; max-width: 48ch; }
+.note--caps { font-family: var(--sans); font-weight: 600; letter-spacing: .2em; font-size: .72rem; color: var(--slate); }
+.lead-note { text-align: center; font-family: var(--serif); font-weight: 600; color: var(--gold-text); margin: 6px 0 2px; display: inline-block; width: 100%; }
+.lead-note + .tbc { display: table; margin: 4px auto 0; }
+.lead-price { text-align: center; font-size: var(--step-1); font-weight: 600; color: var(--slate); margin: 4px 0 6px; }
+.case__paper .tbc { color: var(--gold-text); }
+
+.dishes { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 0 44px; }
+@media (min-width: 760px) { .dishes { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dishes--single { grid-template-columns: minmax(0, 34rem); justify-content: center; } }
+.dish { padding: 11px 0 10px; border-bottom: 1px dotted #dccfb6; }
+.dish__row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin: 0; }
+.dish__name { font-weight: 600; font-size: 1.04rem; line-height: 1.3; }
+.dish__q { font-weight: 400; font-style: italic; color: var(--ink-soft); }
+.dish__price { flex: 0 0 auto; font-variant-numeric: lining-nums tabular-nums; font-weight: 500; color: var(--slate); white-space: nowrap; }
+.dish__price--supp { font-size: .86rem; font-weight: 600; color: var(--gold-text); white-space: normal; text-align: right; max-width: 9.5rem; }
+.dish__desc { margin: 3px 0 0; font-style: italic; color: var(--ink-soft); font-size: .95rem; line-height: 1.45; }
+.dt { font-family: var(--sans); font-weight: 600; font-style: normal; font-size: .74rem; letter-spacing: .04em; color: var(--vg); text-decoration: none; margin: 0 .1em; cursor: help; }
+.aside { margin: 6px 0 0; padding-left: 10px; border-left: 2px solid var(--oak); font-size: .88rem; color: #6a4a35; font-style: italic; }
+
+.bento { display: grid; gap: 6px 22px; padding: 10px 0 14px; border-bottom: 1px dotted #dccfb6; }
+@media (min-width: 600px) { .bento { grid-template-columns: 1fr auto; align-items: start; } }
+.bento__parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.bento__parts .dish__name { display: block; }
+.bento__parts .dish__desc { display: block; margin: 0; }
+.bento__price { margin: 0; font-weight: 600; color: var(--slate); font-size: 1.05rem; }
+
+.case__foot { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--gold-rule); text-align: center; font-size: var(--step--1); color: var(--ink-soft); }
+.case__foot p { max-width: 60ch; margin-inline: auto; }
+.case__foot a { color: var(--slate); text-underline-offset: .2em; text-decoration-color: var(--gold-rule); }
+.key .dt { font-size: .8rem; }
+
+/* the sill, with orchids either side */
+.sill { position: relative; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 4%; margin-top: 28px; height: 150px; border-bottom: 14px solid #3a4a58; box-shadow: 0 14px 0 rgba(15,23,29,.45); }
+.orchid { width: 90px; height: 150px; }
+@media (min-width: 700px) { .sill { height: 190px; } .orchid { width: 114px; height: 190px; } }
+
+.after { padding: 56px 0 48px; position: relative; z-index: 1; }
+.after h2 { font-size: var(--step-2); }
+.after__cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 14px; }
+.page-menu .plinth { background: var(--slate); }

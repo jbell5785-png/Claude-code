@@ -82,7 +82,7 @@
         if (started) return;
         started = true;
         heroWords.forEach(prep);
-        window.setTimeout(function () { heroWords.forEach(function (el) { schedule(el, 0.92); }); }, 350);
+        window.setTimeout(function () { heroWords.forEach(function (el) { schedule(el, 1.08); }); }, 350);
       };
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(go);
@@ -152,6 +152,7 @@
     var setFilter = function (on, fromLoad) {
       filter.setAttribute('aria-pressed', on ? 'true' : 'false');
       document.body.classList.toggle('only-aburi', on);
+      var cn = document.querySelector('.courses__nav'); if (cn) cn.scrollLeft = 0;
       say(on);
       if (on && !fromLoad) {
         var top = document.querySelector('.mbody').getBoundingClientRect().top + window.scrollY - 140;
