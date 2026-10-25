@@ -274,7 +274,8 @@ abbr[title] { text-decoration: none; }
 .hero__grid { display: grid; gap: 28px; }
 .hero__cartouche {
   background: rgba(11, 28, 51, .55);
-  min-height: calc(100svh - var(--header-h) - 40px);
+  /* Fill a phone screen, but don't stretch into an empty block on tall tablets */
+  min-height: min(calc(100svh - var(--header-h) - 40px), 44rem);
   display: flex;
 }
 .hero__inner {
