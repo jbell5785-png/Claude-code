@@ -430,6 +430,7 @@ abbr[title] { text-decoration: none; }
 .mnote .hair { margin: var(--s3) 0; }
 .key { display: grid; gap: 8px; margin-top: 8px; }
 .key li { display: flex; align-items: center; gap: 10px; font-size: 0.875rem; line-height: 1.43; }
+@media (min-width: 1024px) {
 .margin__sticky {
   position: sticky;
   top: calc(var(--head-h) + var(--s4));
@@ -440,6 +441,7 @@ abbr[title] { text-decoration: none; }
   scrollbar-color: var(--rule) transparent;
   padding: 2px 4px 2px 2px;
   margin: -2px -4px -2px -2px;
+}
 }
 .margin__home { position: sticky; top: calc(var(--head-h) + var(--s4)); }
 
@@ -1099,8 +1101,9 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 }
 
 /* Menu margin column (on small screens it sits above the card) */
-.menu-margin { display: grid; gap: var(--s3); padding: var(--s3) 0 0; }
-.menu-margin .mnote--day { display: none; }
+.margin.menu-margin { display: flex; flex-direction: column; gap: var(--s3); padding: var(--s3) 0 0; }
+.menu-margin .margin__sticky { order: -1; }
+.menu-notes .key { margin-top: var(--s1); }
 .index__title { margin-bottom: var(--s1); }
 .index__list { display: flex; flex-wrap: wrap; gap: 0 4px; }
 .index__list a {
@@ -1138,8 +1141,8 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 
 @media (min-width: 1024px) {
   .mark-bar { display: none; }
-  .menu-margin { display: block; padding-top: var(--s5); }
-  .menu-margin .mnote--day { display: block; }
+  .margin.menu-margin { display: block; padding-top: var(--s5); }
+  .menu-notes { margin-bottom: var(--s4); }
   .index__list { display: block; }
   .index__list li { border-bottom: 1px solid var(--rule); }
   .index__list a { display: flex; min-height: 36px; padding: 0; font-size: 1rem; }

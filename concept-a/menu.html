@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La carta · The full menu · Caffè Mamma, Richmond</title>
+<meta name="description" content="The full menu at Caffè Mamma, 110 Kew Road, Richmond: antipasti, pasta and risotto, pizza, meat, fish, dolci, set menus and drinks, with prices and vegetarian markers.">
+<meta name="theme-color" content="#FAF8F3">
+<meta property="og:type" content="website">
+<meta property="og:title" content="La carta: the full menu at Caffè Mamma, Richmond">
+<meta property="og:description" content="Pasta, pizza, fish from the grill and zabaglione whisked to order. Mark the menu for vegetarian dishes, fish, the kids or the lunch deal.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FAF8F3'/%3E%3Cpath d='M12.5 6.5q3.5 4 7 0l7 4-2.6 4.6-2.9-1.7V26H10V13.4l-2.9 1.7-2.6-4.6z' fill='none' stroke='%23C41E1A' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&amp;family=Young+Serif&amp;display=swap">
+<link rel="stylesheet" href="css/carta.css">
+<script>
+  (function (h) {
+    h.classList.add('js');
+    try {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        h.classList.add('motion');
+        setTimeout(function () { if (!window.__cartaInked) h.classList.remove('motion'); }, 2000);
+      }
+    } catch (e) {}
+  })(document.documentElement);
+</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="js/carta.js"></script>
+<!-- JSON-LD: confirmed facts only; "url" is a placeholder. openingHours omitted until confirmed. [TO CONFIRM] -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Caffè Mamma Ristorante",
+  "url": "https://www.caffemamma.co.uk/",
+  "telephone": "+44 20 8948 8330",
+  "servesCuisine": "Italian",
+  "hasMenu": "https://www.caffemamma.co.uk/menu.html",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "110 Kew Road",
+    "addressLocality": "Richmond",
+    "addressRegion": "London",
+    "postalCode": "TW9 2PQ",
+    "addressCountry": "GB"
+  }
+}
+</script>
+</head>
+<body class="page-menu">
+<a class="skip" href="#main">Skip to the menu</a>
+
+<header class="top">
+  <div class="top__inner">
+    <a class="brand" href="index.html">Caffè Mamma</a>
+    <nav class="nav" aria-label="Main">
+      <ul class="nav__list">
+        <li><a href="menu.html" aria-current="page">Menu</a></li>
+        <li><a href="index.html#story">Story</a></li>
+        <li class="nav__wide"><a href="index.html#parties">Parties</a></li>
+        <li><a href="index.html#find-us">Find us</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a class="call-link" href="tel:+442089488330">
+          <svg class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M5.2 2.8h3l1.6 4-2.1 1.5a11 11 0 0 0 5.9 5.9l1.5-2.1 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.2 5a2 2 0 0 1 2-2.2z"/></svg>
+          <span>020 8948 8330</span>
+        </a>
+        <a class="btn btn--stamp btn--sm" href="index.html#book">Book a table</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="running">
+  <p class="running__day">
+    <span class="running__date" data-today>Aperti tutti i giorni</span>
+    <!-- [TO CONFIRM] hours from the door decal -->
+    <span class="running__hours">Open today 12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+  </p>
+  <div class="running__acts">
+    <a class="btn btn--call" href="tel:+442089488330" aria-label="Call 020 8948 8330">
+      <svg class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M5.2 2.8h3l1.6 4-2.1 1.5a11 11 0 0 0 5.9 5.9l1.5-2.1 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.2 5a2 2 0 0 1 2-2.2z"/></svg>
+      <span class="call-text">Call</span>
+    </a>
+    <a class="btn btn--stamp" href="index.html#book">Book</a>
+  </div>
+</div>
+
+<main id="main">
+  <div class="carta-head">
+    <div class="carta-head__day">
+      <p class="mnote__date" data-today>Aperti tutti i giorni</p>
+      <!-- [TO CONFIRM] hours -->
+      <p class="mnote__hours" style="margin-top:8px">Open today<br>12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+    </div>
+    <div class="carta-head__main">
+      <hr class="dbl" data-rule>
+      <h1 class="carta-title">La carta</h1>
+      <div class="carta-sub">
+        <p class="label">The full menu · Caffè Mamma Ristorante</p>
+        <p class="label label--pencil">110 Kew Road, Richmond · <a href="tel:+442089488330" style="color:inherit">020 8948 8330</a></p>
+      </div>
+      <hr class="hair">
+    </div>
+  </div>
+
+  <div class="page">
+    <aside class="margin menu-margin" aria-label="Menu notes and course index">
+      <div class="menu-notes">
+        <p class="label label--pencil">Notes</p>
+        <!-- [TO CONFIRM] prices from the current website, being re-checked -->
+        <p class="note" style="margin-top:8px">Prices in pounds, from our current menu, being re-checked.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <!-- [TO CONFIRM] dietary markers inferred from dish names -->
+        <p class="note">Dietary markers to be confirmed with the kitchen.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <ul class="key">
+          <li><span class="v" title="Vegetarian" aria-hidden="true">V</span> Vegetarian</li>
+        </ul>
+        <p class="note" style="margin-top:16px"><strong>Allergies or intolerances?</strong> Please tell us when you book and ask your server before you order. We can tell you about all 14 major allergens in every dish.</p>
+      </div>
+
+      <div class="margin__sticky">
+        <div class="marker" data-marker data-scope="#carta" data-mobile-host="#mark-bar">
+          <p class="marker__title" role="heading" aria-level="2">Mark the menu</p>
+          <p class="note marker__intro">Pick one and we’ll ring it in red pen.</p>
+          <div class="marker__btns" data-marker-btns></div>
+          <p class="marker__status" role="status"></p>
+        </div>
+        <nav class="index" aria-label="Courses">
+          <p class="label label--pencil index__title">Index</p>
+          <ul class="index__list">
+              <li><a href="#antipasti">Antipasti</a></li>
+              <li><a href="#insalate">Insalate</a></li>
+              <li><a href="#pasta">Pasta e risotto</a></li>
+              <li><a href="#pizze">Pizze</a></li>
+              <li><a href="#carne">Carne</a></li>
+              <li><a href="#pesce">Pesce</a></li>
+              <li><a href="#dolci">Dolci</a></li>
+              <li><a href="#set-menus">Menù fissi</a></li>
+              <li><a href="#bevande">Bevande</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <div class="mark-bar" id="mark-bar"></div>
+
+    <div class="main carta" id="carta">
+        <section class="course" id="antipasti" aria-labelledby="h-antipasti">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-antipasti"><span>Antipasti</span><span class="label course__en">Starters</span></h2>
+          </header>
+          <ul class="dishes">
+            <li class="dish">
+              <!-- [TO CONFIRM] Zuppa del giorno: price unknown -->
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Zuppa del giorno</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price dish__price--tbc">price<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              </div>
+              <p class="dish__desc">Soup of the day.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <!-- [TO CONFIRM] Pane all'aglio: price unknown -->
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Pane all’aglio</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price dish__price--tbc">price<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              </div>
+              <p class="dish__desc">Garlic bread.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Bruschetta</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">7.50</span>
+              </div>
+              <p class="dish__desc">Toasted bread with garlic, tomato, basil and olive oil.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Funghi Mirele</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">9.25</span>
+              </div>
+              <p class="dish__desc">Deep-fried mushrooms in breadcrumbs with garlic butter.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Calamari fritti</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">10.50</span>
+              </div>
+              <p class="dish__desc">Deep-fried calamari with tartare sauce.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Antipasto misto</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">10.50</span>
+              </div>
+              <p class="dish__desc">Parma ham, mortadella, salami, egg and mixed salad.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course" id="insalate" aria-labelledby="h-insalate">
+          <!-- [TO CONFIRM] Insalate section from a third-party listing -->
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-insalate"><span>Insalate<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span><span class="label course__en">Salads</span></h2>
+            <p class="note course__note">Taken from a third-party listing of our menu, so this section is being checked.</p>
+          </header>
+          <ul class="dishes">
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">San Daniele e melone</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">10.95</span>
+              </div>
+              <p class="dish__desc">San Daniele ham and melon.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Insalata mista o verde</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">6.95</span>
+              </div>
+              <p class="dish__desc">Mixed or green salad.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course" id="pasta" aria-labelledby="h-pasta">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-pasta"><span>Pasta e risotto</span><span class="label course__en">Pasta and risotto</span></h2>
+          </header>
+          <ul class="dishes">
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Ravioli aurora</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.25</span>
+              </div>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tagliatelle al pesto</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.45</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Penne alla mediterranea</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.45</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Penne siciliana</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.45</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Spaghetti carbonara</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.75</span>
+              </div>
+            </li>
+            <li class="dish" data-tags="kids">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Spaghetti bolognese</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.75</span>
+              </div>
+            </li>
+            <li class="dish">
+              <!-- [TO CONFIRM] Lasagne price from a third-party listing -->
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Lasagne</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.95<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              </div>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tagliatelle al salmone affumicato</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.45</span>
+              </div>
+              <p class="dish__desc">Smoked salmon.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Penne polpette e pomodoro</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+              <p class="dish__desc">Meatballs and tomato.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Linguine alle vongole</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+              <p class="dish__desc">Clams.</p>
+            </li>
+            <li class="dish">
+              <!-- [TO CONFIRM] Tagliatelle positanese: price unknown -->
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tagliatelle positanese</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price dish__price--tbc">price<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              </div>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tagliatelle gamberoni</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">16.95</span>
+              </div>
+              <p class="dish__desc">King prawns.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Linguine tutto mare</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">16.95</span>
+              </div>
+              <p class="dish__desc">Seafood.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Risotto paisana</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.45</span>
+              </div>
+              <p class="dish__desc">Mushrooms, courgettes and broad beans.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Risotto di mare</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">16.95</span>
+              </div>
+              <p class="dish__desc">Seafood.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course" id="pizze" aria-labelledby="h-pizze">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-pizze"><span>Pizze</span><span class="label course__en">Pizza</span></h2>
+          </header>
+          <ul class="dishes">
+            <li class="dish" data-tags="v kids">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Margherita</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">12.95</span>
+              </div>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Funghi</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.25</span>
+              </div>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Vegetariana</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.75</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Fiorentina</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">13.95</span>
+              </div>
+            </li>
+            <li class="dish" data-tags="v">
+              <!-- [TO CONFIRM] Quattro formaggi: price unknown -->
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Quattro formaggi</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price dish__price--tbc">price<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Diavola</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+              <p class="dish__desc">Tomato, mozzarella, pepperoni sausage and onion.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Capricciosa</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Quattro stagioni</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+              <p class="dish__desc">Ham, salami, mushroom, anchovies and artichokes.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tonno e cipolle</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+              <p class="dish__desc">Tuna and onion.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tropicana</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Calzone</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">14.95</span>
+              </div>
+            </li>
+            <li class="dish" data-tags="fish">
+              <!-- [TO CONFIRM] Seafood pizza: price unknown -->
+              <!-- [TO CONFIRM] Italian name of the seafood pizza -->
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Seafood pizza</span><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price dish__price--tbc">price<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course" id="carne" aria-labelledby="h-carne">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-carne"><span>Carne</span><span class="label course__en">Meat</span></h2>
+          </header>
+          <ul class="dishes">
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Pollo e gamberoni alla Mamma</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">16.25</span>
+              </div>
+              <p class="dish__desc">Chicken and king prawns.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Pollo alla crema</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">17.25</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Pollo alla siciliana</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">17.25</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Vitello</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price"><span class="dish__from">from</span> 17.25</span>
+              </div>
+              <p class="dish__desc">Milanese, al funghetto, al limone or saltimbocca alla romana.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Bistecca al Barolo</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">20.95</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Bistecca alla griglia</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">20.95</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course" id="pesce" aria-labelledby="h-pesce">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-pesce"><span>Pesce</span><span class="label course__en">Fish</span></h2>
+          </header>
+          <ul class="dishes">
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Branzino alla griglia</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">18.95</span>
+              </div>
+              <p class="dish__desc">Grilled sea bass.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Branzino alla livornese</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">18.95</span>
+              </div>
+              <p class="dish__desc">Sea bass with herbs and cherry tomatoes.</p>
+            </li>
+            <li class="dish" data-tags="fish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Tonno alla Cleopatra</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">18.95</span>
+              </div>
+              <p class="dish__desc">Tuna steak.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course" id="dolci" aria-labelledby="h-dolci">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-dolci"><span>Dolci</span><span class="label course__en">Desserts</span></h2>
+          </header>
+          <ul class="dishes">
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Dolci della casa</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">5.95</span>
+              </div>
+              <p class="dish__desc">Crème caramel, tiramisù, profiteroles, cheesecake, chocolate cake or oranges in caramel.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Macedonia di frutta</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">5.95</span>
+              </div>
+              <p class="dish__desc">Fresh fruit salad.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Frullati</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">5.95</span>
+              </div>
+              <p class="dish__desc">Fresh fruit or any other milkshake.</p>
+            </li>
+            <li class="dish" data-tags="v">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Zabaglione</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">9.50</span>
+              </div>
+              <p class="dish__desc">Egg yolk, marsala and sugar, whisked to order and served hot.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Formaggi italiani</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">8.50</span>
+              </div>
+              <p class="dish__desc">Italian cheese plate.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="course course--slips" id="set-menus" aria-labelledby="h-set-menus">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-set-menus"><span>Menù fissi</span><span class="label course__en">Set menus</span></h2>
+            <p class="note course__note">Stapled to the card: lunch, the children’s menu, parties and Christmas.</p>
+          </header>
+          <div class="slips">
+            <article class="slip" id="xpress-lunch" data-tags="lunch" data-kind="slip" data-name="the Xpress Lunch menu" aria-labelledby="h-xpress">
+              <svg class="staple" viewBox="0 0 46 18" aria-hidden="true"><path d="M4 13V6.5Q4 4 6.5 4h33Q42 4 42 6.5V13"/></svg>
+              <p class="label slip__label">Monday to Friday, 12 noon – 5pm</p>
+              <h3 class="slip__title" id="h-xpress"><span class="mark-target">Xpress Lunch</span></h3>
+              <p class="slip__when">Two courses.</p>
+              <!-- [TO CONFIRM] Xpress Lunch price: £11.95 on one page, £18.95 on another -->
+              <p class="slip__price"><span class="slip__price-tbc">Set price</span><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+              <div class="slip__body">
+                <!-- [TO CONFIRM] full Xpress Lunch list -->
+                <p><span class="label">Starters include</span>Bruschetta con pomodoro, mozzarella and tomato salad, and egg with spinach.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+              </div>
+            </article>
+            <article class="slip" id="childrens-menu" data-tags="kids" data-kind="slip" data-name="the children’s menu" aria-labelledby="h-kids">
+              <svg class="staple" viewBox="0 0 46 18" aria-hidden="true"><path d="M4 13V6.5Q4 4 6.5 4h33Q42 4 42 6.5V13"/></svg>
+              <p class="label slip__label">For the kids</p>
+              <h3 class="slip__title" id="h-kids"><span class="mark-target">Children’s menu</span></h3>
+              <p class="slip__when">A main, an ice-cream and a drink.</p>
+              <!-- [TO CONFIRM] children's menu price -->
+              <p class="slip__price"><span class="slip__price-num num"><small>£</small>9.95</span><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+              <div class="slip__body">
+                <p><span class="label">Mains include</span>Pizza, spaghetti bolognese, and chicken nuggets and chips.</p>
+              </div>
+            </article>
+            <article class="slip" id="party-menu" data-kind="slip" aria-labelledby="h-party">
+              <svg class="staple" viewBox="0 0 46 18" aria-hidden="true"><path d="M4 13V6.5Q4 4 6.5 4h33Q42 4 42 6.5V13"/></svg>
+              <p class="label slip__label">Pre-arranged parties only</p>
+              <h3 class="slip__title" id="h-party"><span class="mark-target">Party set menu</span></h3>
+              <p class="slip__when">Three courses, arranged with us before the day.</p>
+              <!-- [TO CONFIRM] party set menu price -->
+              <p class="slip__price"><span class="slip__price-num num"><small>£</small>23.95</span><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+              <div class="slip__body">
+                <!-- [TO CONFIRM] full party menu list -->
+                <p><span class="label">Starters include</span>Calamari, sardines and mozzarella caprese.</p>
+                <p><span class="label">Mains include</span>Grilled sea bass and seafood risotto.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+                <p><span class="label">Enquiries</span><a class="link" href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a> or <a class="link" href="tel:+442089488330">020 8948 8330</a></p>
+              </div>
+            </article>
+            <article class="slip" id="christmas-menu" data-kind="slip" aria-labelledby="h-xmas">
+              <svg class="staple" viewBox="0 0 46 18" aria-hidden="true"><path d="M4 13V6.5Q4 4 6.5 4h33Q42 4 42 6.5V13"/></svg>
+              <p class="label slip__label">In season</p>
+              <h3 class="slip__title" id="h-xmas"><span class="mark-target">Christmas menu</span></h3>
+              <p class="slip__when">Available in season.</p>
+              <!-- [TO CONFIRM] Christmas menu details -->
+              <p class="slip__price"><span class="slip__price-tbc">Details</span><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+              <div class="slip__body">
+                <p>Ask us for dates and the menu on <a class="link" href="tel:+442089488330">020 8948 8330</a>.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="course" id="bevande" aria-labelledby="h-bevande">
+          <header class="course__head">
+            <hr class="dbl" data-rule>
+            <h2 class="course__title" id="h-bevande"><span>Bevande</span><span class="label course__en">Drinks</span></h2>
+            <!-- [TO CONFIRM] full wine and drinks list -->
+            <p class="note course__note">A short list from our current menu. Full wine and drinks list<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+          </header>
+          <ul class="dishes">
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Peroni or Kaliber</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">4.00</span>
+              </div>
+              <p class="dish__desc">Kaliber is alcohol-free.</p>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Bellini</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">5.95</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Soft drinks, juices and water</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price"><span class="dish__from">from</span> 1.90</span>
+              </div>
+            </li>
+            <li class="dish">
+              <div class="dish__line">
+                <h3 class="dish__name"><span class="mark-target">Red wine by the bottle</span></h3>
+                <span class="dish__leader" aria-hidden="true"></span>
+                <span class="dish__price">22.50–23.95</span>
+              </div>
+              <p class="dish__desc">Including Merlot (Veneto) and Dolcetto d’Alba (Piemonte).</p>
+            </li>
+          </ul>
+        </section>
+
+      <div class="menu-foot">
+        <p class="note"><strong>Allergies or intolerances?</strong> Please tell us when you book and ask your server before you order. We can tell you about all 14 major allergens in every dish.</p>
+        <p class="note">Spellings follow standard Italian. Prices in pounds.</p>
+        <p style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px">
+          <a class="btn btn--stamp" href="index.html#book">Book a table</a>
+          <a class="btn" href="tel:+442089488330">Call 020 8948 8330</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot__grid">
+    <div class="foot__brand">
+      <p class="foot__name">Caffè Mamma</p>
+      <p class="label foot__sub">Ristorante</p>
+    </div>
+    <address class="foot__contact">
+      110 Kew Road, Richmond TW9 2PQ<br>
+      <a href="tel:+442089488330">020 8948 8330</a><br>
+      <a href="mailto:contact@caffemamma.co.uk">contact@caffemamma.co.uk</a><br>
+      Bookings and parties: <a href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a>
+    </address>
+    <nav class="foot__links" aria-label="Footer">
+      <ul class="foot__nav">
+        <li><a class="link link--ink" href="index.html">Home</a></li>
+        <li><a class="link link--ink" href="index.html#book">Book a table</a></li>
+        <li><a class="link link--ink" href="index.html#find-us">Find us</a></li>
+      </ul>
+    </nav>
+    <div class="foot__proposal">
+      <p>A design proposal for Caffè Mamma, not the live site. Concept A of three.</p>
+      <p><a href="../concept-b/index.html">Concept B</a><a href="../concept-c/index.html">Concept C</a><a href="index.html">Home</a></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
