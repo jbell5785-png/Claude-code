@@ -143,9 +143,9 @@
       } else {
         var acc = -g.k * g.th - C * g.w;
         g.w += acc * dt;
-        g.w = Math.max(-240, Math.min(240, g.w));
+        g.w = Math.max(-160, Math.min(160, g.w));
         g.th += g.w * dt;
-        g.th = Math.max(-40, Math.min(40, g.th));
+        g.th = Math.max(-26, Math.min(26, g.th));
       }
       var la = -KL * (g.lift - g.liftT) - CL * g.lv;
       g.lv += la * dt;
@@ -178,7 +178,7 @@
           if (g.drag) return;
           var dx = (px - g.cx) / (W * 0.2);
           var fall = Math.exp(-dx * dx) * near;
-          if (fall > 0.02) g.w += -Math.max(-3, Math.min(3, vx)) * 26 * fall;
+          if (fall > 0.02) g.w += -Math.max(-2.5, Math.min(2.5, vx)) * 13 * fall;
         });
         wake();
       }

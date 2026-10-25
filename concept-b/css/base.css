@@ -185,7 +185,7 @@ button, input, select { font: inherit; color: inherit; }
     linear-gradient(var(--lamp), var(--lamp)) right bottom / 1px 18px no-repeat;
   opacity: .8;
 }
-.slot__art { position: absolute; inset: 12% 10% 34% 10%; width: 80%; height: 54%; object-fit: contain; opacity: .55; }
+.slot__art { position: absolute; left: 12%; top: 13%; width: 76%; height: 44%; object-fit: contain; opacity: .55; }
 .slot__ratio { position: absolute; top: 24px; right: 26px; font: 600 .6875rem/1 var(--sans); letter-spacing: .18em; color: var(--soft-light); }
 .slot__cap { position: absolute; left: 26px; right: 26px; bottom: 22px; font-size: .875rem; line-height: 1.45; }
 .slot__cap b { display: block; font-weight: 600; font-size: .6875rem; letter-spacing: .2em; text-transform: uppercase; color: var(--lamp); margin-bottom: .45em; }
@@ -196,7 +196,7 @@ button, input, select { font: inherit; color: inherit; }
 .v svg { width: 11px; height: 11px; flex: none; }
 
 /* ---------- footer ---------- */
-.site-footer { padding: 14vh var(--m) 48px; border-top: 1px solid var(--rule); font-size: .9375rem; }
+.site-footer { padding: clamp(56px, 8vh, 14vh) var(--m) 48px; border-top: 1px solid var(--rule); font-size: .9375rem; }
 .site-footer__grid { display: grid; gap: 32px; }
 @media (min-width: 900px) { .site-footer__grid { grid-template-columns: 2fr 3fr; align-items: end; } }
 .logo-slot {

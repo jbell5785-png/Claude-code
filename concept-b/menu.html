@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en-GB" class="menu-page">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The menu · Caffè Mamma Ristorante, Richmond</title>
+<meta name="description" content="The Caffè Mamma menu: antipasti, pasta e risotto, pizze, carne, pesce and dolci, with set menus for lunch, children and parties. 110 Kew Road, Richmond.">
+<meta name="theme-color" content="#121319">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The menu · Caffè Mamma Ristorante">
+<meta property="og:description" content="One course at a time: the full menu with prices, vegetarian markers and set menus.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23121319'/%3E%3Ccircle cx='16' cy='17' r='9' fill='%23F4B54A' opacity='.25'/%3E%3Cpath d='M16 4v6' stroke='%23F1EAE0' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='17' r='5' fill='%23F4B54A'/%3E%3C/svg%3E">
+<script>
+  (function (d) { d.classList.add('js'); if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('motion'); })(document.documentElement);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&amp;family=Italiana&amp;display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/menu.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="js/menu.js"></script>
+<!-- openingHours omitted from the schema. [TO CONFIRM] kitchen and last-order times -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Caffè Mamma Ristorante",
+  "url": "https://www.caffemamma.co.uk/",
+  "telephone": "+44 20 8948 8330",
+  "servesCuisine": "Italian",
+  "hasMenu": "https://www.caffemamma.co.uk/menu",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "110 Kew Road",
+    "addressLocality": "Richmond",
+    "addressRegion": "London",
+    "postalCode": "TW9 2PQ",
+    "addressCountry": "GB"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the menu</a>
+
+<header class="site-header">
+  <a class="wordmark" href="index.html" aria-label="Caffè Mamma Ristorante, home">
+    <span class="wordmark__name">Caffè Mamma</span>
+    <span class="wordmark__sub" aria-hidden="true">RISTORANTE</span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="menu.html" aria-current="page">Menu</a>
+    <a class="nav__wide" href="index.html#lunch">Lunch</a>
+    <a class="nav__wide" href="index.html#parties">Parties</a>
+    <a class="nav__wide" href="index.html#find">Find us</a>
+    <a class="nav__wide" href="tel:+442089488330">020 8948 8330</a>
+    <a class="btn btn--book nav__book" href="index.html#book">Book a table</a>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="menu-intro">
+    <p class="label">The menu</p>
+    <h1 class="display">one course at a time.</h1>
+    <p class="lead">Antipasti to dolci, with the set menus and a few drinks at the end. Use the rail to jump to a course.</p>
+    <div class="menu-notes">
+        <!-- [TO CONFIRM] prices from the current website -->
+        <p><strong>Prices</strong> from our current menu, being re-checked<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <!-- [TO CONFIRM] dietary markers inferred from dish names -->
+        <p><strong><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></strong> marks vegetarian dishes. Dietary markers to be confirmed with the kitchen<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <p><strong>Allergies or intolerances?</strong> Please tell us when you book and ask your server before you order. We can tell you about all 14 major allergens in every dish.</p>
+    </div>
+  </div>
+
+  <nav class="rail" aria-label="Courses">
+    <ol>
+        <li><a href="#antipasti">Antipasti</a></li>
+        <li><a href="#insalate">Insalate</a></li>
+        <li><a href="#pasta">Pasta e risotto</a></li>
+        <li><a href="#pizze">Pizze</a></li>
+        <li><a href="#carne">Carne</a></li>
+        <li><a href="#pesce">Pesce</a></li>
+        <li><a href="#dolci">Dolci</a></li>
+        <li><a href="#set-menus">Set menus</a></li>
+        <li><a href="#drinks">Drinks</a></li>
+    </ol>
+  </nav>
+
+    <section class="course" id="antipasti" aria-labelledby="antipasti-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="antipasti-t" lang="it">Antipasti</h2>
+        <p class="course__en">Starters</p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <!-- [TO CONFIRM] price of Zuppa del giorno -->
+          <li class="dish"><span class="dish__name"><span lang="it">Zuppa del giorno</span></span><span class="dish__price"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span><p class="dish__desc">Soup of the day</p></li>
+          <!-- [TO CONFIRM] price of Pane all'aglio -->
+          <li class="dish"><span class="dish__name"><span lang="it">Pane all&#x27;aglio</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span><p class="dish__desc">Garlic bread</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Bruschetta</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£7.50</span><p class="dish__desc">Toasted bread with garlic, tomato, basil and olive oil</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Funghi Mirele</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£9.25</span><p class="dish__desc">Deep-fried mushrooms in breadcrumbs with garlic butter</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Calamari fritti</span></span><span class="dish__price">£10.50</span><p class="dish__desc">Deep-fried calamari with tartare sauce</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Antipasto misto</span></span><span class="dish__price">£10.50</span><p class="dish__desc">Parma ham, mortadella, salami, egg and mixed salad</p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="insalate" aria-labelledby="insalate-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="insalate-t" lang="it">Insalate</h2>
+        <p class="course__en">Salads</p>
+        <!-- [TO CONFIRM] From a third-party listing. -->
+        <p class="course__note">From a third-party listing.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name"><span lang="it">San Daniele e melone</span></span><span class="dish__price">£10.95</span><p class="dish__desc">San Daniele ham and melon</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Insalata mista o verde</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£6.95</span><p class="dish__desc">Mixed or green salad</p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="pasta" aria-labelledby="pasta-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="pasta-t" lang="it">Pasta e risotto</h2>
+        <p class="course__en">Pasta and risotto</p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name"><span lang="it">Ravioli aurora</span></span><span class="dish__price">£13.25</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Tagliatelle al pesto</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£13.45</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Penne alla mediterranea</span></span><span class="dish__price">£13.45</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Penne siciliana</span></span><span class="dish__price">£13.45</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Spaghetti carbonara</span></span><span class="dish__price">£13.75</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Spaghetti bolognese</span></span><span class="dish__price">£13.75</span></li>
+          <!-- [TO CONFIRM] Lasagne, from a third-party listing -->
+          <li class="dish"><span class="dish__name"><span lang="it">Lasagne</span></span><span class="dish__price">£13.95</span><p class="dish__desc"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Tagliatelle al salmone affumicato</span></span><span class="dish__price">£14.45</span><p class="dish__desc">Smoked salmon</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Penne polpette e pomodoro</span></span><span class="dish__price">£14.95</span><p class="dish__desc">Meatballs and tomato</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Linguine alle vongole</span></span><span class="dish__price">£14.95</span><p class="dish__desc">Clams</p></li>
+          <!-- [TO CONFIRM] price of Tagliatelle positanese -->
+          <li class="dish"><span class="dish__name"><span lang="it">Tagliatelle positanese</span></span><span class="dish__price"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Tagliatelle gamberoni</span></span><span class="dish__price">£16.95</span><p class="dish__desc">King prawns</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Linguine tutto mare</span></span><span class="dish__price">£16.95</span><p class="dish__desc">Seafood</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Risotto paisana</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£13.45</span><p class="dish__desc">Mushrooms, courgettes and broad beans</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Risotto di mare</span></span><span class="dish__price">£16.95</span><p class="dish__desc">Seafood</p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="pizze" aria-labelledby="pizze-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="pizze-t" lang="it">Pizze</h2>
+        <p class="course__en">Pizza, also to take away by phone</p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name"><span lang="it">Margherita</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£12.95</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Funghi</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£13.25</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Vegetariana</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£13.75</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Fiorentina</span></span><span class="dish__price">£13.95</span></li>
+          <!-- [TO CONFIRM] price of Quattro formaggi -->
+          <li class="dish"><span class="dish__name"><span lang="it">Quattro formaggi</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Diavola</span></span><span class="dish__price">£14.95</span><p class="dish__desc">Tomato, mozzarella, pepperoni sausage and onion</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Capricciosa</span></span><span class="dish__price">£14.95</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Quattro stagioni</span></span><span class="dish__price">£14.95</span><p class="dish__desc">Ham, salami, mushroom, anchovies and artichokes</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Tonno e cipolle</span></span><span class="dish__price">£14.95</span><p class="dish__desc">Tuna and onion</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Tropicana</span></span><span class="dish__price">£14.95</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Calzone</span></span><span class="dish__price">£14.95</span></li>
+          <!-- [TO CONFIRM] Italian name and price of the seafood pizza -->
+          <li class="dish"><span class="dish__name"><span>Seafood pizza</span></span><span class="dish__price"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span><p class="dish__desc"><span class="vh">,</span> Italian name<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="carne" aria-labelledby="carne-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="carne-t" lang="it">Carne</h2>
+        <p class="course__en">Meat</p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name"><span lang="it">Pollo e gamberoni alla Mamma</span></span><span class="dish__price">£16.25</span><p class="dish__desc">Chicken and king prawns</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Pollo alla crema</span></span><span class="dish__price">£17.25</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Pollo alla siciliana</span></span><span class="dish__price">£17.25</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Vitello</span></span><span class="dish__price">From £17.25</span><p class="dish__desc">Milanese, al funghetto, al limone or saltimbocca alla romana</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Bistecca al Barolo</span></span><span class="dish__price">£20.95</span></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Bistecca alla griglia</span></span><span class="dish__price">£20.95</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="pesce" aria-labelledby="pesce-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="pesce-t" lang="it">Pesce</h2>
+        <p class="course__en">Fish</p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name"><span lang="it">Branzino alla griglia</span></span><span class="dish__price">£18.95</span><p class="dish__desc">Grilled sea bass</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Branzino alla livornese</span></span><span class="dish__price">£18.95</span><p class="dish__desc">Sea bass with herbs and cherry tomatoes</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Tonno alla Cleopatra</span></span><span class="dish__price">£18.95</span><p class="dish__desc">Tuna steak</p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="dolci" aria-labelledby="dolci-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="dolci-t" lang="it">Dolci</h2>
+        <p class="course__en">Desserts</p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name"><span lang="it">Dolci della casa</span></span><span class="dish__price">£5.95</span><p class="dish__desc">Crème caramel, tiramisù, profiteroles, cheesecake, chocolate cake or oranges in caramel</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Macedonia di frutta</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£5.95</span><p class="dish__desc">Fresh fruit salad</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Frullati</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£5.95</span><p class="dish__desc">Fresh fruit or any other milkshake</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Zabaglione</span><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></span><span class="dish__price">£9.50</span><p class="dish__desc">Egg yolk, marsala and sugar, whisked to order and served hot</p></li>
+          <li class="dish"><span class="dish__name"><span lang="it">Formaggi italiani</span></span><span class="dish__price">£8.50</span><p class="dish__desc">Italian cheese plate</p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="course" id="set-menus" aria-labelledby="set-menus-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="set-menus-t">Set menus</h2>
+        <p class="course__en">Lunch, children and parties</p>
+      </div>
+      <div class="course__stage course__body">
+        <div class="set">
+          <div class="set__line"><h3>Xpress Lunch</h3><!-- [TO CONFIRM] lunch price: £11.95 or £18.95 --><span class="dish__price"><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></div>
+          <p>Two courses, Monday to Friday, 12 noon – 5pm.</p>
+          <!-- [TO CONFIRM] full list of lunch starters -->
+          <p>Starters include bruschetta con pomodoro, mozzarella and tomato salad, and egg with spinach. Full list<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        </div>
+        <div class="set">
+          <div class="set__line"><h3>Children’s menu</h3><!-- [TO CONFIRM] children's menu price --><span class="dish__price">£9.95<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></div>
+          <p>A main, an ice-cream and a drink. Mains include pizza, spaghetti bolognese, and chicken nuggets and chips.</p>
+        </div>
+        <div class="set">
+          <div class="set__line"><h3>Party set menu</h3><!-- [TO CONFIRM] party menu price --><span class="dish__price">£23.95<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></div>
+          <p>Three courses, for pre-arranged parties only. Starters include calamari, sardines and mozzarella caprese; mains include grilled sea bass and seafood risotto.</p>
+          <!-- [TO CONFIRM] full party menu list -->
+          <p>Full list<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Enquiries: <a href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a> or <a href="tel:+442089488330">020 8948 8330</a>.</p>
+        </div>
+        <div class="set">
+          <div class="set__line"><h3>Christmas menu</h3></div>
+          <!-- [TO CONFIRM] Christmas menu details -->
+          <p>Available in season. Details<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        </div>
+      </div>
+    </section>
+    <section class="course" id="drinks" aria-labelledby="drinks-t">
+      <div class="course__stage course__head">
+        <h2 class="course__name" id="drinks-t">Drinks</h2>
+        <p class="course__en">A few from the list</p>
+        <!-- [TO CONFIRM] full wine and drinks list -->
+        <p class="course__note">Full wine and drinks list<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+      </div>
+      <div class="course__stage course__body">
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name">Peroni or Kaliber</span><span class="dish__price">£4.00</span><p class="dish__desc">Kaliber is alcohol-free</p></li>
+          <li class="dish"><span class="dish__name">Bellini</span><span class="dish__price">£5.95</span></li>
+          <li class="dish"><span class="dish__name">Soft drinks, juices and water</span><span class="dish__price">from £1.90</span></li>
+          <li class="dish"><span class="dish__name">Red wine</span><span class="dish__price">£22.50–£23.95</span><p class="dish__desc">Including Merlot (Veneto) and Dolcetto d’Alba (Piemonte), by the bottle</p></li>
+        </ul>
+      </div>
+    </section>
+
+  <section class="menu-end" aria-labelledby="end-t">
+    <p class="label">Before you order</p>
+    <h2 class="display" id="end-t">a table, or a pizza to take home?</h2>
+    <div class="menu-notes">
+        <!-- [TO CONFIRM] prices from the current website -->
+        <p><strong>Prices</strong> from our current menu, being re-checked<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <!-- [TO CONFIRM] dietary markers inferred from dish names -->
+        <p><strong><span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span></strong> marks vegetarian dishes. Dietary markers to be confirmed with the kitchen<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <p><strong>Allergies or intolerances?</strong> Please tell us when you book and ask your server before you order. We can tell you about all 14 major allergens in every dish.</p>
+    </div>
+    <div class="menu-end__actions">
+      <a class="btn btn--book" href="index.html#book">Book a table</a>
+      <a href="tel:+442089488330">Takeaway: call 020 8948 8330</a>
+      <a href="#main">Back to the top of the menu</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div class="logo-slot" role="img" aria-label="Logo slot: the original Caffè Mamma wordmark goes here">
+      <b aria-hidden="true">Logo slot</b><span aria-hidden="true">Original wordmark goes here</span>
+    </div>
+    <div>
+      <p style="margin:0">Caffè Mamma Ristorante · 110 Kew Road, Richmond TW9 2PQ · <a href="tel:+442089488330">020 8948 8330</a></p>
+      <p class="proposal">A design proposal for Caffè Mamma, not the live site. Concept B of three.</p>
+      <ul class="footer-links">
+        <li><a href="../concept-a/index.html">Concept A</a></li>
+        <li><a href="../concept-c/index.html">Concept C</a></li>
+        <li><a href="index.html">Home</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Quick actions">
+  <a href="tel:+442089488330"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6.2 2.5 8 6.4 6.4 8c.9 2 2.6 3.7 4.6 4.6l1.6-1.6 3.9 1.8-.6 3.1c-.1.5-.6.9-1.1.9C8.5 16.6 3.4 11.5 3.2 5.2c0-.5.4-1 .9-1.1Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>Call</a>
+  <a href="index.html#find"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18s5.5-5.4 5.5-9.6a5.5 5.5 0 0 0-11 0C4.5 12.6 10 18 10 18Z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="8.4" r="2" fill="currentColor"/></svg>Find us</a>
+  <a class="btn btn--book" href="index.html#book">Book a table</a>
+</nav>
+</body>
+</html>

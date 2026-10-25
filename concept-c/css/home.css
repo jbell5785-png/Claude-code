@@ -4,7 +4,7 @@
 .hero { container-type: inline-size; padding-bottom: clamp(28px, 5vw, 72px); }
 .washing {
   position: relative;
-  --u: min(32.5cqw, 200px);
+  --u: min(32.5cqw, 160px);
   --y0: 22px;
   --sag: calc(10px + 2.4cqw);
   --rows: 2;
@@ -281,3 +281,7 @@ html.js.motion-ok .marquee.is-paused .marquee__track { animation-play-state: pau
 .schem figcaption { font-size: var(--fs-small); margin-top: 12px; }
 .schem text { font-family: var(--text); font-weight: 700; }
 .schem .t-big { font-family: var(--display); font-weight: 800; font-stretch: 80%; }
+
+@media (max-width: 767.98px) {
+  .hero__title { font-size: 12.8vw; }
+}

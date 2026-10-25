@@ -5,17 +5,19 @@
 
 /* ---------- Intro ---------- */
 .mhero { padding: clamp(28px, 5vw, 72px) 0 clamp(40px, 6vw, 88px); }
-.mhero__title { grid-column: 1 / -1; font-size: clamp(3.25rem, 0.8rem + 10vw, 12rem); margin-bottom: var(--s-4); }
+.mhero__title { grid-column: 1 / -1; font-size: clamp(3rem, 0.8rem + 10vw, 12rem); margin-bottom: 0; }
 @media (min-width: 1200px) { .mhero__title { grid-column: 1 / span 11; } }
 .mhero__notes { grid-column: 1 / -1; display: grid; gap: var(--s-3) var(--gap); }
 @media (min-width: 768px) { .mhero__notes { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1200px) { .mhero__notes { grid-template-columns: repeat(4, 1fr); } }
-.mnote { border-top: 2px solid #fff; padding-top: 12px; font-size: var(--fs-small); }
+.mnotes { padding-block: clamp(24px, 3vw, 40px) 0; }
+.mnote { border-top: 2px solid currentColor; padding-top: 12px; font-size: var(--fs-small); }
 .mnote h2 { font: 800 1.125rem/1 var(--display); font-stretch: 80%; text-transform: uppercase; margin-bottom: .5em; letter-spacing: .01em; }
 .mnote p { margin-bottom: .5em; }
 .mnote .veg { font-size: var(--fs-small); }
 .mnote a { font-weight: 700; }
 .mhero .actions { grid-column: 1 / -1; margin-top: var(--s-4); }
+@media (max-width: 767.98px) { .mhero .actions .btn--line { display: none; } }
 
 /* ---------- The pegged index: a sticky line with each course on a string ---------- */
 .ix {
@@ -56,17 +58,21 @@
 }
 
 /* ---------- Course blocks ---------- */
-.course__head { padding-bottom: clamp(20px, 3vw, 44px); }
+.course__head { padding-bottom: clamp(28px, 4vw, 56px); }
 .course__head .strung { --y0: 30px; padding-bottom: 0; }
+.course__hang { display: inline-block; max-width: 100%; --k: .2; }
 .course__name {
-  display: inline-block; max-width: 100%; margin-top: -.11em;
+  position: relative; display: inline-block; max-width: 100%; margin-top: -.11em;
   font: 800 clamp(3.75rem, 0.5rem + 16.4vw, 19rem)/.88 var(--display); font-stretch: 75%; letter-spacing: -.03em;
-  text-transform: uppercase; --k: .2;
+  text-transform: uppercase;
 }
 .course__name .w-lt { font-size: .32em; letter-spacing: -.01em; text-transform: none; vertical-align: .12em; margin-left: .15em; }
-.course__name .peg { width: .05em; height: .14em; top: .04em; left: 7%; margin-left: -.025em; border-radius: .01em; }
-.course__name .peg--r { left: auto; right: 7%; margin-right: -.025em; }
-.course__name .peg::after { width: .072em; height: .018em; margin-left: -.036em; }
+.course__name .peg {
+  --pw: max(11px, .05em); --ph: max(30px, .15em);
+  width: var(--pw); height: var(--ph); top: calc(.11em - var(--ph) / 2); left: 9%; margin-left: calc(var(--pw) / -2);
+}
+.course__name .peg--r { left: auto; right: var(--peg-r, 9%); margin-left: 0; margin-right: calc(var(--pw) / -2); }
+.course__name .peg::after { width: calc(var(--pw) * 1.4); height: max(4px, .02em); margin-left: calc(var(--pw) * -.7); }
 .course__en { font: 700 var(--fs-lead)/1.2 var(--text); margin: .35em 0 0; display: flex; flex-wrap: wrap; gap: .2em .5em; align-items: center; }
 .course__en .tbc { font-size: .75rem; }
 
@@ -95,7 +101,7 @@
 /* ---------- Set menus: tea towels on the line ---------- */
 .sets { padding-block: 0 clamp(56px, 7vw, 112px); }
 .sets .strung { --y0: 34px; }
-.sets__grid { display: grid; gap: 76px var(--gap); padding-top: 4px; }
+.sets__grid { display: grid; gap: 76px var(--gap); padding-top: 4px; align-items: start; }
 @media (min-width: 900px) { .sets__grid { grid-template-columns: 1fr 1fr; } }
 .towel {
   --s: var(--pomodoro);

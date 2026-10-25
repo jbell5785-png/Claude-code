@@ -192,6 +192,9 @@ html.motion .frontage .bulb { --on: 0; }
   color: var(--ink);
 }
 html.motion .scene { background: none; }
+/* anchor jumps (Book, Find us) land on the content, not the empty lead-in */
+.scene { scroll-margin-top: calc(var(--hh) - var(--lead) + 8px); }
+.book { scroll-margin-top: calc(var(--hh) - var(--lead) * .5); }
 .scene > * { grid-column: 1 / -1; }
 .scene h2.display { margin-bottom: .45em; }
 .scene p { max-width: 36em; }
@@ -250,7 +253,9 @@ html.motion .scene { background: none; }
 .still figcaption b { display: block; font: 600 .75rem/1.3 var(--sans); letter-spacing: .18em; text-transform: uppercase; margin-bottom: 4px; }
 .still figcaption span { color: var(--ink-soft); }
 @media (min-width: 900px) {
-  .still { --h: min(50vh, 520px); width: auto; }
+  .gallery { padding-bottom: 7vh; }
+  .gallery .display { font-size: clamp(2.5rem, 1.5rem + 3vw, 4.5rem); }
+  .still { --h: min(42vh, 480px); width: auto; }
   .still .slot { height: var(--h); width: auto; }
   .still figcaption { max-width: calc(var(--h) * 1.1); }
   .still[data-ar="239"] figcaption, .still[data-ar="169"] figcaption { max-width: 30em; }
@@ -259,6 +264,7 @@ html.motion .strip.is-scrubbed { overflow: hidden; scroll-snap-type: none; }
 
 /* private parties */
 .parties__slot { margin-bottom: 40px; }
+@media (max-width: 899px) { .parties__slot { --ar: 4 / 3 !important; } }
 .parties__contact { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 16px; }
 .parties__contact a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; }
 @media (min-width: 900px) {
@@ -323,10 +329,17 @@ html.motion .book__lamp .lamp-light { opacity: var(--lamp-on, 0); }
 .find__links { display: flex; flex-wrap: wrap; gap: 4px 28px; margin-bottom: 36px; }
 .find__links a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; }
 .facts { display: grid; gap: 0; margin: 0; border-top: 1px solid var(--rule); }
-.facts > div { display: grid; grid-template-columns: minmax(0, 9em) 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.facts > div { display: grid; gap: 2px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+@media (min-width: 600px) { .facts > div { grid-template-columns: minmax(0, 10em) 1fr; gap: 16px; } }
 .facts dt { font: 600 .75rem/1.6 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); padding-top: 2px; }
 .facts dd { margin: 0; }
 @media (min-width: 900px) {
   .find__head { grid-column: 1 / 4; }
   .find__facts { grid-column: 4 / 7; align-self: end; }
 }
+@media (min-width: 900px) {
+  .book__lamp { right: auto; left: calc(var(--m) + 30%); width: 280px; }
+}
+
+/* The last scene runs into the footer: no full-screen hold on phones */
+@media (max-width: 899px) { .scene.find { min-height: auto; padding-bottom: 64px; } }

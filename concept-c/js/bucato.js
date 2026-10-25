@@ -70,10 +70,13 @@
     var rows = [];
     items.forEach(function (it) {
       var o = offsetIn(it, el);
-      var pegs = it.querySelectorAll(':scope > .peg, :scope > .knot');
+      var pegs = Array.prototype.filter.call(it.querySelectorAll('.peg, .knot'), function (p) {
+        return p.closest('[data-hang]') === it;
+      });
       var pts = [];
-      Array.prototype.forEach.call(pegs, function (p) {
-        pts.push({ x: p.offsetLeft + p.offsetWidth / 2, y: p.offsetTop + p.offsetHeight / 2 });
+      pegs.forEach(function (p) {
+        var po = offsetIn(p, it);
+        pts.push({ x: po.x + p.offsetWidth / 2, y: po.y + p.offsetHeight / 2 });
       });
       if (!pts.length) pts.push({ x: 22, y: 0 });
       var row = null;
@@ -93,7 +96,7 @@
         var tilt = parseFloat(r.el.style.getPropertyValue('--tilt')) || 0;
         var rot, mid, pivotX;
         if (r.pts.length > 1) {
-          rot = Math.atan2(f(x2) - f(x1), x2 - x1) * 180 / Math.PI;
+          rot = Math.atan2(f(x2) - f(x1), x2 - x1) * 180 / Math.PI * 0.7;
           pivotX = (p1.x + p2.x) / 2;
           mid = f((x1 + x2) / 2);
           rot += tilt * 0.25;

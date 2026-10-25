@@ -68,7 +68,14 @@
       summary.textContent = summary.textContent.replace(/: we.ll take you to OpenTable to confirm\.$/, '') +
         ': OpenTable is open in a new tab. Nothing is booked until you confirm there.';
     } else {
-      window.location.href = OT;
+      // pop-up blocked: offer the link rather than navigating away from the page
+      var line = summary.textContent.replace(/: we.ll take you to OpenTable to confirm\.$/, ': continue on OpenTable to confirm.');
+      summary.textContent = line;
+      var a = document.createElement('a');
+      a.href = OT; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Continue to OpenTable';
+      summary.appendChild(document.createTextNode(' '));
+      summary.appendChild(a);
     }
   });
 
