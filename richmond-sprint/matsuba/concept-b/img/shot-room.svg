@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 270" fill="none" stroke="#E3A65A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <g opacity=".35">
+    <path d="M200 0 V170 M212 0 V170 M224 0 V170 M236 0 V170 M248 0 V170 M260 0 V170 M272 0 V170 M284 0 V170 M296 0 V170 M308 0 V170 M320 0 V170 M332 0 V170 M344 0 V170 M356 0 V170"/>
+  </g>
+  <g opacity=".45" stroke-width="1">
+    <path d="M370 20 h 100 v 150 h -100 z"/>
+    <path d="M370 50 h 100 M370 80 h 100 M370 110 h 100 M370 140 h 100"/>
+    <path d="M420 20 v30 M395 50 v30 M445 50 v30 M420 80 v30 M395 110 v30 M445 110 v30 M420 140 v30"/>
+  </g>
+  <g>
+    <path d="M90 0 V 58"/><path d="M84 58 h12 v8 h-12 z"/><path d="M86 66 c0 6 -10 9 -10 20 a14 14 0 0 0 28 0 c0 -11 -10 -14 -10 -20" />
+    <path d="M160 0 V 34"/><path d="M154 34 h12 v8 h-12 z"/><path d="M156 42 c0 6 -10 9 -10 20 a14 14 0 0 0 28 0 c0 -11 -10 -14 -10 -20" />
+    <path d="M240 0 V 70"/><path d="M234 70 h12 v8 h-12 z"/><path d="M236 78 c0 6 -10 9 -10 20 a14 14 0 0 0 28 0 c0 -11 -10 -14 -10 -20" />
+  </g>
+  <path d="M20 128 h 300 a 8 8 0 0 1 8 8 v 46 h -316 v -46 a 8 8 0 0 1 8 -8 z" opacity=".7"/>
+  <path d="M60 196 L 40 250 M 300 196 L 320 250" opacity=".5"/>
+  <path d="M30 188 h 300 l 30 18 h -360 z" opacity=".8"/>
+  <path d="M0 252 H 480" opacity=".4"/>
+</svg>
