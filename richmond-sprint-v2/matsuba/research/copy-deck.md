@@ -504,3 +504,46 @@ Source: https://matsuba.co.uk/wp-content/uploads/2026/06/MATSUBA-TA10-kids.pdf (
 10. Seating capacity (30 per Harden's), private hire and group options. The site's "Perfect For Groups" is generic copy.
 11. Instagram handle activity, and whether other social accounts exist.
 12. Photography: describe the mood only. Re-use of the site's photos needs the owner's permission; use placeholders in concepts.
+
+---
+
+## v2 ADDENDUM: newly verified, 25 October 2026
+
+*Everything above this line is the round-1 copy deck, unchanged. Everything below was added in v2. Evidence and reasoning are in `identity.md`. The rules above still apply: no people named, no heritage claims, nothing marked [TO CONFIRM] may be presented as fact.*
+
+### Additional verbatim lines from Matsuba's own print menus (VERIFIED)
+Source: https://matsuba.co.uk/wp-content/uploads/2026/06/MATSUBA-TA10-kids.pdf (section straplines).
+- ABURI NIGIRI: "2 piece portions of flame seared nigiri"
+- NIGIRI: "2 piece portions of fish topped sushi rice"
+- GUNKAN NIGIRI: "2 piece nigiri wrapped in seaweed"
+- SASHIMI IRO IRO: "5 piece sashimi a la carte"
+- MAKI: "Single sushi rolls in 6 pieces"
+- SASHIMI MORIAWASE: "Chef’s choice of assorted sets of fresh sliced raw fish on daikon"
+- RICE SET: "Served with rice & miso soup"
+
+### Tasting menu wording (VERIFIED; correction to how it's described)
+The site lists **14 items** but never says "courses" (https://matsuba.co.uk/matsuba-menu/). In concepts, say "14 dishes" or list them; don't write "14-course" as a quote.
+
+### The name (dictionary facts, VERIFIED; the restaurant's intent is [TO CONFIRM])
+- 松葉 (matsuba) = "pine needle"; 松 (matsu) = "pine tree" (Jisho/JMdict: https://jisho.org/search/%E6%9D%BE%E8%91%89).
+- The menu's "Matsu Set" (already listed above) shares the 松 "matsu" element. Whether that's intended is [TO CONFIRM].
+- No pine imagery is used anywhere by the restaurant. A pine motif would be a new brand element and needs owner sign-off.
+
+### Frontage and signage (VERIFIED from client-supplied Google Maps photo 1, third-party, viewed 25 Oct 2026; uploader shown as "Matsuba")
+- Two slate-grey awnings on a corner frontage, each reading "MATSUBA" in white, widely spaced capitals.
+- Door decal: a round badge that appears to read "Matsuba" in a script face. The photo is low resolution, so the decal's exact wording and the hours printed on it are [TO CONFIRM].
+
+### The street (public record, VERIFIED)
+Source: Richmond Council, *Central Richmond Conservation Area Appraisal* (adopted 20 Nov 2023), https://richmond.gov.uk/central_richmond_conservation_area_appraisal.
+- "Originally, Red Lion Street was a narrow and winding alley"
+- "Both streets were widened in the early 20th century though retaining some of their original winding nature."
+- "The red brick former Police Station and 1920s terrace of shops at nos. 8-32 (even) Red Lion Street present a positive and lively aspect to the street"
+- 10 Red Lion Street lies in the Central Richmond conservation area (planning.data.gov.uk entity 44005250).
+- Historic views exist in the Orleans House Gallery, Richmond Borough Art Collection: F. Viner, *The Red Lion, Red Lion Street, Richmond 1904* (LDORL : 03126); *Red Lion Street, Richmond 1905, showing Orlmond Passage and a corner of the Red Lion* (LDORL : 03123); *The Red Lion Street, Richmond 1906, from top of Artichoke Alley* (LDORL : 03125). Reproduction needs the gallery's permission; use a placeholder until it's cleared.
+- That the street is named after the Red Lion inn: [TO CONFIRM] (no source states it).
+
+### Do not use (v2)
+- "vintage Japanese parasols" (Wanderlog generated summary; no image shows any).
+- Any "noren": none exists at Matsuba. A curtain gesture may be used as a design device (the awning or the slat wall) but must not be described as a noren.
+- The salt-rimmed cocktails photo (`2020/01/hero132x-scaled.jpg`) and the other 2019/2020-folder images and video. The server wrote them all within 22 seconds on 18 May 2021, which fits a theme or stock import (inference), so their provenance as Matsuba's own is UNKNOWN.
+- Any claim that "Lion King nigiri" is named after Red Lion Street.
