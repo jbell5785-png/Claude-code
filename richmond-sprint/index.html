@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Richmond Sprint Portfolio</title>
+<meta name="description" content="Nine speculative website concepts for three independent Richmond restaurants: Chez Lindsay, Matsuba and Swagat. Research, briefs, QA and outreach drafts.">
+<meta name="theme-color" content="#14181f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2314181f'/%3E%3Cpath d='M8 22V10h3l5 7 5-7h3v12' fill='none' stroke='%23e9e4da' stroke-width='2.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: a studio review sheet. One column of businesses; each opens with its case, then three concept columns. */
+:root {
+  --ink: #14181f;
+  --paper: #f6f4ef;
+  --card: #ffffff;
+  --line: #d9d5cc;
+  --muted: #5b5f66;
+  --accent: #1f4fd1;
+  --ok: #1d6b3a;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.6 var(--sans); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 10px 14px; z-index: 10; }
+.skip:focus { left: 16px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+header.top { background: var(--ink); color: #e9e4da; padding-block: clamp(40px, 7vw, 88px) clamp(32px, 5vw, 56px); }
+header.top a { color: #fff; }
+.eyebrow { font: 600 .75rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+header.top .eyebrow { color: #a9b0bc; }
+h1 { font: 400 clamp(2.4rem, 1.5rem + 4vw, 4.4rem)/1.02 var(--serif); letter-spacing: -.015em; margin: 0 0 20px; text-wrap: balance; }
+.lede { max-width: 62ch; font-size: clamp(1.05rem, 1rem + .3vw, 1.2rem); color: #d7d2c8; margin: 0 0 24px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 0; padding: 0; list-style: none; font-size: .95rem; color: #c3c8d0; }
+.facts strong { color: #fff; font-weight: 600; }
+.notice { margin-top: 28px; border-left: 3px solid #e2b04a; padding: 4px 0 4px 14px; max-width: 70ch; font-size: .95rem; color: #e9e4da; }
+nav.jump { border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 5; }
+nav.jump ul { display: flex; gap: 4px 24px; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+nav.jump a { display: inline-flex; align-items: center; min-height: 48px; color: var(--ink); text-decoration: none; font-weight: 500; }
+nav.jump a:hover { text-decoration: underline; }
+main { padding-block: 24px 64px; }
+.biz { padding-block: clamp(40px, 6vw, 72px); border-bottom: 1px solid var(--line); scroll-margin-top: 56px; }
+.biz__head { display: grid; gap: 24px; }
+@media (min-width: 900px) { .biz__head { grid-template-columns: 5fr 4fr; gap: 56px; align-items: start; } }
+h2 { font: 400 clamp(2rem, 1.4rem + 2.4vw, 3rem)/1.05 var(--serif); margin: 0 0 6px; letter-spacing: -.01em; }
+.where { color: var(--muted); margin: 0 0 18px; }
+.why { margin: 0 0 16px; max-width: 60ch; }
+.docs { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-size: .95rem; }
+.docs a { display: inline-flex; min-height: 44px; align-items: center; }
+.rec { background: var(--card); border: 1px solid var(--line); padding: 20px 22px; }
+.rec h3 { font: 600 .75rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--ok); margin: 0 0 8px; }
+.rec p { margin: 0 0 10px; }
+.rec p:last-child { margin: 0; }
+.rec .name { font: 500 1.35rem/1.25 var(--serif); }
+.qa { margin-top: 12px; font-size: .9rem; color: var(--muted); }
+.qa b { color: var(--ok); font-weight: 600; }
+.concepts { display: grid; gap: 28px; margin-top: 36px; list-style: none; padding: 0; }
+@media (min-width: 760px) { .concepts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } }
+.concept { display: flex; flex-direction: column; gap: 12px; }
+.shots { position: relative; aspect-ratio: 720 / 450; max-width: 100%; background: #e6e2da; border: 1px solid var(--line); overflow: hidden; }
+.shots img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.shots .phone { position: absolute; right: 8px; bottom: 8px; width: 26%; height: auto; aspect-ratio: 234 / 506; object-fit: cover; object-position: top; border: 3px solid var(--ink); border-radius: 10px; background: var(--ink); }
+.concept h4 { font: 500 1.3rem/1.2 var(--serif); margin: 0; }
+.concept h4 .letter { font: 600 .8rem/1 var(--sans); letter-spacing: .1em; color: var(--muted); margin-right: 6px; }
+.concept .tag { display: inline-block; font: 600 .7rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--ok); border: 1px solid currentColor; padding: 4px 6px; margin-left: 6px; vertical-align: 3px; }
+.concept p { margin: 0; color: #2c3038; font-size: .97rem; }
+.concept .sig { color: var(--muted); font-size: .9rem; }
+.concept .links { display: flex; gap: 4px 16px; flex-wrap: wrap; margin-top: auto; }
+.concept .links a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 600; }
+footer { padding-block: 40px 56px; color: var(--muted); font-size: .92rem; }
+footer p { max-width: 75ch; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the work</a>
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">Studio review · Richmond, London · 25 October 2026</p>
+    <h1>Three Richmond restaurants, nine website concepts</h1>
+    <p class="lede">Each business was researched from public sources, given a written brief, and offered three genuinely different creative directions, each built as a working, responsive prototype with a full menu page.</p>
+    <ul class="facts">
+      <li><strong>3</strong> businesses</li>
+      <li><strong>9</strong> concepts, each with a homepage and a menu</li>
+      <li><strong>0</strong> console errors and <strong>0</strong> axe A/AA violations across all nine</li>
+    </ul>
+    <p class="notice">Every concept is a speculative proposal, not an official website, and none was commissioned or endorsed by the business. Nothing has been published or sent. Facts the studio couldn't verify are marked "to confirm" on the pages.</p>
+  </div>
+</header>
+<nav class="jump" aria-label="Businesses">
+  <div class="wrap">
+    <ul>
+      <li><a href="#chez-lindsay">Chez Lindsay</a></li>
+      <li><a href="#matsuba">Matsuba</a></li>
+      <li><a href="#swagat">Swagat</a></li>
+      <li><a href="CHECKLIST.md">Checklist</a></li>
+      <li><a href="_shared/discovery-log.md">How they were chosen</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main">
+  <div class="wrap">
+
+    <section class="biz" id="chez-lindsay" aria-labelledby="cl-title">
+      <div class="biz__head">
+        <div>
+          <h2 id="cl-title">Chez Lindsay</h2>
+          <p class="where">Breton restaurant and wine bar · 11 Hill Rise, by Richmond Bridge · since 1988</p>
+          <p class="why"><strong>Why:</strong> its 2014 site has no mobile layout. At 390px it is a fixed 1000px page with the logo cut off, all six menus are PDFs, and the hours (closed Tuesdays, galettes and set lunch until 5pm, the carte from 5pm) are hard to piece together. The lease changed hands in 2024, so the new owners are a natural audience.</p>
+          <ul class="docs">
+            <li><a href="chez-lindsay/README.md">Package and QA</a></li>
+            <li><a href="chez-lindsay/research/dossier.md">Research dossier</a></li>
+            <li><a href="chez-lindsay/brief.md">Brief</a></li>
+            <li><a href="chez-lindsay/outreach-email.md">Email draft</a></li>
+          </ul>
+        </div>
+        <aside class="rec" aria-label="Recommendation for Chez Lindsay">
+          <h3>Recommended</h3>
+          <p class="name">A · "Ce midi, ce soir"</p>
+          <p>It solves the restaurant's real problem: what is being served right now, and when. It does that in a calm evolution of the olive-and-linen identity the new owners bought into.</p>
+          <p class="qa"><b>QA passed</b> on all three concepts. See the package for details and limitations.</p>
+        </aside>
+      </div>
+      <ul class="concepts">
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/chez-lindsay-a-desktop.jpg" width="720" height="450" alt="Concept A homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/chez-lindsay-a-phone.jpg" width="234" height="506" alt="Concept A homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">A</span>Ce midi, ce soir <span class="tag">Recommended</span></h4>
+          <p>A classic bistro board that always knows what's being served.</p>
+          <p class="sig">Signature: a service clock in London time, with a day-and-time preview. It's tested against every minute of the week.</p>
+          <p class="links"><a href="chez-lindsay/concept-a/index.html">Homepage</a><a href="chez-lindsay/concept-a/menu.html">Menu</a><a href="chez-lindsay/concept-a/NOTES.md">Notes</a></p>
+        </li>
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/chez-lindsay-b-desktop.jpg" width="720" height="450" alt="Concept B homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/chez-lindsay-b-phone.jpg" width="234" height="506" alt="Concept B homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">B</span>Marée</h4>
+          <p>The Brittany coast on the tidal Thames: a navy coastal-chart editorial.</p>
+          <p class="sig">Signature: a compass that filters the menus by Mer, Terre, Potager and Sucré.</p>
+          <p class="links"><a href="chez-lindsay/concept-b/index.html">Homepage</a><a href="chez-lindsay/concept-b/menu.html">Menu</a><a href="chez-lindsay/concept-b/NOTES.md">Notes</a></p>
+        </li>
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/chez-lindsay-c-desktop.jpg" width="720" height="450" alt="Concept C homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/chez-lindsay-c-phone.jpg" width="234" height="506" alt="Concept C homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">C</span>Le Billig</h4>
+          <p>A bold identity from the griddle's circle and the galette's square fold.</p>
+          <p class="sig">Signature: the hero galette folds into a square, and its yolk is the Book button.</p>
+          <p class="links"><a href="chez-lindsay/concept-c/index.html">Homepage</a><a href="chez-lindsay/concept-c/menu.html">Menu</a><a href="chez-lindsay/concept-c/NOTES.md">Notes</a></p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="biz" id="matsuba" aria-labelledby="ma-title">
+      <div class="biz__head">
+        <div>
+          <h2 id="ma-title">Matsuba</h2>
+          <p class="where">Family-run Japanese restaurant · 10 Red Lion Street · since 2004</p>
+          <p class="why"><strong>Why:</strong> its site is a generic template, with one filler line repeated six times and "best sushi in London" on every page. On a phone, the first screen has no hours, menu or ordering link. Its printed menus already have a burgundy-and-gold brand that the website never uses.</p>
+          <ul class="docs">
+            <li><a href="matsuba/README.md">Package and QA</a></li>
+            <li><a href="matsuba/research/dossier.md">Research dossier</a></li>
+            <li><a href="matsuba/brief.md">Brief</a></li>
+            <li><a href="matsuba/outreach-email.md">Email draft</a></li>
+          </ul>
+        </div>
+        <aside class="rec" aria-label="Recommendation for Matsuba">
+          <h3>Recommended</h3>
+          <p class="name">A · "Noren"</p>
+          <p>It brings their own print colours online, makes "small and family-run" the point, and still puts Book and Order (20% off collection) on the first screen of a phone.</p>
+          <p class="qa"><b>QA passed</b> on all three. The email draft also carries a separate, optional security courtesy note about a script on their current site.</p>
+        </aside>
+      </div>
+      <ul class="concepts">
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/matsuba-a-desktop.jpg" width="720" height="450" alt="Concept A homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/matsuba-a-phone.jpg" width="234" height="506" alt="Concept A homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">A</span>Noren <span class="tag">Recommended</span></h4>
+          <p>Through the curtain into a tiny, warm room, in their print burgundy and gold.</p>
+          <p class="sig">Signature: a five-panel fabric curtain that parts on load and lifts on hover.</p>
+          <p class="links"><a href="matsuba/concept-a/index.html">Homepage</a><a href="matsuba/concept-a/menu.html">Menu</a><a href="matsuba/concept-a/NOTES.md">Notes</a></p>
+        </li>
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/matsuba-b-desktop.jpg" width="720" height="450" alt="Concept B homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/matsuba-b-phone.jpg" width="234" height="506" alt="Concept B homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">B</span>Counter</h4>
+          <p>The evening at the bar: timber slats, warm bulbs, the tasting menu.</p>
+          <p class="sig">Signature: a swipeable rail through the 14 tasting courses.</p>
+          <p class="links"><a href="matsuba/concept-b/index.html">Homepage</a><a href="matsuba/concept-b/menu.html">Menu</a><a href="matsuba/concept-b/NOTES.md">Notes</a></p>
+        </li>
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/matsuba-c-desktop.jpg" width="720" height="450" alt="Concept C homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/matsuba-c-phone.jpg" width="234" height="506" alt="Concept C homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">C</span>Bento</h4>
+          <p>The daytime and takeaway Matsuba, laid out like a bento box.</p>
+          <p class="sig">Signature: menu compartments that open to fill the box, plus a live "Today" state.</p>
+          <p class="links"><a href="matsuba/concept-c/index.html">Homepage</a><a href="matsuba/concept-c/menu.html">Menu</a><a href="matsuba/concept-c/NOTES.md">Notes</a></p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="biz" id="swagat" aria-labelledby="sw-title">
+      <div class="biz__head">
+        <div>
+          <h2 id="sw-title">Swagat</h2>
+          <p class="where">Indian restaurant · 86 Hill Rise, Richmond Hill</p>
+          <p class="why"><strong>Why:</strong> its site is unfinished where customers will notice. About Us shows lorem ipsum, the Menu page shows raw ordering-system code, the mobile menu icon is white on white, and the hours sit about 15,500px down the phone homepage. Its real strengths, regional dishes and fifteen vegetarian mains, are buried.</p>
+          <ul class="docs">
+            <li><a href="swagat/README.md">Package and QA</a></li>
+            <li><a href="swagat/research/dossier.md">Research dossier</a></li>
+            <li><a href="swagat/brief.md">Brief</a></li>
+            <li><a href="swagat/outreach-email.md">Email draft</a></li>
+          </ul>
+        </div>
+        <aside class="rec" aria-label="Recommendation for Swagat">
+          <h3>Recommended</h3>
+          <p class="name">B · "Swagat", the welcome</p>
+          <p>An identity drawn from the restaurant's own name, with the regional story told in the menu's own words. Concept A's thali builder would make a strong second phase.</p>
+          <p class="qa"><b>QA passed</b> on all three. Prices, hours and several allergen codes need the restaurant's confirmation.</p>
+        </aside>
+      </div>
+      <ul class="concepts">
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/swagat-a-desktop.jpg" width="720" height="450" alt="Concept A homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/swagat-a-phone.jpg" width="234" height="506" alt="Concept A homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">A</span>Thali</h4>
+          <p>Put a whole meal together, plate by plate.</p>
+          <p class="sig">Signature: build a thali from the real menu, with an estimated total and allergen summary, then order for collection.</p>
+          <p class="links"><a href="swagat/concept-a/index.html">Homepage</a><a href="swagat/concept-a/menu.html">Menu</a><a href="swagat/concept-a/NOTES.md">Notes</a></p>
+        </li>
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/swagat-b-desktop.jpg" width="720" height="450" alt="Concept B homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/swagat-b-phone.jpg" width="234" height="506" alt="Concept B homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">B</span>Swagat, the welcome <span class="tag">Recommended</span></h4>
+          <p>स्वागत: a welcome drawn on the doorstep, then the regional story.</p>
+          <p class="sig">Signature: an original seeded dot-grid pattern that draws itself around the wordmark.</p>
+          <p class="links"><a href="swagat/concept-b/index.html">Homepage</a><a href="swagat/concept-b/menu.html">Menu</a><a href="swagat/concept-b/NOTES.md">Notes</a></p>
+        </li>
+        <li class="concept">
+          <div class="shots"><img src="_index/thumbs/swagat-c-desktop.jpg" width="720" height="450" alt="Concept C homepage at desktop width" loading="lazy"><img class="phone" src="_index/thumbs/swagat-c-phone.jpg" width="234" height="506" alt="Concept C homepage on a phone" loading="lazy"></div>
+          <h4><span class="letter">C</span>Tandoor</h4>
+          <p>The heat of the clay oven, as bold poster typography.</p>
+          <p class="sig">Signature: an All / Vegetarian / Non-vegetarian switch that re-composes the menu.</p>
+          <p class="links"><a href="swagat/concept-c/index.html">Homepage</a><a href="swagat/concept-c/menu.html">Menu</a><a href="swagat/concept-c/NOTES.md">Notes</a></p>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <p><strong>How these were made:</strong> public research only, with sources and dates in each dossier. Each concept was designed and built by a separate builder working from the shared spec in <a href="_shared/tech-spec.md">_shared/tech-spec.md</a>. Every concept was then checked in Chromium at 390, 768 and 1440px for console errors, failed requests, broken links, overflow, layout shift and axe-core WCAG A/AA, and its screenshots were reviewed by eye. Not tested: Safari or Firefox, real phones, or real screen readers.</p>
+    <p>To view the concepts, serve this folder (for example <code>python3 -m http.server 8000 --directory richmond-sprint</code>) and open http://localhost:8000. Markdown files open as plain text in a browser.</p>
+  </div>
+</footer>
+</body>
+</html>

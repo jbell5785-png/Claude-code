@@ -18,9 +18,9 @@ Started 2026-10-25 05:50 UTC. Status key: [ ] todo, [~] in progress, [x] done, [
 - [x] Brief and three design theses for business 3
 
 ## Phase 4: build (one builder agent per concept)
-- [~] Chez Lindsay: concepts A, B, C (builders running)
-- [~] Matsuba: concepts A, B, C (builders running)
-- [~] Swagat: concepts A, B, C (builders running; first launch failed on a transient check error, retried once successfully)
+- [~] Chez Lindsay: A and B built and QA'd; C building
+- [x] Matsuba: concepts A, B, C built and QA'd
+- [x] Swagat: concepts A, B, C built and QA'd (first launch failed on a transient check error; retried once)
 
 ## Phase 5: QA (by me, rendered in Chromium)
 - [ ] Harness run per concept (console, links, axe, overflow, layout shift, no-JS, reduced motion)
