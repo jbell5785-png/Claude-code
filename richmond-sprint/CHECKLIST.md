@@ -10,17 +10,17 @@ Started 2026-10-25 05:50 UTC. Status key: [ ] todo, [~] in progress, [x] done, [
 - [x] Long-list independent Richmond restaurants and cafés (non-Italian, distinct identities): `_shared/discovery-log.md`
 - [x] Check each candidate's website (live render, mobile and desktop)
 - [x] Selected: Chez Lindsay, Matsuba, Swagat. Excluded Swiss Bread (weak evidence), Robin Cafe (runner-up, too few facts)
-- [~] Research dossier per business, with sources and dates (three research agents running)
+- [x] Research dossier and copy deck per business (`<business>/research/`)
 
 ## Phase 2–3: briefs and directions
-- [ ] Brief and three design theses for business 1
-- [ ] Brief and three design theses for business 2
-- [ ] Brief and three design theses for business 3
+- [x] Brief and three design theses for business 1
+- [x] Brief and three design theses for business 2
+- [x] Brief and three design theses for business 3
 
 ## Phase 4: build (one builder agent per concept)
-- [ ] Business 1: concepts A, B, C
-- [ ] Business 2: concepts A, B, C
-- [ ] Business 3: concepts A, B, C
+- [~] Chez Lindsay: concepts A, B, C (builders running)
+- [~] Matsuba: concepts A, B, C (builders running)
+- [~] Swagat: concepts A, B, C (builders running; first launch failed on a transient check error, retried once successfully)
 
 ## Phase 5: QA (by me, rendered in Chromium)
 - [ ] Harness run per concept (console, links, axe, overflow, layout shift, no-JS, reduced motion)
