@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matsuba · Tuna Tataki, torched-seared · 10 Red Lion Street, Richmond</title>
+<meta name="description" content="Matsuba, a family-run Japanese restaurant at 10 Red Lion Street, Richmond, first opened in 2004. Torched-seared Tuna Tataki, eight aburi nigiri and Special Rolls exclusively created by MATSUBA.">
+<meta name="theme-color" content="#640934">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Matsuba · Richmond">
+<meta property="og:description" content="Taste our signature appetizer, Tuna Tataki: torched-seared tuna slices with mooli and ponzu sauce. 10 Red Lion Street, Richmond.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23640934'/%3E%3Crect x='2.5' y='2.5' width='27' height='27' fill='none' stroke='%23D1A75B'/%3E%3Cpath d='M16 6c1.6 3.8 6 6.6 6 11.6 0 4-2.7 6.9-6 6.9s-6-2.9-6-6.9c0-2.8 1.6-4.4 2.8-5.8.2 2 1 3.2 2 3.8-.5-3.4.2-6.8 1.2-9.6z' fill='%23D1A75B'/%3E%3Cpath d='M16 15.5c1.3 1.9 2.6 3.1 2.6 5.1 0 1.7-1.2 2.8-2.6 2.8s-2.6-1.1-2.6-2.8c0-1.8 1.5-3 2.6-5.1z' fill='%233A7BD5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300..700;1,300..500&family=Marcellus&display=swap">
+<link rel="stylesheet" href="css/aburi.css">
+<script>
+  (function () {
+    var d = document.documentElement, ok = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    d.classList.add('js');
+    if (ok) d.classList.add('js-motion');
+    if (ok && window.CSS && CSS.registerProperty && window.IntersectionObserver) d.classList.add('sear-on');
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Matsuba",
+  "url": "https://matsuba.co.uk/",
+  "servesCuisine": "Japanese",
+  "telephone": "+44 20 8605 3513",
+  "email": "info@matsuba.co.uk",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "10 Red Lion Street",
+    "addressLocality": "Richmond",
+    "postalCode": "TW9 1RW",
+    "addressCountry": "GB"
+  },
+  "acceptsReservations": "https://booking.favouritetable.com/?SiteCode=2122",
+  "menu": "https://matsuba.co.uk/matsuba-menu/",
+  "sameAs": ["https://www.instagram.com/matsuba.london/"]
+}
+</script>
+<script src="js/aburi.js" defer></script>
+</head>
+<body class="home">
+<a class="skip" href="#main">Skip to content</a>
+<div class="frame" aria-hidden="true"></div>
+
+<!-- Shared drawing parts: the torch flame and the menu's torch mark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-flame-outer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3A7BD5" stop-opacity=".2"/>
+      <stop offset=".16" stop-color="#3A7BD5" stop-opacity=".8"/>
+      <stop offset=".4" stop-color="#9DBFEF" stop-opacity=".55"/>
+      <stop offset=".6" stop-color="#F7C46A" stop-opacity=".92"/>
+      <stop offset=".86" stop-color="#F09A2E"/>
+      <stop offset="1" stop-color="#D9701C"/>
+    </linearGradient>
+    <linearGradient id="g-flame-core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4F8FF"/>
+      <stop offset=".35" stop-color="#9CC2F5"/>
+      <stop offset=".75" stop-color="#3A7BD5"/>
+      <stop offset="1" stop-color="#3A7BD5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="g-nozzle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5A4120"/>
+      <stop offset=".45" stop-color="#D3B47A"/>
+      <stop offset=".7" stop-color="#8A6421"/>
+      <stop offset="1" stop-color="#43301A"/>
+    </linearGradient>
+    <linearGradient id="g-mark-outer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C8681C"/>
+      <stop offset="1" stop-color="#8E3F0C"/>
+    </linearGradient>
+    <linearGradient id="g-mark-core" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E9FE6"/>
+      <stop offset="1" stop-color="#2D62B0"/>
+    </linearGradient>
+  </defs>
+  <symbol id="flame" viewBox="0 0 24 60">
+    <rect x="7.5" y="0" width="9" height="7" rx="1.2" fill="url(#g-nozzle)"/>
+    <rect x="9" y="6.4" width="6" height="2.2" fill="#3F2B1C"/>
+    <path d="M12 8.5C17.5 15 20 23 17.6 33 16 40.5 13.6 50 12 59.5 10.4 50 8 40.5 6.4 33 4 23 6.5 15 12 8.5Z" fill="url(#g-flame-outer)"/>
+    <path d="M12 9C14.6 13 15.6 18 14.6 23.5 13.9 27 12.8 30.5 12 33 11.2 30.5 10.1 27 9.4 23.5 8.4 18 9.4 13 12 9Z" fill="url(#g-flame-core)"/>
+    <path d="M12 10.2C12.8 14 12.9 18 12 22 11.1 18 11.2 14 12 10.2Z" fill="#fff" opacity=".85"/>
+  </symbol>
+  <symbol id="torch" viewBox="0 0 16 20">
+    <path d="M8 1C9.5 4.5 14 7.5 14 12.5 14 16.5 11.3 19 8 19S2 16.5 2 12.5C2 9.6 3.6 8 4.8 6.6 5 8.6 5.8 9.8 6.8 10.4 6.4 7 7 3.6 8 1Z" fill="url(#g-mark-outer)"/>
+    <path d="M8 9.5C9.3 11.4 10.6 12.6 10.6 14.6 10.6 16.3 9.4 17.4 8 17.4S5.4 16.3 5.4 14.6C5.4 12.8 6.9 11.6 8 9.5Z" fill="url(#g-mark-core)"/>
+  </symbol>
+</svg>
+
+<header class="bar">
+  <nav class="bar__in" aria-label="Primary">
+    <div class="bar__side">
+      <a class="bar__link" href="menu.html">Menu</a>
+      <a class="bar__link" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order<span class="vh"> online with Toast (opens in a new tab)</span></a>
+    </div>
+    <a class="wordmark" href="index.html" aria-current="page"><span>Matsuba</span></a>
+    <div class="bar__side bar__side--end">
+      <a class="bar__link" href="tel:+442086053513">020 8605 3513</a>
+      <a class="btn btn--primary" href="#book"><span>Book</span></a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO: their signature appetizer, seared ============ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <svg class="hero__veins" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="g-hero-light" cx="50%" cy="42%" r="70%">
+          <stop offset="0" stop-color="#FFFDF8"/>
+          <stop offset="1" stop-color="#F4F2EE" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g fill="none" stroke-linecap="round">
+        <g stroke="#E3DCD1" stroke-width="12" opacity=".45">
+          <path d="M-60 210C180 250 360 160 560 236S900 372 1110 300 1380 214 1520 252"/>
+          <path d="M-60 690C150 640 320 740 540 680S820 560 1000 630 1300 770 1520 700"/>
+        </g>
+        <g stroke="#CFC6B9" stroke-width="1.1" opacity=".6">
+          <path d="M-60 214C180 254 360 162 560 238S900 374 1110 302 1380 216 1520 254"/>
+          <path d="M560 238C610 300 652 330 742 352S880 420 912 470"/>
+          <path d="M1110 302C1140 252 1196 236 1262 238"/>
+          <path d="M-60 692C150 642 320 742 540 682S820 562 1000 632 1300 772 1520 702"/>
+          <path d="M1000 632C1030 572 1082 548 1140 530S1240 470 1262 430"/>
+          <path d="M320 742C346 790 330 840 360 912"/>
+        </g>
+        <g stroke="#D9D1C5" stroke-width=".7" opacity=".55">
+          <path d="M140 60C260 120 300 90 420 130"/>
+          <path d="M760 820C860 790 940 830 1040 800"/>
+          <path d="M1240 120C1300 160 1350 150 1440 190"/>
+        </g>
+      </g>
+      <rect width="1440" height="900" fill="url(#g-hero-light)"/>
+    </svg>
+
+    <p class="kicker"><span aria-hidden="true">• </span>Taste our signature appetizer<span aria-hidden="true"> •</span></p>
+    <h1 class="hero__dish" id="hero-h">
+      <span class="sear" data-sear data-hero data-text="Tuna">Tuna</span>
+      <span class="sear" data-sear data-hero data-text="Tataki">Tataki</span>
+    </h1>
+    <p class="hero__desc">Torched-seared tuna slices with mooli and ponzu sauce</p>
+    <p class="hero__price"><span class="vh">Price: £</span>14.9</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#book"><span>Book a table</span></a>
+      <a class="btn" href="menu.html"><span>See the menu</span></a>
+    </div>
+    <button class="resear" type="button" data-resear><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg>Sear it again</button>
+
+    <ul class="hero__facts">
+      <li>First opened in 2004</li>
+      <li>Family-run</li>
+      <li>10 Red Lion Street, Richmond</li>
+    </ul>
+
+    <!-- the white marble table: wooden chopsticks on a black pebble rest -->
+    <svg class="hero__rest" viewBox="0 0 420 150" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="g-pebble-h" cx=".36" cy=".3" r=".8">
+          <stop offset="0" stop-color="#5E5550"/>
+          <stop offset=".42" stop-color="#211B18"/>
+          <stop offset="1" stop-color="#0B0908"/>
+        </radialGradient>
+        <linearGradient id="g-wood-h" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#E2C28D"/>
+          <stop offset=".55" stop-color="#BE9058"/>
+          <stop offset="1" stop-color="#8E6536"/>
+        </linearGradient>
+        <filter id="f-soft-h" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+      </defs>
+      <ellipse cx="326" cy="108" rx="34" ry="7.5" fill="#3F2B1C" opacity=".22" filter="url(#f-soft-h)"/>
+      <path d="M6 144 322 106 322 100 6 139Z" fill="#3F2B1C" opacity=".12" filter="url(#f-soft-h)"/>
+      <path d="M20 152 330 118 330 112 20 147Z" fill="#3F2B1C" opacity=".1" filter="url(#f-soft-h)"/>
+      <ellipse cx="318" cy="96" rx="30" ry="14" fill="url(#g-pebble-h)"/>
+      <ellipse cx="308" cy="89" rx="11" ry="3.6" fill="#8A817B" opacity=".35"/>
+      <polygon points="5.3,136.7 407.7,56.3 408.3,59.7 6.7,143.3" fill="url(#g-wood-h)"/>
+      <path d="M6 137.6 407.8 57.3" stroke="#F3DDB3" stroke-width=".8" opacity=".7"/>
+      <polygon points="21.4,146.7 413.7,72.3 414.3,75.7 22.6,153.3" fill="url(#g-wood-h)"/>
+      <path d="M22 147.6 413.8 73.2" stroke="#F3DDB3" stroke-width=".8" opacity=".7"/>
+    </svg>
+  </section>
+
+  <!-- ============ ABURI NIGIRI: the eight, flame seared ============ -->
+  <section class="aburi" id="aburi" aria-labelledby="aburi-h">
+    <div class="wrap">
+      <h2 class="head will-draw" id="aburi-h"><span>Aburi Nigiri</span></h2>
+      <p class="strap">2 piece portions of flame seared nigiri</p>
+
+      <div class="aburi__grid">
+        <div class="aburi__list">
+          <ul class="nigiri">
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Toro">Toro</span></p><p class="dish__desc">fatty tuna</p><p class="dish__price"><span class="vh">£</span>11.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Shake">Shake</span></p><p class="dish__desc">salmon</p><p class="dish__price"><span class="vh">£</span>7.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Hotate">Hotate</span></p><p class="dish__desc">scallop</p><p class="dish__price"><span class="vh">£</span>9.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Suzuki">Suzuki</span></p><p class="dish__desc">seabass</p><p class="dish__price"><span class="vh">£</span>8.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Maguro">Maguro</span></p><p class="dish__desc">tuna</p><p class="dish__price"><span class="vh">£</span>9.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Hamachi">Hamachi</span></p><p class="dish__desc">yellow tail</p><p class="dish__price"><span class="vh">£</span>9.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Saba">Saba</span></p><p class="dish__desc">mackerel</p><p class="dish__price"><span class="vh">£</span>6.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Unagi">Unagi</span></p><p class="dish__desc">eel</p><p class="dish__price"><span class="vh">£</span>8.9</p></li>
+          </ul>
+        </div>
+
+        <figure class="slot aburi__slot rise">
+          <div class="slot__frame"><div><p>Photograph<br>to commission</p></div></div>
+          <figcaption><strong>Shot list, no. 1</strong>Tuna Tataki on the white marble table, shot from above the moment the torch lifts: mooli and ponzu beside it, a black pebble chopstick rest in frame.</figcaption>
+        </figure>
+
+        <div class="aburi__also">
+          <h3 class="subhead"><span aria-hidden="true">• </span>Also seared<span aria-hidden="true"> •</span></h3>
+          <ul class="dishes">
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Salmon Aburi Carpaccio">Salmon Aburi Carpaccio</span></p><p class="dish__desc">Torch-seared salmon pieces with yuzu miso dressing</p><p class="dish__price"><span class="vh">£</span>13.9</p></li>
+            <li class="dish" data-seared><p class="dish__name"><span class="sear" data-sear data-text="Lion King nigiri">Lion King nigiri</span></p><p class="dish__desc">Salmon aburi nigiri with cheddar</p><p class="dish__price dish__price--note">on the tasting menu</p></li>
+          </ul>
+          <div class="aburi__more">
+            <a class="link-ember" href="menu.html?aburi"><svg class="torch" aria-hidden="true" focusable="false"><use href="#torch"/></svg>Every seared dish on the menu</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPECIAL ROLLS + the takeaway cover ============ -->
+  <section class="rolls" aria-labelledby="rolls-h">
+    <div class="wrap">
+      <h2 class="head head--taupe will-draw" id="rolls-h"><span>Special Rolls</span></h2>
+      <p class="strap">large 8 piece rolls exclusively created by MATSUBA</p>
+      <div class="rolls__grid">
+        <ul class="dishes">
+          <li class="dish"><p class="dish__name">Matsuba Roll</p><p class="dish__desc">Prawn tempura, avocado, cucumber, spring onion, crispy coating, tobiko, lemon mayo</p><p class="dish__price"><span class="vh">£</span>12.9/22.9</p></li>
+          <li class="dish"><p class="dish__name">Spider Roll</p><p class="dish__desc">Soft shell crab, avocado, cucumber, spring onion, tobiko, lemon mayo</p><p class="dish__price"><span class="vh">£</span>13.9/23.9</p></li>
+          <li class="dish"><p class="dish__name">Crunch Tuna Roll</p><p class="dish__desc">Crispy coated tuna, avocado, cucumber, spring onion, spicy mayo</p><p class="dish__price"><span class="vh">£</span>23.9</p></li>
+          <li class="dish"><p class="dish__name">Dynamite Roll</p><p class="dish__desc">Prawn tempura, spicy tuna, salmon, cucumber, jalapeño, spicy mayo</p><p class="dish__price"><span class="vh">£</span>24.9</p></li>
+          <li class="dish"><p class="dish__name">Chicken Katsu Roll</p><p class="dish__desc">Crispy coated chicken katsu, cucumber, salad, Tonkatsu sauce</p><p class="dish__price"><span class="vh">£</span>21.9</p></li>
+          <li class="dish"><p class="dish__name">Special K Roll (Beef or Veg <abbr class="mk" title="suitable for vegans">vg</abbr>)</p><p class="dish__desc">Carrot, spinach, pickled radish, sesame seed, cucumber, seasoned tofu</p><p class="dish__price"><span class="vh">£</span>17.9/16.9</p></li>
+        </ul>
+
+        <!-- set in the grammar of their takeaway menu cover -->
+        <aside class="deal" aria-labelledby="deal-h">
+          <p class="deal__mark" aria-hidden="true">Matsuba</p>
+          <h3 class="deal__title" id="deal-h">Takeaway menu</h3>
+          <p class="deal__big"><span>Takeaway deal</span><strong>20% off</strong></p>
+          <p class="deal__sub">Collection only<br>everyday</p>
+          <p class="deal__fine">Kids Menu not included*</p>
+          <a class="btn btn--primary" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener"><span>Order online</span><span class="vh"> with Toast (opens in a new tab)</span></a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENING: the table, the candle in its copper holder ============ -->
+  <section class="evening on-dark" id="book" aria-labelledby="evening-h">
+    <div class="wrap evening__grid">
+      <figure class="evening__art">
+        <svg class="candle" viewBox="0 0 640 500" role="img" aria-labelledby="table-t">
+          <title id="table-t">Drawing: a white marble table at Matsuba in the evening, with a candle glowing in its copper holder, a wine glass, a folded napkin on a small white dish and wooden chopsticks on a black pebble rest.</title>
+          <defs>
+            <linearGradient id="g-night" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1A100A"/>
+              <stop offset="1" stop-color="#2B1C12"/>
+            </linearGradient>
+            <radialGradient id="g-halo" cx="250" cy="282" r="320" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFC46E" stop-opacity=".5"/>
+              <stop offset=".35" stop-color="#F0963C" stop-opacity=".18"/>
+              <stop offset="1" stop-color="#F0963C" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="g-marble" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#D9CFC1"/>
+              <stop offset=".45" stop-color="#EDE6DB"/>
+              <stop offset="1" stop-color="#C9BEAE"/>
+            </linearGradient>
+            <radialGradient id="g-pool" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#FFE2B0" stop-opacity=".95"/>
+              <stop offset=".55" stop-color="#FBD39A" stop-opacity=".35"/>
+              <stop offset="1" stop-color="#FBD39A" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="g-copper" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#4A220E"/>
+              <stop offset=".16" stop-color="#8E4722"/>
+              <stop offset=".34" stop-color="#D98F58"/>
+              <stop offset=".41" stop-color="#F6C996"/>
+              <stop offset=".5" stop-color="#C07040"/>
+              <stop offset=".78" stop-color="#7A3A18"/>
+              <stop offset="1" stop-color="#3E1C0B"/>
+            </linearGradient>
+            <linearGradient id="g-copper-rim" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#6E3618"/>
+              <stop offset=".38" stop-color="#F2BE8C"/>
+              <stop offset="1" stop-color="#8C4A22"/>
+            </linearGradient>
+            <linearGradient id="g-glass" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#FFF8EC" stop-opacity=".55"/>
+              <stop offset=".22" stop-color="#FFF2DC" stop-opacity=".2"/>
+              <stop offset=".7" stop-color="#FFE9C8" stop-opacity=".16"/>
+              <stop offset="1" stop-color="#FFF8EC" stop-opacity=".5"/>
+            </linearGradient>
+            <radialGradient id="g-inner" cx=".5" cy=".62" r=".6">
+              <stop offset="0" stop-color="#FFE3A6" stop-opacity=".95"/>
+              <stop offset=".55" stop-color="#FFB861" stop-opacity=".45"/>
+              <stop offset="1" stop-color="#FFB861" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g-candle" cx=".5" cy=".7" r=".6">
+              <stop offset="0" stop-color="#FFFDF0"/>
+              <stop offset=".4" stop-color="#FFE08A"/>
+              <stop offset=".8" stop-color="#F7A73A"/>
+              <stop offset="1" stop-color="#E07A1F"/>
+            </radialGradient>
+            <radialGradient id="g-pebble" cx=".36" cy=".3" r=".8">
+              <stop offset="0" stop-color="#5E5550"/>
+              <stop offset=".42" stop-color="#211B18"/>
+              <stop offset="1" stop-color="#0B0908"/>
+            </radialGradient>
+            <linearGradient id="g-wood" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#E2C28D"/>
+              <stop offset=".55" stop-color="#BE9058"/>
+              <stop offset="1" stop-color="#8E6536"/>
+            </linearGradient>
+            <clipPath id="c-table"><path d="M0 236 640 176V500H0Z"/></clipPath>
+            <filter id="f-soft" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+            <filter id="f-soft2" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+          </defs>
+
+          <rect width="640" height="500" fill="url(#g-night)"/>
+          <!-- banquette back, dark leather with a seam -->
+          <path d="M0 64C0 54 8 48 18 48H640V200L0 242Z" fill="#2A2220"/>
+          <path d="M0 142 640 118" stroke="#1B1513" stroke-width="2"/>
+          <path d="M0 144 640 120" stroke="#3A302C" stroke-width=".8" opacity=".7"/>
+
+          <!-- the white marble top -->
+          <path d="M0 236 640 176V500H0Z" fill="url(#g-marble)"/>
+          <g clip-path="url(#c-table)" fill="none" stroke-linecap="round">
+            <g stroke="#B5A896" stroke-width=".9" opacity=".55">
+              <path d="M-10 300C90 296 160 340 260 330S420 300 520 330 600 360 660 352"/>
+              <path d="M260 330C290 360 300 400 352 420S430 470 444 520"/>
+              <path d="M40 440C120 420 160 468 240 462"/>
+              <path d="M470 220C500 250 560 252 650 240"/>
+            </g>
+            <g stroke="#FFFFFF" stroke-width="5" opacity=".18"><path d="M-10 380C110 360 200 410 330 392S520 360 660 400"/></g>
+          </g>
+          <path d="M0 236 640 176" stroke="#F8F3EA" stroke-width="1.4" opacity=".75"/>
+
+          <!-- candlelight -->
+          <ellipse class="candle-glow" cx="250" cy="362" rx="250" ry="78" fill="url(#g-pool)"/>
+          <rect class="candle-glow" width="640" height="500" fill="url(#g-halo)"/>
+
+          <!-- wine glass -->
+          <g>
+            <ellipse cx="128" cy="398" rx="44" ry="7" fill="#2B1C12" opacity=".22" filter="url(#f-soft2)" transform="translate(-22 2)"/>
+            <ellipse cx="120" cy="392" rx="30" ry="6.5" fill="#FFFFFF" fill-opacity=".22" stroke="#FFFFFF" stroke-opacity=".7" stroke-width=".9"/>
+            <path d="M120 300V390" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="2.4"/>
+            <path d="M88 218C86 262 98 296 120 300 142 296 154 262 152 218Z" fill="#FFFFFF" fill-opacity=".08" stroke="#FFFFFF" stroke-opacity=".62" stroke-width="1.2"/>
+            <ellipse cx="120" cy="218" rx="32" ry="6" fill="#FFFFFF" fill-opacity=".05" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="1"/>
+            <path d="M143 234C147 252 145 272 138 286" stroke="#FFCF8A" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+            <path d="M96 236C95 252 98 268 104 280" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity=".35"/>
+          </g>
+
+          <!-- the candle: frosted glass in a small copper holder -->
+          <g>
+            <ellipse cx="258" cy="361" rx="52" ry="8" fill="#2B1C12" opacity=".3" filter="url(#f-soft2)"/>
+            <ellipse class="candle-glow" cx="250" cy="300" rx="44" ry="50" fill="url(#g-inner)"/>
+            <path d="M250 304V296" stroke="#2B1C12" stroke-width="1.4"/>
+            <path class="candle-flame" d="M250 266C256 279 259.5 288 257.5 295.5 256 301 253.3 303 250 303S244 301 242.5 295.5C240.5 288 244 279 250 266Z" fill="url(#g-candle)"/>
+            <path d="M218 240H282L280 322H220Z" fill="url(#g-glass)"/>
+            <path d="M223 250V316" stroke="#FFFFFF" stroke-width="2" opacity=".35" stroke-linecap="round"/>
+            <ellipse cx="250" cy="240" rx="32" ry="5.5" fill="#FFF6E6" fill-opacity=".12" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="1"/>
+            <path d="M212 318H288L284.5 354C284.5 361 215.5 361 215.5 354Z" fill="url(#g-copper)"/>
+            <ellipse cx="250" cy="318" rx="38" ry="7.5" fill="url(#g-copper-rim)"/>
+            <ellipse cx="250" cy="318.5" rx="33" ry="5" fill="#5B2A10" opacity=".85"/>
+            <path d="M226 322H274" stroke="#FFE3C0" stroke-width=".8" opacity=".3"/>
+          </g>
+
+          <!-- napkin on a small white dish -->
+          <g>
+            <path d="M426 276 548 262 560 312 438 326Z" fill="#2B1C12" opacity=".2" filter="url(#f-soft2)" transform="translate(-8 6)"/>
+            <path d="M420 268C420 265 422 263 425 263L538 251C541 251 543 253 544 256L555 300C556 303 554 306 551 306L436 319C433 319 431 317 430 314Z" fill="#FBF8F3" stroke="#D3C9BB" stroke-width="1"/>
+            <path d="M432 272 532 261 541 296 442 307Z" fill="none" stroke="#E2DACE" stroke-width="1"/>
+            <path d="M440 271 527 262 533 288 446 298Z" fill="#FFFFFF"/>
+            <path d="M442 284 530 275" stroke="#DCD3C6" stroke-width="1"/>
+            <path d="M444 291 532 282" stroke="#EAE3D8" stroke-width="2.4" opacity=".7"/>
+          </g>
+
+          <!-- chopsticks on a black pebble rest -->
+          <g>
+            <path d="M330 470 566 380 572 386 336 478Z" fill="#2B1C12" opacity=".16" filter="url(#f-soft2)"/>
+            <ellipse cx="571" cy="382" rx="22" ry="5" fill="#2B1C12" opacity=".35" filter="url(#f-soft2)"/>
+            <ellipse cx="566" cy="372" rx="18" ry="9.5" fill="url(#g-pebble)"/>
+            <ellipse cx="560" cy="367" rx="7" ry="2.4" fill="#8A817B" opacity=".4"/>
+            <polygon points="328.5,463.5 607.4,343.6 608.6,346.4 331.5,470.5" fill="url(#g-wood)"/>
+            <path d="M329 464.4 607.8 344.4" stroke="#F3DDB3" stroke-width=".8" opacity=".7"/>
+            <polygon points="336.5,472.5 613.4,353.6 614.6,356.4 339.5,479.5" fill="url(#g-wood)"/>
+            <path d="M337 473.4 613.8 354.4" stroke="#F3DDB3" stroke-width=".8" opacity=".7"/>
+          </g>
+        </svg>
+        <figcaption>White marble, black pebble rest, and the candle in its small copper holder. Drawn for this proposal.</figcaption>
+      </figure>
+
+      <div class="evening__text">
+        <h2 class="evening__title" id="evening-h"><span>Pull up a chair.</span> <span>Take a taste.</span> <span>Come join us.</span></h2>
+        <p class="evening__lede">We are a family-run Japanese restaurant well established in the heart of Richmond, South West London.</p>
+
+        <div class="book">
+          <h3 class="book__title">Book your table today!</h3>
+          <ul>
+            <li>We accept web reservations for tables up to 12 guests. For larger parties, please contact us on <a href="tel:+442086053513">020 8605 3513</a>.</li>
+            <li>We require credit card details to secure your booking. No money is taken at the time of booking, but we reserve the right to charge £10 per person if you do not provide us with at least 24 hours cancellation notice, or fail to attend your reservation on the day.</li>
+          </ul>
+          <div class="book__actions">
+            <a class="btn btn--gold" href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener"><span>Book a table</span><span class="vh"> with Favourite Table (opens in a new tab)</span></a>
+            <a class="btn btn--ghost-dark" href="tel:+442086053513"><span>Call 020 8605 3513</span></a>
+          </div>
+          <p class="book__note">Bookings are made on Favourite Table, the booking service on matsuba.co.uk. Nothing is booked on this page.</p>
+        </div>
+
+        <div class="tasting">
+          <p class="tasting__price">Tasting menu <em>£100</em> per person (minimum 2 persons)</p>
+          <p class="tasting__pre">A pre-order is required</p>
+          <p class="tasting__list">Complimentary glass of Prosecco. 14 dishes, from Dobin Mushi to Yuzu Te &amp; Macaron, with the Salmon Aburi Carpaccio and the Lion King nigiri on the way.</p>
+          <a class="link-ember" href="menu.html#tasting">See the 14 dishes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE WINDOW: orchids on the sill, the lit menu case ============ -->
+  <section class="window" id="find" aria-labelledby="find-h">
+    <div class="wrap window__grid">
+      <div class="window__text">
+        <h2 class="head will-draw" id="find-h"><span>Find us</span></h2>
+        <div class="find">
+          <address class="find__addr">10 Red Lion St<br>Richmond TW9 1RW</address>
+          <p><a class="link-ember" href="https://www.google.com/maps/search/?api=1&amp;query=Matsuba%2C%2010%20Red%20Lion%20St%2C%20Richmond%20TW9%201RW" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (opens in a new tab)</span></a></p>
+          <div>
+            <p class="hours__head">Hours</p>
+            <dl class="hours">
+              <div><dt>Monday <!-- [TO CONFIRM] Monday: own Lunch & Early Evening card says Tuesday – Friday; OpenTable, Harden's, Square Meal and Tripadvisor list Monday closed --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> – Friday</dt><dd>12pm – 3pm <!-- [TO CONFIRM] lunch end: 3pm (footer), 2:45pm (Lunch Menu tab), 2:30pm (Lunch & Early Evening card) --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> / 5pm – 10pm</dd></div>
+              <div><dt>Saturday</dt><dd>12pm – 10pm</dd></div>
+              <div><dt>Sunday</dt><dd>Closed</dd></div>
+            </dl>
+          </div>
+          <p class="contact">
+            <a href="tel:+442086053513">020 8605 3513</a>
+            <a href="mailto:info@matsuba.co.uk">info@matsuba.co.uk</a>
+            <a href="https://www.instagram.com/matsuba.london/" target="_blank" rel="noopener">@matsuba.london<span class="vh"> on Instagram (opens in a new tab)</span></a>
+          </p>
+        </div>
+      </div>
+
+      <figure class="window__art rise">
+        <svg viewBox="0 0 720 540" role="img" aria-labelledby="window-t">
+          <title id="window-t">Drawing: Matsuba's slate-painted window on Red Lion Street, with phalaenopsis orchids in white pots along the sill and the lit menu case on the pier between the windows.</title>
+          <defs>
+            <linearGradient id="g-inside" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#3D2B1F"/>
+              <stop offset=".6" stop-color="#2A1D14"/>
+              <stop offset="1" stop-color="#1D140E"/>
+            </linearGradient>
+            <radialGradient id="g-lamp" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#FFD28C" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#FFD28C" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="g-sheen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+              <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".07"/>
+              <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="g-pot" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#B9B2A8"/>
+              <stop offset=".32" stop-color="#FFFFFF"/>
+              <stop offset=".62" stop-color="#EEEAE3"/>
+              <stop offset="1" stop-color="#A9A196"/>
+            </linearGradient>
+            <linearGradient id="g-leaf" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5C8048"/>
+              <stop offset="1" stop-color="#2A4626"/>
+            </linearGradient>
+            <linearGradient id="g-steel" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#7E868C"/>
+              <stop offset=".4" stop-color="#DCE1E4"/>
+              <stop offset=".7" stop-color="#A1A9AF"/>
+              <stop offset="1" stop-color="#666E74"/>
+            </linearGradient>
+            <radialGradient id="g-caseglow" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#FFF6DE" stop-opacity=".6"/>
+              <stop offset="1" stop-color="#FFF6DE" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="p-brick" width="48" height="24" patternUnits="userSpaceOnUse">
+              <rect width="48" height="24" fill="#263440"/>
+              <path d="M0 .5H48M0 12.5H48M24 0V12M0 12V24M48 12V24" stroke="#1D2933" stroke-width="1.2"/>
+              <path d="M0 1.6H48M0 13.6H48" stroke="#33444F" stroke-width=".6"/>
+            </pattern>
+            <!-- one phalaenopsis flower, coloured per plant -->
+            <symbol id="orchid" viewBox="-24 -24 48 48" overflow="visible">
+              <ellipse cx="0" cy="-11" rx="6.2" ry="11" fill="var(--sepal, #C766B4)"/>
+              <ellipse cx="-7.5" cy="9.5" rx="5" ry="10" transform="rotate(38 -7.5 9.5)" fill="var(--sepal, #C766B4)"/>
+              <ellipse cx="7.5" cy="9.5" rx="5" ry="10" transform="rotate(-38 7.5 9.5)" fill="var(--sepal, #C766B4)"/>
+              <ellipse cx="-11" cy="-1" rx="11.5" ry="10" fill="var(--petal, #B4479F)"/>
+              <ellipse cx="11" cy="-1" rx="11.5" ry="10" fill="var(--petal, #B4479F)"/>
+              <path d="M-16 -2C-11 -1-6 0-2 1M16 -2C11 -1 6 0 2 1M-14 4C-9 3-5 2-2 2M14 4C9 3 5 2 2 2" stroke="var(--vein, #7E1F6E)" stroke-width=".7" fill="none" opacity=".45"/>
+              <path d="M-4.5 3.5C-7 9-3 14.5 0 15.5 3 14.5 7 9 4.5 3.5 2 5-2 5-4.5 3.5Z" fill="var(--lip, #7E1F6E)"/>
+              <circle cx="0" cy="4.2" r="1.6" fill="#F2C94C"/>
+              <ellipse cx="0" cy=".6" rx="2.2" ry="2.8" fill="#FFF6E6"/>
+            </symbol>
+            <symbol id="bud" viewBox="-8 -8 16 16" overflow="visible">
+              <ellipse cx="0" cy="0" rx="4.2" ry="5.2" fill="var(--sepal, #C766B4)"/>
+              <path d="M0 -5C1 -2 1 2 0 5" stroke="var(--vein, #7E1F6E)" stroke-width=".6" fill="none" opacity=".5"/>
+            </symbol>
+          </defs>
+
+          <!-- the room, seen through the glass -->
+          <rect y="20" width="720" height="412" fill="url(#g-inside)"/>
+          <circle cx="170" cy="110" r="110" fill="url(#g-lamp)"/>
+          <circle cx="590" cy="96" r="100" fill="url(#g-lamp)"/>
+          <circle cx="160" cy="104" r="3" fill="#FFE9B8"/><circle cx="182" cy="104" r="3" fill="#FFE9B8"/>
+          <circle cx="580" cy="92" r="2.6" fill="#FFE9B8"/><circle cx="600" cy="92" r="2.6" fill="#FFE9B8"/>
+          <path d="M22 352H700" stroke="#46331F" stroke-width="1.4" opacity=".7"/>
+          <path d="M60 300H210M300 300H420" stroke="#F4F2EE" stroke-width="3" opacity=".12"/>
+
+          <!-- orchids: three magenta, one yellow-green, as along the real sills -->
+          <g style="--petal:#B4479F;--sepal:#C766B4;--lip:#7E1F6E;--vein:#7E1F6E">
+            <path d="M110 396C113 330 100 270 122 214 136 182 160 170 184 182" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M107 400V226" stroke="#9A8560" stroke-width="1.4"/>
+            <use href="#orchid" x="98" y="196" width="48" height="48" transform="rotate(-8 122 220)"/>
+            <use href="#orchid" x="118" y="170" width="44" height="44"/>
+            <use href="#orchid" x="142" y="160" width="40" height="40" transform="rotate(10 162 180)"/>
+            <use href="#bud" x="168" y="170" width="16" height="16"/>
+            <use href="#bud" x="180" y="180" width="12" height="12"/>
+            <use href="#orchid" x="92" y="236" width="44" height="44" transform="rotate(-14 114 258)"/>
+          </g>
+          <g style="--petal:#C25AAE;--sepal:#D27CC1;--lip:#86206F;--vein:#86206F">
+            <path d="M334 396C330 340 344 290 330 240 322 210 300 196 276 204" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M338 400V250" stroke="#9A8560" stroke-width="1.4"/>
+            <use href="#orchid" x="306" y="218" width="46" height="46" transform="rotate(6 329 241)"/>
+            <use href="#orchid" x="284" y="190" width="42" height="42"/>
+            <use href="#orchid" x="262" y="186" width="38" height="38" transform="rotate(-10 281 205)"/>
+            <use href="#bud" x="256" y="200" width="14" height="14"/>
+            <use href="#orchid" x="312" y="262" width="42" height="42" transform="rotate(12 333 283)"/>
+          </g>
+          <g style="--petal:#A9408F;--sepal:#BC5FA9;--lip:#6E1A5E;--vein:#6E1A5E">
+            <path d="M590 396C594 334 584 282 604 232 614 206 636 196 656 204" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M587 400V244" stroke="#9A8560" stroke-width="1.4"/>
+            <use href="#orchid" x="580" y="214" width="46" height="46" transform="rotate(-6 603 237)"/>
+            <use href="#orchid" x="602" y="190" width="42" height="42"/>
+            <use href="#orchid" x="626" y="186" width="36" height="36" transform="rotate(12 644 204)"/>
+            <use href="#bud" x="650" y="198" width="13" height="13"/>
+            <use href="#orchid" x="572" y="258" width="40" height="40" transform="rotate(-12 592 278)"/>
+          </g>
+          <g style="--petal:#C9CF6A;--sepal:#D6DA84;--lip:#8A5A2A;--vein:#7D7A2C">
+            <path d="M676 398C678 360 670 320 682 286" stroke="#5E6B3C" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <use href="#orchid" x="664" y="268" width="36" height="36"/>
+            <use href="#orchid" x="660" y="296" width="32" height="32" transform="rotate(-10 676 312)"/>
+            <use href="#bud" x="680" y="258" width="11" height="11"/>
+          </g>
+
+          <!-- leaves and white pots on the sill -->
+          <g>
+            <path d="M110 398C84 384 64 386 52 400 74 396 92 398 110 402ZM110 398C136 382 156 384 170 396 148 394 130 398 110 402ZM110 400C98 386 88 376 70 372 84 384 96 394 110 404Z" fill="url(#g-leaf)"/>
+            <path d="M334 398C308 386 290 388 278 400 300 396 316 398 334 402ZM334 398C360 384 380 388 392 398 370 396 352 398 334 402Z" fill="url(#g-leaf)"/>
+            <path d="M590 398C564 386 546 388 534 400 556 396 572 398 590 402ZM590 398C616 384 636 388 648 398 626 396 608 398 590 402ZM590 400C604 386 616 378 632 376 618 388 604 396 590 404Z" fill="url(#g-leaf)"/>
+            <path d="M676 400C660 390 648 392 640 400 654 398 664 400 676 404ZM676 400C690 390 698 392 702 398 692 398 684 400 676 404Z" fill="url(#g-leaf)"/>
+            <g fill="url(#g-pot)">
+              <path d="M90 398H130L128 430H92Z"/><path d="M314 398H354L352 430H316Z"/><path d="M570 398H610L608 430H572Z"/><path d="M660 400H692L690 430H662Z"/>
+            </g>
+            <g fill="#ECE7DF">
+              <ellipse cx="110" cy="398" rx="20" ry="3.6"/><ellipse cx="334" cy="398" rx="20" ry="3.6"/><ellipse cx="590" cy="398" rx="20" ry="3.6"/><ellipse cx="676" cy="400" rx="16" ry="3"/>
+            </g>
+          </g>
+
+          <rect y="20" width="720" height="412" fill="url(#g-sheen)"/>
+          <path d="M40 420 230 40M270 420 300 360" stroke="#FFFFFF" stroke-width="16" opacity=".03"/>
+
+          <!-- slate frame: transom, stiles, mullions, the pier -->
+          <g fill="#263440">
+            <rect width="720" height="22"/>
+            <rect y="0" width="22" height="452"/>
+            <rect x="234" y="0" width="14" height="452"/>
+            <rect x="420" y="0" width="114" height="452"/>
+            <rect x="646" y="0" width="12" height="452"/>
+            <rect x="702" y="0" width="18" height="452"/>
+          </g>
+          <g stroke="#1C2731" stroke-width="2">
+            <path d="M22 22V430M234 22V430M248 22V430M420 22V430M534 22V430M646 22V430M658 22V430M702 22V430M22 22H702"/>
+          </g>
+          <path d="M424 24V430" stroke="#33444F" stroke-width="1"/>
+
+          <!-- the lit menu case on the pier -->
+          <g>
+            <ellipse class="case-light" cx="477" cy="226" rx="110" ry="140" fill="url(#g-caseglow)"/>
+            <rect x="441" y="118" width="72" height="210" rx="3" fill="url(#g-steel)"/>
+            <text x="477" y="129" text-anchor="middle" font-size="6.4" letter-spacing="2.8" fill="#4E585F" font-family="Albert Sans, Arial, sans-serif">MATSUBA</text>
+            <rect class="case-light" x="448" y="134" width="58" height="186" fill="#FFF8EA"/>
+            <g class="case-card">
+              <rect x="453" y="139" width="48" height="176" fill="#FFFFFF"/>
+              <rect x="455.5" y="141.5" width="43" height="171" fill="none" stroke="#D1A75B" stroke-width=".8"/>
+              <path d="M464 150H490" stroke="#5B4A42" stroke-width="2"/>
+              <path d="M468 155H486" stroke="#D1A75B" stroke-width="1.2"/>
+              <path d="M466 160H488" stroke="#640934" stroke-width="1.6"/>
+              <g stroke-width="1">
+                <path d="M459 170H468M486 170H495" stroke="#D1A75B"/><path d="M471 170H483" stroke="#640934" stroke-width="1.8"/>
+                <path d="M463 177H491M466 181H488" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M462 186H492M467 190H487" stroke="#9B8D84" stroke-width=".8"/>
+                <path d="M459 200H468M486 200H495" stroke="#D1A75B"/><path d="M472 200H482" stroke="#640934" stroke-width="1.8"/>
+                <path d="M469 206H485" stroke="#D1A75B" stroke-width="1.1"/>
+                <path d="M463 213H491M466 217H488M462 224H492M467 228H487M464 235H490" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M459 246H468M486 246H495" stroke="#D1A75B"/><path d="M471 246H483" stroke="#5B4A42" stroke-width="1.8"/>
+                <path d="M463 253H491M466 257H488M462 264H492" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M459 276H468M486 276H495" stroke="#D1A75B"/><path d="M470 276H484" stroke="#640934" stroke-width="1.8"/>
+                <path d="M463 283H491M466 287H488M464 294H490" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M466 304H488" stroke="#3A9A35" stroke-width=".8"/>
+              </g>
+            </g>
+            <circle cx="446" cy="123" r="1.3" fill="#5E676D"/><circle cx="508" cy="123" r="1.3" fill="#5E676D"/>
+            <circle cx="446" cy="323" r="1.3" fill="#5E676D"/><circle cx="508" cy="323" r="1.3" fill="#5E676D"/>
+          </g>
+
+          <!-- sill and the painted-brick plinth below -->
+          <rect y="430" width="720" height="22" fill="#34485A"/>
+          <path d="M0 430.6H720" stroke="#556B7C" stroke-width="1.2"/>
+          <path d="M0 451.5H720" stroke="#1C2731" stroke-width="1.4"/>
+          <rect y="452" width="720" height="88" fill="url(#p-brick)"/>
+        </svg>
+        <figcaption>Orchids along the sills and the lit menu case, 10 Red Lion Street. Drawn for this proposal.</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer class="foot on-dark">
+  <div class="wrap">
+    <p class="wordmark" aria-hidden="true"><span>Matsuba</span></p>
+    <p class="foot__line">We look forward to welcoming you to MATSUBA!</p>
+    <nav class="foot__links" aria-label="Footer">
+      <a href="menu.html">Menu</a>
+      <a href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book a table<span class="vh"> (opens in a new tab)</span></a>
+      <a href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order online<span class="vh"> (opens in a new tab)</span></a>
+      <a href="https://www.instagram.com/matsuba.london/" target="_blank" rel="noopener">Instagram<span class="vh"> (opens in a new tab)</span></a>
+    </nav>
+    <p class="foot__legal">A speculative design proposal by an independent studio. Not the official Matsuba website, and not commissioned or endorsed by Matsuba. The restaurant's own website is <a href="https://matsuba.co.uk/">matsuba.co.uk</a>.</p>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Quick actions">
+  <a href="#book"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="14" height="12" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 8.5h14M7 2.5v4M13 2.5v4" stroke="currentColor" stroke-width="1.4"/></svg>Book</a>
+  <a href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 7h12l-1 10H5Z M7.5 7V5.5a2.5 2.5 0 0 1 5 0V7" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>Order<span class="vh"> online (opens in a new tab)</span></a>
+  <a href="menu.html"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5h10M3 10h14M5 15h10" stroke="currentColor" stroke-width="1.4"/></svg>Menu</a>
+  <a href="tel:+442086053513"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6.5 3 8.5 7 7 8.5c.9 1.9 2.6 3.6 4.5 4.5L13 11.5l4 2-1 3.2C10 16.5 3.5 10 3.3 4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Call</a>
+</nav>
+</body>
+</html>
