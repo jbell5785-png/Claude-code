@@ -79,6 +79,7 @@ html.motion .hero__row[hidden] { display: flex; }
   .hero__row--night .link-arrow { display: none; } /* Menu is in the header on phones */
 }
 @media (min-width: 900px) {
+  .sub { max-width: 17em; }
   .hero__band { padding: 26px var(--m) 30px; gap: 14px; }
   .hero__hours { display: block; }
 }
@@ -92,7 +93,7 @@ html.motion .hero__row[hidden] { display: flex; }
   --sky1: #0B0C13; --sky2: #141625; --sky3: #262A40; --sun: #F29A6A; --sun-o: 0; --sun-y: 560px;
   --stars: 1; --moon: 1;
   --tree: #12131C; --far2: #171824; --treefl: #1C1A26;
-  --shade-c: #090A14; --shade-o: .66;
+  --shade-c: #090A14; --shade-o: .66; --warm-o: 0;
   --mullion: #111219; --gtop: #1A1C2B; --glow-low: #14151E; --refl: 0;
   --glow: 1; --shirts: 1; --glow2: 1; --win: 1; --wash: .12;
   --fascia: #CDBFA4; --cap: #D9CCB2; --awning: #2A2C37;
@@ -105,7 +106,7 @@ html.motion .frontage {
   --sky1: #B9CCD2; --sky2: #DCE1D6; --sky3: #F2E5C8; --sun: #FFF6DC; --sun-o: 1; --sun-y: 30px;
   --stars: 0; --moon: 0;
   --tree: #9FAE98; --far2: #C4C6B8; --treefl: #B79AC8;
-  --shade-c: #1A1D3A; --shade-o: 0;
+  --shade-c: #1C1E44; --shade-o: 0; --warm-o: 0;
   --mullion: #2C313C; --gtop: #CFDCDD; --glow-low: #8EA49E; --refl: .55;
   --glow: 0; --shirts: 0; --glow2: .22; --win: 0; --wash: 0;
   --fascia: #EFE7D2; --cap: #F8F4EA; --awning: #8F9C8C;
@@ -123,6 +124,7 @@ html.motion .frontage .bulb { --on: 0; }
 .k-sundisc { fill: var(--sun); }
 .k-tree { fill: var(--tree); } .k-far2 { fill: var(--far2); } .k-treeflower { fill: var(--treefl); opacity: .8; }
 .k-shade { fill: var(--shade-c); opacity: var(--shade-o); }
+.k-warm { fill: #F08A2C; opacity: var(--warm-o); }
 .k-brick2 {} .k-cornice { fill: #D9CFC0; } .k-sill { fill: #E7DFD2; } .k-shopfar { fill: #3A3C40; }
 .k-win { fill: #57646B; } .k-wglass { fill: #5B676D; } .k-wframe { fill: #EFEAE1; }
 .k-lit { fill: #F2B862; opacity: var(--win); } .k-lit2 { fill: #E9A04F; opacity: calc(var(--win) * .85); }
