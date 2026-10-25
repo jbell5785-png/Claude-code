@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chez Lindsay, Richmond · Breton galettes, crêpes and cider on Hill Rise</title>
+<meta name="description" content="Breton restaurant and wine bar at 11 Hill Rise, Richmond, by the bridge since 1988. Buckwheat galettes cooked to order on a flat griddle, crêpes, seafood and Breton cider. Closed Tuesdays.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1B1714">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Chez Lindsay, Richmond · Galettes cooked to order">
+<meta property="og:description" content="Breton galettes, crêpes and cider on Hill Rise, by Richmond Bridge. A speculative redesign proposal.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%231B1714'/%3E%3Crect x='16' y='16' width='32' height='32' fill='%238B5A2B'/%3E%3Ccircle cx='32' cy='32' r='8.5' fill='%23F5B731'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&amp;display=swap">
+<link rel="stylesheet" href="css/main.css">
+<script>
+/* Before first paint: mark JS, and if motion is welcome, lay the galette flat so it can fold once. */
+(function (d) {
+  var h = d.documentElement;
+  h.classList.add('js');
+  try {
+    if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    h.classList.add('fold-pending');
+    var fold = function () {
+      if (!h.classList.contains('fold-pending')) return;
+      h.classList.remove('fold-pending');
+      h.classList.add('fold-run');
+      setTimeout(function () { h.classList.remove('fold-run'); }, 1300);
+    };
+    d.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () { requestAnimationFrame(fold); }, 420);
+    });
+    setTimeout(fold, 3000); /* fail-safe: never leave it flat */
+  } catch (e) { h.classList.remove('fold-pending'); }
+})(document);
+</script>
+<script src="js/main.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Chez Lindsay",
+  "url": "https://www.chez-lindsay.co.uk/",
+  "telephone": "+44 20 8948 7473",
+  "email": "restaurant@chez-lindsay.co.uk",
+  "servesCuisine": ["Breton", "French"],
+  "acceptsReservations": true,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "11 Hill Rise",
+    "addressLocality": "Richmond",
+    "addressRegion": "Surrey",
+    "postalCode": "TW10 6UQ",
+    "addressCountry": "GB"
+  },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "12:00", "closes": "22:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "12:00", "closes": "21:00" }
+  ]
+}
+</script>
+</head>
+<body>
+<svg class="pliure-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="pl-disc" d="M965.2 500L965.1 509.7L963.4 519.4L961.7 529L961 538.7L960.6 548.4L959.1 558L956.3 567.4L953.7 576.7L951.7 586.2L949.7 595.6L947.6 605L946 614.5L945.1 624.3L943.6 633.9L940.1 643L935.4 651.6L931.3 660.4L928.1 669.5L925 678.6L921.2 687.5L917.4 696.4L913.8 705.4L909.8 714.3L905 722.6L899.9 730.9L895.7 739.7L892 748.8L887.1 757.2L880.4 764.4L873 771L866 777.8L859.1 784.6L852.1 791.2L845.2 798L839.1 805.4L833.2 812.9L826.4 819.6L818.7 825.5L811.3 831.5L804.7 838.4L798.3 845.6L791.2 852L783.5 857.7L775.7 863.2L767.9 868.8L759.9 873.9L751.7 878.9L744.3 884.9L737.4 892.1L730.4 899.1L722.4 904.5L713.8 908.9L705.2 913.4L696.8 918.2L688.1 922.4L679.1 925.9L670 929.4L661 933L651.7 935.7L642 937.2L632.5 938.7L623.3 941.8L614.5 945.9L605.4 949.5L596 951.8L586.5 953.4L577 955L567.4 956.1L557.7 956.5L548 957.1L538.5 958.8L529 960.8L519.3 961.5L509.7 961L500 961L490.3 962.1L480.6 963.5L470.8 964.1L461 964L451.3 963.6L441.6 962.3L432.2 959.3L423 955.5L413.7 952.5L404.2 950.8L394.7 949L385.5 945.9L376.5 942.2L367.5 938.8L358.4 935.8L349.4 932.3L340.6 928.6L331.6 925.5L322.4 922.4L313.8 918.1L306 912.3L298.2 906.4L289.9 901.8L281.1 898.3L272.2 894.5L263.6 890.4L254.8 886.4L246 882.3L237.7 877.3L230.1 871.5L222.3 865.9L213.9 861L205.6 855.8L198.4 849.4L192.2 841.8L186.1 834.3L179.4 827.4L172.6 820.6L165.9 813.8L158.8 807.2L151.4 800.9L144.5 794.1L139 786.1L134.3 777.6L129.1 769.5L123 762L117.1 754.4L112.1 746.2L107.4 737.8L102.3 729.6L97.3 721.4L92.6 713L87.7 704.7L81.6 696.9L75.1 689.2L69.9 680.8L66.6 671.6L64.1 662.1L61.2 652.8L58.2 643.5L55.7 634.1L53.6 624.6L51 615.3L48.6 605.9L47.3 596.2L47 586.4L46 576.8L43.8 567.4L41.5 557.9L40.7 548.3L41.3 538.5L42.1 528.8L42.8 519.2L44 509.6L45.2 500L45.3 490.5L44.2 480.9L43.5 471.3L44.2 461.7L45.7 452.2L46.3 442.7L46.2 433L46.6 423.3L48 413.8L49.8 404.3L51.9 394.9L54.9 385.7L59 376.9L62.8 368L65.1 358.7L66.6 349.1L69 339.7L72.7 330.8L76.8 322.1L80.8 313.3L85 304.7L89.8 296.4L94.5 288L98.8 279.4L103.2 270.9L108.8 263.1L115.2 255.8L120.8 248L125 239.3L128.7 230.3L133.1 221.5L138.1 213.2L143.2 204.8L148.8 196.9L155.5 189.8L162.6 183.1L169.1 176L175 168.2L181.5 160.9L189.1 154.7L197.2 149.2L204.8 143.2L212 136.7L219.5 130.4L227.2 124.5L234.8 118.5L242.6 112.6L251.3 108.1L260.9 105.1L270.4 102.3L279.2 98.3L287.5 93.6L296.1 89.3L305.1 85.7L313.9 82L322.5 77.8L331.3 74L340.3 70.7L349.2 66.9L357.8 62.2L366.6 58L375.9 55.7L385.7 54.8L395.3 53.8L404.7 51.9L414.1 49.7L423.5 47.9L433 46L442.4 43.7L451.9 42.1L461.5 42.1L471.2 42.6L480.8 42.3L490.4 41.2L500 41L509.6 42.3L519.1 44.3L528.6 45.9L538 47.3L547.4 48.7L556.9 49.6L566.6 49.2L576.4 48.4L586.1 48.8L595.5 50.9L604.8 53.3L614.3 54.8L624 56.1L633.4 58.1L642.7 60.8L652 63.5L661.3 66.3L670.2 70.1L679 74.3L688 77.7L697.7 79.9L707.3 82.4L716.2 86.5L724.3 92.1L732.2 97.8L740.1 103.5L747.8 109.6L755.1 116L762.8 121.9L770.8 127.2L778.5 133.1L785.4 140L792.1 147L799.6 152.9L807.8 158.1L815.9 163.6L823.1 170.1L829.9 177L836.5 184L842.5 191.6L847.8 199.8L853.4 207.7L860 214.7L867.1 221.3L873.3 228.7L878.4 237L883.4 245.3L888.8 253.2L894.3 261.2L899.1 269.6L903.5 278.2L907.9 286.7L911.7 295.6L914.1 305.2L915.6 315L918 324.3L922 332.9L926.4 341.4L930.1 350.2L933.2 359.3L936.5 368.2L939.7 377.2L942.1 386.5L944.3 395.8L947.2 404.9L950.7 414L953.1 423.4L953.9 433L954.2 442.6L955.6 452.1L958 461.5L960.3 471L962 480.6L963.8 490.3Z"/>
+    <path id="pl-white" d="M743.7 508C744.3 513.6 744.1 519.4 743.3 525C742.4 530.6 740.6 536.2 738.4 541.5C736.2 546.8 733.2 552 730.2 556.9C727.1 561.9 723.6 566.6 720.3 571.2C717 575.8 713.6 580.2 710.6 584.6C707.5 589.1 704.6 593.4 702 598C699.5 602.5 697.2 607 695 611.7C692.8 616.4 690.9 621.2 688.8 626C686.7 630.8 684.7 635.7 682.3 640.4C679.9 645.2 677.3 649.9 674.3 654.3C671.3 658.7 668 662.9 664.3 666.7C660.6 670.5 656.5 673.9 652.2 677C647.9 680.1 643.2 682.8 638.5 685.3C633.9 687.8 629 689.9 624.2 692.1C619.4 694.2 614.5 696.1 609.8 698.1C605 700.1 600.3 702.1 595.6 704.1C591 706.1 586.3 708.2 581.6 710.1C576.9 712 572.3 714 567.4 715.5C562.6 717.1 557.7 718.6 552.8 719.6C547.8 720.5 542.7 721.1 537.6 721.2C532.5 721.3 527.3 720.8 522.3 720C517.2 719.1 512.2 717.7 507.3 716.2C502.4 714.7 497.6 712.8 492.9 711.1C488.2 709.5 483.7 707.7 479.2 706.4C474.6 705.1 470.2 703.9 465.6 703.4C460.9 702.8 456.3 702.7 451.4 703C446.5 703.2 441.4 704.1 436 704.9C430.6 705.8 425 707.1 419.2 708.1C413.4 709 407.2 710.1 401.2 710.6C395.2 711 388.9 711.3 382.9 710.8C377 710.3 371 709.2 365.4 707.5C359.9 705.8 354.6 703.3 349.7 700.4C344.8 697.5 340.3 693.9 336.1 690.1C331.9 686.2 328.1 681.9 324.5 677.5C320.9 673.1 317.6 668.4 314.5 663.7C311.3 659 308.4 654.1 305.5 649.3C302.7 644.5 299.9 639.6 297.4 634.6C294.9 629.6 292.5 624.6 290.5 619.4C288.5 614.2 286.7 608.9 285.5 603.5C284.2 598.1 283.4 592.5 283.1 586.9C282.8 581.4 283.1 575.6 283.7 570C284.4 564.4 285.7 558.7 287 553.3C288.4 547.8 290.3 542.4 291.8 537.3C293.4 532.1 295.2 527.1 296.6 522.2C297.9 517.4 299 512.7 299.7 508C300.3 503.3 300.5 498.8 300.3 494C300.2 489.3 299.4 484.6 298.7 479.7C297.9 474.8 296.7 469.8 295.9 464.6C295 459.5 293.9 454.1 293.5 448.8C293.1 443.5 292.8 438 293.3 432.8C293.8 427.5 294.8 422.3 296.4 417.4C298 412.4 300.3 407.7 303 403.2C305.6 398.8 308.9 394.7 312.3 390.7C315.6 386.7 319.4 383.1 323.1 379.5C326.7 375.8 330.6 372.4 334.2 368.9C337.9 365.4 341.4 361.9 344.9 358.2C348.4 354.6 351.7 350.9 355.1 347C358.5 343.2 361.7 339.3 365.2 335.4C368.6 331.6 372.1 327.6 375.9 324C379.7 320.4 383.6 316.8 387.8 313.6C392 310.5 396.4 307.6 401 305C405.6 302.5 410.4 300.4 415.3 298.4C420.2 296.4 425.2 294.9 430.2 293.3C435.2 291.7 440.3 290.3 445.3 288.8C450.4 287.2 455.4 285.7 460.5 283.9C465.6 282.2 470.7 280.3 475.9 278.4C481.1 276.5 486.4 274.3 491.8 272.5C497.2 270.7 502.8 268.7 508.4 267.4C514 266.1 519.9 265 525.6 264.8C531.3 264.6 537.1 264.9 542.7 266.1C548.2 267.3 553.7 269.4 558.8 272.2C563.9 274.9 568.8 278.6 573.2 282.7C577.7 286.7 581.7 291.6 585.5 296.4C589.3 301.2 592.6 306.5 595.8 311.5C599.1 316.5 601.9 321.6 604.9 326.3C607.9 330.9 610.7 335.3 613.7 339.4C616.7 343.4 619.8 347.1 623 350.5C626.3 354 629.7 357 633.2 360.1C636.6 363.2 640.3 366 643.9 369.1C647.5 372.1 651.1 375.1 654.6 378.3C658.1 381.5 661.5 384.8 664.7 388.3C667.9 391.8 671 395.5 673.9 399.3C676.9 403.1 679.7 407 682.5 411C685.4 414.9 688.1 418.9 691.1 422.9C694 427 697.1 431 700.3 435.1C703.6 439.2 707 443.3 710.5 447.6C714.1 451.9 717.8 456.3 721.3 461C724.8 465.6 728.5 470.4 731.5 475.5C734.5 480.5 737.4 485.8 739.5 491.3C741.5 496.7 743 502.4 743.7 508Z"/>
+    <clipPath id="pl-c-base" clipPathUnits="userSpaceOnUse"><rect x="210" y="210" width="580" height="580"/></clipPath>
+    <clipPath id="pl-c-t" clipPathUnits="userSpaceOnUse"><rect x="0" y="0" width="1000" height="212"/></clipPath>
+    <clipPath id="pl-c-t2" clipPathUnits="userSpaceOnUse"><rect x="210" y="0" width="580" height="210"/></clipPath>
+    <clipPath id="pl-c-b" clipPathUnits="userSpaceOnUse"><rect x="0" y="788" width="1000" height="212"/></clipPath>
+    <clipPath id="pl-c-b2" clipPathUnits="userSpaceOnUse"><rect x="210" y="790" width="580" height="210"/></clipPath>
+    <clipPath id="pl-c-l" clipPathUnits="userSpaceOnUse"><rect x="0" y="210" width="212" height="580"/></clipPath>
+    <clipPath id="pl-c-l2" clipPathUnits="userSpaceOnUse"><rect x="0" y="210" width="210" height="580"/></clipPath>
+    <clipPath id="pl-c-r" clipPathUnits="userSpaceOnUse"><rect x="788" y="210" width="212" height="580"/></clipPath>
+    <clipPath id="pl-c-r2" clipPathUnits="userSpaceOnUse"><rect x="790" y="210" width="210" height="580"/></clipPath>
+    <linearGradient id="pl-g-t" gradientUnits="userSpaceOnUse" x1="0" y1="210" x2="0" y2="164"><stop offset="0" stop-color="#fff3df" stop-opacity=".34"/><stop offset=".12" stop-color="#fff3df" stop-opacity="0"/><stop offset=".42" stop-color="#1b0e04" stop-opacity=".26"/><stop offset="1" stop-color="#1b0e04" stop-opacity="0"/></linearGradient>
+    <linearGradient id="pl-g-b" gradientUnits="userSpaceOnUse" x1="0" y1="790" x2="0" y2="836"><stop offset="0" stop-color="#fff3df" stop-opacity=".34"/><stop offset=".12" stop-color="#fff3df" stop-opacity="0"/><stop offset=".42" stop-color="#1b0e04" stop-opacity=".26"/><stop offset="1" stop-color="#1b0e04" stop-opacity="0"/></linearGradient>
+    <linearGradient id="pl-g-l" gradientUnits="userSpaceOnUse" x1="210" y1="0" x2="164" y2="0"><stop offset="0" stop-color="#fff3df" stop-opacity=".34"/><stop offset=".12" stop-color="#fff3df" stop-opacity="0"/><stop offset=".42" stop-color="#1b0e04" stop-opacity=".26"/><stop offset="1" stop-color="#1b0e04" stop-opacity="0"/></linearGradient>
+    <linearGradient id="pl-g-r" gradientUnits="userSpaceOnUse" x1="790" y1="0" x2="836" y2="0"><stop offset="0" stop-color="#fff3df" stop-opacity=".34"/><stop offset=".12" stop-color="#fff3df" stop-opacity="0"/><stop offset=".42" stop-color="#1b0e04" stop-opacity=".26"/><stop offset="1" stop-color="#1b0e04" stop-opacity="0"/></linearGradient>
+    <radialGradient id="pl-g-rim" gradientUnits="userSpaceOnUse" cx="500" cy="500" r="470"><stop offset=".78" stop-color="#2a1405" stop-opacity="0"/><stop offset=".93" stop-color="#2a1405" stop-opacity=".22"/><stop offset="1" stop-color="#1c0d03" stop-opacity=".6"/></radialGradient>
+    <radialGradient id="pl-g-under" gradientUnits="userSpaceOnUse" cx="500" cy="500" r="470"><stop offset=".55" stop-color="#2a1405" stop-opacity="0"/><stop offset=".9" stop-color="#2a1405" stop-opacity=".28"/><stop offset="1" stop-color="#140801" stop-opacity=".7"/></radialGradient>
+    <radialGradient id="pl-g-white" gradientUnits="userSpaceOnUse" cx="490" cy="492" r="232"><stop offset=".55" stop-color="#fbf8f2"/><stop offset=".9" stop-color="#efe4cf"/><stop offset="1" stop-color="#d9c29b"/></radialGradient>
+    <radialGradient id="pl-g-iron" gradientUnits="userSpaceOnUse" cx="430" cy="400" r="560"><stop offset="0" stop-color="#2e2722"/><stop offset=".6" stop-color="#201b17"/><stop offset="1" stop-color="#151210"/></radialGradient>
+    <filter id="pl-f-top" x="0" y="0" width="400" height="400" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-color="#b88850" result="base"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".01" numOctaves="3" seed="4" stitchTiles="stitch" result="n1"/>
+      <feColorMatrix in="n1" type="matrix" values="0 0 0 0 .45  0 0 0 0 .27  0 0 0 0 .11  1.3 0 0 0 -.5" result="mottle"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".16" numOctaves="2" seed="9" stitchTiles="stitch" result="n2"/>
+      <feColorMatrix in="n2" type="matrix" values="0 0 0 0 .3  0 0 0 0 .17  0 0 0 0 .07  -13 0 0 0 4.6" result="pin"/>
+      <feColorMatrix in="n2" type="matrix" values="0 0 0 0 .9  0 0 0 0 .76  0 0 0 0 .56  8 0 0 0 -5.1" result="fleck"/>
+      <feMerge><feMergeNode in="base"/><feMergeNode in="mottle"/><feMergeNode in="fleck"/><feMergeNode in="pin"/></feMerge>
+    </filter>
+    <filter id="pl-f-under" x="0" y="0" width="400" height="400" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-color="#a8723a" result="base"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".008" numOctaves="2" seed="21" stitchTiles="stitch" result="n1"/>
+      <feColorMatrix in="n1" type="matrix" values="0 0 0 0 .38  0 0 0 0 .2  0 0 0 0 .07  2.4 0 0 0 -.95" result="brown"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".019" numOctaves="2" seed="5" stitchTiles="stitch" result="n2"/>
+      <feComponentTransfer in="n2" result="bands"><feFuncR type="table" tableValues="0 0 .2 1 .2 0 .2 1 .2 0 .2 1 .2 0 .2 1 .2 0 .2 1 .2 0 0"/></feComponentTransfer>
+      <feColorMatrix in="bands" type="matrix" values="0 0 0 0 .25  0 0 0 0 .12  0 0 0 0 .04  .5 0 0 0 0" result="lace"/>
+      <feComponentTransfer in="n2" result="bands2"><feFuncR type="table" tableValues="0 .7 0 0 0 .7 0 0 0 .7 0 0 0 .7 0 0 0 .7 0 0 0 .7 0"/></feComponentTransfer>
+      <feColorMatrix in="bands2" type="matrix" values="0 0 0 0 .9  0 0 0 0 .68  0 0 0 0 .4  .36 0 0 0 0" result="glow"/>
+      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="13" stitchTiles="stitch" result="n3"/>
+      <feColorMatrix in="n3" type="matrix" values="0 0 0 0 .22  0 0 0 0 .11  0 0 0 0 .03  -9 0 0 0 3.25" result="pin"/>
+      <feMerge><feMergeNode in="base"/><feMergeNode in="brown"/><feMergeNode in="glow"/><feMergeNode in="lace"/><feMergeNode in="pin"/></feMerge>
+    </filter>
+    <pattern id="pl-p-top" width="400" height="400" patternUnits="userSpaceOnUse"><rect width="400" height="400" filter="url(#pl-f-top)"/></pattern>
+    <pattern id="pl-p-under" width="400" height="400" patternUnits="userSpaceOnUse"><rect width="400" height="400" filter="url(#pl-f-under)"/></pattern>
+    <filter id="pl-f-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="9"/></filter>
+    <filter id="pl-f-soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead__inner">
+    <div class="masthead__row">
+      <a class="wordmark" href="index.html" aria-label="Chez Lindsay, restaurant and wine bar: home">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="wordmark__text"><span class="wordmark__name">Chez Lindsay</span><span class="wordmark__strap">Restaurant &amp; Wine Bar</span></span>
+      </a>
+      <a class="masthead__call" href="tel:+442089487473" aria-label="Call 020 8948 7473">Call</a>
+    </div>
+    <nav class="masthead__nav" aria-label="Main">
+      <ul>
+        <li><a href="menu.html">Menus</a></li>
+        <li><a href="#hours">Hours</a></li>
+        <li><a href="#find-us">Find us</a></li>
+        <li><a href="#private-room">Private room</a></li>
+      </ul>
+    </nav>
+    <div class="masthead__actions">
+      <a class="masthead__tel" href="tel:+442089487473">020 8948 7473</a>
+      <a class="btn btn--yolk masthead__book" href="#book"><span class="btn__mark btn__mark--circle" aria-hidden="true"></span>Book a table</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO · La pliure: the buckwheat disc folds once into a square; the yolk is the Book link -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero__grid">
+      <div class="hero__title">
+        <p class="kicker hero__kicker">Bienvenue · Restaurant &amp; wine bar · Hill Rise, Richmond</p>
+        <h1 id="hero-title"><span class="hero__big">Galettes</span> <span class="hero__rest">cooked to order on a flat griddle</span></h1>
+      </div>
+
+      <figure class="hero__fold">
+        <div class="pliure">
+          <div class="pliure__stage">
+            <svg class="pliure__iron" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><circle cx="500" cy="500" r="497" fill="url(#pl-g-iron)"/><circle cx="500" cy="500" r="494" fill="none" stroke="#4a3f36" stroke-width="5"/><circle cx="500" cy="500" r="484" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="6"/></svg>
+            <svg class="pliure__base" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g clip-path="url(#pl-c-base)"><use href="#pl-disc" fill="url(#pl-p-top)"/><use href="#pl-disc" fill="url(#pl-g-rim)"/></g><use href="#pl-white" fill="#000" opacity=".28" filter="url(#pl-f-soft)" transform="translate(4 10)"/><use href="#pl-white" fill="url(#pl-g-white)"/><circle cx="500" cy="500" r="122" fill="#7a4a12" opacity=".35" filter="url(#pl-f-soft)" transform="translate(3 9)"/></svg>
+            <div class="flap flap--t"><svg class="flap__face flap__face--front" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g clip-path="url(#pl-c-t)"><use href="#pl-disc" fill="url(#pl-p-top)"/><use href="#pl-disc" fill="url(#pl-g-rim)"/></g><g clip-path="url(#pl-c-t)"><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></svg><svg class="flap__face flap__face--back" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g class="flap__cast" transform="translate(0 14)" filter="url(#pl-f-blur)"><g transform="matrix(1 0 0 -1 0 420)"><use href="#pl-disc" clip-path="url(#pl-c-t2)" fill="#120a04"/></g></g><g transform="matrix(1 0 0 -1 0 420)"><g clip-path="url(#pl-c-t2)"><use href="#pl-disc" fill="url(#pl-p-under)"/><use href="#pl-disc" fill="url(#pl-g-under)"/><use href="#pl-disc" fill="url(#pl-g-t)"/><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></g></svg></div>
+            <div class="flap flap--b"><svg class="flap__face flap__face--front" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g clip-path="url(#pl-c-b)"><use href="#pl-disc" fill="url(#pl-p-top)"/><use href="#pl-disc" fill="url(#pl-g-rim)"/></g><g clip-path="url(#pl-c-b)"><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></svg><svg class="flap__face flap__face--back" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g class="flap__cast" transform="translate(0 -6)" filter="url(#pl-f-blur)"><g transform="matrix(1 0 0 -1 0 1580)"><use href="#pl-disc" clip-path="url(#pl-c-b2)" fill="#120a04"/></g></g><g transform="matrix(1 0 0 -1 0 1580)"><g clip-path="url(#pl-c-b2)"><use href="#pl-disc" fill="url(#pl-p-under)"/><use href="#pl-disc" fill="url(#pl-g-under)"/><use href="#pl-disc" fill="url(#pl-g-b)"/><use href="#pl-disc" fill="#120a04" opacity="0.16"/><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></g></svg></div>
+            <div class="flap flap--l"><svg class="flap__face flap__face--front" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g clip-path="url(#pl-c-l)"><use href="#pl-disc" fill="url(#pl-p-top)"/><use href="#pl-disc" fill="url(#pl-g-rim)"/></g><g clip-path="url(#pl-c-l)"><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></svg><svg class="flap__face flap__face--back" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g class="flap__cast" transform="translate(14 4)" filter="url(#pl-f-blur)"><g transform="matrix(-1 0 0 1 420 0)"><use href="#pl-disc" clip-path="url(#pl-c-l2)" fill="#120a04"/></g></g><g transform="matrix(-1 0 0 1 420 0)"><g clip-path="url(#pl-c-l2)"><use href="#pl-disc" fill="url(#pl-p-under)"/><use href="#pl-disc" fill="url(#pl-g-under)"/><use href="#pl-disc" fill="url(#pl-g-l)"/><use href="#pl-disc" fill="#120a04" opacity="0.03"/><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></g></svg></div>
+            <div class="flap flap--r"><svg class="flap__face flap__face--front" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g clip-path="url(#pl-c-r)"><use href="#pl-disc" fill="url(#pl-p-top)"/><use href="#pl-disc" fill="url(#pl-g-rim)"/></g><g clip-path="url(#pl-c-r)"><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></svg><svg class="flap__face flap__face--back" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false"><g class="flap__cast" transform="translate(-6 6)" filter="url(#pl-f-blur)"><g transform="matrix(-1 0 0 1 1580 0)"><use href="#pl-disc" clip-path="url(#pl-c-r2)" fill="#120a04"/></g></g><g transform="matrix(-1 0 0 1 1580 0)"><g clip-path="url(#pl-c-r2)"><use href="#pl-disc" fill="url(#pl-p-under)"/><use href="#pl-disc" fill="url(#pl-g-under)"/><use href="#pl-disc" fill="url(#pl-g-r)"/><use href="#pl-disc" fill="#120a04" opacity="0.12"/><use class="flap__shade" href="#pl-disc" fill="#120a04"/></g></g></svg></div>
+            <a class="yolk" href="#book"><span class="yolk__label">Book</span><span class="yolk__sub">a table</span></a>
+          </div>
+        </div>
+        <figcaption class="kicker">La Complète · with egg, cheese and ham · <span class="price">13</span></figcaption>
+      </figure>
+
+      <div class="hero__body">
+        <p class="lede hero__lede">Fresh, authentic French cooking from Brittany, right here on the banks of the Thames. Part of the landscape on Hill Rise since 1988.</p>
+        <div class="hero__actions">
+          <a class="btn btn--yolk" href="#book"><span class="btn__mark btn__mark--circle" aria-hidden="true"></span>Book a table</a>
+          <a class="btn" href="menu.html"><span class="btn__mark" aria-hidden="true"></span>The menus</a>
+          <a class="btn" href="tel:+442089487473">Call 020 8948 7473</a>
+        </div>
+        <ul class="hero__facts kicker" aria-label="At a glance">
+          <li>Galettes every day until 5pm</li>
+          <li>La carte from 5pm</li>
+          <li>Closed Tuesdays</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALETTES · circle composition -->
+  <section class="section galettes on-flour" id="galettes" aria-labelledby="galettes-title">
+    <div class="wrap grid8">
+      <header class="disc-head galettes__head">
+        <p class="kicker">Buckwheat · served every day until 5pm</p>
+        <h2 class="mega" id="galettes-title">Les galettes</h2>
+      </header>
+
+      <div class="galettes__shots">
+        <figure class="shot shot--circle">
+          <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">A galette on the griddle</span><span class="shot__dir">From above: batter spread thin on the billig, edges just lifting.</span></figcaption>
+        </figure>
+        <figure class="shot shot--square shot--crust">
+          <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">A complète, folded, with its yolk</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="galettes__body">
+        <p class="lede">Our ‘galettes’ or buckwheat pancakes are a speciality. Cooked to order on a flat griddle, they are made from wonderful, nutty-tasting, organic buckwheat.</p>
+        <p class="prose">Galettes come with just about every savoury filling you can think of – perfect as a starter or main course.</p>
+        <div class="galettes__notes">
+          <p><span class="stamp" aria-hidden="true">5</span><strong>Served every day until 5pm.</strong></p>
+          <p><span class="stamp" aria-hidden="true">V</span><span>A selection of our galettes is vegetarian and can be adapted to being vegan. Add 3 <!-- [TO CONFIRM] meaning of "Add 3" (vegan surcharge?) --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></p>
+        </div>
+      </div>
+
+      <div class="galettes__list">
+        <h3 class="kicker" style="margin-bottom:12px">From the galette menu</h3>
+        <ul class="dishes">
+          <li class="dish"><span class="dish__name">Complète</span><span class="dish__desc">with egg, cheese and ham</span><span class="price">13</span></li>
+          <li class="dish"><span class="dish__name">Super Complète</span><span class="dish__desc">with egg, cheese, ham, onions, mushrooms, tomato</span><span class="price">16.5</span></li>
+          <li class="dish"><span class="dish__name">Galette au Chèvre</span><span class="dish__desc">with goats’ cheese, tomato, spinach and lettuce</span><span class="price">17</span></li>
+          <li class="dish"><span class="dish__name">Galette aux Gambas</span><span class="dish__desc">with king prawns and leeks</span><span class="price">19.5</span></li>
+          <li class="dish"><span class="dish__name">Complete Vegetarian <span class="veg">Vegetarian</span></span><span class="dish__desc">With cheese, onion, mushrooms, spinach and tomato</span><span class="price">15</span></li>
+        </ul>
+        <p style="margin-top:20px"><a class="textlink" href="menu.html#galettes">All ten galettes</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRÊPES · square fold composition -->
+  <section class="section crepes on-yolk" id="crepes" aria-labelledby="crepes-title">
+    <div class="wrap grid8">
+      <header class="crepes__head section__head" style="margin-bottom:0">
+        <p class="kicker">Sweet pancakes · on the evening menu, from 5pm</p>
+        <h2 class="mega" id="crepes-title">Crêpes</h2>
+      </header>
+
+      <div class="fold crepes__fold">
+        <span class="fold__flap fold__flap--t" aria-hidden="true"></span><span class="fold__flap fold__flap--b" aria-hidden="true"></span><span class="fold__flap fold__flap--l" aria-hidden="true"></span><span class="fold__flap fold__flap--r" aria-hidden="true"></span>
+        <div class="flambe">
+          <p class="flambe__title">Flambé</p>
+          <p class="flambe__row"><span>Flambé your crêpe with Calvados, Cognac, Grand Marnier or a liqueur of your choice</span><span class="price">6.5</span></p>
+        </div>
+        <ul class="dishes">
+          <li class="dish dish--compact"><span class="dish__name">Beurre et Sucre</span><span class="dish__desc">With butter and sugar</span><span class="price">7.5</span></li>
+          <li class="dish dish--compact"><span class="dish__name">Normande</span><span class="dish__desc">With apples and salty caramel sauce</span><span class="price">8.5</span></li>
+          <li class="dish dish--compact"><span class="dish__name">Miel Amandes</span><span class="dish__desc">With honey sauce and almond</span><span class="price">8.5</span></li>
+          <li class="dish dish--compact"><span class="dish__name">Chocolat Banane</span><span class="dish__desc">With chocolate sauce and banana</span><span class="price">9.5</span></li>
+          <li class="dish dish--compact"><span class="dish__name">Crêpe Suzette</span><span class="price">13.5</span></li>
+        </ul>
+        <p class="addon"><span class="addon__name">Chantilly – add sweet whipped cream</span><span class="price">2.5</span></p>
+        <p style="margin-top:16px"><a class="textlink" href="menu.html#crepes">All crêpes &amp; desserts</a></p>
+      </div>
+
+      <figure class="shot shot--tall shot--iron crepes__shot">
+        <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">A crêpe flambéed at the table</span><span class="shot__dir">Low light, the blue flame at its height, the pan at the table edge.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- THE WEEK · brunch, steak night, happy hour -->
+  <section class="section week on-flour-2" id="the-week" aria-labelledby="week-title">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="kicker">Sunday brunch · Wednesday steak night · weekday happy hour</p>
+        <h2 class="mega" id="week-title">La semaine</h2>
+      </header>
+      <div class="week__grid">
+        <article class="ritual ritual--brunch" aria-labelledby="brunch-title">
+          <div class="ritual__disc">
+            <span class="ritual__day kicker">Sunday · 12 to 5pm</span>
+            <h3 class="ritual__title" id="brunch-title">Sunday Brunch</h3>
+            <span class="ritual__price">£31.5</span>
+            <p>Per person or per two? <!-- [TO CONFIRM] £31.5 per person or per two; which drinks are included --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+            <p>2 galettes + 2 drink of your choice. Served from 12 to 5pm.</p>
+          </div>
+        </article>
+
+        <article class="ritual ritual--steak on-dark" aria-labelledby="steak-title">
+          <span class="ritual__day kicker">Every Wednesday from 5pm till close</span>
+          <h3 class="ritual__title" id="steak-title">Steak Night</h3>
+          <span class="ritual__price">£54<small>for 2</small></span>
+          <p>8oz rump &amp; fries each, with a bottle of house wine to share.</p>
+          <p class="note">Gold (£74 for 2) and Platinum (£94 for 2) packages on the steak night menu.</p>
+          <a class="textlink" href="menu.html#steak-night">Steak night menu</a>
+        </article>
+
+        <article class="ritual ritual--happy" aria-labelledby="happy-title">
+          <div class="ritual__disc">
+            <span class="ritual__day kicker">4pm to 6pm, Monday to Friday · closed Tuesdays</span>
+            <h3 class="ritual__title" id="happy-title">Happy Hour</h3>
+            <ul>
+              <li><span>2 glasses of Crémant Blanc de Blancs &amp; 6 Maldon Oysters</span><span class="price">25</span></li>
+              <li><span>Baked Camembert &amp; 2 Glasses of House Wine (White or Red)</span><span class="price">22</span></li>
+              <li><span>Bottle of Selected House Wine</span><span class="price">20</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <figure class="shot shot--circle shot--iron week__shot">
+          <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">An oyster plate with crémant</span><span class="shot__dir">Six Maldon oysters on ice, two glasses poured.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIDRE -->
+  <section class="section cider on-sarrasin" id="cider" aria-labelledby="cider-title">
+    <div class="wrap grid8">
+      <header class="cider__head">
+        <p class="kicker">From Brittany, by the glass, pitcher or bottle</p>
+        <h2 class="mega" id="cider-title" lang="fr">Cidre</h2>
+      </header>
+      <div class="cider__body">
+        <p class="lede" style="margin-bottom:32px">Our wine list is unashamedly French in flavour but there’s something for every taste plus a range of sparkling Brittany ciders as a refreshing alternative.</p>
+        <table class="cider__table">
+          <caption class="vh">Cidre, by the glass, pitcher or bottle</caption>
+          <thead><tr><th scope="col">Cider</th><th scope="col">250ml</th><th scope="col">Pitcher</th><th scope="col">Bottle</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Kerisac Cidre Bouché Brut<small>Brittany, France</small></th><td>8</td><td>14.50</td><td>20</td></tr>
+            <tr><th scope="row">Kerisac Cidre Bouché Sweet<small>Brittany, France</small></th><td>8</td><td>14.50</td><td>20</td></tr>
+            <tr><th scope="row">Cidre Brut de Normandie Comte Louis de Lauriston<small>Normandy, France</small></th><td>8</td><td>14.50</td><td>20</td></tr>
+          </tbody>
+        </table>
+        <div class="cider__extras">
+          <div>
+            <h3>Kir Breton</h3>
+            <p>Cider and crème de cassis, 125ml · <span class="price">8</span></p>
+          </div>
+          <div>
+            <h3>Calvados</h3>
+            <p>Château du Breuil: VSOP <span class="price">7</span> · Hors d’Âge (15 ans) <span class="price">8.50</span> · Réserve des Seigneurs 30 ans <span class="price">15</span></p>
+          </div>
+        </div>
+        <p style="margin-top:24px"><a class="textlink" href="menu.html#drinks">The full wine list</a></p>
+      </div>
+      <figure class="shot shot--circle shot--crust cider__shot">
+        <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">A cider pitcher</span><span class="shot__dir">Kerisac poured from the pitcher, a galette beside it.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- HOURS · square fold composition -->
+  <section class="section hours on-flour" id="hours" aria-labelledby="hours-title">
+    <div class="wrap grid8">
+      <header class="hours__head">
+        <p class="kicker">Opening hours · closed on Tuesdays</p>
+        <h2 class="mega" id="hours-title" lang="fr">Ouvert 6 jours</h2>
+      </header>
+      <div class="fold hours__fold">
+        <span class="fold__flap fold__flap--t" aria-hidden="true"></span><span class="fold__flap fold__flap--b" aria-hidden="true"></span><span class="fold__flap fold__flap--l" aria-hidden="true"></span><span class="fold__flap fold__flap--r" aria-hidden="true"></span>
+        <table class="hours__table">
+          <caption class="vh">Opening hours by day</caption>
+          <tbody>
+            <tr data-day="Monday"><th scope="row">Monday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>12 noon – 10pm</td></tr>
+            <tr data-day="Tuesday" class="is-closed"><th scope="row">Tuesday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>Closed</td></tr>
+            <tr data-day="Wednesday"><th scope="row">Wednesday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>12 noon – 10pm</td></tr>
+            <tr data-day="Thursday"><th scope="row">Thursday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>12 noon – 10pm</td></tr>
+            <tr data-day="Friday"><th scope="row">Friday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>12 noon – 10pm</td></tr>
+            <tr data-day="Saturday"><th scope="row">Saturday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>12 noon – 10pm</td></tr>
+            <tr data-day="Sunday"><th scope="row">Sunday</th><td class="today-cell"><span class="hours__today"><span class="vh">Today</span></span></td><td>12 noon – 9pm</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:14px">Bank holiday and Christmas hours, and kitchen last orders: <!-- [TO CONFIRM] bank holiday, Christmas and last-orders times --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+      </div>
+      <div class="hours__side">
+        <h3 class="kicker" style="margin-bottom:6px">What’s served when</h3>
+        <ul class="services">
+          <li><span><strong>Lunch, 12–5pm:</strong> the set lunch (Prix Fixe) and Les Galettes.</span></li>
+          <li><span><strong>Evening, from 5pm:</strong> La Carte and Les Desserts, plus a Daily Special.</span></li>
+          <li><span><strong>Steak Night:</strong> every Wednesday from 5pm till close.</span></li>
+          <li><span><strong>Sunday Brunch:</strong> served 12 to 5pm.</span></li>
+          <li><span><strong>Happy Hour:</strong> 4pm to 6pm, Monday to Friday.</span></li>
+        </ul>
+        <p class="note" style="margin-top:18px">“Please note that we now only serve the full carte in the evening with just the prix fixe &amp; galette menus on offer at lunchtime.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVATE ROOM · circle -->
+  <section class="section private on-dark" id="private-room" aria-labelledby="private-title">
+    <div class="wrap grid8">
+      <header class="private__head">
+        <p class="kicker" style="color:var(--jaune);margin-bottom:14px">Private dining · first floor</p>
+        <h2 id="private-title"><span class="private__num" aria-hidden="true">12<span>–</span>40</span><span class="big" style="display:block;margin-top:.2em"><span class="vh">12 to 40 </span>guests, upstairs</span></h2>
+      </header>
+      <div class="private__body">
+        <p class="lede">Our light, first-floor private room is perfect for parties of 12 to 40 people.</p>
+        <div class="prose" style="margin-top:18px">
+          <p>Whether you are organising a business lunch or dinner, family celebration or just want to get together with friends, we will be happy to come up with the right food, the right wines, and the perfect decoration to suit your event and budget.</p>
+          <p>All our private dining functions are tailor-made (we don’t have set menus or a set formula) so do call us on 020 8948 7473 or email us now to discuss your requirements.</p>
+        </div>
+        <div class="hero__actions">
+          <a class="btn btn--yolk" href="tel:+442089487473">Call 020 8948 7473</a>
+          <a class="btn" href="mailto:restaurant@chez-lindsay.co.uk?subject=Private%20room%20enquiry">Email us</a>
+        </div>
+      </div>
+      <figure class="shot shot--square shot--iron private__shot">
+        <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">The first-floor private room</span><span class="shot__dir">Laid for a party, daylight from the windows.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FIND US -->
+  <section class="section find on-flour-2" id="find-us" aria-labelledby="find-title">
+    <div class="wrap grid8">
+      <header class="find__head">
+        <p class="kicker">Hill Rise, by Richmond Bridge</p>
+        <h2 class="mega" id="find-title">Find us</h2>
+      </header>
+      <div class="find__body">
+        <address class="find__addr" style="font-style:normal">11 Hill Rise, Richmond, Surrey TW10&nbsp;6UQ</address>
+        <p class="prose" style="margin-top:16px">Having been here since 1988, we are very much part of the landscape on Hill Rise.</p>
+        <ul class="find__facts">
+          <li><span class="find__fig">10<small>min walk</small></span><span>Richmond station is a 10 minute walk away and provides a link with South Western Rail to Waterloo, Network Rail’s North London Line and TFL’s District Line.</span></li>
+          <li><span class="find__fig">5<small>min walk</small></span><span>The nearest NCP car park is in Paradise Road, a 5 minute walk away.</span></li>
+          <li><span class="find__fig" aria-hidden="true">Bus</span><span>Bus services to Richmond are aplenty.</span></li>
+        </ul>
+        <div class="hero__actions">
+          <a class="btn btn--ink" href="https://www.google.com/maps/search/?api=1&amp;query=Chez%20Lindsay%2C%2011%20Hill%20Rise%2C%20Richmond%20TW10%206UQ" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (opens in a new tab)</span></a>
+        </div>
+        <p class="note" style="margin-top:16px">If you need any help in planning your visit, do call us on <a href="tel:+442089487473">020 8948 7473</a>.</p>
+      </div>
+      <div class="find__shots">
+        <figure class="shot shot--square shot--crust">
+          <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">The frontage on Hill Rise</span></figcaption>
+        </figure>
+        <figure class="shot shot--circle shot--iron">
+          <figcaption><span class="shot__label kicker">Photograph to commission</span><span class="shot__name">The room</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- BOOK · honest hand-off, no booking system of our own -->
+  <section class="section book on-yolk" id="book" aria-labelledby="book-title">
+    <div class="wrap grid8">
+      <header class="book__head">
+        <p class="kicker">Online, by phone or by email</p>
+        <h2 class="mega" id="book-title">Book a table</h2>
+      </header>
+      <div class="book__card on-dark">
+        <h3>With OpenTable</h3>
+        <p>Online booking for Chez Lindsay runs through OpenTable. The button opens their booking page in a new tab. Nothing is booked until OpenTable confirms it.</p>
+        <p class="note" style="margin-top:10px">Booking link <!-- [TO CONFIRM] built from the restaurant's OpenTable widget ID (rid 93306); get a direct OpenTable booking URL from the restaurant --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <p style="margin-top:22px"><a class="btn btn--yolk" href="https://www.opentable.co.uk/restref/client/?rid=93306" target="_blank" rel="noopener" data-handoff><span class="btn__mark btn__mark--circle" aria-hidden="true"></span>Book on OpenTable<span class="vh"> (opens in a new tab)</span></a></p>
+        <p class="book__status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="book__alt">
+        <p class="lede" style="margin-bottom:22px;max-width:40ch">If you have any special requests regarding your booking, if you would like to talk to us about a private event, or anything else at all, then please do call us or send an email.</p>
+        <a class="contact-line" href="tel:+442089487473"><span class="contact-line__k">Call</span><span class="contact-line__v">020 8948 7473</span></a>
+        <a class="contact-line" href="mailto:restaurant@chez-lindsay.co.uk"><span class="contact-line__k">Email</span><span class="contact-line__v contact-line__v--email">restaurant@chez-lindsay.co.uk</span></a>
+        <p class="note book__note">Please note that we now only serve the full carte in the evening with just the prix fixe &amp; galette menus on offer at lunchtime. An optional service charge of 12.5% will be added to your bill.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot on-dark">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <a class="wordmark" href="index.html" aria-label="Chez Lindsay: home">
+          <span class="mark" aria-hidden="true"></span>
+          <span class="wordmark__text"><span class="wordmark__name">Chez Lindsay</span><span class="wordmark__strap">Restaurant &amp; Wine Bar</span></span>
+        </a>
+        <p class="note" style="margin-top:18px" lang="fr">Bienvenue. Bon appétit!</p>
+      </div>
+      <div class="foot__visit">
+        <h2>Visit</h2>
+        <address style="font-style:normal">11 Hill Rise<br>Richmond, Surrey<br>TW10 6UQ</address>
+        <ul class="foot__links" style="margin-top:6px">
+          <li><a href="tel:+442089487473">020 8948 7473</a></li>
+          <li><a href="mailto:restaurant@chez-lindsay.co.uk">restaurant@chez-lindsay.co.uk</a></li>
+        </ul>
+      </div>
+      <div class="foot__open">
+        <h2>Open six days</h2>
+        <dl class="foot__hours">
+          <dt>Mon</dt><dd>12 noon – 10pm</dd>
+          <dt>Tue</dt><dd>Closed</dd>
+          <dt>Wed–Sat</dt><dd>12 noon – 10pm</dd>
+          <dt>Sun</dt><dd>12 noon – 9pm</dd>
+        </dl>
+      </div>
+      <nav class="foot__nav foot__links" aria-label="Footer">
+        <h2>Pages</h2>
+        <ul>
+          <li><a href="menu.html">Menus</a></li>
+          <li><a href="#hours">Hours</a></li>
+          <li><a href="#find-us">Find us</a></li>
+          <li><a href="#private-room">Private room</a></li>
+          <li><a href="#book">Book</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <p>A speculative design proposal by an independent studio. Not the official Chez Lindsay website, and not commissioned or endorsed by Chez Lindsay. The restaurant’s own website is <a href="https://www.chez-lindsay.co.uk/">chez-lindsay.co.uk</a>.</p>
+      <p>Menus and prices as published by the restaurant in its January to September 2026 menus. Image areas name photographs still to be commissioned; the wordmark is a stand-in set in Archivo, not the restaurant’s logo.</p>
+    </div>
+  </div>
+</footer>
+
+<nav class="dock" aria-label="Quick actions">
+  <a class="dock__book" href="#book"><span class="dock__icon dock__icon--circle" aria-hidden="true"></span>Book</a>
+  <a href="menu.html"><span class="dock__icon" aria-hidden="true"></span>Menu</a>
+  <a href="tel:+442089487473" aria-label="Call 020 8948 7473"><span class="dock__icon" style="border-radius:50%" aria-hidden="true"></span>Call</a>
+</nav>
+
+</body>
+</html>

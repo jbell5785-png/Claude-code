@@ -152,7 +152,16 @@
       detail.push('Back ' + (next.offset === 1 ? 'on Wednesday' : relDay(next.offset, next.dayIndex)) + ' at noon, with steak night from 5pm.');
     }
 
+    /* Two short lines for the sticky "Now serving" bar */
+    var barKicker, barMain;
+    if (state === 'open') { barKicker = 'Now · until ' + fmtTime(until); barMain = SHORT[service]; }
+    else if (state === 'before') { barKicker = 'Closed now'; barMain = 'Opens today at noon'; }
+    else if (state === 'after') { barKicker = 'Closed for tonight'; barMain = 'Opens ' + (next.offset === 1 ? 'tomorrow' : DAYS[next.dayIndex].en) + ' at noon'; }
+    else { barKicker = 'Fermé le mardi'; barMain = 'Opens Wednesday at noon'; }
+
     return {
+      barKicker: barKicker,
+      barMain: barMain,
       dayIndex: dayIndex,
       day: d.key,
       dayName: d.en,
