@@ -8,7 +8,7 @@
 - **Takeaway customers**: pizza by phone.
 
 ## Brand personality
-A family Italian that has fed Richmond since 1983 [TO CONFIRM], known as "the restaurant with the washing". Generous, unfussy and a little theatrical: Naples street life hung across a Richmond courtyard. Warm, not twee. Confident, not posh. Funny when it suits it.
+A family Italian that has fed Richmond since 1983 [TO CONFIRM], first known as "the restaurant with the washing" and today still hanging a line of sports shirts across its dining room. An Italian kitchen run by a Portuguese owner [TO CONFIRM how they'd like this told]. Generous, unfussy and a little theatrical: birthday bunting, yellow roses, white cloths, a blue ceiling. Warm, not twee. Confident, not posh. Funny when it suits it.
 
 ## Primary actions (in order)
 1. **Book a table**: date, time and party size, then hand-off to the booking system [TO CONFIRM: OpenTable or own system]. Phone for groups and same-day.
@@ -66,24 +66,24 @@ A family Italian that has fed Richmond since 1983 [TO CONFIRM], known as "the re
   - Rationale: colour carries time of day. The evening palette is where dinner bookings are won.
 - **Grid and spacing:** Cinematic frames. Each section is a full-viewport "scene" holding one idea, with type anchored to the lower-left third like a subtitle. 6-column grid with wide 8vw margins; spacing measured in viewport heights between scenes; thin letterbox rules at top and bottom of pinned scenes.
 - **Menu presentation:** One course at a time. A sticky course rail (Antipasti → Dolci) and a single course on stage, with dish names set large and descriptions quiet. Scrolling advances the course with a dissolve. Every dish is in the DOM; the rail is also a jump list.
-- **Signature interaction: "Si accendono le luci".** A pinned, layered illustration of the courtyard frontage. Scroll moves the sky from late afternoon to night, the windows warm up, and a festoon of bulbs lights one by one. The last bulb lights the "Table for tonight?" booking panel.
+- **Signature interaction: "Si accendono le luci".** A pinned, layered illustration of the real Kew Road frontage: tall glass upper storey, cream fascia, wooden shopfront and terrace. Scroll moves the sky from late afternoon to night. The glass storey begins to glow, the silhouettes of the shirts on the line appear inside, and the coloured fairy lights across the shopfront come on bulb by bulb. The last bulb lights the "Table for tonight?" booking panel.
 - **Motion language:** slow, scrubbed and continuous. Scroll-tied colour and light, at most three-layer parallax depth, film-style dissolves of 1.2–1.6s, `sine.inOut`. Nothing bounces, nothing snaps.
 
 ## Direction C: "Bucato"
-**Concept.** *Bucato* is Italian for the washing. The restaurant's local nickname becomes a bold typographic identity: a line strung across every page, with words pegged to it like laundry in a Naples street.
+**Concept.** *Bucato* is Italian for the washing. The line of shirts across the dining room becomes a bold typographic identity: a line strung across every page, with words pegged to it like laundry in a Naples street.
 
 - **Type:** *Bricolage Grotesque* (display: variable weight and width, chunky and characterful, set very large and tight) + *Atkinson Hyperlegible* (text and UI: built for legibility, with its own personality).
 - **Palette:**
   - Pomodoro `#D7261E`: the logo red as a flat field
   - Bucato `#FFFFFF`: white washing
-  - Cielo `#CFE6F4`: a Naples sky
-  - Limone `#FFD447`: accents and the lunch deal
+  - Soffitto `#1F3B8F`: the dining room's deep-blue ceiling, used as a full field with white type
+  - Tovagliolo `#F7C948`: the yellow napkins and roses; accents and the lunch deal
   - Basilico `#0F6E3A`: dietary markers and the courtyard
   - Inchiostro `#161311`: text
-  - Rationale: laundry colours against a sky, flat and hard-edged. Red and green keep the 40-year-old brand recognisable.
+  - Rationale: the room's own colours (blue ceiling, white cloths, yellow napkins, red shirts) used flat and hard-edged. Red and green keep the 40-year-old brand recognisable.
 - **Grid and spacing:** A poster grid of modular colour blocks on 4/8/12 columns, with type running edge to edge and extreme scale contrast (dish names up to 3× body). Structure hangs from horizontal lines: every section begins with a line across the page and its heading pegged to it.
 - **Menu presentation:** A pegged index. Section names hang as tags on a sticky line; click one to jump. Dishes are set as big, bold lines with the price on a hole-punched tag shape and dietary markers as solid glyphs. A loud, fast-scanning list, the opposite of A's quiet card.
-- **Signature interaction: the washing line.** Across the hero hangs a sagging line of pegged flat garments (shirt, tea towel, apron), each carrying a word: Menu, Book, Pizza to take away, Find us. They sway in a breeze driven by cursor speed (or scroll on touch), spring back when tugged, and work as navigation. Each garment is a real link with keyboard focus.
+- **Signature interaction: the washing line.** Across the hero, under a blue "ceiling", hangs a sagging line of pegged shirts, generic and unbranded with no club crests. Each carries a word across its back where a player's name would go: MENU, PRENOTA, PIZZA, DOVE. No numbers, so they can't read as numbered section labels. A tea towel and an apron hang among them. They sway in a breeze driven by cursor speed (or scroll on touch), spring back when tugged, and work as navigation. Each garment is a real link with keyboard focus.
 - **Motion language:** springy and physical. Elastic and back eases, quick 150–300ms snaps, gentle looping sway, a running marquee for takeaway ("Pizza da asporto: chiamaci").
 
 ## How the three stay apart
@@ -91,7 +91,7 @@ A family Italian that has fed Richmond since 1983 [TO CONFIRM], known as "the re
 |---|---|---|---|
 | Concept | Printed menu card | Afternoon into evening | The washing line as identity |
 | Type | Young Serif + Instrument Sans | Italiana + Hanken Grotesk | Bricolage Grotesque + Atkinson Hyperlegible |
-| Ground | White card, two inks | Shifting light, ends in night | Flat primary fields |
+| Ground | White card, two inks | Shifting light, ends in night | Flat fields in the dining room's colours |
 | Layout logic | Broadsheet with sticky margin column | Full-viewport scenes | Modular poster blocks hung from lines |
 | Menu | Continuous typeset card + pen-mark filter | One course on stage + course rail | Pegged tag index + oversized type list |
 | Motion | Ink drawing, no scroll-tie | Scrubbed, slow, cinematic | Springy physics, sway, snaps |

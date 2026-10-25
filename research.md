@@ -2,7 +2,7 @@
 
 ## 1. The current site (caffemamma.co.uk)
 
-**How I got it.** The live site returns 403 to automated requests and the Wayback Machine connection kept resetting, so the facts below come from two places. One is your mobile screenshots (`research-assets/`). The other is search-engine snippets of the site's own pages: `/`, `about-us.php`, `menu-food.php`, `menu-drinks.php`, `menu-children.php`, `menu-lunch.php`, `menu-party.php`, `offers.php`, `bookings.php` and `find-us.php`. I've cross-checked them against Time Out, OpenTable and Urbanary. Anything I could only find on a third-party site is marked as such.
+**How I got it.** You supplied screenshots of the current site and two recent visitor photos of the dining room and the Kew Road frontage, about five months old. The screenshots are in `research-assets/`; the visitor photos belong to someone else, so they are used only as reference and are not in the repo. The live site returns 403 to automated requests and the Wayback Machine connection kept resetting, so the facts below come from two places. One is your mobile screenshots (`research-assets/`). The other is search-engine snippets of the site's own pages: `/`, `about-us.php`, `menu-food.php`, `menu-drinks.php`, `menu-children.php`, `menu-lunch.php`, `menu-party.php`, `offers.php`, `bookings.php` and `find-us.php`. I've cross-checked them against Time Out, OpenTable and Urbanary. Anything I could only find on a third-party site is marked as such.
 
 ### Content that exists
 
@@ -13,15 +13,18 @@
 | Phone | 020 8948 8330 | Site | Confirmed |
 | Email | contact@caffemamma.co.uk (general), bookings@caffemamma.co.uk (enquiries) | Screenshot | Confirmed |
 | Story | Opened in **1983 on Hill Street, Richmond**, serving pasta. Known locally as "the restaurant with the washing" for its Naples-street look, with washing lines and murals. Moved to Rocks Lane, Barnes in 2004 as Mamma Ristorante, adding main courses. Moved back to Richmond, 110 Kew Road, in **March 2006**. Described as family-run, close to Kew Gardens | about-us.php (snippet) | Wording to confirm. Murals credited to "Nick Smith" [TO CONFIRM before naming] |
-| Courtyard | A pretty courtyard with a clothes line, complete with clothes, hung above the outdoor tables | Time Out (2013) | [TO CONFIRM it is still there] |
+| The washing line today | Inside, a line of sports shirts is strung across the dining room under a deep-blue ceiling. Grey walls, white cloths with yellow napkins, a yellow rose on each table, warm wood chairs, a curved staircase up to the function room, a large mirror and a chalkboard. Birthday bunting and paper lanterns on the day the photo was taken | Visitor photo (≈5 months old) | Confirmed |
+| Frontage | Double-height glazed upper storey; cream fascia with the red script, green stroke and "RISTORANTE"; wooden glazed shopfront strung with coloured fairy lights; a front terrace with clothed tables, planting and a menu stand | Visitor photo | Confirmed |
+| Courtyard | Time Out described a courtyard with a clothes line above the outdoor tables | Time Out (2013) | Likely the front terrace; [TO CONFIRM] |
+| Owner | The owner is Portuguese, running an Italian kitchen | You (former staff) | How the owners want this told [TO CONFIRM] |
 | Nav structure | Home, Book, Menus (Food, Drinks, Children's, Lunch Special, Party Special, Christmas Menu), Offers, Reviews, Gallery, Find Us | Screenshot | Confirmed |
 | Booking | Online booking page with make and cancel options; phone and email for enquiries. Also listed on OpenTable | Screenshot, OpenTable | Which system the site uses is [TO CONFIRM] |
-| Takeaway | The site's own title says "Italian Restaurant and Pizza Takeaway". Takeaway orders by phone. Delivery listed on Deliveroo, Just Eat and Uber Eats, at higher prices | Site title, OpenTable FAQ, platforms | [TO CONFIRM which platforms are active] |
+| Takeaway | The site's own title says "Italian Restaurant and Pizza Takeaway". The door says "Takeaway available" with a Just Eat sticker. Takeaway orders by phone. Deliveroo and Uber Eats listings also exist | Site title, door decal, OpenTable FAQ | Just Eat confirmed; others [TO CONFIRM] |
 | Private dining | Function room for private parties of up to 58 people (upstairs). Children's parties. Three-course party set menu, pre-arranged parties only | Screenshot, menu-party, menu-children | Party menu price [TO CONFIRM] |
 | Offer | "Book a table online to receive 10% off when ordering two courses (excl. drinks) Monday to Friday (excl. rugby and special days and Xpress lunch menu)" | Screenshot | Another page snippet says 20% off Sun–Fri. [TO CONFIRM] |
 | Lunch | "Xpress Lunch", a two-course set menu, Mon–Fri 12–5pm | menu-lunch | Price conflicts: £11.95 on one page, £18.95 on another. [TO CONFIRM] |
 | Children's menu | Main, ice-cream dessert and a drink: pizza, spaghetti bolognese, chicken nuggets and chips | menu-children | Price (£9.95) [TO CONFIRM] |
-| Opening hours | **Not stated on the site.** OpenTable gives 12:00–22:00 daily | OpenTable | [TO CONFIRM] |
+| Opening hours | **Not stated on the site.** The door decal says "open 7 days 12.00–11.00pm". OpenTable gives 12:00–22:00, probably last bookings | Door decal, OpenTable | Kitchen times [TO CONFIRM] |
 | Getting there | Five-minute walk from Richmond Station. Free street parking nearby after 4.30pm | find-us | Confirmed (site) |
 | Photos | Gallery page exists; I couldn't see its contents | — | Real photography needed |
 | Footer | "©Caffè Mamma 2001–2015" | Screenshot | The site hasn't been updated in roughly ten years |
@@ -90,7 +93,7 @@ Each site was opened in headless Chromium at 1440px and 390px.
 ## 4. Principles I'll apply
 
 1. **Book, menu, call and find-us are visible in the first frame at 390px**, and reachable from every scroll position. No pop-ups, no modals on arrival.
-2. **The washing line is the brand.** "The restaurant with the washing", Naples street style, Richmond since 1983 [TO CONFIRM]. It's the one story no other Richmond Italian can tell, so each concept uses it, but differently.
+2. **The washing line is the brand.** It ran from "the restaurant with the washing" on Hill Street in 1983 [TO CONFIRM] to the line of shirts across today's dining room. It's the one story no other Richmond Italian can tell, so each concept uses it, but differently. The interior's own colours (deep-blue ceiling, white cloths, yellow napkins and roses) are real brand material too.
 3. **Keep the existing equity:** the red script and the green are 40 years old. Each concept evolves them rather than discarding them.
 4. **Menus are typeset text** with right-aligned tabular prices, Italian names and English descriptions, and a dietary key. Inferred markers and prices are flagged.
 5. **Practical facts are written honestly**, including the conditions (offer exclusions, party-menu rules, parking after 4.30pm).
