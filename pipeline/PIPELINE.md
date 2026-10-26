@@ -39,7 +39,7 @@ If you later want real volume, use a separate domain and mailbox for outreach, p
 
 ## Running it
 - **Where:** a Claude Code session on this repo. Run one area at a time, with three businesses per run.
-- **Cost and time:** about 2–3 hours per run of 3 businesses × 3 concepts. That's 9 builders plus research, QA and AI-check agents, so a usage limit can interrupt it. Builders resume from their files.
+- **Cost and time:** about 2–3 hours per run of 3 businesses × 3 concepts. That's 9 builders plus research, QA and AI-check agents. Builders save their files as they go, so a run can resume if it's ever interrupted.
 - **Folder layout per run:** `runs/<area>-<date>/<business>/{research,brief.md,concept-a|b|c,ai-check,one-pager.html,email.md}`
 - **Tools:** in `pipeline/tools/`. Set `WORK=<scratch dir>`. QA needs `npm install` in `tools/` (axe-core) and Playwright with Chromium.
 - **Stage briefs** (the prompts each agent gets) live in `pipeline/stages/`. They're written from this session's prompts, so a new run doesn't depend on memory.
