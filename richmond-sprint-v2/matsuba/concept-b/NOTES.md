@@ -6,6 +6,43 @@ Speculative proposal only. Not the official Matsuba website, and not commissione
 
 Local preview: `python3 -m http.server 8512 --directory richmond-sprint-v2/matsuba/concept-b`
 
+
+## Useful first pass (26 October 2026): 28/32 → 32/32
+
+B already passed. This pass moves its essentials up and keeps the wall exactly as it was.
+
+**What changed**
+- **Today strip in the hero plate** (first screen, inside 390×660): the live status, "10 Red Lion St, TW9 1RW · Directions", Book a table and Menu, and "Skip to visit info". The plate’s kicker now reads "Japanese restaurant, Richmond". On phones the "family-run, 2004" line moves to the top of "The room" panel; desktop keeps it in the plate. Order moves out of the plate into the header, which now shows it on phones too.
+- **Visit second:** "Hours, address, booking" follows the hero. It has the full-week table (days written out, flags kept), the address, map and phone, getting there ("to confirm" items), booking in plain words, and 20% off collection via Toast.
+- **Priced taster third:** "From the menu" has three Special Rolls (Matsuba, Dynamite, Special K vg) and three starters (Tuna Tataki, Nasu Dengaku vg, Edamame v), all with £, plus the v/vg legend. The photo slot follows the dishes.
+- **The order after that** is the room, the fourteen slats, takeaway and reservations. On phones the gaps after the hero and after Visit shrink to 36 px, and the hero is capped at 540 px so the sconce stays on screen 1.
+- **Action bar:** Book · Menu · Call, plus `scroll-padding-bottom`. The footer adds the hours.
+- **Menu page:** an allergen statement at the top (the 14 allergens are not listed per dish; the restaurant’s own line; the phone number), Back to top after each course, and "On this menu" as the course bar’s label.
+- **Kept:** fonts, palette, the wall and sconce, the elevation, JSON-LD (its description is still visible), `llms.txt`, all "to confirm" markers.
+
+| # | Item | Before | After | Evidence after |
+|---|---|---|---|---|
+| 1 | Essentials on screen 1 (G) | 2 | 2 | Status, address with Directions, Book a table and Menu at 354–543 px at 390×660 (bar top 596); the sconce and stepping slats still show above the plate |
+| 2 | Time to essentials (G) | 2 | 2 | Strip is HTML; the inline status script runs after the plate is parsed, and the status line reserves three lines, so CLS is 0.012 |
+| 3 | Signature is parallel (G) | 2 | 2 | "Skip to visit info" in the plate; Book and Menu in the plate and the bar |
+| 4 | Signature budget | 2 | 2 | Unchanged: fixed backdrop, no pin, about 3 s load moment |
+| 5 | Hidden content duplicated | 2 | 2 | Unchanged |
+| 6 | Reduced motion and no-JS (G) | 2 | 2 | Unchanged static wall; the no-JS strip shows the week in one line |
+| 7 | Hours table | 1 | 2 | Visit is second (630 px); full week at 795 px with "to confirm" flags |
+| 8 | Priced menu taster | 1 | 2 | "From the menu": three Special Rolls and three starters with £ and v/vg marks plus a legend; first dish at 1,709 px |
+| 9 | Find us | 1 | 2 | Address, Google Maps link and phone, station, parking and step-free access marked "to confirm" |
+| 10 | Booking clarity | 2 | 2 | Unchanged terms, now also in plain words in Visit |
+| 11 | HTML menu (G) | 2 | 2 | Unchanged |
+| 12 | Menu navigation | 2 | 2 | Sticky course bar, now labelled "On this menu", plus Back to top after every course |
+| 13 | Prices and dietary marks | 2 | 2 | Legend and allergen statement (now with the 14-allergen note and the phone) at the top |
+| 14 | Action bar | 1 | 2 | Book · Menu · Call; Order visible in the phone header; `scroll-padding-bottom` set |
+| 15 | Accessibility of the interaction | 2 | 2 | Unchanged |
+| 16 | Literal labels | 2 | 2 | "Hours, address, booking", "From the menu" |
+| | **Total** | **28/32** | **32/32** | |
+**QA** (`pipeline/tools/qa.sh`, label `v2-matsuba-b-uf`, port 8942): no console errors, no failed requests, no bad links, no overflow at 390, 768 or 1440, axe clean on both pages. CLS: index 0.012 / 0.000 / 0.000, menu 0.001 / 0.044 / 0.000 (390 / 768 / 1440). Keyboard run (60 Tabs per page at 390×844): no focused element lands under the action bar.
+
+**Scoring note.** Item 9 is scored under the audit's convention that unpublished station, parking and step-free facts may appear as "to confirm". Nothing in the copy deck states them, so they are flagged rather than written. Screens are 390×844 in motion mode unless stated. Screenshots and measurements: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/ufm/` (`shots/`, `audit/`).
+
 ---
 
 ## The swap test
@@ -45,9 +82,9 @@ The signature comes directly from detail 1. Details 2, 3 and 4 each appear as de
 - Fonts: Urbanist (wordmark, labels, UI) and Spectral (headlines, text, dish names), from Google Fonts with `display=swap` and preconnects. The metric-matched fallbacks were computed with fontTools from the served files: Urbanist against Liberation Sans/Arial (size-adjust 99.7%) and Spectral against Liberation Serif/Times (109.2%). Spectral's Google build has no old-style figures or small caps, so prices use its `tnum` tabular figures.
 - Layout logic, "hung on the slat module": every panel is snapped to whole modules with CSS `round()`, so panel edges land in the gaps between slats. On the homepage the panels hang at different points along the wall, deliberately asymmetric, leaving the wall visible between them. On the menu each course hangs half a slat (tablet) or one slat (desktop) further along than the one before, so the menu itself steps down the wall.
 - The hero headline steps in line by line ("Pull up a chair." / "Take a taste." / "Come join us."), echoing the diagonal.
-- Phone: a fixed charcoal action bar (Book, Order, Menu, Call) is always present. From 760px the header carries Book a table; Visit and Order are added from 960px. On the menu, the course bar is sticky on phones and tablets. On desktop it slides in under the header once the wall index has scrolled away.
+- Phone: a fixed charcoal action bar (Book, Menu, Call) is always present, and the header shows Menu and Order. From 760px the header carries Book a table; Visit is added from 960px. On the menu, the course bar is sticky on phones and tablets. On desktop it slides in under the header once the wall index has scrolled away.
 - Tasting menu: without JS, and on phones, it's a plain ordered list of 14 horizontal slats, each stepping in one module further. On screens of 960px and up, JS builds a 14-tab stepped wall (`role=tablist`, roving tabindex, arrow keys, Home and End, hover preview for mice). It sits beside a white card that shows the dish. Each dish's content becomes the tabpanel.
-- "Open now": computed from the published hours in Europe/London time. Monday and the lunch end time always carry a visible "to confirm" marker. Without JS, the hero says "Lunch and dinner Tuesday to Saturday, and Monday [to confirm]. Closed Sunday."
+- "Open now": computed from the published hours in Europe/London time. Monday and the lunch end time always carry a visible "to confirm" marker. The hero status is now set by an inline script before first paint. Without JS it reads "Mon [to confirm]–Fri 12–3pm [to confirm], 5–10pm · Sat 12–10pm · Sun closed". The header and Visit status still come from `js/site.js`.
 - Contrast (WCAG): charcoal on marble 14.3:1; charcoal on light oak (course slats, index labels) 6.2:1; charcoal on wall grey 4.7:1; deep oak #7A4429 kickers on marble 6.9:1; ink-2 on marble 7.0:1; vg/v green #2F6F2A on marble 5.4:1; "to confirm" #8A5A0E on marble 5.2:1; marble on charcoal 14.3:1; glow on charcoal 10.3:1.
 - axe-core 4.10 (WCAG 2.0, 2.1 and 2.2 A/AA plus best practice): zero violations on both pages at 390, 768 and 1440. No console errors, no failed requests, no horizontal scroll at 390, 768 or 1440 (checked in Playwright).
 - Metadata: title, description, theme-color, inline SVG favicon (four stepping slats and a glow), Open Graph, `lang="en-GB"`, and Restaurant JSON-LD (name, address, phone, email, cuisine, founding year 2004, booking and menu URLs, Instagram). Hours are left out of the JSON-LD because Monday is unconfirmed.

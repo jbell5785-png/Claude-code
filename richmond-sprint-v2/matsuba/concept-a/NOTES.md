@@ -4,6 +4,43 @@
 
 Port 8511: `python3 -m http.server 8511 --directory richmond-sprint-v2/matsuba/concept-a`
 
+
+## Useful first pass (26 October 2026): 23/32 → 32/32
+
+The client felt the signature came before being useful. The walk is kept, but it now sits alongside the essentials instead of in front of them.
+
+**What changed**
+- **Today strip under the h1** (first screen, inside 390×660): today’s status from the published hours, in London time, with "to confirm" kept for Monday and the lunch end time. It also carries "10 Red Lion St, TW9 1RW · Directions" (Google Maps), Book a table and Menu, plus "Skip to visit info". The frontage art is 390×220 on phones so the strip fits.
+- **Visit second:** "Hours, address, booking" now follows the hero. It has the full-week table, the address with a map link and phone, getting there (station, parking and access "to confirm"), the booking terms in plain words, and 20% off collection via Toast.
+- **Priced taster third:** "From the menu" (the lit menu case) has five dishes with £ and v/vg marks, with the Lion King aside kept.
+- **The walk after that, shortened on phones.** It shows the room once (3:2), and the four stops are a swipe rail with Bar · Brick wall · Booths · Slat wall buttons. The camera follows the rail, and the lamps switch on one by one, once. The awning now rolls up as the hero scrolls away, with no pin. Desktop keeps the pinned walk: the room opens through the door, then the camera walks it, all on native scroll. "Skip the walk to booking" comes before it. "Find the corner" (street history, Viner slot) moves to the end.
+- **Action bar:** Book · Menu · Call, with Order in the header, plus `scroll-padding-bottom`.
+- **Menu page:** the tabs are gone. It is one scrolling page with a sticky course row, Back to top after each course, and the legend, allergen statement and service line at the top. The footer on both pages adds the hours and a Book link.
+- **Kept:** fonts, palette, both drawings, JSON-LD (no visible fact changed; the description sentence is still on the page), `llms.txt`, all "to confirm" markers.
+
+| # | Item | Before | After | Evidence after |
+|---|---|---|---|---|
+| 1 | Essentials on screen 1 (G) | 1 | 2 | Status, address with Directions, Book a table and Menu at 417–585 px at 390×660 (bar top 596), as HTML; bar Book · Menu · Call |
+| 2 | Time to essentials (G) | 2 | 2 | Strip is plain HTML; the status is set by an inline script before first paint, with a week-in-one-line fallback without JS |
+| 3 | Signature is parallel (G) | 2 | 2 | "Skip to visit info" in the strip; "Skip the walk to booking" before the walk; Book and Menu in the strip and the bar |
+| 4 | Signature budget | 0 | 2 | Phones: nothing pinned; the walk takes 787 px (skip link to the end of the rail), and the lamps switch on once in about 1.5 s. Desktop keeps a pinned walk of about 2.75 screens, native scroll |
+| 5 | Hidden content duplicated | 2 | 2 | The four stops are DOM text in a swipe rail with tap buttons; nothing is only inside the drawing |
+| 6 | Reduced motion and no-JS (G) | 2 | 2 | Reduced motion and no JS: lit frontage, lit room still, the same rail, the same strip (no-JS shows the week) |
+| 7 | Hours table | 1 | 2 | Full week at 824 px, Monday and the lunch end marked "to confirm"; today’s row highlighted |
+| 8 | Priced menu taster | 1 | 2 | "From the menu": five dishes with £ and v/vg marks plus a legend; first dish at 1,680 px |
+| 9 | Find us | 1 | 2 | Address, Google Maps link, "in the heart of Richmond", station, parking and step-free access marked "to confirm" |
+| 10 | Booking clarity | 2 | 2 | Visit block: online up to 12, card secures it, £10 per person for a no-show or under 24 hours’ notice, over 12 by phone |
+| 11 | HTML menu (G) | 2 | 2 | Unchanged: HTML with h2/h3 |
+| 12 | Menu navigation | 1 | 2 | Tabs removed: one scrolling page with a sticky "On this menu" course row and Back to top after every course |
+| 13 | Prices and dietary marks | 1 | 2 | v/vg legend, allergen statement and service line at the top of the case |
+| 14 | Action bar | 1 | 2 | Book · Menu · Call, opaque, Order moved to the header; `scroll-padding-bottom` 72 px |
+| 15 | Accessibility of the interaction | 2 | 2 | Rail is native horizontal scroll with four stop buttons (tap or keyboard), a focusable region and no loops |
+| 16 | Literal labels | 2 | 2 | "Hours, address, booking", "From the menu", "Book a table", "Menu", "Order" |
+| | **Total** | **23/32** | **32/32** | |
+**QA** (`pipeline/tools/qa.sh`, label `v2-matsuba-a-uf`, port 8941): no console errors, no failed requests, no bad links, no overflow at 390, 768 or 1440, axe clean on both pages. CLS: index 0.009 / 0.007 / 0.015, menu 0.064 / 0.021 / 0.010 (390 / 768 / 1440); the menu key reserves its web-font height. Keyboard run (60 Tabs per page at 390×844): no focused element lands under the action bar.
+
+**Scoring note.** Item 9 is scored under the audit's convention that unpublished station, parking and step-free facts may appear as "to confirm". Nothing in the copy deck states them, so they are flagged rather than written. Screens are 390×844 in motion mode unless stated. Screenshots and measurements: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/ufm/` (`shots/`, `audit/`).
+
 ---
 
 ## The signature: "Step inside"
@@ -17,7 +54,7 @@ Port 8511: `python3 -m http.server 8511 --directory richmond-sprint-v2/matsuba/c
 4. **The walk.** A one-point-perspective drawing of the room (`#room`) stays pinned with `position: sticky` while four short cards scroll past. A camera, which is just `viewBox` interpolation, moves bar canopy → brick wall → booths → far slat wall. Between the bar and the brick wall, the four swing-arm lamps **switch on one by one**, their light pools land on the tables, the fairy-light swags glow as both of their lamps come on, and the room's dimmer lifts.
 5. **Booking at the far wall.** The last card hands over to the booking section, which opens on the same stepped slat wall.
 
-**Rules kept:** no scroll-jacking (the page scrolls natively and the drawing follows it). "Come in" is a smooth `scrollTo` and moves focus to the first card. On phones the sequence is about four screens, and every card is readable text in the DOM. The action bar (Book, Order, Menu, Call) stays fixed throughout. **Reduced motion, or no JS:** the frontage rests lit with the awning down, the room is shown whole and fully lit as a composed still, and the four cards follow as a plain list.
+**Rules kept:** no scroll-jacking (the page scrolls natively and the drawing follows it). "Come in" is a smooth `scrollTo` and moves focus to the first card. Since the Useful first pass, phones get a one-screen version (the room once, the stops as a swipe rail) and desktop keeps the pinned walk. Every card is readable text in the DOM. The action bar (Book, Menu, Call; Order is in the header) stays fixed throughout. **Reduced motion, or no JS:** the frontage rests lit with the awning down, the room is shown whole and fully lit as a composed still, and the four cards follow as a plain list.
 
 ---
 
@@ -77,7 +114,7 @@ The slat wall appears in A only as the room's far end (beat 4 and the booking ba
 - **Stack:** plain HTML, CSS and JS, with no frameworks and no GSAP. Motion is written in about 200 lines of JS (`js/walk.js`), with rAF-throttled scroll handling that only runs while the walk section is in view.
 - **Illustrations:** both drawings are original inline SVG. They were drawn by procedural scripts that place every element: a real one-point perspective projection for the room, with bricks, lamps, swags, tables, glasses and slats placed in depth, and a measured elevation for the frontage. Proportions came from studying client photos 1–5 and the site photos. **No photo was traced or embedded.** `img/frontage.svg` is a standalone copy of the frontage for print or social use.
 - **Texture:** a feTurbulence grain tile (`img/grain.svg`) is blended over both drawings. Brick and plinth are tiny SVG tiles.
-- **Files:** `index.html`, `menu.html`, `css/site.css`, `css/menu.css`, `js/site.js` (header, swags, booking hand-off), `js/walk.js` (signature), `js/menu.js` (tabs), `img/` (favicon, frontage, tiles, grain).
+- **Files:** `index.html`, `menu.html`, `css/site.css`, `css/menu.css`, `js/site.js` (header, swags, booking hand-off), `js/walk.js` (signature), `js/menu.js` (marks the current course in the sticky row), `img/` (favicon, frontage, tiles, grain).
 - **No layout shift:** the hero art, room still, slot and swags all have fixed aspect ratios or heights. The booking status line reserves no space until it is used, and it sits below the button.
 - **Type:** Josefin Sans (wordmark, labels, nav: wide tracking as on the awnings) and Source Serif 4 (text, dish names; optical sizing on; old-style figures in running text, lining tabular figures for prices). Metric-adjusted local fallbacks are defined.
 - **Colour and contrast** (checked): awning white on slate is 11.5:1; bulb `#F2B65A` on slate is 7.1:1; muted `#b3bcc1` on slate is above 5.9:1; ink on paper is 13.7:1; gold text `#7f5410` on paper is 6.2:1; vg green `#2c7a2f` on paper is 5.0:1. Oak `#B26B45` and brick `#9A5B3F` are used only as texture or decoration.
@@ -85,7 +122,7 @@ The slat wall appears in A only as the room's far end (beat 4 and the booking ba
   - skip link, landmarks and a logical heading order
   - both drawings have `<title>` and `<desc>`
   - `:focus-visible` rings
-  - the menu tabs follow the ARIA tabs pattern (arrow keys, Home and End; the hash deep-links to a course); without JS every course shows in order and the tabs are jump links
+  - the menu is one scrolling page; the course row is a set of sticky jump links (the ARIA tabs were removed in the Useful first pass because they hid 100 of 121 prices)
   - tap targets are 44px or more
   - the action bar is a labelled `<nav>`
 - **Booking:** the form's party size is not sent anywhere. Submitting opens `https://booking.favouritetable.com/?SiteCode=2122` in a new tab (`opener` nulled) and states plainly that nothing is booked until the guest confirms it there. If `window.open` is blocked, a visible link appears instead. Choosing "13 or more" points to the phone, as Matsuba's terms say. The terms are quoted verbatim. Without JS, the form submits as a GET to the same URL in a new tab.

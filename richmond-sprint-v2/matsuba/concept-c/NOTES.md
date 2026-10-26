@@ -4,6 +4,43 @@
 
 Port: `python3 -m http.server 8513 --directory richmond-sprint-v2/matsuba/concept-c`
 
+
+## Useful first pass (26 October 2026): 25/32 (failed gate 1) → 32/32
+
+The sear and the print-menu system are unchanged. What moved is the essentials, which now sit beside the sear.
+
+**What changed**
+- **Today strip under "£14.9"** (first screen, inside 390×660): today’s status from the published hours (Monday and the lunch end "to confirm"), "10 Red Lion St, TW9 1RW · Directions", and Book a table + Menu side by side. "Skip to visit info" sits above the kicker. "Family-run Japanese restaurant" comes under the price, and "First opened in 2004" moves to the footer on phones. On short phones (under 44em high) the hero type steps down a size. The price shows a visible £.
+- **Visit second:** the "Find us" section is now "Visit" and follows the hero. It has hours (every day on its own row), the address, map and phone, getting there ("to confirm" items), booking in plain words, and 20% off collection via Toast. The window still life (orchids and the lit menu case) moves to its own section after the evening, so it no longer pushes the taster down.
+- **Priced taster third:** Aburi Nigiri is the taster, with £ now visible on every price. A "Vegetarian & vegan" pair (Nasu Dengaku vg, Edamame v) and the legend follow the eight. "Sear them again" and "See the full menu" are added.
+- **Motion:** the candle breathes once, then rests (it used to loop forever). Replay of the sear is now a button in both seared sections.
+- **Dock:** Book · Menu · Call (the menu page has Book · Find us · Call), with Order in the header on phones and `scroll-padding-bottom` set. The footer adds the address, phone and hours.
+- **Menu page:** the v/vg legend, the allergen statement (the 14 allergens are not listed per dish; the restaurant’s own line; the phone number) and the service line move to the top. Back to top follows each course. The title block reserves its web-font line breaks, which keeps CLS under 0.1.
+- **Kept:** fonts, palette, the flame, the drawings, JSON-LD (its description is still visible), `llms.txt`, all "to confirm" markers.
+
+| # | Item | Before | After | Evidence after |
+|---|---|---|---|---|
+| 1 | Essentials on screen 1 (G) | 0 | 2 | Status, address with Directions, Book a table and Menu at 417–559 px at 390×660 (dock top 595); "Family-run Japanese restaurant" under the price |
+| 2 | Time to essentials (G) | 2 | 2 | Strip is HTML under the price; the sear runs over legible text; "Tuna / Tataki" is held on two lines on phones, so the font swap no longer shifts the hero |
+| 3 | Signature is parallel (G) | 2 | 2 | "Skip to visit info" above the kicker, before the sear; Book and Menu in the hero and the dock |
+| 4 | Signature budget | 2 | 2 | Unchanged: no pin, the sear runs once |
+| 5 | Hidden content duplicated | 2 | 2 | Unchanged |
+| 6 | Reduced motion and no-JS (G) | 2 | 2 | Unchanged; the no-JS strip shows the week in one line |
+| 7 | Hours table | 1 | 2 | "Visit" is second (751 px): Monday, Tuesday–Friday, Saturday and Sunday on separate rows at 860 px, flags kept |
+| 8 | Priced menu taster | 2 | 2 | Tuna Tataki £14.9 on screen 1; Aburi Nigiri with visible £ from 1,699 px; then Nasu Dengaku vg and Edamame v with the legend at 2,167 px (screen 3) |
+| 9 | Find us | 1 | 2 | Address, Google Maps link and phone, station, parking and step-free access marked "to confirm" |
+| 10 | Booking clarity | 2 | 2 | Unchanged evening terms, plus plain words in Visit |
+| 11 | HTML menu (G) | 2 | 2 | Unchanged |
+| 12 | Menu navigation | 2 | 2 | Course row labelled "On this menu", plus Back to top after every course |
+| 13 | Prices and dietary marks | 1 | 2 | Legend, allergen statement and service line moved from the end of the page to under the title |
+| 14 | Action bar | 1 | 2 | Book · Menu · Call (home), Book · Find us · Call (menu); Order in the header on phones; `scroll-padding-bottom` set |
+| 15 | Accessibility of the interaction | 1 | 2 | "Sear them again" button beside the nigiri, so the replay never needs hover; the candle breathes once, then rests |
+| 16 | Literal labels | 2 | 2 | "Visit", "Opening hours", "Find us", "Booking", "Collection", "Menu" |
+| | **Total** | **25/32** | **32/32** | |
+**QA** (`pipeline/tools/qa.sh`, label `v2-matsuba-c-uf`, port 8943): no console errors, no failed requests, no bad links, no overflow at 390, 768 or 1440, axe clean on both pages. CLS: index 0.004 / 0.021 / 0.018, menu 0.048 / 0.008 / 0.007 (390 / 768 / 1440). Keyboard run (60 Tabs per page at 390×844): no focused element lands under the action bar.
+
+**Scoring note.** Item 9 is scored under the audit's convention that unpublished station, parking and step-free facts may appear as "to confirm". Nothing in the copy deck states them, so they are flagged rather than written. Screens are 390×844 in motion mode unless stated. Screenshots and measurements: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/ufm/` (`shots/`, `audit/`).
+
 ---
 
 ## Only-here details used (with sources)
@@ -13,9 +50,9 @@ Port: `python3 -m http.server 8513 --directory richmond-sprint-v2/matsuba/concep
 | 1 | **The flame language of the menu**: "Torched-seared" Tuna Tataki (their "signature appetizer"), "Torch-seared" Salmon Aburi Carpaccio, the eight-fish ABURI NIGIRI section, "2 piece portions of flame seared nigiri", "Salmon aburi nigiri with cheddar" (Lion King nigiri), "4 pieces aburi nigiri" (Salmon Combo_B) | matsuba.co.uk/matsuba-menu/ (copy deck, dine-in menu); takeaway PDF MATSUBA-TA10-kids.pdf straplines (copy deck v2 addendum); homepage line "Taste our signature appetizer, Tuna Tataki…" ; identity.md §9 | **The signature.** The hero sears "Tuna Tataki"; the homepage Aburi Nigiri section sears all eight in reading order; the menu page sears every listed seared dish and has the "Aburi" filter. |
 | 2 | **The print-menu system**: centred card, thin gold border (#D1A75B / #E9D3AC), tracked serif capitals flanked by thin gold rules, taupe title / gold hours line / burgundy price line, "• RICE SET •" bullets, bold serif dish names with light italic sans descriptions, green vg/v marks | MATSUBA-special2026.jpg (Lunch & Early Evening card); identity.md §8 and the colour table in §2 | **The layout logic of both pages.** A fixed thin gold border round the viewport (the page is the card); every section head is the card's gold-ruled tracked head; dishes are set exactly in the card's grammar, centred, with orphans centred as in print; the menu page ends with the Lunch & Early Evening card rebuilt as live type. |
 | 3 | **The takeaway menu's reversed-out label bars and cover**: white tracked caps on a brown box ("MATSUBA", "TAKEAWAY DEAL 20% OFF", "COLLECTION ONLY EVERYDAY") | MATSUBA-TA10-kids.pdf page 1 (ta10-2.png), identity.md §8 | The takeaway-deal panel on the homepage is set as that cover; the menu's "Aburi" filter is a label bar that fills brown when pressed. |
-| 4 | **The candle in its small copper holder** (frosted glass votive in a copper cup) | Client photo 3 (uploader shown as "Matsuba"), photo-notes.md "Furniture"; identity.md §7 | Original SVG drawing in the evening section; the candle lights as the section scrolls in, then breathes gently. Reduced motion: lit and still. |
+| 4 | **The candle in its small copper holder** (frosted glass votive in a copper cup) | Client photo 3 (uploader shown as "Matsuba"), photo-notes.md "Furniture"; identity.md §7 | Original SVG drawing in the evening section; the candle lights as the section scrolls in, breathes once, then rests (no endless loop). Reduced motion: lit and still. |
 | 5 | **White marble-look tables with black pebble chopstick rests** and plain wooden chopsticks; napkin on a small white dish | Site photo matsuba-table-e1624960727855.jpg; footer photo; client photos 3–5; identity.md §7 | The hero is set "on the table": faint marble veining behind Tuna Tataki and a drawn pair of chopsticks on a black pebble rest. The evening drawing is a whole table setting. |
-| 6 | **Orchids in the window**, white and purple phalaenopsis in white pots along the sills, plus the **lit menu case** on the pier between windows, on the **slate-painted frontage and painted-brick plinth** | Client photo 1 (uploader "Matsuba"), photo-notes.md "Frontage"; identity.md §2 | Original SVG still life beside "Find us": four orchids (three magenta, one yellow-green, as seen), the slate frame, and the lit case showing a tiny gold-bordered print card. The case light comes on as it scrolls in. |
+| 6 | **Orchids in the window**, white and purple phalaenopsis in white pots along the sills, plus the **lit menu case** on the pier between windows, on the **slate-painted frontage and painted-brick plinth** | Client photo 1 (uploader "Matsuba"), photo-notes.md "Frontage"; identity.md §2 | Original SVG still life, in its own section after the evening (it sat beside "Find us" before the Useful first pass): four orchids (three magenta, one yellow-green, as seen), the slate frame, and the lit case showing a tiny gold-bordered print card. The case light comes on as it scrolls in. |
 | 7 | **"Special Rolls: large 8 piece rolls exclusively created by MATSUBA"** | Our Story page; takeaway PDF (identity.md §10) | Their only originality claim gets its own section, set as a print list beside the takeaway cover. |
 | 8 | **Their own words**: "Pull up a chair. Take a taste. Come join us.", "Book your table today!", "We look forward to welcoming you to MATSUBA!" | Our Story / homepage / reservations (copy deck) | Evening headline, booking panel, footer, menu title. |
 

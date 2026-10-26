@@ -436,7 +436,7 @@ body { padding-bottom: calc(var(--dock-h) + var(--mat) + env(safe-area-inset-bot
 @media (max-width: 40em) {
   .kicker { font-size: 0.76rem; letter-spacing: 0.24em; padding-left: 0.24em; }
   .btn { letter-spacing: 0.15em; padding-inline: 0.9rem; }
-  .hero__rest { right: -8%; bottom: 5.2rem; width: 46vw; opacity: 0.85; }
+  .hero__rest { right: -8%; bottom: 0.1rem; width: 40vw; opacity: 0.85; }
   .hero__actions .btn { min-width: 0; flex: 1 1 9.5rem; }
   .hero__price::before, .hero__price::after { width: 1.75rem; }
 }
@@ -786,3 +786,12 @@ html[data-day="6"] .hours [data-days~="6"] > * { color: var(--burgundy); }
 .mkey .key .mk { font-style: normal; margin-right: 0.3em; }
 .mkey a { color: var(--burgundy); }
 .totop { margin-top: 1.6rem; text-align: center; }
+/* hold the menu title's web-font line breaks from first paint, so the swap never pushes the menu down */
+@media (max-width: 380px) { .mtitle__gold { min-height: 142px; } }
+@media (max-width: 400px) { .mtitle__burg { min-height: 61px; } }
+@media (max-width: 374px) { .mkey { min-height: 234px; } }
+@media (min-width: 375px) and (max-width: 413px) { .mkey { min-height: 210px; } }
+/* phones: "Tuna" over "Tataki" always, whichever font has loaded */
+@media (max-width: 40em) { .hero__dish { flex-direction: column; align-items: center; } }
+.aburi__list .aburi__veg { text-align: center; }
+.aburi__list .dishes { margin-top: 1rem; }
