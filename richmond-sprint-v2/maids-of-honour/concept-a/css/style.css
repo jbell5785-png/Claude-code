@@ -6,23 +6,32 @@
    under the canopy, to the door.
    ========================================================================== */
 
-/* ---------- Metric-adjusted fallbacks (Georgia measured against each face) */
-@font-face {
-  font-family: "Alegreya Fallback";
-  src: local("Georgia"), local("Times New Roman");
-  size-adjust: 94%;
-  ascent-override: 108%;
-  descent-override: 37%;
-  line-gap-override: 0%;
-}
-@font-face {
-  font-family: "Grenze Fallback";
-  src: local("Georgia"), local("Times New Roman");
-  size-adjust: 93%;
-  ascent-override: 118%;
-  descent-override: 41%;
-  line-gap-override: 0%;
-}
+/* ---------- Metric-matched fallbacks -------------------------------------
+   One family per real local serif, so the first that exists is used, with
+   size-adjust measured from glyph advances over this site's own text so line
+   breaks match before and after the web fonts swap in (no layout shift).
+   Times/Liberation, Noto Serif, DejaVu Serif and FreeSerif were measured from
+   the font files; Georgia (not available to measure) is estimated. */
+@font-face { font-family: "Alegreya FB Georgia"; font-style: normal; font-weight: 400 500; src: local("Georgia"); size-adjust: 90.50%; ascent-override: 112.27%; descent-override: 38.12%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Georgia"; font-style: italic; font-weight: 400 900; src: local("Georgia Italic"), local("Georgia-Italic"); size-adjust: 83.00%; ascent-override: 122.41%; descent-override: 41.57%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Georgia"; font-style: normal; font-weight: 600 900; src: local("Georgia Bold"), local("Georgia-Bold"); size-adjust: 85.00%; ascent-override: 119.53%; descent-override: 40.59%; line-gap-override: 0%; }
+@font-face { font-family: "Grenze FB Georgia"; font-style: normal; font-weight: 400 900; src: local("Georgia Bold"), local("Georgia-Bold"); size-adjust: 77.00%; ascent-override: 142.86%; descent-override: 49.35%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Times"; font-style: normal; font-weight: 400 500; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"), local("LiberationSerif"), local("Tinos"); size-adjust: 99.61%; ascent-override: 102.00%; descent-override: 34.64%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Times"; font-style: italic; font-weight: 400 900; src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT"), local("Liberation Serif Italic"), local("LiberationSerif-Italic"), local("Tinos Italic"); size-adjust: 88.61%; ascent-override: 114.66%; descent-override: 38.93%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Times"; font-style: normal; font-weight: 600 900; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"), local("LiberationSerif-Bold"), local("Tinos Bold"); size-adjust: 95.25%; ascent-override: 106.67%; descent-override: 36.22%; line-gap-override: 0%; }
+@font-face { font-family: "Grenze FB Times"; font-style: normal; font-weight: 400 900; src: local("Times New Roman Bold"), local("TimesNewRomanPS-BoldMT"), local("Liberation Serif Bold"), local("LiberationSerif-Bold"), local("Tinos Bold"); size-adjust: 84.52%; ascent-override: 130.15%; descent-override: 44.96%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Noto"; font-style: normal; font-weight: 400 500; src: local("Noto Serif"), local("NotoSerif"), local("NotoSerif-Regular"); size-adjust: 85.32%; ascent-override: 119.08%; descent-override: 40.44%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Noto"; font-style: italic; font-weight: 400 900; src: local("Noto Serif Italic"), local("NotoSerif-Italic"); size-adjust: 77.92%; ascent-override: 130.39%; descent-override: 44.28%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Noto"; font-style: normal; font-weight: 600 900; src: local("Noto Serif Bold"), local("NotoSerif-Bold"); size-adjust: 81.54%; ascent-override: 124.60%; descent-override: 42.31%; line-gap-override: 0%; }
+@font-face { font-family: "Grenze FB Noto"; font-style: normal; font-weight: 400 900; src: local("Noto Serif Bold"), local("NotoSerif-Bold"); size-adjust: 72.95%; ascent-override: 150.79%; descent-override: 52.09%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB DejaVu"; font-style: normal; font-weight: 400 500; src: local("DejaVu Serif"), local("DejaVuSerif"); size-adjust: 78.86%; ascent-override: 128.84%; descent-override: 43.75%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB DejaVu"; font-style: italic; font-weight: 400 900; src: local("DejaVu Serif Italic"), local("DejaVuSerif-Italic"), local("DejaVu Serif"), local("DejaVuSerif"); size-adjust: 70.33%; ascent-override: 144.46%; descent-override: 49.05%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB DejaVu"; font-style: normal; font-weight: 600 900; src: local("DejaVu Serif Bold"), local("DejaVuSerif-Bold"); size-adjust: 72.52%; ascent-override: 140.10%; descent-override: 47.57%; line-gap-override: 0%; }
+@font-face { font-family: "Grenze FB DejaVu"; font-style: normal; font-weight: 400 900; src: local("DejaVu Serif Bold"), local("DejaVuSerif-Bold"); size-adjust: 64.69%; ascent-override: 170.04%; descent-override: 58.74%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Free"; font-style: normal; font-weight: 400 500; src: local("FreeSerif"); size-adjust: 100.65%; ascent-override: 100.94%; descent-override: 34.28%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Free"; font-style: italic; font-weight: 400 900; src: local("FreeSerif Italic"), local("FreeSerifItalic"); size-adjust: 91.77%; ascent-override: 110.71%; descent-override: 37.59%; line-gap-override: 0%; }
+@font-face { font-family: "Alegreya FB Free"; font-style: normal; font-weight: 600 900; src: local("FreeSerif Bold"), local("FreeSerifBold"); size-adjust: 95.17%; ascent-override: 106.76%; descent-override: 36.25%; line-gap-override: 0%; }
+@font-face { font-family: "Grenze FB Free"; font-style: normal; font-weight: 400 900; src: local("FreeSerif Bold"), local("FreeSerifBold"); size-adjust: 84.41%; ascent-override: 130.32%; descent-override: 45.02%; line-gap-override: 0%; }
 
 :root {
   color-scheme: light;
@@ -42,8 +51,8 @@
   --ink-soft: #463E34;     /* 8.6:1 on cream */
   --rule: #B8A98A;
 
-  --font-display: "Grenze Gotisch", "Grenze Fallback", Georgia, serif;
-  --font-text: "Alegreya", "Alegreya Fallback", Georgia, serif;
+  --font-display: "Grenze Gotisch", "Grenze FB Georgia", "Grenze FB Times", "Grenze FB Noto", "Grenze FB DejaVu", "Grenze FB Free", serif;
+  --font-text: "Alegreya", "Alegreya FB Georgia", "Alegreya FB Times", "Alegreya FB Noto", "Alegreya FB DejaVu", "Alegreya FB Free", serif;
 
   /* fluid type scale (minor third, opening up at wide widths) */
   --step--1: clamp(0.9rem, 0.86rem + 0.15vw, 0.98rem);
