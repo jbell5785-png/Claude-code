@@ -251,4 +251,4 @@ Editorial pass, 26 Oct 2026. The client asked that every word on the page reads 
 - **Menu page:** "Inside the vault, the long counter has its chalkboards. Here is how those boards might read online." The footer link "Through the arch" (the signature's name) is now "Home".
 - **Quotation marks** around Hollyhock's description were dropped: on the café's own site, the café doesn't quote itself.
 - **Kept:** the sample-menu banner, every "to confirm" marker, the walk captions, the Hollyhock route, and the footer's existing honesty line (nothing new added).
-- **Page length at 390×844:** index 10.1 → 9.1 screens; menu 4.5 → 4.4.
+- **Page length at 390×844:** index 10.0 → 9.1 screens; menu 4.5 → 4.4.
