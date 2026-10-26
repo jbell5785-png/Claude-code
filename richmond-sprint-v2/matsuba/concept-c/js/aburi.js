@@ -112,10 +112,12 @@
       });
     }
 
-    var again = document.querySelector('[data-resear]');
-    if (again && heroWords.length) {
-      again.addEventListener('click', function () { resear(heroWords); });
-    }
+    // "Sear it again": a button beside each seared group, so the replay never depends on hover
+    Array.prototype.forEach.call(document.querySelectorAll('[data-resear]'), function (btn) {
+      var scope = btn.closest('section') || document;
+      var group = all.filter(function (el) { return scope.contains(el); });
+      if (group.length) btn.addEventListener('click', function () { resear(group); });
+    });
   }
 
   /* ---------------- reveals, rules, the candle, the case light ---------------- */

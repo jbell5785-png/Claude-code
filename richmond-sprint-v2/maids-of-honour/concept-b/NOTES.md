@@ -145,3 +145,50 @@ The 1850 / 1860 / 1868 / 1887 dates; both tart prices; the £20 or £22 luncheon
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+---
+
+## "Useful first" pass (26 October 2026)
+
+The client felt the site put its signature ahead of being useful. The signature now sits alongside the essentials instead of in front of them; nothing of it was removed. Standard: `pipeline/research/information-hierarchy.md` §(b); rubric §(c); before scores from `pipeline/research/useful-first-audit.md`. Facts from `research/copy-deck.md` only.
+
+### Score: 25/32 before → 32/32 after (rubric §(c), 390×844 and 390×660)
+
+| Item | Before | After |
+|---|---|---|
+| 1 (G) Essentials on screen 1 | 1 | 2 |
+| 2 (G) Time to essentials | 2 | 2 |
+| 3 (G) Signature parallel | 2 | 2 |
+| 4 Signature budget | 2 | 2 |
+| 5 Hidden content duplicated | 1 | 2 |
+| 6 (G) Reduced motion / no JS | 2 | 2 |
+| 7 Hours table | 1 | 2 |
+| 8 Priced taster | 1 | 2 |
+| 9 Find us | 1 | 2 |
+| 10 Booking clarity | 2 | 2 |
+| 11 (G) HTML menu | 2 | 2 |
+| 12 Menu navigation | 2 | 2 |
+| 13 Prices and dietary marks | 2 | 2 |
+| 14 Action bar | 1 | 2 |
+| 15 Interaction accessibility | 2 | 2 |
+| 16 Literal labels | 1 | 2 |
+| **Total** | **25** | **32** |
+
+### What changed
+- **Today strip** under the headline, as a white box label on the velvet: status from the published hours (London clock; "Open every day" with JS off), "9am–6pm daily · last walk-ins seated 17:30", the address linked to Google Maps, Book a table and Menus, "Skip to visit info". The hero no longer forces full height on phones; the tart, its £3.50 tag and "Turn the key on the iron box" stay on the first screen at 844.
+- **Visit second** ("Visit us."): the hours table by service with a Book button per row (any table 32717, breakfast 33175, luncheon 33176 with the £22/£20 marker, set teas 33177), bank-holiday and Thursday markers, a two-line policy (ResDiary hand-off, phone, walk-ins, 12.5%, preferred tables, vegan 24 h), the address with map and phone buttons, and getting there (opposite Kew Gardens, on-street parking; walk and step-free access to confirm).
+- **Taster third** ("The menus, priced."): the blackletter tart line £3.50, High Tea £24.50, Savoury High Tea £26.50, Full English £13, Vegetarian English £13 (V), Roast of the Day £18, then the bakery's description, the tart's allergens and both tart prices with the marker. Section top 1,654 px, tart price 1,734 px (was screen 8).
+- **The iron box, kept whole**, now fourth, behind visible "Skip past the iron box / Skip to visit info" links. Locked, it occupies 771 px on a phone. Everything it reveals is also plain text: the price, words and allergens in the taster, and the legend (both accounts and the 1665 recipe note) plus "the recipe stays a secret" line in Our story's line of keepers.
+- **Order after that:** Our story (Hill Street) → Tarts by post (the timer) → "Also at 288" (photo slot, guest rooms, Archives café). The old "Sit down and have it warm" section is gone; its services became the Visit rows.
+- **Nav:** Visit & hours · Menus · Our story · Tarts by post (no signature-only labels). Bar stays Book a table · Menus · Call; menu page bar is Book a table · Find us · Call. `scroll-padding-bottom` set below 1080 px.
+- **Menu page:** "Before you order" box directly under the sticky "On this menu" row: dietary legend, the allergen statement verbatim, tart allergens, how to ask about the 14 allergens, vegan and service; dietary marks on the same items as A; "Back to top" after every section; header nav relabelled.
+
+### QA
+- `qa.sh` (port 8945, label `v2-maids-b-uf`): 0 console errors, 0 failed requests, 0 bad links, 0 horizontal overflow, axe clean on both pages. CLS 0.000 on every page and width.
+- First screen checked by screenshot at 390×660 and 390×844 (motion, reduced motion and JS off): status, address with map link, Book and Menus all visible above the action bar.
+
+### Caveats
+- With JS off or reduced motion, the box still rests open with every layer showing (the designed static state), so it is longer than one screen there; nothing in it is unique any more.
+- The tart price in the taster is at 1,734 px; the whole taster is inside screen 3.
+- JSON-LD and `llms.txt` unchanged.
+

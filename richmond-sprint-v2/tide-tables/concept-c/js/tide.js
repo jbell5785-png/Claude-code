@@ -95,9 +95,32 @@
     else lastT = 0;
   }
 
+  var scrollT = 0;
   function onScroll() {
     target = phaseAt(window.pageYOffset);
     if (!raf) raf = requestAnimationFrame(tick);
+    // the shores and the bar's water drift only while the page is moving
+    if (!root.classList.contains('is-scrolling')) root.classList.add('is-scrolling');
+    clearTimeout(scrollT);
+    scrollT = setTimeout(function () { root.classList.remove('is-scrolling'); }, 900);
+  }
+
+  /* "Pause the water": the hero's drift and bob are the only loops that run on their own */
+  var stillBtn = document.querySelector('[data-still]');
+  var stillLabel = stillBtn && stillBtn.querySelector('[data-still-label]');
+  function setStill(on, save) {
+    root.classList.toggle('still', on);
+    if (stillBtn) {
+      stillBtn.setAttribute('data-paused', on ? 'true' : 'false');
+      if (stillLabel) stillLabel.textContent = on ? 'Play the water' : 'Pause the water';
+    }
+    if (save) { try { window.localStorage.setItem('tt-c-still', on ? '1' : '0'); } catch (e) {} }
+  }
+  if (stillBtn) {
+    stillBtn.addEventListener('click', function () { setStill(!root.classList.contains('still'), true); });
+    var saved = null;
+    try { saved = window.localStorage.getItem('tt-c-still'); } catch (e) {}
+    setStill(saved === '1', false);
   }
 
   function staticTide() {
@@ -107,10 +130,12 @@
     if (raf) cancelAnimationFrame(raf), raf = 0;
     render(1 / 3, 'Mid-tide (still)');
     root.style.setProperty('--tide', '0.5');
+    if (stillBtn) stillBtn.hidden = true; // nothing moves, so nothing to pause
   }
 
   function liveTide() {
     root.classList.add('motion');
+    if (stillBtn) stillBtn.hidden = false;
     measure();
     cur = null;
     window.addEventListener('scroll', onScroll, { passive: true });

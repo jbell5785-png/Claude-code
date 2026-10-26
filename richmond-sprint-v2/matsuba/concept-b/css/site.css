@@ -51,7 +51,8 @@
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--hh) + 24px); }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--hh) + 24px); scroll-padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+@media (min-width: 760px) { html { scroll-padding-bottom: 8px; } }
 body {
   margin: 0; min-height: 100vh; overflow-x: hidden;
   background: var(--wall); color: var(--ink);
@@ -239,7 +240,7 @@ abbr[title] { text-decoration: none; }
 /* "to confirm" marker */
 .tbc { display: inline-block; font: 700 .66rem/1.2 var(--f-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--tbc);
   border-bottom: 1px dotted currentColor; white-space: nowrap; cursor: help; vertical-align: .08em; }
-.panel--dark .tbc, .site-header .tbc, .book__canopy .tbc { color: var(--glow); }
+.panel--dark .tbc, .site-header .tbc, .book__canopy .tbc, .site-footer .tbc { color: var(--glow); }
 
 /* ---------- Header and the progress frieze ---------- */
 .site-header {
@@ -325,8 +326,30 @@ h3.caps { margin: 0 0 1rem; }
 .hero__title span:nth-child(1) { padding-left: .5em; }
 .hero__title span:nth-child(2) { padding-left: 1em; font-style: italic; }
 .hero__sub { font-size: var(--t-lead); line-height: 1.4; color: var(--ink-2); max-width: 30ch; margin-bottom: 1.2rem; }
-.status--hero { margin-bottom: 1.4rem; }
+.status--hero { margin: 0; align-items: flex-start; }
+.status--hero .mini-sconce { margin-top: 5px; }
+.status--hero .status__text { min-height: 4.05em; } /* three lines: the live status never changes the plate's height */
+@media (min-width: 760px) { .status--hero .status__text { min-height: 2.7em; } }
+.status--hero strong { font-weight: 700; }
+.status--hero .tbc { margin-left: .15em; }
 .hero__actions { display: none; }
+/* today: status, the address, Book and Menu, in the plate's first screen */
+.today { margin: 0 0 1.1rem; padding-top: 14px; border-top: 1px solid rgba(30, 33, 36, .14); }
+.today p { margin: 0; }
+.today__where { margin-top: 6px !important; }
+.today__map { --rb: 0px; padding: 6px 0 4px; font: 500 .92rem/1.4 var(--f-sans); letter-spacing: .02em; text-transform: none; }
+.today__cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px !important; }
+.today__cta .btn { min-height: 46px; }
+.today__skip { margin-top: 10px !important; }
+.skiplink { display: inline-flex; align-items: center; min-height: 24px; font: 600 var(--t-label)/1.2 var(--f-sans); letter-spacing: .18em; text-transform: uppercase; color: var(--oak-text); text-underline-offset: .3em; }
+.skiplink::after { content: ""; width: 6px; height: 6px; margin: -3px 0 0 .7em; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+@media (max-width: 759px) {
+  .hero { min-height: min(calc(100svh - var(--hh) - 8px - 66px), 540px); }
+  .hero__title { margin-bottom: .4em; }
+  .hero__sub { display: none; }
+  .today { margin-bottom: 0; }
+  .stage > .visit, .stage > .rolls { margin-top: 36px; }
+}
 @media (min-width: 760px) {
   .hero { min-height: calc(100svh - var(--hh) - 10px); justify-content: center; padding: 6vh 0 8vh; }
   /* one action per line, so nothing re-wraps (and shifts) when the web fonts arrive */
@@ -336,6 +359,8 @@ h3.caps { margin: 0 0 1rem; }
 /* ---------- The room ---------- */
 .room { display: grid; gap: 28px; }
 .room p { max-width: 60ch; }
+.room__intro { font-size: var(--t-lead); line-height: 1.4; color: var(--ink-2); }
+@media (min-width: 760px) { .room__intro { display: none; } }
 .room__aside { font-style: italic; color: var(--ink-2); border-left: 3px solid var(--oak); padding-left: 16px; }
 .room__drawing { margin: 0; }
 .elev { width: 100%; height: auto; aspect-ratio: 1200 / 760; }
@@ -363,6 +388,10 @@ h3.caps { margin: 0 0 1rem; }
 .rolls { display: grid; }
 .table-rest { width: 132px; height: auto; margin: -6px 0 10px -8px; }
 .rolls__sig { font-size: var(--t-lead); line-height: 1.45; max-width: 40ch; }
+.rolls__sub { margin: 0 0 .2rem !important; }
+.rolls__key { font: 400 .88rem/1.55 var(--f-sans); color: var(--ink-2); margin: -6px 0 1rem; }
+.rolls__key .diet { margin-left: 0; }
+.site-footer__hours .tbc { margin-left: .2em; }
 .rolls__sig .dish__price { margin-left: .3em; font-size: .85em; color: var(--oak-text); }
 .shot { margin: 8px 0 22px; }
 .shot__frame { position: relative; aspect-ratio: var(--ratio, 4 / 5); background:
@@ -430,19 +459,31 @@ h3.caps { margin: 0 0 1rem; }
 @media (min-width: 1100px) { .book__canopy { grid-template-columns: 5fr 6fr; align-items: start; gap: clamp(32px, 4vw, 64px); } }
 
 /* ---------- Visit ---------- */
-.visit { display: grid; gap: 30px; }
-.visit h2 { max-width: 16ch; }
+.visit { display: grid; gap: 22px; }
+.visit h2 { max-width: 16ch; margin-bottom: .35em; }
+.visit h3.caps { margin-bottom: .6rem; }
+.visit__addr { margin: 0 0 4px; }
+.nw { white-space: nowrap; }
+.hours th .tbc { margin-left: .4em; }
+.visit { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 759px) { .hours th { white-space: normal; } .status--visit { display: none; } .visit h2 { margin-bottom: 0; } .rolls .table-rest { position: absolute; top: 14px; right: 12px; width: 112px; margin: 0; } }
+.totop { margin: 18px 0 0; text-align: right; }
+.totop .lamp { --rb: 0px; }
+.menu-head__fine a { white-space: nowrap; }
+.rolls__strap { font-style: italic; color: var(--ink-2); margin: -.3em 0 .4em; }
+.visit__p { margin: 0 0 .5em; font-size: 1rem; line-height: 1.55; }
+.visit__p:last-child { margin-bottom: 0; }
 .status--visit { margin: 0 0 1rem; font-size: 1rem; }
-.visit__links { display: flex; flex-direction: column; align-items: flex-start; gap: 0; margin: 0; }
+.visit__links { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0 22px; margin: 0 0 6px; }
 .hours { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
-.hours th, .hours td { text-align: left; vertical-align: top; padding: 12px 10px 12px 0; border-top: 1px solid rgba(30, 33, 36, .14); }
+.hours th, .hours td { text-align: left; vertical-align: top; padding: 9px 10px 9px 0; border-top: 1px solid rgba(30, 33, 36, .14); }
 .hours th { font: 600 .82rem/1.5 var(--f-sans); letter-spacing: .06em; padding-right: 14px; white-space: nowrap; }
 .hours td { font-variant-numeric: tabular-nums; }
 .hours__note { text-align: right !important; padding-right: 0 !important; white-space: nowrap; }
 .hours tr.is-today th::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; vertical-align: .08em;
   background: var(--bulb); box-shadow: 0 0 4px 1px rgba(246, 199, 122, .95), 0 0 10px 3px rgba(246, 199, 122, .6); }
 .visit__fine { margin-top: 14px; font: 400 .85rem/1.5 var(--f-sans); color: var(--ink-2); }
-@media (min-width: 1000px) { .visit { grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 4vw, 64px); } }
+@media (min-width: 1000px) { .visit { grid-template-columns: 1fr 1fr; gap: 28px clamp(32px, 4vw, 64px); } .visit__head { grid-column: 1 / -1; } }
 
 /* ---------- Footer ---------- */
 .site-footer { position: relative; z-index: 2; background: var(--char); color: var(--marble); padding: 56px var(--u) calc(110px + env(safe-area-inset-bottom)); }
@@ -455,7 +496,7 @@ h3.caps { margin: 0 0 1rem; }
 @media (min-width: 760px) { .site-footer { padding-bottom: 56px; } }
 
 /* ---------- Phone action bar ---------- */
-.actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; display: grid; grid-template-columns: 1.55fr 1fr 1fr 1fr; align-items: center; gap: 4px;
+.actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; display: grid; grid-template-columns: 1.55fr 1fr 1fr; align-items: center; gap: 4px;
   padding: 8px calc(var(--u) - 6px) calc(8px + env(safe-area-inset-bottom)); background: var(--char); color: var(--marble);
   box-shadow: 0 -1px 0 rgba(210, 172, 92, .35), 0 -10px 24px rgba(20, 16, 12, .28); }
 .actionbar .btn { padding: 0 1.9em; min-height: 48px; }

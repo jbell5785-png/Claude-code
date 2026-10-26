@@ -234,3 +234,51 @@ Gold on clay tile (3.9:1) appears only in the illustration and in the decorative
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+---
+
+## "Useful first" pass (26 October 2026)
+
+The client felt the site put its signature ahead of being useful. The signature now sits alongside the essentials instead of in front of them; nothing of it was removed. Standard: `pipeline/research/information-hierarchy.md` §(b); rubric §(c); before scores from `pipeline/research/useful-first-audit.md`. Facts from `research/copy-deck.md` only.
+
+### Score: 28/32 before → 32/32 after (rubric §(c), 390×844 and 390×660)
+
+| Item | Before | After |
+|---|---|---|
+| 1 (G) Essentials on screen 1 | 1 | 2 |
+| 2 (G) Time to essentials | 2 | 2 |
+| 3 (G) Signature parallel | 2 | 2 |
+| 4 Signature budget | 2 | 2 |
+| 5 Hidden content duplicated | 2 | 2 |
+| 6 (G) Reduced motion / no JS | 2 | 2 |
+| 7 Hours table | 2 | 2 |
+| 8 Priced taster | 1 | 2 |
+| 9 Find us | 2 | 2 |
+| 10 Booking clarity | 2 | 2 |
+| 11 (G) HTML menu | 2 | 2 |
+| 12 Menu navigation | 2 | 2 |
+| 13 Prices and dietary marks | 1 | 2 |
+| 14 Action bar | 1 | 2 |
+| 15 Interaction accessibility | 2 | 2 |
+| 16 Literal labels | 2 | 2 |
+| **Total** | **28** | **32** |
+
+### What changed
+- **Today strip** in the hero, under the eyebrow: status from the published hours on the London clock ("Open now · until 6pm", "Closed · opens 9am tomorrow"; "Open every day" with JS off), "9am–6pm daily · last walk-ins seated 17:30", the address linked to Google Maps ("288 Kew Road, opposite Kew Gardens · Map"), Book a table and Menus, and a "Skip to visit info" link. Plain HTML; the status script runs at the end of the hero so the swap never changes line count (no CLS). On phones the frontage drawing shows a wider, shorter window on the whole building (1160×690 crop) so the strip clears the bar inside 390×660.
+- **Visit second** ("Visit us", gable 288): every service with its own BOOK plate (shop and tearoom 9–6 and walk-ins 17:30 → any table; breakfast, last orders 11am, none on Thursdays → 33175; luncheon 12–3 with the £22/£20 minimum and its marker → 33176; set teas 10:00, fizz 11:00 → 33177), a two-line booking policy (ResDiary per sitting, phone, walk-ins, 12.5% service, preferred tables, vegan 24 h notice), the doorway address plate with the map link and phone, and getting there (opposite Kew Gardens, on-street parking; walk from the Gardens and step-free access not published, to confirm). Bank holidays carry a marker. The old Book and Find us sections are merged into it; `#book` and `#visit` still work.
+- **Taster third** ("From the menus", gable Prices): the tart £3.50 (with its allergens), High Tea £24.50, Savoury High Tea £26.50, Full English £13, Vegetarian English £13 (V), Roast of the Day £18, the 2024-prices marker and "See the full menus". Section top at 1,611 px, first price at 1,710 px at 390 wide (was screen 4–6).
+- **The sign, kept whole:** board, gilded live line, BOOK plates, status plate and time-travel clock. On phones the board is 256 px wide and the block from heading to clock is 843 px (one screen); the five line panels are slimmed to name, times and links, because their menus and prices now sit in the taster and on the menu page. Visible "Skip past the sign / Skip to visit info" links sit before it. The 9-second glint now has a visible "Pause the glint" button. The bakery quotes, tart photo slot, post and delivery lines, parties, guest rooms and the Archives café moved into the story section ("Our story: the very same shop front").
+- **Action bar:** Book · Menus · Call (Find us dropped; it is in the strip and nav). Menu page bar: Book · Call · Find us. `scroll-padding-bottom` set below 1000 px.
+- **Nav:** Menus · Hours & find us · Served today · Our story.
+- **Menu page:** sticky row relabelled "On this menu" with an Allergens link; a "Before you order" box under it with the dietary legend (V, VG, GF/DF from the tearoom's own lists), the allergen statement verbatim, the tart's allergens, how to ask about the 14 allergens, vegan notice and service; marks on Vegetarian English, the Gluten & Dairy-Free list, the brownie and the apple lattice slice; "Back to top" at the end of every course.
+- **Desktop:** the hero art now sits at the top of its row so the progressively parsed drawing never moves (CLS 0.101 → 0.005 at 1440).
+
+### QA
+- `qa.sh` (port 8944, label `v2-maids-a-uf`): 0 console errors, 0 failed requests, 0 bad links, 0 horizontal overflow, axe clean on both pages. CLS index 0.003 / 0.000 / 0.005, menu 0.001 / 0.001 / 0.000 (390 / 768 / 1440).
+- First screen checked by screenshot at 390×660 and 390×844 (motion, reduced motion and JS off): status, address with map link, Book and Menus all visible above the action bar.
+
+### Caveats
+- The first priced line is at 1,710 px: "about 1,700". The taster heading starts at 1,611.
+- No station or bus is in the copy deck, so getting there gives Kew Gardens, parking and the to-confirm walk instead.
+- Fonts, palette, drawings, JSON-LD and `llms.txt` are unchanged (no visible fact changed).
+

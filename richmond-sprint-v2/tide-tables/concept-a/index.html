@@ -189,28 +189,49 @@
 
 <main id="main">
 
-  <!-- SIGNATURE: "Through the arch". Native scroll; the scene only reads scroll position. -->
+  <!-- SIGNATURE: "Through the arch". Native scroll; the scene only reads scroll position.
+       On phones the stage is pinned for at most one screen (0.8 of a screen); on desktop at most 1.5.
+       The Today strip is static HTML laid over the floor of the first screen (standard C15): it never fades or moves. -->
   <section class="walk" id="walk" aria-labelledby="walk-title">
     <div class="stage">
       <div class="scene-wrap">
-        <picture class="scene-fallback">
-          <source media="(min-aspect-ratio: 19/20)" srcset="img/arch-front-wide.svg">
-          <img src="img/arch-front-tall.svg" width="600" height="800" alt="" loading="lazy" decoding="async">
-        </picture>
-        <svg id="scene" class="scene" role="img" aria-label="Illustration: the brick arch of Tide Tables beneath Richmond Bridge, with a carved bearded stone face at its keystone, a glazed arched screen and doors, the hanging CAFÉ sign and festoon lights inside. As you scroll, the view passes under the face and down the whitewashed vault to the far door, which opens onto the garden and the river."></svg>
-
         <div class="hero-copy">
           <h1 class="wordmark" id="walk-title">
             <span class="wm-name">Tide Tables</span>
             <span class="wm-rule" aria-hidden="true"></span>
             <span class="wm-strap">Richmond Riverside Café</span>
           </h1>
-          <div class="hero-foot">
-            <p class="hero-lede">In a converted arch beneath Richmond Bridge, right on the Thames&nbsp;Path.</p>
-            <p class="hero-hours">Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk. <a href="tel:+442089488285">Call for specifics</a></p>
-            <a class="come-in" href="#garden"><span>Come in</span><svg aria-hidden="true" focusable="false"><use href="#i-down"/></svg></a>
+          <div class="today" id="today">
+            <div class="today-top">
+              <p class="today-k" data-today-k>Open every day</p>
+              <p class="today-skip"><a href="#visit">Skip to visit info<svg aria-hidden="true" focusable="false"><use href="#i-down"/></svg></a></p>
+            </div>
+            <p class="today-v" data-today-v>Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk</p>
+            <p class="today-where"><a href="https://www.google.com/maps/search/?api=1&amp;query=Tide+Tables+Cafe+2+The+Arches+Richmond+TW9+1TH" rel="noopener" target="_blank"><svg aria-hidden="true" focusable="false"><use href="#i-arch"/></svg>Under Richmond Bridge, on the riverside<span class="visually-hidden"> (Google Maps, opens in a new tab)</span></a></p>
+            <p class="today-acts"><a href="tel:+442089488285">Call <small>020 8948 8285</small></a><a href="#find">Find us</a><a href="menu.html">Menu sample</a></p>
           </div>
+          <script>
+            /* Today's line from the café's published hours (.co.uk Contact page), in London time. Runs before first paint; without JS the week stays. */
+            (function () {
+              var s = document.getElementById('today'); if (!s) return;
+              try {
+                var o = {}; new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'long', day: 'numeric', month: 'numeric' }).formatToParts(new Date()).forEach(function (p) { o[p.type] = p.value; });
+                var d = +o.day, m = +o.month, w = o.weekday, v;
+                if (m === 12 && d === 25) v = 'Christmas Day: 9:30 till dusk';
+                else if (m === 12 && d === 26) v = 'Boxing Day: 8:30 till dusk (serving from 9)';
+                else if (w === 'Saturday' || w === 'Sunday') v = 'Open from 7am · food and drink from 7:30am · until dusk';
+                else v = 'Open from 7:30am · food and drink from 8am · until dusk';
+                s.querySelector('[data-today-k]').textContent = 'Today, ' + w;
+                s.querySelector('[data-today-v]').textContent = v;
+              } catch (e) {}
+            })();
+          </script>
         </div>
+        <picture class="scene-fallback">
+          <source media="(min-aspect-ratio: 19/20)" srcset="img/arch-front-wide.svg">
+          <img src="img/arch-front-tall.svg" width="600" height="800" alt="" loading="lazy" decoding="async">
+        </picture>
+        <svg id="scene" class="scene" role="img" aria-label="Illustration: the brick arch of Tide Tables beneath Richmond Bridge, with a carved bearded stone face at its keystone, a glazed arched screen and doors, the hanging CAFÉ sign and festoon lights inside. As you scroll, the view passes under the face and down the whitewashed vault to the far door, which opens onto the garden and the river."></svg>
       </div>
 
       <div class="walk-static">
@@ -225,6 +246,48 @@
           <li data-from=".61" data-to=".81"><span>Grey polka-dot oilcloth, mismatched wooden chairs, and the long counter with its chalkboards.</span></li>
           <li data-from=".85" data-to="1.1"><span>And at the far end, a door: out to the garden, the plane trees and the Thames.</span></li>
         </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT: second on the page, straight after the walk. Facts from research/copy-deck.md only. -->
+  <section class="find visit" id="visit" aria-labelledby="visit-title">
+    <div class="visit-head">
+      <p class="kicker">Visit</p>
+      <h2 class="section-title" id="visit-title">Opening hours and how to find us</h2>
+      <p class="served" id="served"><strong>What’s served:</strong> vegetarian food, with vegan and gluten-free options · organic and Fairtrade · licensed, with organic wine, beer and cider. <a href="menu.html">See the menu sample</a></p>
+    </div>
+    <div class="find-grid">
+      <div class="find-when" id="hours">
+        <h3>Opening hours</h3>
+        <dl class="hours-table">
+          <div><dt>Monday to Friday</dt><dd>from 7:30am · food and drink from 8am · until dusk</dd></div>
+          <div><dt>Saturday and Sunday</dt><dd>from 7am · food and drink from 7:30am · until dusk</dd></div>
+          <div class="hours-season"><dt>Christmas Day</dt><dd>9:30 till dusk</dd></div>
+          <div class="hours-season"><dt>Boxing Day</dt><dd>8:30 till dusk (serving from 9)</dd></div>
+        </dl>
+        <p>For specifics, call <a href="tel:+442089488285">020 8948 8285</a>.</p>
+      </div>
+      <div class="find-where" id="find">
+        <h3>Where we are</h3>
+        <p class="address">Tide Tables Café<br>2 The Arches, beneath Richmond Bridge<br>Richmond, Surrey TW9 1TH</p>
+        <p><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Tide+Tables+Cafe+2+The+Arches+Richmond+TW9+1TH" rel="noopener" target="_blank">Open in Google Maps<svg aria-hidden="true" focusable="false"><use href="#i-out"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a></p>
+        <p><strong>From the bridge:</strong> once you reach Richmond, head straight for Richmond Bridge, only a few minutes away. The café is in a converted arch beneath it.</p>
+        <p><strong>From the towpath:</strong> we are right on the Thames Path, and our outside seating area directly adjoins the towpath.</p>
+        <p class="small">Richmond is easily accessible by London Underground, Overground and mainline trains as well as a huge number of buses.</p>
+        <p class="small">Parking: not published. <!-- [TO CONFIRM] parking near the café --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span><br>Step-free access: not published. <!-- [TO CONFIRM] step-free route, accessible toilet, baby change (client question 10) --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+      </div>
+      <div class="find-talk">
+        <h3>Good to know</h3>
+        <ul class="know">
+          <li><strong>Outdoor seating</strong> in the garden, beside the towpath. You’ll find people out there all year round.</li>
+          <li>Watch out though, we get very crowded on sunny days.</li>
+          <li><strong>Parties:</strong> phone <a href="tel:+447922474327">07922 474327</a>.</li>
+          <li><strong>Booking:</strong> there’s no online booking. <!-- [TO CONFIRM] booking or walk-in policy (client question 8) --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></li>
+          <li><strong>Dogs:</strong> <!-- [TO CONFIRM] dogs inside, in the garden, or both (client question 9) --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></li>
+          <li><a href="mailto:hey@tidetablescafe.com">hey@tidetablescafe.com</a><br><span class="small">Email only monitored periodically. For urgent enquiries, please telephone.</span></li>
+        </ul>
+        <p><a class="btn btn-bulb" href="tel:+442089488285"><svg aria-hidden="true" focusable="false"><use href="#i-call"/></svg>Call 020 8948 8285</a></p>
       </div>
     </div>
   </section>
@@ -303,34 +366,6 @@
       <div class="slot-frame" aria-hidden="true"></div>
       <figcaption><strong>Photograph to commission:</strong> the vault at opening time, looking towards the far door, festoon lights on, ferns in their baskets, before the first customers.</figcaption>
     </figure>
-  </section>
-
-  <!-- Find us -->
-  <section class="find" id="find" aria-labelledby="find-title">
-    <div class="find-grid">
-      <div class="find-where">
-        <h2 class="section-title" id="find-title">Find us</h2>
-        <p class="address">Tide Tables Café<br>2 The Arches<br>Richmond, Surrey<br>TW9 1TH</p>
-        <p>The café is in a converted arch beneath Richmond Bridge.</p>
-        <p><a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Tide+Tables+Cafe+2+The+Arches+Richmond+TW9+1TH" rel="noopener" target="_blank">Open in Google Maps<svg aria-hidden="true" focusable="false"><use href="#i-out"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a></p>
-      </div>
-      <div class="find-how">
-        <h3>Getting here</h3>
-        <p>Richmond is easily accessible by London Underground, Overground and mainline trains as well as a huge number of buses. Once you reach Richmond, head straight for Richmond Bridge, only a few minutes away, and Tide Tables is in the arch beneath.</p>
-        <p>Because we are right on the Thames Path, lots of people take a break from their walk and stop in for refreshments.</p>
-      </div>
-      <div class="find-when">
-        <h3>Opening hours</h3>
-        <p class="hours-big">Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk.</p>
-        <p>For more specific information, please call <a href="tel:+442089488285">+44 (0)20 8948 8285</a>.</p>
-      </div>
-      <div class="find-talk">
-        <h3>Get in touch</h3>
-        <p><a class="btn btn-bulb" href="tel:+442089488285"><svg aria-hidden="true" focusable="false"><use href="#i-call"/></svg>Call +44 (0)20 8948 8285</a></p>
-        <p><a href="mailto:hey@tidetablescafe.com">hey@tidetablescafe.com</a><br><span class="small">Email only monitored periodically. For urgent enquiries, please telephone.</span></p>
-        <p class="small">There’s no online booking. <!-- [TO CONFIRM] booking or walk-in policy --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> For parties, phone <a href="tel:+447922474327">07922 474327</a>.</p>
-      </div>
-    </div>
   </section>
 
   <!-- Hollyhock and parties -->

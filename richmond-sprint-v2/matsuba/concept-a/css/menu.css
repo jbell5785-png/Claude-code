@@ -61,8 +61,8 @@
 .tab::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 7px; height: 2px; background: var(--bulb); opacity: 0; transform: scaleX(.3); transition: opacity .35s var(--ease), transform .35s var(--ease), box-shadow .35s; }
 .tab:hover { color: #fff; }
 .tab:hover::after { opacity: .45; transform: scaleX(.6); }
-.tab[aria-selected="true"] { color: var(--bulb); }
-.tab[aria-selected="true"]::after { opacity: 1; transform: none; box-shadow: 0 0 10px 1px rgba(242,182,90,.7); }
+.tab[aria-current="true"] { color: var(--bulb); }
+.tab[aria-current="true"]::after { opacity: 1; transform: none; box-shadow: 0 0 10px 1px rgba(242,182,90,.7); }
 .tab:focus-visible { outline-offset: -4px; }
 @media (min-width: 1000px) { .tabs__list { flex-wrap: wrap; justify-content: center; } .tab { padding: 4px 9px 2px calc(9px + .14em); letter-spacing: .14em; font-size: .66rem; } .tab::after { left: 8px; right: 8px; } }
 
@@ -75,6 +75,15 @@
 @media (min-width: 700px) { .case__paper { padding: 44px clamp(28px, 5vw, 64px) 36px; } }
 .case__head { text-align: center; margin-bottom: 8px; }
 .case__meta { font-size: var(--step--1); color: var(--ink-soft); max-width: 44ch; margin: 0 auto 6px; font-style: italic; }
+.case__key { margin: 16px auto 4px; padding: 12px 0 2px; border-top: 1px solid var(--gold-rule); border-bottom: 1px solid var(--gold-rule); max-width: 46rem; font-size: var(--step--1); color: var(--ink); text-align: center; }
+.case__key p { margin: 0 auto .6em; max-width: 60ch; }
+/* reserve the web-font height so the swap never pushes the menu down */
+.case__key { min-height: 16.2rem; }
+@media (min-width: 430px) { .case__key { min-height: 14.8rem; } }
+@media (min-width: 700px) { .case__key { min-height: 13.2rem; } }
+.case__key a { color: var(--slate); text-underline-offset: .2em; text-decoration-color: var(--gold-rule); white-space: nowrap; }
+.totop { text-align: right; margin: 14px 0 0; }
+.totop a { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--sans); font-weight: 600; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-text); text-underline-offset: .3em; }
 
 /* tracked serif capitals flanked by thin gold rules, as on Matsuba's print menus */
 .ruled { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 0 0 14px; font-family: var(--serif); font-weight: 500; font-size: clamp(1.2rem, 1rem + 1vw, 1.75rem); letter-spacing: .3em; color: var(--slate); text-align: center; line-height: 1.2; }
@@ -85,8 +94,8 @@
 .ruled:focus { outline: none; }
 
 .course { padding-top: 26px; scroll-margin-top: calc(var(--top-h) + 60px); }
+#case { scroll-margin-top: calc(var(--top-h) + 4px); }
 .course + .course { border-top: 1px solid #eadfca; margin-top: 18px; }
-.js .course[hidden] { display: none; }
 
 .sub { display: block; text-align: center; font-family: var(--serif); font-weight: 600; font-size: .84rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold-text); margin: 30px 0 4px; padding-left: .28em; }
 .sub span { color: var(--gold-rule); }

@@ -61,7 +61,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 84px; scroll-padding-bottom: calc(56px + 8px + env(safe-area-inset-bottom)); }
+@media (min-width: 1080px) { html { scroll-padding-bottom: 0; } }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0; background: var(--box); color: var(--ink);
@@ -476,7 +477,7 @@ body { padding-bottom: 56px; }
 
 /* ---------- visit ---------- */
 .visit { display: grid; gap: 32px; }
-@media (min-width: 900px) { .visit { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@media (min-width: 900px) { .visit { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); } }
 .visit address { font-style: normal; font-family: var(--display); font-size: clamp(1.5rem, 1.25rem + 1vw, 2.1rem); line-height: 1.2; }
 .hours { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
 .hours th, .hours td { text-align: left; padding: 9px 0; border-bottom: 1px solid rgba(239,233,221,.16); vertical-align: top; font-weight: 400; }
@@ -575,3 +576,99 @@ body { padding-bottom: 56px; }
 .box-hint { margin-top: clamp(22px, 6cqw, 48px); }
 .casket { margin-bottom: calc(var(--d) * .38); }
 [data-instant] *, [data-instant] *::before, [data-instant] *::after { transition: none !important; }
+
+/* ==========================================================================
+   USEFUL FIRST: the Today strip, Visit second, a priced taster, the box held
+   to one phone screen, and the dietary legend on the menus
+   ========================================================================== */
+
+/* The Today strip: a white box label on the velvet, like the packaging */
+.tstrip {
+  align-self: stretch; max-width: 30rem; background: var(--box); color: var(--ink);
+  padding: 12px 16px 6px; border-left: 3px solid var(--oxblood);
+  box-shadow: 0 0 0 1px rgba(199,154,62,.55), 0 16px 30px -18px rgba(0,0,0,.7);
+  line-height: 1.3;
+}
+.tstrip p { margin: 0; max-width: none; }
+.tstrip__h { font-family: var(--text); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--oxblood); font-weight: 600; margin: 0 0 4px; }
+.tstrip__status { font-family: var(--display); font-size: 1.4rem; line-height: 1.15; white-space: nowrap; }
+.tstrip__status strong { font-weight: 400; }
+.tstrip__status [data-state="closed"] { color: var(--oxblood); }
+.tstrip__hours { font-size: var(--fs-small); color: var(--ink-soft); font-variant-numeric: lining-nums; }
+.tstrip__where a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-small); font-weight: 600; color: var(--ink); }
+.tstrip__acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px !important; }
+.tstrip__acts .btn { min-height: 46px; }
+.tstrip__skip a { display: inline-flex; align-items: center; min-height: 40px; font-size: .92rem; color: var(--oxblood); }
+.tstrip :focus-visible { outline-color: var(--oxblood); }
+@media (max-width: 959px) {
+  .hero .frame { padding-top: 12px; min-height: 0; padding-bottom: 8px; }
+  .hero__stage { aspect-ratio: 800 / 470; margin-top: -26px !important; }
+  .hero__ticket { gap: 12px; }
+  .hero h1 { font-size: clamp(2.6rem, 1.7rem + 4.6vw, 4.6rem); }
+  .hero .oval { font-size: .95rem; }
+}
+
+/* tighter sections for the useful blocks */
+.section--tight { padding-block: clamp(24px, 5vw, 88px); }
+.section--tight .ticket { margin-bottom: 18px; gap: 10px; }
+@media (min-width: 960px) { .section--tight .ticket { margin-bottom: 0; } }
+.visit__h { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); color: var(--gold-foil); margin-bottom: 8px; }
+.visit address { font-size: clamp(1.3rem, 1.15rem + .8vw, 2rem); }
+.visit__btns { margin: 14px 0 16px; }
+.hours td.bk { width: 1%; padding-left: 12px; vertical-align: middle; }
+.hours td.bk .btn { min-height: 44px; padding: .4em .9em; font-size: 1rem; box-shadow: 0 0 0 1px rgba(226,194,124,.6) inset; }
+.hours td { line-height: 1.38; }
+.hours .tbc { color: var(--gold-foil); border-color: currentColor; }
+.facts--policy { margin-top: 14px; }
+.dark .facts li { color: var(--on-dark); }
+.dark .facts a { font-weight: 600; }
+@media (max-width: 899px) {
+  #find { margin-top: -14px; }
+  .visit address { font-size: 1.25rem; }
+  .visit__btns { margin: 10px 0 8px; }
+  .hours th, .hours td { padding: 7px 0; }
+  .hours th { padding-right: 12px; font-size: 1rem; }
+  .hours td.bk { padding-left: 10px; }
+  .facts { gap: 6px; }
+}
+
+/* taster */
+#taster .patis-lead { margin-bottom: 6px; }
+.taster__tart { font-size: var(--fs-small); color: var(--ink-soft); margin-bottom: 8px; }
+.ledger small { font-family: var(--text); font-size: .82em; color: var(--ink-soft); margin-left: .25em; }
+#taster .ledger li { padding: 7px 0; }
+#taster .honest { margin: 12px 0 16px; }
+.diet { display: inline-block; margin-left: .3em; font-family: var(--text); font-size: .7rem; font-weight: 600; line-height: 1; letter-spacing: .04em;
+  border: 1px solid var(--oxblood); color: var(--oxblood); padding: .22em .35em .16em; vertical-align: .2em; }
+.dark .diet { border-color: var(--gold-foil); color: var(--gold-foil); }
+
+/* skip past the signature */
+.skipby { display: flex; flex-wrap: wrap; gap: 0 22px; margin: 0; max-width: none; padding: 4px var(--gut); background: var(--box); position: relative; z-index: 3; }
+.skipby a { display: inline-flex; align-items: center; min-height: 44px; font-size: .95rem; color: var(--oxblood); }
+.skipby :focus-visible { outline-color: var(--oxblood); }
+
+/* the legend, as plain text in Our story */
+.tag-legend { display: inline-block; font-family: var(--text); font-size: .62em; letter-spacing: .16em; text-transform: uppercase; background: var(--oxblood); color: var(--box); padding: .25em .6em .2em; vertical-align: .25em; }
+
+/* the iron box holds to one phone screen while locked */
+@media (max-width: 959px) {
+  #box { padding-block: 26px 30px; }
+  #box .ticket { gap: 8px; margin-bottom: 14px; }
+  #box .ticket h2 { font-size: clamp(1.9rem, 1.4rem + 2.6vw, 2.6rem); }
+  #box .box__aside { display: none; }
+}
+
+/* menu page: dietary marks and allergens at the top */
+.before { background: var(--box); color: var(--ink); border-left: 3px solid var(--oxblood); padding: 16px 18px 6px; margin-top: 18px; max-width: 46rem; box-shadow: 0 0 0 1px var(--box-edge); }
+.before__h { font-family: var(--text); font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--oxblood); font-weight: 600; margin: 0 0 8px; }
+.before p { font-size: var(--fs-small); margin-bottom: .6em; max-width: none; }
+.before__legend { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 4px; font-size: var(--fs-small); }
+.before__legend .diet { margin: 0 .35em 0 0; }
+.before a { font-weight: 600; }
+.totop { margin: 22px 0 0; font-size: var(--fs-small); }
+.totop a { display: inline-flex; align-items: center; min-height: 44px; }
+.totop.frame-pad { position: relative; z-index: 2; padding-inline: var(--gut); margin: 0; padding-top: 18px; }
+@media (min-width: 960px) { .totop.frame-pad { padding-left: calc(var(--gut) + var(--ticket) + var(--rib) + 2 * var(--gap)); } }
+.before-wrap { padding: 18px 0 8px; position: relative; z-index: 2; }
+.before-wrap .before { margin-top: 0; }
+.before a { color: var(--oxblood); }

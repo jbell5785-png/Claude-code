@@ -180,3 +180,49 @@ What a generic tearoom could share is the broad genre (stands, blue-and-white, c
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+---
+
+## "Useful first" pass (26 October 2026)
+
+The client felt the site put its signature ahead of being useful. The signature now sits alongside the essentials instead of in front of them; nothing of it was removed. Standard: `pipeline/research/information-hierarchy.md` §(b); rubric §(c); before scores from `pipeline/research/useful-first-audit.md`. Facts from `research/copy-deck.md` only.
+
+### Score: 27/32 before → 32/32 after (rubric §(c), 390×844 and 390×660)
+
+| Item | Before | After |
+|---|---|---|
+| 1 (G) Essentials on screen 1 | 1 | 2 |
+| 2 (G) Time to essentials | 2 | 2 |
+| 3 (G) Signature parallel | 2 | 2 |
+| 4 Signature budget | 2 | 2 |
+| 5 Hidden content duplicated | 2 | 2 |
+| 6 (G) Reduced motion / no JS | 2 | 2 |
+| 7 Hours table | 1 | 2 |
+| 8 Priced taster | 2 | 2 |
+| 9 Find us | 1 | 2 |
+| 10 Booking clarity | 2 | 2 |
+| 11 (G) HTML menu | 2 | 2 |
+| 12 Menu navigation | 2 | 2 |
+| 13 Prices and dietary marks | 2 | 2 |
+| 14 Action bar | 1 | 2 |
+| 15 Interaction accessibility | 2 | 2 |
+| 16 Literal labels | 1 | 2 |
+| **Total** | **27** | **32** |
+
+### What changed
+- **Today strip** under the headline, as a china card with the transfer-blue rim: status from the published hours (London clock; "Open every day" with JS off), "9am–6pm daily · last walk-ins seated 17:30", the address linked to Google Maps, Book a table and Menus, "Skip to visit info". It is excluded from the hero's settle-in animation, so it is visible at first paint. The window drawing is cropped shorter on phones; the eyebrow is now the business's own "Shop & Tea Room on 288 Kew Road".
+- **Visit second** ("Visit us."): a framed card with every service, each with its own Book button (any table, breakfast with the Thursday marker, luncheon with the £22/£20 marker, set teas), bank-holiday marker and a two-line policy; then "Finding us": the oak table (now a small lettered 288 / Kew Road roundel on phones) beside the address, Google Maps and phone, and getting there (opposite Kew Gardens, on-street parking; walk and step-free access to confirm).
+- **Taster third** ("From the menus, priced."): the tart £3.50 with its allergens, High Tea £24.50, Savoury High Tea £26.50, Full English £13, Vegetarian English £13 (V), Roast of the Day £18, the 2024 marker and "See all the menus". Section top 1,663 px, first price 1,733 px.
+- **The stand, kept whole**, fourth, behind "Skip past the stand / Skip to visit info". On phones the chooser is a two-column grid and the drawing 250 px wide: heading, chooser, stand, price and Book a set tea fit in 816 px. "What's on each plate" stays as the plain text below; the service-charge hand-off line is in Visit on phones.
+- **Labels:** nav Visit & hours · Menus · Set teas · Our history · Bakery; "Still here" keeps its heading with the eyebrow "Our history · the building". Rooms, guest rooms and the Archives café moved to the end of the bakery section.
+- **Dock:** Book · Menus · Call (menu page: Book · Call · Find us). `scroll-padding-bottom` set below 960 px.
+- **Menu page:** "Before you order" moved under the sticky "On this menu" row and given the dietary legend, the tart's allergens and how to ask about the 14 allergens (service, allergies and vegan lines kept verbatim); dietary marks as on A and B; "Back to top" after every course.
+
+### QA
+- `qa.sh` (port 8946, label `v2-maids-c-uf`): 0 console errors, 0 failed requests, 0 bad links, 0 horizontal overflow, axe clean on both pages. CLS index 0.000 / 0.000 / 0.006, menu 0.009 / 0.001 / 0.001.
+- First screen checked by screenshot at 390×660 and 390×844 (motion, reduced motion and JS off): status, address with map link, Book and Menus all visible above the action bar.
+
+### Caveats
+- The first priced line is at 1,733 px; the stand (itself priced) follows at 2,236.
+- JSON-LD and `llms.txt` unchanged.
+

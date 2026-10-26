@@ -96,7 +96,19 @@
     return override ? S.readClock(override.day, override.minutes) : S.read(new Date());
   }
 
+  // The glint repeats every 9 seconds, so it has a visible pause (WCAG 2.2.2).
+  var glintPaused = false;
+  var glintBtn = $('[data-glint-toggle]');
+  if (glintBtn && motion) {
+    glintBtn.hidden = false;
+    glintBtn.addEventListener('click', function () {
+      glintPaused = !glintPaused;
+      glintBtn.textContent = glintPaused ? 'Play the glint' : 'Pause the glint';
+    });
+  }
+
   function glint() {
+    if (glintPaused) return;
     sweep(sleaf, -260, 920, 2800);
   }
 

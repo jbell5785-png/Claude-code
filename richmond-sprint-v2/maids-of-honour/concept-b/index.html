@@ -146,11 +146,10 @@
     </a>
     <nav class="nav" aria-label="Main">
       <ul>
-        <li><a href="#box">The iron box</a></li>
-        <li><a href="#before-kew">Before Kew</a></li>
-        <li><a href="#warm">Warm it</a></li>
+        <li><a href="#visit">Visit &amp; hours</a></li>
         <li><a href="menu.html">Menus</a></li>
-        <li><a href="#visit">Visit</a></li>
+        <li><a href="#before-kew">Our story</a></li>
+        <li><a href="#warm">Tarts by post</a></li>
       </ul>
     </nav>
     <a class="btn head-book" href="#book">Book a table</a>
@@ -165,10 +164,17 @@
     <div class="hero__ticket">
       <span class="oval"><small>Since the 1800s on the Kew Road</small>A Royal Secret…</span>
       <h1 id="hero-h">One tart, <em>one secret.</em></h1>
-      <p class="hero__lede">Our Famous Maids of Honour Tart, <span>still made to our secret recipe and served warm from our ovens at 288 Kew Road.</span></p>
+      <div class="tstrip" aria-labelledby="tstrip-h">
+        <h2 class="tstrip__h" id="tstrip-h">Today at 288 Kew Road</h2>
+        <p class="tstrip__status"><strong data-today-status>Open every day</strong></p>
+        <p class="tstrip__hours">9am–6pm daily · last walk-ins seated 17:30</p>
+        <p class="tstrip__where"><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Original+Maids+of+Honour+288+Kew+Road+Richmond+TW9+3DU" target="_blank" rel="noopener">288 Kew Road, opposite Kew Gardens<span class="vh"> (Google Maps, opens in a new tab)</span></a></p>
+        <p class="tstrip__acts"><a class="btn" href="#book">Book a table</a><a class="btn btn--line" href="menu.html">Menus</a></p>
+        <p class="tstrip__skip"><a href="#visit">Skip to visit info</a></p>
+      </div>
+      <p class="hero__lede">Our Famous Maids of Honour Tart, <span>still made to our secret recipe.</span></p>
       <div class="hero__actions">
-        <a class="btn" href="#book">Book a table</a>
-        <a class="btn btn--ghost" href="#box">Turn the key</a>
+        <a class="btn btn--ghost" href="#box">Turn the key on the iron box</a>
       </div>
     </div>
     <div class="hero__stage">
@@ -176,24 +182,124 @@
       <span class="pricetag__thread" aria-hidden="true"></span>
       <p class="pricetag"><b>£3.50</b><span>in the tearoom</span></p>
     </div>
-    <p class="hero__meta hero__after">Open every day, 9am–6pm · <a href="tel:02089402752">020 8940 2752</a></p>
+  </div>
+<script>
+/* Today strip: the status from the published hours (open 9am–6pm every day,
+   last walk-ins seated by 17:30), read on the London clock. It runs before
+   first paint and only swaps one short line; without JS the static line stands. */
+(function () {
+  try {
+    var el = document.querySelector('[data-today-status]');
+    if (!el) return;
+    var t, m = /[?&]at=(?:[a-z]{3}-)?(\d{1,2}):(\d{2})/i.exec(location.search);
+    if (m) t = (+m[1]) * 60 + (+m[2]);
+    else {
+      var h = 0, mi = 0;
+      new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+        .formatToParts(new Date()).forEach(function (p) { if (p.type === 'hour') h = +p.value; if (p.type === 'minute') mi = +p.value; });
+      t = h * 60 + mi;
+    }
+    var open = t >= 540 && t < 1080;
+    el.textContent = t < 540 ? 'Closed · opens 9am today'
+      : t < 1050 ? 'Open now · until 6pm'
+      : t < 1080 ? 'Open until 6pm · no walk-ins'
+      : 'Closed · opens 9am tomorrow';
+    el.setAttribute('data-state', open ? 'open' : 'closed');
+  } catch (e) {}
+})();
+</script>
+</section>
+
+<div class="tie" aria-hidden="true">
+  <div class="tie__band"></div>
+  <svg class="tie__bow" viewBox="0 0 150 120"><use href="#bow-art"/></svg>
+  <span class="tie__label oval">Visit</span>
+</div>
+
+<!-- ============ VISIT: hours, booking, finding us (second on the page) ============ -->
+<section id="visit" class="section section--tight dark" aria-labelledby="visit-h">
+  <div class="frame">
+    <div class="ticket">
+      <h2 id="visit-h">Visit <em>us.</em></h2>
+    </div>
+    <div class="content">
+      <div class="visit">
+        <div id="book">
+          <h3 class="visit__h">Opening hours &amp; booking</h3>
+          <table class="hours">
+            <caption class="vh">Opening hours and service times, with a booking link for each</caption>
+            <tbody>
+              <tr><th scope="row">Every day</th><td>9am–6pm. Last walk-ins seated by 17:30. Bank holidays <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Separate shop/tearoom hours, bank holidays, Christmas. --></td><td class="bk"><a class="btn btn--ink" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener">Book<span class="vh"> any table, any day on ResDiary (opens in a new tab)</span></a></td></tr>
+              <tr><th scope="row">Breakfast</th><td>Cooked and toasted last orders 11am. None on Thursdays; pastries as usual. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Thursday rule still current. --></td><td class="bk"><a class="btn btn--ink" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175" target="_blank" rel="noopener">Book<span class="vh"> breakfast on ResDiary (opens in a new tab)</span></a></td></tr>
+              <tr><th scope="row">Luncheon</th><td>12:00–15:00. Minimum charge £22 (menu) or £20 (booking page). <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Luncheon minimum: page says £20, menu says £22. --></td><td class="bk"><a class="btn btn--ink" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176" target="_blank" rel="noopener">Book<span class="vh"> luncheon on ResDiary (opens in a new tab)</span></a></td></tr>
+              <tr><th scope="row">Set teas</th><td>From 10:00; Prosecco and Champagne from 11:00.</td><td class="bk"><a class="btn btn--ink" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177" target="_blank" rel="noopener">Book<span class="vh"> a set tea on ResDiary (opens in a new tab)</span></a></td></tr>
+            </tbody>
+          </table>
+          <ul class="facts facts--policy" aria-label="Booking policy">
+            <li>Book opens ResDiary in a new tab; nothing is booked until you confirm there. Or call <a href="tel:02089402752">020 8940 2752</a>. Walk-ins: first come, first served.</li>
+            <li>A discretionary 12.5% service charge is added to the bill. Preferred tables can’t be guaranteed. Vegan? Please call: bookings need 24 hours’ notice.</li>
+          </ul>
+        </div>
+        <div id="find">
+          <h3 class="visit__h">Finding us</h3>
+          <address>288 Kew Road<br>Richmond, Surrey TW9 3DU</address>
+          <div class="btn-row visit__btns">
+            <a class="btn ext" href="https://www.google.com/maps/search/?api=1&amp;query=The+Original+Maids+of+Honour+288+Kew+Road+Richmond+TW9+3DU" target="_blank" rel="noopener">Find us on the map</a>
+            <a class="btn btn--ghost" href="tel:02089402752">020 8940 2752</a>
+          </div>
+          <ul class="facts" aria-label="Getting there">
+            <li>Opposite Kew Gardens; on-street parking.</li>
+            <li>Walking time from the Gardens’ gates and step-free access are not published. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] The walk from Kew Gardens; accessibility at 288 Kew Road. --></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <div class="tie" aria-hidden="true">
   <div class="tie__band"></div>
   <svg class="tie__bow" viewBox="0 0 150 120"><use href="#bow-art"/></svg>
+  <span class="tie__label oval">Priced</span>
+</div>
+
+<!-- ============ TASTER: from the tearoom, priced ============ -->
+<section id="taster" class="section section--tight light on-light" aria-labelledby="taster-h">
+  <div class="frame">
+    <div class="ticket">
+      <h2 id="taster-h">The menus, <em>priced.</em></h2>
+    </div>
+    <div class="content">
+      <p class="patis-lead">Our Famous <svg class="bl" viewBox="0 0 53.22 11" style="aspect-ratio:53.22/11" role="img" aria-label="Maids of Honour Tart"><use href="img/lettering.svg#bl-tart"/></svg> <span class="amt">£3.50</span></p>
+      <ul class="ledger">
+        <li><span>High Tea <small>per person</small></span><span class="dots"></span><span class="amt">£24.50</span></li>
+        <li><span>Savoury High Tea <small>per person</small></span><span class="dots"></span><span class="amt">£26.50</span></li>
+        <li><span>Full English <small>breakfast</small></span><span class="dots"></span><span class="amt">£13</span></li>
+        <li><span>Vegetarian English <span class="diet"><span aria-hidden="true">V</span><span class="vh"> vegetarian</span></span></span><span class="dots"></span><span class="amt">£13</span></li>
+        <li><span>Roast of the Day <small>luncheon</small></span><span class="dots"></span><span class="amt">£18</span></li>
+      </ul>
+      <p class="taster__tart">“Deliciously sweet and yet slightly savoury, light and crisp yet unctuously soft in the middle.” Contains milk, wheat, gluten and eggs. £3.50 in the tearoom; £2.25 from the shop. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Both tart prices (shop £2.25, tearoom £3.50) from 2024 sources. --></p>
+      <p class="honest">From the 2024 menus; prices may have changed. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Are the 2024 menu prices current? --> V: vegetarian. Allergies: please tell your server; the allergen statement heads the menus.</p>
+      <a class="btn btn--line" href="menu.html">See all the menus</a>
+    </div>
+  </div>
+</section>
+
+<p class="skipby"><a href="#before-kew">Skip past the iron box</a> <a href="#visit">Skip to visit info</a></p>
+<div class="tie" aria-hidden="true">
+  <div class="tie__band"></div>
+  <svg class="tie__bow" viewBox="0 0 150 120"><use href="#bow-art"/></svg>
   <span class="tie__label oval">The iron box</span>
 </div>
 
-<!-- ============ THE IRON BOX (signature) ============ -->
+<!-- ============ THE IRON BOX (signature: one phone screen while locked; everything inside is also plain text in the taster and Our story) ============ -->
 <section id="box" class="section velvet dark" aria-labelledby="box-h">
   <div class="frame">
     <div class="ticket">
       <p class="kicker">Legend has it…</p>
       <h2 id="box-h">The recipe was locked in an <em>iron box.</em></h2>
       <p>The story goes that Henry VIII kept the recipe “under lock and key at Richmond Palace!” Turn the key on this one to see what is inside.</p>
-      <p class="kicker" style="color:var(--on-dark-soft)">The legend is a legend. The tart is real.</p>
+      <p class="kicker box__aside" style="color:var(--on-dark-soft)">The legend is a legend. The tart is real.</p>
     </div>
     <div class="content">
       <div class="ironbox is-open is-rest" data-ironbox>
@@ -358,14 +464,14 @@
 <div class="tie" aria-hidden="true">
   <div class="tie__band"></div>
   <svg class="tie__bow" viewBox="0 0 150 120"><use href="#bow-art"/></svg>
-  <span class="tie__label oval">Before Kew</span>
+  <span class="tie__label oval">Our story</span>
 </div>
 
 <!-- ============ BEFORE KEW: the 1907 postcard ============ -->
 <section id="before-kew" class="section light on-light" aria-labelledby="kew-h">
   <div class="frame">
     <div class="ticket">
-      <span class="oval oval--light">Hill Street, Richmond</span>
+      <span class="oval oval--light">Our story</span>
       <h2 id="kew-h">Before Kew, <em>there was Hill Street.</em></h2>
       <p>“Certainly by the early 18th century the recipe had been disclosed to a bakery in Richmond and the tasty little tarts became one of the features of fashionable Richmond…”</p>
     </div>
@@ -380,6 +486,10 @@
         <div>
           <p class="kicker" style="margin-bottom:22px">Who has kept the secret</p>
           <ol class="keepers">
+            <li class="rise">
+              <h3>The legend <span class="tag-legend">Legend</span></h3>
+              <p>“It is believed that Henry VIII, King of England from 1509-1547, came across Anne Boleyn and her Maids of Honour (the young ladies who attended the Queen), eating the tarts from a silver dish. Tasting one for himself, the King was so delighted by its ‘melt-in-the-mouth’ sensation that he confiscated the recipe and demanded it be kept secret in a locked iron box at Richmond Palace.” One account goes further: the Maid who invented the tart “was imprisoned within the Palace grounds and ordered to produce the delectable tarts solely for King Henry and his royal household!” Richmond’s local historians add that a Maids of Honour recipe appears in R. May’s <i>The Accomplisht Cook</i>, 2nd edition, 1665.</p>
+            </li>
             <li class="rise">
               <h3>The Original Shop, Hill Street</h3>
               <p>“The first Original Maids of Honour shop was on the corner of Hill Street in Richmond.” The postcard shows Billett’s name in the window.</p>
@@ -398,7 +508,7 @@
             </li>
             <li class="rise">
               <h3>Today</h3>
-              <p>“Today these delectable pastries are still served warm from our ovens…” And the recipe? Still a secret.</p>
+              <p>“Today these delectable pastries are still served warm from our ovens…” And the recipe? “That’s still a secret – one that’s safe with us for a good long time to come…”</p>
             </li>
           </ol>
         </div>
@@ -508,97 +618,26 @@
 <div class="tie" aria-hidden="true">
   <div class="tie__band"></div>
   <svg class="tie__bow" viewBox="0 0 150 120"><use href="#bow-art"/></svg>
-  <span class="tie__label oval">At the table</span>
+  <span class="tie__label oval">Upstairs</span>
 </div>
 
-<!-- ============ AT THE TABLE / BOOKING ============ -->
-<section id="book" class="section light on-light" aria-labelledby="book-h">
-  <div class="frame">
-    <div class="ticket">
-      <span class="oval oval--light">Book a table</span>
-      <h2 id="book-h">Sit down <em>and have it warm.</em></h2>
-      <p>Set tea sittings run all day, Monday to Sunday. “Tables are available throughout the day on a first-come, first-served basis.”</p>
-      <a class="btn btn--line" href="menu.html">All the menus</a>
-    </div>
-    <div class="content">
-      <p class="patis-lead">Our Famous <svg class="bl" viewBox="0 0 53.22 11" style="aspect-ratio:53.22/11" role="img" aria-label="Maids of Honour Tart"><use href="img/lettering.svg#bl-tart"/></svg> <span class="amt">£3.50</span></p>
-      <ul class="services">
-        <li class="service">
-          <h3>Breakfast<small>until 11am</small></h3>
-          <div>
-            <p>“Last Orders at 11am for Cooked or Toasted Items.”</p>
-            <p>“On Thursdays, we do not serve cooked breakfasts, but bakery pastries remain fully available.” <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Thursday rule still current. --></p>
-          </div>
-          <div class="acts"><a class="btn btn--ink ext" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175" target="_blank" rel="noopener">Book breakfast</a><a class="btn btn--line" href="menu.html#breakfast">Menu</a></div>
-        </li>
-        <li class="service">
-          <h3>Luncheon<small>12:00–15:00</small></h3>
-          <div>
-            <p>Monday to Sunday. Roasts, the Baker’s Hot &amp; Cold Luncheons, and the ‘Kew’ Pasty.</p>
-            <p>Minimum charge £22 per person, as printed on the menu. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Luncheon minimum: page says £20, menu says £22. --></p>
-          </div>
-          <div class="acts"><a class="btn btn--ink ext" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176" target="_blank" rel="noopener">Book luncheon</a><a class="btn btn--line" href="menu.html#luncheon">Menu</a></div>
-        </li>
-        <li class="service">
-          <h3>Set teas<small>all day</small></h3>
-          <div>
-            <p>High Tea, Savoury High Tea and The Special Taster Set Tea from 10:00. Prosecco and Champagne High Tea from 11:00.</p>
-            <p>High Tea includes “Your choice from Today’s Patisserie or Maids of Honour Tart”.</p>
-          </div>
-          <div class="acts"><a class="btn btn--ink ext" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177" target="_blank" rel="noopener">Book a set tea</a><a class="btn btn--line" href="menu.html#set-teas">Menu</a></div>
-        </li>
-        <li class="service">
-          <h3>Any table<small>three months ahead</small></h3>
-          <div>
-            <p>Open every day, 9am–6pm. “Last walk-ins must be seated by 17:30.”</p>
-            <p>“Whilst we will always do our best to accommodate specific table requests, we cannot guarantee that a preferred table will be available to you on the day.”</p>
-          </div>
-          <div class="acts"><a class="btn ext" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener">Book a table</a></div>
-        </li>
-      </ul>
-      <p class="honest">Booking opens ResDiary, the tearoom’s own booking system, in a new tab. Nothing is booked until you confirm it there. A discretionary service charge of 12.5% is added to the bill and shared with the staff of the day.</p>
-    </div>
-  </div>
-</section>
-
-<div class="tie" aria-hidden="true">
-  <div class="tie__band"></div>
-  <svg class="tie__bow" viewBox="0 0 150 120"><use href="#bow-art"/></svg>
-  <span class="tie__label oval">Visit</span>
-</div>
-
-<!-- ============ VISIT ============ -->
-<section id="visit" class="section dark" aria-labelledby="visit-h">
+<!-- ============ ALSO AT 288 ============ -->
+<section id="more" class="section section--tight dark" aria-labelledby="more-h">
   <div class="frame">
     <div class="ticket">
       <p class="kicker">Shop &amp; Tea Room on 288 Kew Road</p>
-      <h2 id="visit-h">Opposite <em>Kew Gardens.</em></h2>
+      <h2 id="more-h">Also <em>at 288.</em></h2>
       <p>A Historic Traditional English Tearoom Shop and Bakery. “We make everything ourselves on the premises using traditional methods to our own original recipes.”</p>
+      <p style="font-size:var(--fs-small)"><a href="mailto:admin@theoriginalmaidsofhonour.co.uk">admin@theoriginalmaidsofhonour.co.uk</a></p>
     </div>
     <div class="content">
       <div class="visit">
         <div>
-          <address>288 Kew Road<br>Richmond, Surrey<br>TW9 3DU</address>
-          <div class="btn-row" style="margin:22px 0 28px">
-            <a class="btn ext" href="https://www.google.com/maps/search/?api=1&amp;query=The+Original+Maids+of+Honour+288+Kew+Road+Richmond+TW9+3DU" target="_blank" rel="noopener">Find us on the map</a>
-            <a class="btn btn--ghost" href="tel:02089402752">020 8940 2752</a>
-          </div>
-          <table class="hours">
-            <caption class="vh">Opening hours and service times</caption>
-            <tbody>
-              <tr><th scope="row">Every day</th><td>9am–6pm, shop and tearoom <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Separate shop/tearoom hours, bank holidays, Christmas. --></td></tr>
-              <tr><th scope="row">Breakfast</th><td>Last orders 11am for cooked or toasted items. No cooked breakfasts on Thursdays.</td></tr>
-              <tr><th scope="row">Luncheon</th><td>12:00–15:00</td></tr>
-              <tr><th scope="row">Set teas</th><td>From 10:00; Prosecco and Champagne teas from 11:00</td></tr>
-              <tr><th scope="row">Walk-ins</th><td>Last seated by 17:30</td></tr>
-            </tbody>
-          </table>
-          <p style="margin-top:22px;font-size:var(--fs-small)"><a href="mailto:admin@theoriginalmaidsofhonour.co.uk">admin@theoriginalmaidsofhonour.co.uk</a></p>
-        </div>
-        <div>
           <div class="slot" role="img" aria-label="Photograph placeholder">
             <p><b>Photograph to commission</b>The counter at 288 Kew Road at opening time: a silver stand of Maids of Honour, warm from the oven, on a paper doily. Natural light, no people.</p>
           </div>
+        </div>
+        <div>
           <div class="also">
             <div>
               <h3>Upstairs: Maids Guest Rooms</h3>
@@ -624,6 +663,7 @@
     <ul class="foot__links">
       <li><a href="#book">Book a table</a></li>
       <li><a href="menu.html">Menus</a></li>
+      <li><a href="#visit">Visit &amp; hours</a></li>
       <li><a href="#warm">Warming instructions</a></li>
       <li><a href="https://theoriginalmaidsofhonour.co.uk/" target="_blank" rel="noopener" class="ext">The official website</a></li>
     </ul>

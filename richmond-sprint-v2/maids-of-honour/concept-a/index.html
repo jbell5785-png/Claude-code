@@ -121,9 +121,9 @@
     <nav class="hd__nav" aria-label="Main">
       <ul>
         <li><a href="menu.html">Menus</a></li>
+        <li><a href="#visit">Hours &amp; find us</a></li>
         <li><a href="#sign">Served today</a></li>
-        <li><a href="#story">The shop front</a></li>
-        <li><a href="#visit">Find us</a></li>
+        <li><a href="#story">Our story</a></li>
         <li class="hd__tel"><a href="tel:+442089402752">020 8940 2752</a></li>
       </ul>
     </nav>
@@ -1551,30 +1551,488 @@
 
   <div class="hero__text">
     <p class="eyebrow">Shop &amp; Tea Room on 288 Kew Road</p>
+
+    <div class="tstrip" aria-labelledby="tstrip-h">
+      <h2 class="tstrip__h" id="tstrip-h"><span class="tstrip__gable" aria-hidden="true">Today</span><span class="vh">Today at the tearoom</span></h2>
+      <p class="tstrip__status"><strong data-today-status>Open every day</strong></p>
+      <p class="tstrip__hours">9am–6pm daily · last walk-ins seated 17:30</p>
+      <p class="tstrip__where"><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Original+Maids+of+Honour+288+Kew+Road+Richmond+TW9+3DU" target="_blank" rel="noopener">288 Kew Road, opposite Kew Gardens<span class="tstrip__map">&nbsp;· Map</span><span class="vh"> (Google Maps, opens in a new tab)</span></a></p>
+      <p class="tstrip__acts">
+        <a class="board-btn" href="#book"><span>Book a table</span></a>
+        <a class="tstrip__menus" href="menu.html">Menus</a>
+      </p>
+      <p class="tstrip__skip"><a href="#visit">Skip to visit info</a></p>
+    </div>
+
     <p class="hero__strap">A Historic Traditional English Tearoom Shop and Bakery.</p>
-    <p class="hero__where">Opposite Kew Gardens. Open every day, 9am to 6pm.</p>
 
     <a class="today" href="#sign" data-today>
       <span class="today__label">On the side wall today</span>
       <span class="today__now" data-today-now>Morning coffee from 9am · Luncheons 12 noon to 3pm · Teas from 10am</span>
       <span class="today__go" aria-hidden="true">Read the sign</span>
     </a>
+  </div>
+<script>
+/* Today strip: the status from the published hours (open 9am–6pm every day,
+   last walk-ins seated by 17:30), read on the London clock. It runs before
+   first paint and only swaps one short line; without JS the static line stands. */
+(function () {
+  try {
+    var el = document.querySelector('[data-today-status]');
+    if (!el) return;
+    var t, m = /[?&]at=(?:[a-z]{3}-)?(\d{1,2}):(\d{2})/i.exec(location.search);
+    if (m) t = (+m[1]) * 60 + (+m[2]);
+    else {
+      var h = 0, mi = 0;
+      new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+        .formatToParts(new Date()).forEach(function (p) { if (p.type === 'hour') h = +p.value; if (p.type === 'minute') mi = +p.value; });
+      t = h * 60 + mi;
+    }
+    var open = t >= 540 && t < 1080;
+    el.textContent = t < 540 ? 'Closed · opens 9am today'
+      : t < 1050 ? 'Open now · until 6pm'
+      : t < 1080 ? 'Open until 6pm · no walk-ins'
+      : 'Closed · opens 9am tomorrow';
+    el.setAttribute('data-state', open ? 'open' : 'closed');
+  } catch (e) {}
+})();
+</script>
+</section>
 
-    <div class="hero__acts">
-      <a class="board-btn board-btn--lg" href="#book"><span>Book a table</span></a>
-      <a class="text-link" href="menu.html">See the menus</a>
+<!-- ============ VISIT: hours, booking and finding us (second on the page) ============ -->
+<section class="visit" id="visit" aria-labelledby="visit-title">
+  <div class="visit__in">
+    <div class="board">
+      <span class="board__gable" aria-hidden="true">288</span>
+      <h2 class="board__title gilt" id="visit-title">Visit us</h2>
+    </div>
+
+    <div class="visit__cols">
+      <div class="visit__hours" id="book">
+        <h3 class="vminor" id="hours-title">Opening hours &amp; booking</h3>
+        <ul class="svcs" aria-labelledby="hours-title">
+          <li class="svc svc--any"><div class="svc__t"><h4 class="svc__name">Shop &amp; tearoom</h4><p class="svc__when">Every day, 9am to 6pm. Last walk-ins seated by 17:30. Bank holidays <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Bank holiday and Christmas hours. --></p></div><a class="svc__book" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener">Book<span class="vh"> any table, any day on ResDiary (opens in a new tab)</span></a></li>
+          <li class="svc"><div class="svc__t"><h4 class="svc__name">Breakfast</h4><p class="svc__when">Cooked and toasted last orders 11am. No cooked breakfasts on Thursdays; pastries as usual. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Is the Thursday no-cooked-breakfast rule current? --></p></div><a class="svc__book" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175" target="_blank" rel="noopener">Book<span class="vh"> breakfast on ResDiary (opens in a new tab)</span></a></li>
+          <li class="svc"><div class="svc__t"><h4 class="svc__name">Luncheon</h4><p class="svc__when">12 noon to 3pm. Minimum charge £22 a head on the menu, £20 on the booking page. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Luncheon minimum: the menu image says £22, the booking page says £20. --></p></div><a class="svc__book" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176" target="_blank" rel="noopener">Book<span class="vh"> luncheon on ResDiary (opens in a new tab)</span></a></li>
+          <li class="svc svc--teas"><div class="svc__t"><h4 class="svc__name">Set teas</h4><p class="svc__when">From 10am. Prosecco and Champagne teas from 11am.</p></div><a class="svc__book" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177" target="_blank" rel="noopener">Book<span class="vh"> a set tea on ResDiary (opens in a new tab)</span></a></li>
+        </ul>
+        <ul class="policy" aria-label="Booking policy">
+          <li>Book each sitting on ResDiary (nothing is booked here), or call <a href="tel:+442089402752">020 8940 2752</a>. Walk-ins are first come, first served; last seated by 17:30.</li>
+          <li>A discretionary 12.5% service charge is added to the bill. Preferred tables can’t be guaranteed. Vegan? Please call: bookings need 24 hours’ notice.</li>
+        </ul>
+      </div>
+
+      <div class="visit__find" id="find">
+        <h3 class="vminor" id="find-title">Finding us</h3>
+    <div class="doorway">
+      <div class="doorway__tree" aria-hidden="true"><svg viewBox="0 0 120 300" xmlns="http://www.w3.org/2000/svg" focusable="false"><g class="topiary">
+<rect x="28" y="238" width="64" height="54" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.6"/>
+<rect x="37" y="247" width="46" height="36" fill="none" stroke="#C9C2B2" stroke-width="1.2"/>
+<rect x="24" y="234" width="72" height="6" fill="#FFFFFF" stroke="#1C1A17" stroke-width="1.4"/>
+<circle cx="31" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
+<rect x="27" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
+<circle cx="89" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
+<rect x="85" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
+<rect x="57" y="224" width="6" height="12" fill="#5A4636"/>
+<path d="M60 40L95 228L25 228Z" fill="#24392F"/>
+<circle cx="62.9" cy="80.6" r="3.6" fill="#3E5F4B"/>
+<circle cx="49.4" cy="140.6" r="5.1" fill="#3E5F4B"/>
+<circle cx="60.2" cy="146.5" r="3.5" fill="#3E5F4B"/>
+<circle cx="59.9" cy="41.4" r="1.9" fill="#5E8466"/>
+<circle cx="44.6" cy="194.5" r="3.5" fill="#5E8466"/>
+<circle cx="76.7" cy="227.6" r="7" fill="#2C4636"/>
+<circle cx="38.4" cy="164.5" r="4.6" fill="#5E8466"/>
+<circle cx="65.1" cy="70.1" r="2.9" fill="#2C4636"/>
+<circle cx="64.6" cy="78.5" r="2.4" fill="#2C4636"/>
+<circle cx="56.9" cy="216.4" r="5.6" fill="#3E5F4B"/>
+<circle cx="59.6" cy="115.7" r="3" fill="#3E5F4B"/>
+<circle cx="61.6" cy="51.4" r="2.3" fill="#2C4636"/>
+<circle cx="43.5" cy="192.3" r="6.4" fill="#3E5F4B"/>
+<circle cx="74.5" cy="188" r="5.2" fill="#2C4636"/>
+<circle cx="39.8" cy="183.8" r="6" fill="#5E8466"/>
+<circle cx="67.6" cy="88.1" r="4.3" fill="#2C4636"/>
+<circle cx="55.6" cy="128" r="3.7" fill="#5E8466"/>
+<circle cx="52.1" cy="227.2" r="4" fill="#5E8466"/>
+<circle cx="86" cy="181.9" r="4.9" fill="#2C4636"/>
+<circle cx="61.9" cy="142.8" r="5" fill="#3E5F4B"/>
+<circle cx="62.1" cy="92.3" r="3.6" fill="#3E5F4B"/>
+<circle cx="45.1" cy="165.7" r="4.1" fill="#5E8466"/>
+<circle cx="49.9" cy="216.3" r="4.7" fill="#5E8466"/>
+<circle cx="55.6" cy="67.3" r="3.7" fill="#3E5F4B"/>
+<circle cx="65.6" cy="121.7" r="4.4" fill="#3E5F4B"/>
+<circle cx="89.3" cy="211.7" r="5" fill="#2C4636"/>
+<circle cx="92" cy="226.3" r="5.9" fill="#2C4636"/>
+<circle cx="59.4" cy="209.2" r="4.8" fill="#3E5F4B"/>
+<circle cx="68" cy="97.3" r="2.7" fill="#2C4636"/>
+<circle cx="62.2" cy="59.5" r="3.5" fill="#2C4636"/>
+<circle cx="72.7" cy="141.3" r="2.9" fill="#2C4636"/>
+<circle cx="55.4" cy="99.4" r="2.8" fill="#5E8466"/>
+<circle cx="58.8" cy="59.5" r="3.9" fill="#3E5F4B"/>
+<circle cx="58.9" cy="186.5" r="4.1" fill="#3E5F4B"/>
+<circle cx="61.7" cy="221.4" r="6.3" fill="#3E5F4B"/>
+<circle cx="59" cy="49.1" r="3.4" fill="#3E5F4B"/>
+<circle cx="66.4" cy="208.9" r="5" fill="#3E5F4B"/>
+<circle cx="75.4" cy="158.5" r="3.9" fill="#2C4636"/>
+<circle cx="50.8" cy="150.4" r="2.9" fill="#3E5F4B"/>
+<circle cx="83" cy="176.4" r="3.2" fill="#2C4636"/>
+<circle cx="66.5" cy="160.7" r="5.6" fill="#3E5F4B"/>
+<circle cx="49.2" cy="159.1" r="5.9" fill="#5E8466"/>
+<circle cx="36.4" cy="212.8" r="3.9" fill="#5E8466"/>
+<circle cx="59.8" cy="48.3" r="2.1" fill="#3E5F4B"/>
+<circle cx="69.6" cy="206.6" r="3.9" fill="#3E5F4B"/>
+<circle cx="52.7" cy="151.1" r="3.6" fill="#5E8466"/>
+<circle cx="55.2" cy="80.9" r="3.8" fill="#5E8466"/>
+<circle cx="40.9" cy="153.1" r="5.5" fill="#3E5F4B"/>
+<circle cx="76.4" cy="191.3" r="3.3" fill="#2C4636"/>
+<circle cx="44.1" cy="137.9" r="3.3" fill="#3E5F4B"/>
+<circle cx="47" cy="180.8" r="4.2" fill="#5E8466"/>
+<circle cx="59.5" cy="52.7" r="3.6" fill="#5E8466"/>
+<circle cx="60.1" cy="106.6" r="3.8" fill="#3E5F4B"/>
+<circle cx="33.1" cy="219.7" r="5.5" fill="#5E8466"/>
+<circle cx="85.2" cy="184.6" r="4.3" fill="#2C4636"/>
+<circle cx="61.3" cy="178.7" r="5" fill="#3E5F4B"/>
+<circle cx="62.1" cy="58.1" r="3.9" fill="#2C4636"/>
+<circle cx="54.7" cy="118" r="2.8" fill="#3E5F4B"/>
+<circle cx="56.7" cy="61.1" r="3.5" fill="#3E5F4B"/>
+<circle cx="64.3" cy="135" r="2.8" fill="#3E5F4B"/>
+<circle cx="57.2" cy="169.4" r="4.7" fill="#3E5F4B"/>
+<circle cx="56.9" cy="124.3" r="3.2" fill="#3E5F4B"/>
+<circle cx="59.6" cy="54.4" r="2.4" fill="#3E5F4B"/>
+<circle cx="76.5" cy="179.5" r="5.6" fill="#2C4636"/>
+<circle cx="50.5" cy="136.4" r="4.1" fill="#5E8466"/>
+<circle cx="81.9" cy="167.3" r="3.3" fill="#2C4636"/>
+<circle cx="59.7" cy="140.7" r="4.9" fill="#3E5F4B"/>
+<circle cx="77.7" cy="210.3" r="5.8" fill="#2C4636"/>
+<circle cx="69.3" cy="188.6" r="6.2" fill="#3E5F4B"/>
+<circle cx="69.4" cy="178.7" r="4" fill="#3E5F4B"/>
+<circle cx="52.6" cy="214.6" r="6.6" fill="#5E8466"/>
+<circle cx="93.2" cy="222.2" r="3.6" fill="#2C4636"/>
+<circle cx="55.1" cy="110" r="2.8" fill="#5E8466"/>
+<circle cx="42.2" cy="153.7" r="5.8" fill="#5E8466"/>
+<circle cx="58" cy="185.9" r="3.6" fill="#3E5F4B"/>
+<circle cx="73.7" cy="220.9" r="4.4" fill="#2C4636"/>
+<circle cx="63.9" cy="114.3" r="4.3" fill="#3E5F4B"/>
+<circle cx="70.1" cy="100" r="3.2" fill="#2C4636"/>
+<circle cx="67.5" cy="98.7" r="2.7" fill="#2C4636"/>
+<circle cx="44.8" cy="175.7" r="4" fill="#5E8466"/>
+<circle cx="73.5" cy="122.4" r="3.9" fill="#2C4636"/>
+<circle cx="64.1" cy="133" r="3.5" fill="#3E5F4B"/>
+<circle cx="58.2" cy="82.6" r="2.6" fill="#5E8466"/>
+<circle cx="28.5" cy="221.7" r="7.1" fill="#3E5F4B"/>
+<circle cx="35" cy="179.6" r="3.3" fill="#5E8466"/>
+<circle cx="69.2" cy="163.1" r="3.8" fill="#2C4636"/>
+<circle cx="60" cy="43" r="2" fill="#3E5F4B"/>
+<circle cx="58.8" cy="109.3" r="4.7" fill="#3E5F4B"/>
+<circle cx="49" cy="120.8" r="4.8" fill="#3E5F4B"/>
+<circle cx="41.6" cy="149.5" r="4.1" fill="#5E8466"/>
+<circle cx="48.4" cy="153.4" r="5.5" fill="#3E5F4B"/>
+<circle cx="85.1" cy="216" r="3.6" fill="#2C4636"/>
+<circle cx="41.5" cy="158.7" r="5.3" fill="#3E5F4B"/>
+<circle cx="42.7" cy="188.8" r="6" fill="#5E8466"/>
+<circle cx="65.5" cy="162.9" r="4.5" fill="#3E5F4B"/>
+<circle cx="50.6" cy="195.5" r="4.6" fill="#5E8466"/>
+<circle cx="63.2" cy="107.2" r="4.7" fill="#3E5F4B"/>
+<circle cx="56.8" cy="59.9" r="3.3" fill="#5E8466"/>
+<circle cx="56.1" cy="85.8" r="2.3" fill="#5E8466"/>
+<circle cx="67" cy="143.4" r="4.7" fill="#3E5F4B"/>
+<circle cx="54.2" cy="79.2" r="3.4" fill="#3E5F4B"/>
+<circle cx="66.2" cy="127.8" r="4.7" fill="#3E5F4B"/>
+<circle cx="42.9" cy="148.6" r="3.5" fill="#3E5F4B"/>
+<circle cx="59.3" cy="52.3" r="3.1" fill="#5E8466"/>
+<circle cx="63.3" cy="82.5" r="3.3" fill="#2C4636"/>
+<circle cx="65.2" cy="80" r="4" fill="#2C4636"/>
+<circle cx="71.6" cy="212.9" r="4.3" fill="#3E5F4B"/>
+<circle cx="82.8" cy="191.8" r="5.1" fill="#2C4636"/>
+<circle cx="90.3" cy="213.3" r="4.9" fill="#2C4636"/>
+<circle cx="89.1" cy="218.7" r="6.5" fill="#2C4636"/>
+<circle cx="59.8" cy="44.1" r="2.9" fill="#5E8466"/>
+<circle cx="68.1" cy="188.2" r="3.8" fill="#3E5F4B"/>
+<circle cx="62.4" cy="216.9" r="6.8" fill="#3E5F4B"/>
+<circle cx="69.1" cy="89.3" r="3.6" fill="#2C4636"/>
+<circle cx="73.5" cy="191.5" r="6.3" fill="#2C4636"/>
+<circle cx="47.7" cy="119.3" r="3" fill="#5E8466"/>
+<circle cx="73.1" cy="151.3" r="4" fill="#2C4636"/>
+<circle cx="54.1" cy="73.4" r="3.4" fill="#5E8466"/>
+<circle cx="60.5" cy="48.5" r="2.2" fill="#3E5F4B"/>
+<circle cx="64.5" cy="68.1" r="3.2" fill="#2C4636"/>
+<circle cx="60.9" cy="211.1" r="4" fill="#3E5F4B"/>
+<circle cx="58.4" cy="95.9" r="3.9" fill="#3E5F4B"/>
+<circle cx="74.1" cy="190.7" r="5.5" fill="#2C4636"/>
+<circle cx="58.5" cy="98.4" r="3.3" fill="#3E5F4B"/>
+<circle cx="51.1" cy="142.4" r="4.1" fill="#5E8466"/>
+<circle cx="61.3" cy="51" r="3" fill="#2C4636"/>
+<circle cx="73.7" cy="196" r="5.9" fill="#2C4636"/>
+<circle cx="51.4" cy="227" r="3.7" fill="#5E8466"/>
+<circle cx="64" cy="172.8" r="5" fill="#3E5F4B"/>
+<circle cx="38.8" cy="227.6" r="6.5" fill="#5E8466"/>
+<circle cx="59" cy="197.6" r="3.6" fill="#3E5F4B"/>
+<circle cx="69.8" cy="120.8" r="3.9" fill="#2C4636"/>
+<circle cx="56" cy="137.4" r="4.5" fill="#5E8466"/>
+<circle cx="78.7" cy="177.7" r="5.6" fill="#2C4636"/>
+<circle cx="52.4" cy="121.7" r="4.7" fill="#3E5F4B"/>
+<circle cx="40.2" cy="216.5" r="6.8" fill="#3E5F4B"/>
+<circle cx="58.5" cy="61.3" r="2.3" fill="#5E8466"/>
+<circle cx="45.9" cy="200.7" r="4.4" fill="#5E8466"/>
+<circle cx="54.4" cy="91.5" r="4" fill="#5E8466"/>
+<circle cx="63.6" cy="91.5" r="3.1" fill="#3E5F4B"/>
+<circle cx="53.6" cy="170.2" r="3.5" fill="#5E8466"/>
+<circle cx="61.2" cy="56.7" r="2.8" fill="#3E5F4B"/>
+<circle cx="64.5" cy="71.7" r="3.5" fill="#2C4636"/>
+<circle cx="60.6" cy="47.1" r="3" fill="#2C4636"/>
+<circle cx="60" cy="134.2" r="5.4" fill="#3E5F4B"/>
+<circle cx="64.1" cy="121.5" r="4.3" fill="#3E5F4B"/>
+<circle cx="55.4" cy="120" r="4.3" fill="#3E5F4B"/>
+<circle cx="60.5" cy="136.6" r="3.4" fill="#3E5F4B"/>
+<circle cx="32.5" cy="193.8" r="4.9" fill="#5E8466"/>
+<circle cx="61.7" cy="92.2" r="3.7" fill="#3E5F4B"/>
+<circle cx="59.9" cy="63.5" r="2.3" fill="#3E5F4B"/>
+<circle cx="50" cy="195.4" r="4.1" fill="#5E8466"/>
+<circle cx="58.3" cy="54.3" r="3.1" fill="#5E8466"/>
+<circle cx="43" cy="203.3" r="5.3" fill="#5E8466"/>
+<circle cx="58.9" cy="70" r="3.7" fill="#3E5F4B"/>
+<circle cx="63.6" cy="88.5" r="3.5" fill="#3E5F4B"/>
+<circle cx="57.8" cy="63.1" r="2.2" fill="#5E8466"/>
+<circle cx="61.4" cy="88.6" r="4.2" fill="#3E5F4B"/>
+<circle cx="66.6" cy="147.9" r="2.9" fill="#3E5F4B"/>
+<circle cx="55.4" cy="108.1" r="3.4" fill="#3E5F4B"/>
+<circle cx="33.5" cy="193" r="6.4" fill="#5E8466"/>
+<circle cx="64.5" cy="190.8" r="3.9" fill="#3E5F4B"/>
+<circle cx="32.4" cy="216.1" r="6.4" fill="#3E5F4B"/>
+<circle cx="61.6" cy="182.1" r="3.8" fill="#3E5F4B"/>
+<circle cx="64.6" cy="115.3" r="4.2" fill="#3E5F4B"/>
+<circle cx="69.5" cy="124.3" r="2.8" fill="#2C4636"/>
+<circle cx="50.1" cy="105.1" r="4.4" fill="#5E8466"/>
+<circle cx="40.7" cy="187.8" r="3.6" fill="#5E8466"/>
+<circle cx="57.2" cy="172.4" r="3.9" fill="#3E5F4B"/>
+<circle cx="71.1" cy="121.5" r="3.7" fill="#2C4636"/>
+<path d="M25 228L60 37L95 228" fill="none" stroke="#1C1A17" stroke-width="1" opacity=".5"/>
+</g></svg></div>
+      <address class="doorway__plate">
+        <span class="doorway__name">The Original Maids of Honour</span>
+        288 Kew Road, Richmond,<br>Surrey TW9 3DU
+        <span class="doorway__opp">Opposite Kew Gardens</span>
+        <span class="doorway__acts"><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Original+Maids+of+Honour+288+Kew+Road+Richmond+TW9+3DU" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (opens in a new tab)</span></a> <a href="tel:+442089402752">020 8940 2752</a></span>
+      </address>
+      <div class="doorway__tree doorway__tree--r" aria-hidden="true"><svg viewBox="0 0 120 300" xmlns="http://www.w3.org/2000/svg" focusable="false"><g class="topiary">
+<rect x="28" y="238" width="64" height="54" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.6"/>
+<rect x="37" y="247" width="46" height="36" fill="none" stroke="#C9C2B2" stroke-width="1.2"/>
+<rect x="24" y="234" width="72" height="6" fill="#FFFFFF" stroke="#1C1A17" stroke-width="1.4"/>
+<circle cx="31" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
+<rect x="27" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
+<circle cx="89" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
+<rect x="85" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
+<rect x="57" y="224" width="6" height="12" fill="#5A4636"/>
+<path d="M60 40L95 228L25 228Z" fill="#24392F"/>
+<circle cx="62.9" cy="80.6" r="3.6" fill="#3E5F4B"/>
+<circle cx="49.4" cy="140.6" r="5.1" fill="#3E5F4B"/>
+<circle cx="60.2" cy="146.5" r="3.5" fill="#3E5F4B"/>
+<circle cx="59.9" cy="41.4" r="1.9" fill="#5E8466"/>
+<circle cx="44.6" cy="194.5" r="3.5" fill="#5E8466"/>
+<circle cx="76.7" cy="227.6" r="7" fill="#2C4636"/>
+<circle cx="38.4" cy="164.5" r="4.6" fill="#5E8466"/>
+<circle cx="65.1" cy="70.1" r="2.9" fill="#2C4636"/>
+<circle cx="64.6" cy="78.5" r="2.4" fill="#2C4636"/>
+<circle cx="56.9" cy="216.4" r="5.6" fill="#3E5F4B"/>
+<circle cx="59.6" cy="115.7" r="3" fill="#3E5F4B"/>
+<circle cx="61.6" cy="51.4" r="2.3" fill="#2C4636"/>
+<circle cx="43.5" cy="192.3" r="6.4" fill="#3E5F4B"/>
+<circle cx="74.5" cy="188" r="5.2" fill="#2C4636"/>
+<circle cx="39.8" cy="183.8" r="6" fill="#5E8466"/>
+<circle cx="67.6" cy="88.1" r="4.3" fill="#2C4636"/>
+<circle cx="55.6" cy="128" r="3.7" fill="#5E8466"/>
+<circle cx="52.1" cy="227.2" r="4" fill="#5E8466"/>
+<circle cx="86" cy="181.9" r="4.9" fill="#2C4636"/>
+<circle cx="61.9" cy="142.8" r="5" fill="#3E5F4B"/>
+<circle cx="62.1" cy="92.3" r="3.6" fill="#3E5F4B"/>
+<circle cx="45.1" cy="165.7" r="4.1" fill="#5E8466"/>
+<circle cx="49.9" cy="216.3" r="4.7" fill="#5E8466"/>
+<circle cx="55.6" cy="67.3" r="3.7" fill="#3E5F4B"/>
+<circle cx="65.6" cy="121.7" r="4.4" fill="#3E5F4B"/>
+<circle cx="89.3" cy="211.7" r="5" fill="#2C4636"/>
+<circle cx="92" cy="226.3" r="5.9" fill="#2C4636"/>
+<circle cx="59.4" cy="209.2" r="4.8" fill="#3E5F4B"/>
+<circle cx="68" cy="97.3" r="2.7" fill="#2C4636"/>
+<circle cx="62.2" cy="59.5" r="3.5" fill="#2C4636"/>
+<circle cx="72.7" cy="141.3" r="2.9" fill="#2C4636"/>
+<circle cx="55.4" cy="99.4" r="2.8" fill="#5E8466"/>
+<circle cx="58.8" cy="59.5" r="3.9" fill="#3E5F4B"/>
+<circle cx="58.9" cy="186.5" r="4.1" fill="#3E5F4B"/>
+<circle cx="61.7" cy="221.4" r="6.3" fill="#3E5F4B"/>
+<circle cx="59" cy="49.1" r="3.4" fill="#3E5F4B"/>
+<circle cx="66.4" cy="208.9" r="5" fill="#3E5F4B"/>
+<circle cx="75.4" cy="158.5" r="3.9" fill="#2C4636"/>
+<circle cx="50.8" cy="150.4" r="2.9" fill="#3E5F4B"/>
+<circle cx="83" cy="176.4" r="3.2" fill="#2C4636"/>
+<circle cx="66.5" cy="160.7" r="5.6" fill="#3E5F4B"/>
+<circle cx="49.2" cy="159.1" r="5.9" fill="#5E8466"/>
+<circle cx="36.4" cy="212.8" r="3.9" fill="#5E8466"/>
+<circle cx="59.8" cy="48.3" r="2.1" fill="#3E5F4B"/>
+<circle cx="69.6" cy="206.6" r="3.9" fill="#3E5F4B"/>
+<circle cx="52.7" cy="151.1" r="3.6" fill="#5E8466"/>
+<circle cx="55.2" cy="80.9" r="3.8" fill="#5E8466"/>
+<circle cx="40.9" cy="153.1" r="5.5" fill="#3E5F4B"/>
+<circle cx="76.4" cy="191.3" r="3.3" fill="#2C4636"/>
+<circle cx="44.1" cy="137.9" r="3.3" fill="#3E5F4B"/>
+<circle cx="47" cy="180.8" r="4.2" fill="#5E8466"/>
+<circle cx="59.5" cy="52.7" r="3.6" fill="#5E8466"/>
+<circle cx="60.1" cy="106.6" r="3.8" fill="#3E5F4B"/>
+<circle cx="33.1" cy="219.7" r="5.5" fill="#5E8466"/>
+<circle cx="85.2" cy="184.6" r="4.3" fill="#2C4636"/>
+<circle cx="61.3" cy="178.7" r="5" fill="#3E5F4B"/>
+<circle cx="62.1" cy="58.1" r="3.9" fill="#2C4636"/>
+<circle cx="54.7" cy="118" r="2.8" fill="#3E5F4B"/>
+<circle cx="56.7" cy="61.1" r="3.5" fill="#3E5F4B"/>
+<circle cx="64.3" cy="135" r="2.8" fill="#3E5F4B"/>
+<circle cx="57.2" cy="169.4" r="4.7" fill="#3E5F4B"/>
+<circle cx="56.9" cy="124.3" r="3.2" fill="#3E5F4B"/>
+<circle cx="59.6" cy="54.4" r="2.4" fill="#3E5F4B"/>
+<circle cx="76.5" cy="179.5" r="5.6" fill="#2C4636"/>
+<circle cx="50.5" cy="136.4" r="4.1" fill="#5E8466"/>
+<circle cx="81.9" cy="167.3" r="3.3" fill="#2C4636"/>
+<circle cx="59.7" cy="140.7" r="4.9" fill="#3E5F4B"/>
+<circle cx="77.7" cy="210.3" r="5.8" fill="#2C4636"/>
+<circle cx="69.3" cy="188.6" r="6.2" fill="#3E5F4B"/>
+<circle cx="69.4" cy="178.7" r="4" fill="#3E5F4B"/>
+<circle cx="52.6" cy="214.6" r="6.6" fill="#5E8466"/>
+<circle cx="93.2" cy="222.2" r="3.6" fill="#2C4636"/>
+<circle cx="55.1" cy="110" r="2.8" fill="#5E8466"/>
+<circle cx="42.2" cy="153.7" r="5.8" fill="#5E8466"/>
+<circle cx="58" cy="185.9" r="3.6" fill="#3E5F4B"/>
+<circle cx="73.7" cy="220.9" r="4.4" fill="#2C4636"/>
+<circle cx="63.9" cy="114.3" r="4.3" fill="#3E5F4B"/>
+<circle cx="70.1" cy="100" r="3.2" fill="#2C4636"/>
+<circle cx="67.5" cy="98.7" r="2.7" fill="#2C4636"/>
+<circle cx="44.8" cy="175.7" r="4" fill="#5E8466"/>
+<circle cx="73.5" cy="122.4" r="3.9" fill="#2C4636"/>
+<circle cx="64.1" cy="133" r="3.5" fill="#3E5F4B"/>
+<circle cx="58.2" cy="82.6" r="2.6" fill="#5E8466"/>
+<circle cx="28.5" cy="221.7" r="7.1" fill="#3E5F4B"/>
+<circle cx="35" cy="179.6" r="3.3" fill="#5E8466"/>
+<circle cx="69.2" cy="163.1" r="3.8" fill="#2C4636"/>
+<circle cx="60" cy="43" r="2" fill="#3E5F4B"/>
+<circle cx="58.8" cy="109.3" r="4.7" fill="#3E5F4B"/>
+<circle cx="49" cy="120.8" r="4.8" fill="#3E5F4B"/>
+<circle cx="41.6" cy="149.5" r="4.1" fill="#5E8466"/>
+<circle cx="48.4" cy="153.4" r="5.5" fill="#3E5F4B"/>
+<circle cx="85.1" cy="216" r="3.6" fill="#2C4636"/>
+<circle cx="41.5" cy="158.7" r="5.3" fill="#3E5F4B"/>
+<circle cx="42.7" cy="188.8" r="6" fill="#5E8466"/>
+<circle cx="65.5" cy="162.9" r="4.5" fill="#3E5F4B"/>
+<circle cx="50.6" cy="195.5" r="4.6" fill="#5E8466"/>
+<circle cx="63.2" cy="107.2" r="4.7" fill="#3E5F4B"/>
+<circle cx="56.8" cy="59.9" r="3.3" fill="#5E8466"/>
+<circle cx="56.1" cy="85.8" r="2.3" fill="#5E8466"/>
+<circle cx="67" cy="143.4" r="4.7" fill="#3E5F4B"/>
+<circle cx="54.2" cy="79.2" r="3.4" fill="#3E5F4B"/>
+<circle cx="66.2" cy="127.8" r="4.7" fill="#3E5F4B"/>
+<circle cx="42.9" cy="148.6" r="3.5" fill="#3E5F4B"/>
+<circle cx="59.3" cy="52.3" r="3.1" fill="#5E8466"/>
+<circle cx="63.3" cy="82.5" r="3.3" fill="#2C4636"/>
+<circle cx="65.2" cy="80" r="4" fill="#2C4636"/>
+<circle cx="71.6" cy="212.9" r="4.3" fill="#3E5F4B"/>
+<circle cx="82.8" cy="191.8" r="5.1" fill="#2C4636"/>
+<circle cx="90.3" cy="213.3" r="4.9" fill="#2C4636"/>
+<circle cx="89.1" cy="218.7" r="6.5" fill="#2C4636"/>
+<circle cx="59.8" cy="44.1" r="2.9" fill="#5E8466"/>
+<circle cx="68.1" cy="188.2" r="3.8" fill="#3E5F4B"/>
+<circle cx="62.4" cy="216.9" r="6.8" fill="#3E5F4B"/>
+<circle cx="69.1" cy="89.3" r="3.6" fill="#2C4636"/>
+<circle cx="73.5" cy="191.5" r="6.3" fill="#2C4636"/>
+<circle cx="47.7" cy="119.3" r="3" fill="#5E8466"/>
+<circle cx="73.1" cy="151.3" r="4" fill="#2C4636"/>
+<circle cx="54.1" cy="73.4" r="3.4" fill="#5E8466"/>
+<circle cx="60.5" cy="48.5" r="2.2" fill="#3E5F4B"/>
+<circle cx="64.5" cy="68.1" r="3.2" fill="#2C4636"/>
+<circle cx="60.9" cy="211.1" r="4" fill="#3E5F4B"/>
+<circle cx="58.4" cy="95.9" r="3.9" fill="#3E5F4B"/>
+<circle cx="74.1" cy="190.7" r="5.5" fill="#2C4636"/>
+<circle cx="58.5" cy="98.4" r="3.3" fill="#3E5F4B"/>
+<circle cx="51.1" cy="142.4" r="4.1" fill="#5E8466"/>
+<circle cx="61.3" cy="51" r="3" fill="#2C4636"/>
+<circle cx="73.7" cy="196" r="5.9" fill="#2C4636"/>
+<circle cx="51.4" cy="227" r="3.7" fill="#5E8466"/>
+<circle cx="64" cy="172.8" r="5" fill="#3E5F4B"/>
+<circle cx="38.8" cy="227.6" r="6.5" fill="#5E8466"/>
+<circle cx="59" cy="197.6" r="3.6" fill="#3E5F4B"/>
+<circle cx="69.8" cy="120.8" r="3.9" fill="#2C4636"/>
+<circle cx="56" cy="137.4" r="4.5" fill="#5E8466"/>
+<circle cx="78.7" cy="177.7" r="5.6" fill="#2C4636"/>
+<circle cx="52.4" cy="121.7" r="4.7" fill="#3E5F4B"/>
+<circle cx="40.2" cy="216.5" r="6.8" fill="#3E5F4B"/>
+<circle cx="58.5" cy="61.3" r="2.3" fill="#5E8466"/>
+<circle cx="45.9" cy="200.7" r="4.4" fill="#5E8466"/>
+<circle cx="54.4" cy="91.5" r="4" fill="#5E8466"/>
+<circle cx="63.6" cy="91.5" r="3.1" fill="#3E5F4B"/>
+<circle cx="53.6" cy="170.2" r="3.5" fill="#5E8466"/>
+<circle cx="61.2" cy="56.7" r="2.8" fill="#3E5F4B"/>
+<circle cx="64.5" cy="71.7" r="3.5" fill="#2C4636"/>
+<circle cx="60.6" cy="47.1" r="3" fill="#2C4636"/>
+<circle cx="60" cy="134.2" r="5.4" fill="#3E5F4B"/>
+<circle cx="64.1" cy="121.5" r="4.3" fill="#3E5F4B"/>
+<circle cx="55.4" cy="120" r="4.3" fill="#3E5F4B"/>
+<circle cx="60.5" cy="136.6" r="3.4" fill="#3E5F4B"/>
+<circle cx="32.5" cy="193.8" r="4.9" fill="#5E8466"/>
+<circle cx="61.7" cy="92.2" r="3.7" fill="#3E5F4B"/>
+<circle cx="59.9" cy="63.5" r="2.3" fill="#3E5F4B"/>
+<circle cx="50" cy="195.4" r="4.1" fill="#5E8466"/>
+<circle cx="58.3" cy="54.3" r="3.1" fill="#5E8466"/>
+<circle cx="43" cy="203.3" r="5.3" fill="#5E8466"/>
+<circle cx="58.9" cy="70" r="3.7" fill="#3E5F4B"/>
+<circle cx="63.6" cy="88.5" r="3.5" fill="#3E5F4B"/>
+<circle cx="57.8" cy="63.1" r="2.2" fill="#5E8466"/>
+<circle cx="61.4" cy="88.6" r="4.2" fill="#3E5F4B"/>
+<circle cx="66.6" cy="147.9" r="2.9" fill="#3E5F4B"/>
+<circle cx="55.4" cy="108.1" r="3.4" fill="#3E5F4B"/>
+<circle cx="33.5" cy="193" r="6.4" fill="#5E8466"/>
+<circle cx="64.5" cy="190.8" r="3.9" fill="#3E5F4B"/>
+<circle cx="32.4" cy="216.1" r="6.4" fill="#3E5F4B"/>
+<circle cx="61.6" cy="182.1" r="3.8" fill="#3E5F4B"/>
+<circle cx="64.6" cy="115.3" r="4.2" fill="#3E5F4B"/>
+<circle cx="69.5" cy="124.3" r="2.8" fill="#2C4636"/>
+<circle cx="50.1" cy="105.1" r="4.4" fill="#5E8466"/>
+<circle cx="40.7" cy="187.8" r="3.6" fill="#5E8466"/>
+<circle cx="57.2" cy="172.4" r="3.9" fill="#3E5F4B"/>
+<circle cx="71.1" cy="121.5" r="3.7" fill="#2C4636"/>
+<path d="M25 228L60 37L95 228" fill="none" stroke="#1C1A17" stroke-width="1" opacity=".5"/>
+</g></svg></div>
+    </div>
+        <ul class="getting" aria-label="Getting there">
+          <li>On-street parking. Walking time from the Gardens’ gates and step-free access are not published. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] The walk from Kew Gardens (which gate, and how many minutes); accessibility at 288 Kew Road (step-free access, toilets). --></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ THE SIDE-WALL SIGN (signature) ============ -->
+<!-- ============ TASTER: priced, within two scrolls ============ -->
+<section class="taster" id="taster" aria-labelledby="taster-title">
+  <div class="taster__in">
+    <div class="board">
+      <span class="board__gable" aria-hidden="true">Prices</span>
+      <h2 class="board__title gilt" id="taster-title">From the menus</h2>
+    </div>
+    <ul class="bill bill--taster">
+      <li><span><b>Our Famous Maids of Honour Tart</b> <em>Contains milk, wheat, gluten and eggs.</em></span><span class="price">£3.50</span></li>
+      <li><span><b>High Tea</b> <em>per person, from 10am</em></span><span class="price">£24.50</span></li>
+      <li><span><b>Savoury High Tea</b> <em>per person, from 10am</em></span><span class="price">£26.50</span></li>
+      <li><span><b>Full English</b> <em>breakfast, cooked until 11am</em></span><span class="price">£13</span></li>
+      <li><span><b>Vegetarian English</b> <span class="diet"><span aria-hidden="true">V</span><span class="vh"> vegetarian</span></span></span><span class="price">£13</span></li>
+      <li><span><b>Roast of the Day</b> <em>luncheon, 12 noon to 3pm</em></span><span class="price">£18</span></li>
+    </ul>
+    <p class="fine">From the tearoom’s 2024 menus. Prices may have changed. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Are the 2024 menu prices current, and the £3.50 tearoom tart price? --> V: vegetarian. Allergies: please tell your server; the allergen notes are at the top of the menus.</p>
+    <p class="taster__go"><a class="board-btn" href="menu.html"><span>See the full menus</span></a></p>
+  </div>
+</section>
+
+<!-- ============ THE SIDE-WALL SIGN (signature: at most one phone screen) ============ -->
+<p class="skipby"><a href="#story">Skip past the sign</a> <a href="#visit">Skip to visit info</a></p>
 <section class="wall" id="sign" aria-labelledby="sign-title">
   <div class="wall__head">
     <div class="board">
       <span class="board__gable" aria-hidden="true">Now</span>
       <h2 class="board__title gilt" id="sign-title">Painted on the side wall</h2>
     </div>
-    <p class="lede">Round the side of the shop, a painted board lists what the house makes and serves. Here it keeps time. The line being served now, by the clock in Kew, is gilded. Tap a line for its menu, or a plate to book that sitting.</p>
+    <p class="lede">The board on the side of the shop keeps time: the line served now is gilded. Tap a line for its menu, a plate to book. Same times in <a href="#visit">Visit us</a>.</p>
   </div>
 
   <div class="wall__grid">
@@ -1697,6 +2155,7 @@
 </svg>
       </div>
       <p class="sign-status" id="sign-status" data-sign-status>
+        <button type="button" class="glint-toggle" data-glint-toggle hidden>Pause the glint</button>
         <span class="sign-status__clock" data-sign-clock>Times as published</span>
         <span data-sign-summary aria-live="polite">Open daily 9am to 6pm. Cooked breakfast last orders 11am, and none on Thursdays. Luncheon 12 noon to 3pm. Set teas from 10am; Prosecco and Champagne teas from 11am. Last walk-ins seated by 5.30pm.</span>
       </p>
@@ -1728,73 +2187,31 @@
       <li class="line line--bread" id="bread" data-panel="bread">
         <span class="line__state" style="visibility:hidden">Serving now</span>
         <h3 class="line__name">Home made bread</h3>
-        <p class="line__time">Daily, 9am to 6pm</p>
-        <blockquote class="pull">
-          <p>“Everything at the Original Maids of Honour is produced ‘in house’. We do not ‘buy in’ and ‘sell on’. The ingredients are weighed and mixed by hand, the dough kneaded and pastry rolled in the traditional way.”</p>
-        </blockquote>
-        <p>“The whole process happens daily – every day, seven days a week…”</p>
-        <p class="small">“We are delivering to a 1.5 mile radius of Maids Monday to Thursday.” Free shipping on all orders over £100.</p>
-        <p class="line__links"><a href="menu.html#bakery">Bakery breakfasts</a> <a href="https://theoriginalmaidsofhonour.co.uk/" rel="noopener" target="_blank">Order from their shop<span class="vh"> (opens in a new tab)</span></a></p>
+        <p class="line__time">Daily, 9am to 6pm.</p>
+        <p class="line__links"><a href="menu.html#bakery">Bakery breakfasts</a> <a href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" rel="noopener" target="_blank">Book a table<span class="vh"> on ResDiary (opens in a new tab)</span></a></p>
       </li>
-
       <li class="line line--cakes" id="cakes" data-panel="cakes">
         <span class="line__state" style="visibility:hidden">Serving now</span>
         <h3 class="line__name">Cakes &amp; pastries</h3>
         <p class="line__time">Daily, 9am to 6pm. “Please check availability with our waiting staff.”</p>
-        <p class="tart"><span class="tart__name">Our Famous Maids of Honour Tart</span> <span class="price">£3.50</span></p>
-        <blockquote class="pull pull--italic">
-          <p>“…deliciously sweet and yet slightly savoury, light and crisp yet unctuously soft in the middle.”</p>
-        </blockquote>
-        <p class="small">Contains milk, wheat, gluten and eggs.</p>
-        <figure class="slot slot--tart">
-          <div class="slot__frame" aria-hidden="true"><span class="slot__mark">Photograph</span></div>
-          <figcaption>To commission: the first tray of Maids of Honour on the counter at 9am, puff edges flaking, tops blistered gold, shot from counter height.</figcaption>
-        </figure>
-        <p class="small">Maids of Honour Post Nationwide: “We ship Monday through to Thursday for deliveries on Tuesday, Wednesday Thursday.”</p>
-        <p class="line__links"><a href="menu.html#patisserie">The patisserie list</a> <a href="https://theoriginalmaidsofhonour.co.uk/collections/maids-of-honour-tart" rel="noopener" target="_blank">Tarts by post<span class="vh"> (opens in a new tab)</span></a></p>
+        <p class="line__links"><a href="menu.html#patisserie">The patisserie list</a> <a href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" rel="noopener" target="_blank">Book a table<span class="vh"> on ResDiary (opens in a new tab)</span></a></p>
       </li>
-
       <li class="line line--coffee" id="coffee" data-panel="coffee">
         <span class="line__state" style="visibility:hidden">Serving now</span>
         <h3 class="line__name">Morning coffee</h3>
-        <p class="line__time">From 9am. Last orders at 11am for cooked or toasted items.</p>
-        <p class="note-thu">“On Thursdays, we do not serve cooked breakfasts, but bakery pastries remain fully available.”</p>
-        <blockquote class="pull pull--italic"><p>“Our coffee, fondly sourced from our supplier since 1936…”</p></blockquote>
-        <ul class="bill">
-          <li><span>Full English</span><span class="price">£13</span></li>
-          <li><span>Eggs Benedict</span><span class="price">£11</span></li>
-          <li><span>Bakery Basket for Two</span><span class="price">£12.50</span></li>
-          <li><span>Two English Crumpets</span><span class="price">£4</span></li>
-        </ul>
+        <p class="line__time">From 9am. Last orders at 11am for cooked or toasted items. No cooked breakfasts on Thursdays.</p>
         <p class="line__links"><a href="menu.html#breakfast">The breakfast menu</a> <a href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175" rel="noopener" target="_blank">Book breakfast<span class="vh"> on ResDiary (opens in a new tab)</span></a></p>
       </li>
-
       <li class="line line--luncheons" id="luncheons" data-panel="luncheons">
         <span class="line__state" style="visibility:hidden">Serving now</span>
         <h3 class="line__name">Luncheons</h3>
-        <p class="line__time">Monday to Sunday, 12 noon to 3pm. Minimum charge £22 per person. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Luncheon minimum: the menu image says £22, the booking page says £20. --></p>
-        <ul class="bill">
-          <li><span>Roast of the Day <em>(Weekday Special: £15 each)</em></span><span class="price">£18</span></li>
-          <li><span>Maids Ploughman’s</span><span class="price">£17</span></li>
-          <li><span>The ‘Kew’ Pasty, hot or cold</span><span class="price">£17 · £14</span></li>
-          <li><span>Coronation Chicken</span><span class="price">£17</span></li>
-        </ul>
+        <p class="line__time">Monday to Sunday, 12 noon to 3pm.</p>
         <p class="line__links"><a href="menu.html#luncheon">The luncheon menu</a> <a href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176" rel="noopener" target="_blank">Book luncheon<span class="vh"> on ResDiary (opens in a new tab)</span></a></p>
       </li>
-
       <li class="line line--teas" id="teas" data-panel="teas">
         <span class="line__state" style="visibility:hidden">Serving now</span>
         <h3 class="line__name line__name--teas">Teas</h3>
-        <p class="line__time">“Set Tea Sittings All Day Monday – Sunday.” High Tea, Savoury High Tea and The Special Set Tea from 10am; Prosecco and Champagne teas from 11am.</p>
-        <ul class="bill bill--teas">
-          <li><span>High Tea</span><span class="price">£24.50</span></li>
-          <li><span>Savoury High Tea</span><span class="price">£26.50</span></li>
-          <li><span>Prosecco Set Tea, for one</span><span class="price">£35</span></li>
-          <li><span>Champagne Set Tea, for one</span><span class="price">£45</span></li>
-          <li><span>The Special Set Tea</span><span class="price">£50</span></li>
-        </ul>
-        <p class="small">With Five Quarters of Tea Sandwiches: English Cheddar, Oak-Smoked Salmon, Roasted Ham, Free Range Egg Mayonnaise, Cucumber.</p>
-        <p class="small">“Tables are available throughout the day on a first-come, first-served basis.” Last walk-ins must be seated by 5.30pm.</p>
+        <p class="line__time">“Set Tea Sittings All Day Monday – Sunday.” From 10am; Prosecco and Champagne teas from 11am. Last walk-ins seated by 17:30.</p>
         <p class="line__links"><a href="menu.html#set-teas">The set teas</a> <a href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177" rel="noopener" target="_blank">Book a set tea<span class="vh"> on ResDiary (opens in a new tab)</span></a></p>
       </li>
     </ol>
@@ -2255,7 +2672,7 @@
   <div class="front__in">
     <div class="board board--left">
       <span class="board__gable" aria-hidden="true">Kew Road</span>
-      <h2 class="board__title gilt" id="story-title">The very same shop front</h2>
+      <h2 class="board__title gilt" id="story-title">Our story: the very same shop front</h2>
     </div>
 
     <div class="front__cols">
@@ -2281,6 +2698,34 @@
         <p class="legend__end">And the recipe today? “That’s still a secret – one that’s safe with us for a good long time to come…”</p>
       </aside>
 
+
+      <div class="front__bake">
+        <h3 class="minor">Made on the premises</h3>
+        <blockquote class="pull">
+          <p>“Everything at the Original Maids of Honour is produced ‘in house’. We do not ‘buy in’ and ‘sell on’. The ingredients are weighed and mixed by hand, the dough kneaded and pastry rolled in the traditional way.”</p>
+        </blockquote>
+        <p>“The whole process happens daily – every day, seven days a week…”</p>
+        <p class="tart"><span class="tart__name">Our Famous Maids of Honour Tart</span> <span class="price">£3.50</span></p>
+        <blockquote class="pull pull--italic">
+          <p>“…deliciously sweet and yet slightly savoury, light and crisp yet unctuously soft in the middle.”</p>
+        </blockquote>
+        <p class="small">Contains milk, wheat, gluten and eggs.</p>
+        <figure class="slot slot--tart">
+          <div class="slot__frame" aria-hidden="true"><span class="slot__mark">Photograph</span></div>
+          <figcaption>To commission: the first tray of Maids of Honour on the counter at 9am, puff edges flaking, tops blistered gold, shot from counter height.</figcaption>
+        </figure>
+        <p class="small">“We are delivering to a 1.5 mile radius of Maids Monday to Thursday.” Free shipping on all orders over £100. Maids of Honour Post Nationwide: “We ship Monday through to Thursday for deliveries on Tuesday, Wednesday Thursday.”</p>
+        <p class="line__links"><a href="https://theoriginalmaidsofhonour.co.uk/" rel="noopener" target="_blank">Order from their shop<span class="vh"> (opens in a new tab)</span></a> <a href="https://theoriginalmaidsofhonour.co.uk/collections/maids-of-honour-tart" rel="noopener" target="_blank">Tarts by post<span class="vh"> (opens in a new tab)</span></a></p>
+      </div>
+
+      <aside class="rooms" aria-labelledby="rooms-title">
+        <h3 class="minor" id="rooms-title">Parties, guest rooms and the National Archives</h3>
+        <p>Parties and private functions: the Refreshment room, Covered Courtyard &amp; Private Dining room. <a href="mailto:admin@theoriginalmaidsofhonour.co.uk">admin@theoriginalmaidsofhonour.co.uk</a></p>
+        <p>Upstairs, the guest rooms: “With its own entrance, our special little boutique residences are situated above the historic Original Maids of Honour shop, tea rooms &amp; restaurant and are individually designed for a quintessentially English experience.”</p>
+        <p><a href="https://direct-book.com/properties/maidsguestroomsdirect" target="_blank" rel="noopener">Book a guest room<span class="vh"> (opens in a new tab)</span></a> <a href="tel:+442089405742">020 8940 5742</a></p>
+        <p class="small">Also: “The Maids of Honour Café and Coffee Bar at The National Archives – offering delicious food and drink to staff and visitors.” <a href="https://theoriginalmaidsofhonour.co.uk/pages/national-archives" target="_blank" rel="noopener">Details<span class="vh"> on their site (opens in a new tab)</span></a></p>
+      </aside>
+
       <figure class="slot slot--wide">
         <div class="slot__frame" aria-hidden="true"><span class="slot__mark">Photograph</span></div>
         <figcaption>To commission: the fascia and the <span class="sc">teas</span> gable from across Kew Road in low October sun, gold leaf lit, the canopy and its lantern in shade below.</figcaption>
@@ -2289,437 +2734,6 @@
   </div>
 </section>
 
-<!-- ============ BOOK ============ -->
-<section class="book" id="book" aria-labelledby="book-title">
-  <div class="book__in">
-    <div class="board">
-      <span class="board__gable" aria-hidden="true">Teas</span>
-      <h2 class="board__title gilt" id="book-title">Book a table</h2>
-    </div>
-    <p class="lede">Bookings are taken by the tearoom on ResDiary, one page for each sitting. Each link opens their booking page in a new tab. Nothing is booked on this page.</p>
-
-    <ul class="plates">
-      <li><a class="plate-link" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175" target="_blank" rel="noopener">
-        <span class="plate-link__name">Breakfast</span><span class="plate-link__when">From 9am · cooked and toasted last orders 11am · none on Thursdays</span><span class="vh"> (ResDiary, opens in a new tab)</span></a></li>
-      <li><a class="plate-link" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176" target="_blank" rel="noopener">
-        <span class="plate-link__name">Luncheon</span><span class="plate-link__when">12 noon to 3pm, Monday to Sunday</span><span class="vh"> (ResDiary, opens in a new tab)</span></a></li>
-      <li><a class="plate-link plate-link--teas" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177" target="_blank" rel="noopener">
-        <span class="plate-link__name">Set tea</span><span class="plate-link__when">From 10am · Prosecco and Champagne teas from 11am</span><span class="vh"> (ResDiary, opens in a new tab)</span></a></li>
-      <li><a class="plate-link plate-link--any" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener">
-        <span class="plate-link__name">Any table, any day</span><span class="plate-link__when">Three months of dates in one calendar</span><span class="vh"> (ResDiary, opens in a new tab)</span></a></li>
-    </ul>
-
-    <div class="book__notes">
-      <p>“Whilst we will always do our best to accommodate specific table requests, we cannot guarantee that a preferred table will be available to you on the day.”</p>
-      <p>Vegan? “Please call and speak to the team and we will be more than happy to discuss all of our vegan options currently available. For any bookings or take away orders we need a minimum of 24 hours notice period.” <a href="tel:+442089402752">020 8940 2752</a></p>
-      <p>Parties and private functions: the Refreshment room, Covered Courtyard &amp; Private Dining room. <a href="mailto:admin@theoriginalmaidsofhonour.co.uk">admin@theoriginalmaidsofhonour.co.uk</a></p>
-    </div>
-
-    <aside class="rooms" aria-labelledby="rooms-title">
-      <h3 class="minor" id="rooms-title">Upstairs: the guest rooms</h3>
-      <p>“With its own entrance, our special little boutique residences are situated above the historic Original Maids of Honour shop, tea rooms &amp; restaurant and are individually designed for a quintessentially English experience.”</p>
-      <p><a href="https://direct-book.com/properties/maidsguestroomsdirect" target="_blank" rel="noopener">Book a guest room<span class="vh"> (opens in a new tab)</span></a> <a href="tel:+442089405742">020 8940 5742</a></p>
-    </aside>
-  </div>
-</section>
-
-<!-- ============ VISIT ============ -->
-<section class="visit" id="visit" aria-labelledby="visit-title">
-  <div class="visit__in">
-    <div class="board">
-      <span class="board__gable" aria-hidden="true">288</span>
-      <h2 class="board__title gilt" id="visit-title">Find us</h2>
-    </div>
-    <div class="doorway">
-      <div class="doorway__tree" aria-hidden="true"><svg viewBox="0 0 120 300" xmlns="http://www.w3.org/2000/svg" focusable="false"><g class="topiary">
-<rect x="28" y="238" width="64" height="54" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.6"/>
-<rect x="37" y="247" width="46" height="36" fill="none" stroke="#C9C2B2" stroke-width="1.2"/>
-<rect x="24" y="234" width="72" height="6" fill="#FFFFFF" stroke="#1C1A17" stroke-width="1.4"/>
-<circle cx="31" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
-<rect x="27" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
-<circle cx="89" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
-<rect x="85" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
-<rect x="57" y="224" width="6" height="12" fill="#5A4636"/>
-<path d="M60 40L95 228L25 228Z" fill="#24392F"/>
-<circle cx="62.9" cy="80.6" r="3.6" fill="#3E5F4B"/>
-<circle cx="49.4" cy="140.6" r="5.1" fill="#3E5F4B"/>
-<circle cx="60.2" cy="146.5" r="3.5" fill="#3E5F4B"/>
-<circle cx="59.9" cy="41.4" r="1.9" fill="#5E8466"/>
-<circle cx="44.6" cy="194.5" r="3.5" fill="#5E8466"/>
-<circle cx="76.7" cy="227.6" r="7" fill="#2C4636"/>
-<circle cx="38.4" cy="164.5" r="4.6" fill="#5E8466"/>
-<circle cx="65.1" cy="70.1" r="2.9" fill="#2C4636"/>
-<circle cx="64.6" cy="78.5" r="2.4" fill="#2C4636"/>
-<circle cx="56.9" cy="216.4" r="5.6" fill="#3E5F4B"/>
-<circle cx="59.6" cy="115.7" r="3" fill="#3E5F4B"/>
-<circle cx="61.6" cy="51.4" r="2.3" fill="#2C4636"/>
-<circle cx="43.5" cy="192.3" r="6.4" fill="#3E5F4B"/>
-<circle cx="74.5" cy="188" r="5.2" fill="#2C4636"/>
-<circle cx="39.8" cy="183.8" r="6" fill="#5E8466"/>
-<circle cx="67.6" cy="88.1" r="4.3" fill="#2C4636"/>
-<circle cx="55.6" cy="128" r="3.7" fill="#5E8466"/>
-<circle cx="52.1" cy="227.2" r="4" fill="#5E8466"/>
-<circle cx="86" cy="181.9" r="4.9" fill="#2C4636"/>
-<circle cx="61.9" cy="142.8" r="5" fill="#3E5F4B"/>
-<circle cx="62.1" cy="92.3" r="3.6" fill="#3E5F4B"/>
-<circle cx="45.1" cy="165.7" r="4.1" fill="#5E8466"/>
-<circle cx="49.9" cy="216.3" r="4.7" fill="#5E8466"/>
-<circle cx="55.6" cy="67.3" r="3.7" fill="#3E5F4B"/>
-<circle cx="65.6" cy="121.7" r="4.4" fill="#3E5F4B"/>
-<circle cx="89.3" cy="211.7" r="5" fill="#2C4636"/>
-<circle cx="92" cy="226.3" r="5.9" fill="#2C4636"/>
-<circle cx="59.4" cy="209.2" r="4.8" fill="#3E5F4B"/>
-<circle cx="68" cy="97.3" r="2.7" fill="#2C4636"/>
-<circle cx="62.2" cy="59.5" r="3.5" fill="#2C4636"/>
-<circle cx="72.7" cy="141.3" r="2.9" fill="#2C4636"/>
-<circle cx="55.4" cy="99.4" r="2.8" fill="#5E8466"/>
-<circle cx="58.8" cy="59.5" r="3.9" fill="#3E5F4B"/>
-<circle cx="58.9" cy="186.5" r="4.1" fill="#3E5F4B"/>
-<circle cx="61.7" cy="221.4" r="6.3" fill="#3E5F4B"/>
-<circle cx="59" cy="49.1" r="3.4" fill="#3E5F4B"/>
-<circle cx="66.4" cy="208.9" r="5" fill="#3E5F4B"/>
-<circle cx="75.4" cy="158.5" r="3.9" fill="#2C4636"/>
-<circle cx="50.8" cy="150.4" r="2.9" fill="#3E5F4B"/>
-<circle cx="83" cy="176.4" r="3.2" fill="#2C4636"/>
-<circle cx="66.5" cy="160.7" r="5.6" fill="#3E5F4B"/>
-<circle cx="49.2" cy="159.1" r="5.9" fill="#5E8466"/>
-<circle cx="36.4" cy="212.8" r="3.9" fill="#5E8466"/>
-<circle cx="59.8" cy="48.3" r="2.1" fill="#3E5F4B"/>
-<circle cx="69.6" cy="206.6" r="3.9" fill="#3E5F4B"/>
-<circle cx="52.7" cy="151.1" r="3.6" fill="#5E8466"/>
-<circle cx="55.2" cy="80.9" r="3.8" fill="#5E8466"/>
-<circle cx="40.9" cy="153.1" r="5.5" fill="#3E5F4B"/>
-<circle cx="76.4" cy="191.3" r="3.3" fill="#2C4636"/>
-<circle cx="44.1" cy="137.9" r="3.3" fill="#3E5F4B"/>
-<circle cx="47" cy="180.8" r="4.2" fill="#5E8466"/>
-<circle cx="59.5" cy="52.7" r="3.6" fill="#5E8466"/>
-<circle cx="60.1" cy="106.6" r="3.8" fill="#3E5F4B"/>
-<circle cx="33.1" cy="219.7" r="5.5" fill="#5E8466"/>
-<circle cx="85.2" cy="184.6" r="4.3" fill="#2C4636"/>
-<circle cx="61.3" cy="178.7" r="5" fill="#3E5F4B"/>
-<circle cx="62.1" cy="58.1" r="3.9" fill="#2C4636"/>
-<circle cx="54.7" cy="118" r="2.8" fill="#3E5F4B"/>
-<circle cx="56.7" cy="61.1" r="3.5" fill="#3E5F4B"/>
-<circle cx="64.3" cy="135" r="2.8" fill="#3E5F4B"/>
-<circle cx="57.2" cy="169.4" r="4.7" fill="#3E5F4B"/>
-<circle cx="56.9" cy="124.3" r="3.2" fill="#3E5F4B"/>
-<circle cx="59.6" cy="54.4" r="2.4" fill="#3E5F4B"/>
-<circle cx="76.5" cy="179.5" r="5.6" fill="#2C4636"/>
-<circle cx="50.5" cy="136.4" r="4.1" fill="#5E8466"/>
-<circle cx="81.9" cy="167.3" r="3.3" fill="#2C4636"/>
-<circle cx="59.7" cy="140.7" r="4.9" fill="#3E5F4B"/>
-<circle cx="77.7" cy="210.3" r="5.8" fill="#2C4636"/>
-<circle cx="69.3" cy="188.6" r="6.2" fill="#3E5F4B"/>
-<circle cx="69.4" cy="178.7" r="4" fill="#3E5F4B"/>
-<circle cx="52.6" cy="214.6" r="6.6" fill="#5E8466"/>
-<circle cx="93.2" cy="222.2" r="3.6" fill="#2C4636"/>
-<circle cx="55.1" cy="110" r="2.8" fill="#5E8466"/>
-<circle cx="42.2" cy="153.7" r="5.8" fill="#5E8466"/>
-<circle cx="58" cy="185.9" r="3.6" fill="#3E5F4B"/>
-<circle cx="73.7" cy="220.9" r="4.4" fill="#2C4636"/>
-<circle cx="63.9" cy="114.3" r="4.3" fill="#3E5F4B"/>
-<circle cx="70.1" cy="100" r="3.2" fill="#2C4636"/>
-<circle cx="67.5" cy="98.7" r="2.7" fill="#2C4636"/>
-<circle cx="44.8" cy="175.7" r="4" fill="#5E8466"/>
-<circle cx="73.5" cy="122.4" r="3.9" fill="#2C4636"/>
-<circle cx="64.1" cy="133" r="3.5" fill="#3E5F4B"/>
-<circle cx="58.2" cy="82.6" r="2.6" fill="#5E8466"/>
-<circle cx="28.5" cy="221.7" r="7.1" fill="#3E5F4B"/>
-<circle cx="35" cy="179.6" r="3.3" fill="#5E8466"/>
-<circle cx="69.2" cy="163.1" r="3.8" fill="#2C4636"/>
-<circle cx="60" cy="43" r="2" fill="#3E5F4B"/>
-<circle cx="58.8" cy="109.3" r="4.7" fill="#3E5F4B"/>
-<circle cx="49" cy="120.8" r="4.8" fill="#3E5F4B"/>
-<circle cx="41.6" cy="149.5" r="4.1" fill="#5E8466"/>
-<circle cx="48.4" cy="153.4" r="5.5" fill="#3E5F4B"/>
-<circle cx="85.1" cy="216" r="3.6" fill="#2C4636"/>
-<circle cx="41.5" cy="158.7" r="5.3" fill="#3E5F4B"/>
-<circle cx="42.7" cy="188.8" r="6" fill="#5E8466"/>
-<circle cx="65.5" cy="162.9" r="4.5" fill="#3E5F4B"/>
-<circle cx="50.6" cy="195.5" r="4.6" fill="#5E8466"/>
-<circle cx="63.2" cy="107.2" r="4.7" fill="#3E5F4B"/>
-<circle cx="56.8" cy="59.9" r="3.3" fill="#5E8466"/>
-<circle cx="56.1" cy="85.8" r="2.3" fill="#5E8466"/>
-<circle cx="67" cy="143.4" r="4.7" fill="#3E5F4B"/>
-<circle cx="54.2" cy="79.2" r="3.4" fill="#3E5F4B"/>
-<circle cx="66.2" cy="127.8" r="4.7" fill="#3E5F4B"/>
-<circle cx="42.9" cy="148.6" r="3.5" fill="#3E5F4B"/>
-<circle cx="59.3" cy="52.3" r="3.1" fill="#5E8466"/>
-<circle cx="63.3" cy="82.5" r="3.3" fill="#2C4636"/>
-<circle cx="65.2" cy="80" r="4" fill="#2C4636"/>
-<circle cx="71.6" cy="212.9" r="4.3" fill="#3E5F4B"/>
-<circle cx="82.8" cy="191.8" r="5.1" fill="#2C4636"/>
-<circle cx="90.3" cy="213.3" r="4.9" fill="#2C4636"/>
-<circle cx="89.1" cy="218.7" r="6.5" fill="#2C4636"/>
-<circle cx="59.8" cy="44.1" r="2.9" fill="#5E8466"/>
-<circle cx="68.1" cy="188.2" r="3.8" fill="#3E5F4B"/>
-<circle cx="62.4" cy="216.9" r="6.8" fill="#3E5F4B"/>
-<circle cx="69.1" cy="89.3" r="3.6" fill="#2C4636"/>
-<circle cx="73.5" cy="191.5" r="6.3" fill="#2C4636"/>
-<circle cx="47.7" cy="119.3" r="3" fill="#5E8466"/>
-<circle cx="73.1" cy="151.3" r="4" fill="#2C4636"/>
-<circle cx="54.1" cy="73.4" r="3.4" fill="#5E8466"/>
-<circle cx="60.5" cy="48.5" r="2.2" fill="#3E5F4B"/>
-<circle cx="64.5" cy="68.1" r="3.2" fill="#2C4636"/>
-<circle cx="60.9" cy="211.1" r="4" fill="#3E5F4B"/>
-<circle cx="58.4" cy="95.9" r="3.9" fill="#3E5F4B"/>
-<circle cx="74.1" cy="190.7" r="5.5" fill="#2C4636"/>
-<circle cx="58.5" cy="98.4" r="3.3" fill="#3E5F4B"/>
-<circle cx="51.1" cy="142.4" r="4.1" fill="#5E8466"/>
-<circle cx="61.3" cy="51" r="3" fill="#2C4636"/>
-<circle cx="73.7" cy="196" r="5.9" fill="#2C4636"/>
-<circle cx="51.4" cy="227" r="3.7" fill="#5E8466"/>
-<circle cx="64" cy="172.8" r="5" fill="#3E5F4B"/>
-<circle cx="38.8" cy="227.6" r="6.5" fill="#5E8466"/>
-<circle cx="59" cy="197.6" r="3.6" fill="#3E5F4B"/>
-<circle cx="69.8" cy="120.8" r="3.9" fill="#2C4636"/>
-<circle cx="56" cy="137.4" r="4.5" fill="#5E8466"/>
-<circle cx="78.7" cy="177.7" r="5.6" fill="#2C4636"/>
-<circle cx="52.4" cy="121.7" r="4.7" fill="#3E5F4B"/>
-<circle cx="40.2" cy="216.5" r="6.8" fill="#3E5F4B"/>
-<circle cx="58.5" cy="61.3" r="2.3" fill="#5E8466"/>
-<circle cx="45.9" cy="200.7" r="4.4" fill="#5E8466"/>
-<circle cx="54.4" cy="91.5" r="4" fill="#5E8466"/>
-<circle cx="63.6" cy="91.5" r="3.1" fill="#3E5F4B"/>
-<circle cx="53.6" cy="170.2" r="3.5" fill="#5E8466"/>
-<circle cx="61.2" cy="56.7" r="2.8" fill="#3E5F4B"/>
-<circle cx="64.5" cy="71.7" r="3.5" fill="#2C4636"/>
-<circle cx="60.6" cy="47.1" r="3" fill="#2C4636"/>
-<circle cx="60" cy="134.2" r="5.4" fill="#3E5F4B"/>
-<circle cx="64.1" cy="121.5" r="4.3" fill="#3E5F4B"/>
-<circle cx="55.4" cy="120" r="4.3" fill="#3E5F4B"/>
-<circle cx="60.5" cy="136.6" r="3.4" fill="#3E5F4B"/>
-<circle cx="32.5" cy="193.8" r="4.9" fill="#5E8466"/>
-<circle cx="61.7" cy="92.2" r="3.7" fill="#3E5F4B"/>
-<circle cx="59.9" cy="63.5" r="2.3" fill="#3E5F4B"/>
-<circle cx="50" cy="195.4" r="4.1" fill="#5E8466"/>
-<circle cx="58.3" cy="54.3" r="3.1" fill="#5E8466"/>
-<circle cx="43" cy="203.3" r="5.3" fill="#5E8466"/>
-<circle cx="58.9" cy="70" r="3.7" fill="#3E5F4B"/>
-<circle cx="63.6" cy="88.5" r="3.5" fill="#3E5F4B"/>
-<circle cx="57.8" cy="63.1" r="2.2" fill="#5E8466"/>
-<circle cx="61.4" cy="88.6" r="4.2" fill="#3E5F4B"/>
-<circle cx="66.6" cy="147.9" r="2.9" fill="#3E5F4B"/>
-<circle cx="55.4" cy="108.1" r="3.4" fill="#3E5F4B"/>
-<circle cx="33.5" cy="193" r="6.4" fill="#5E8466"/>
-<circle cx="64.5" cy="190.8" r="3.9" fill="#3E5F4B"/>
-<circle cx="32.4" cy="216.1" r="6.4" fill="#3E5F4B"/>
-<circle cx="61.6" cy="182.1" r="3.8" fill="#3E5F4B"/>
-<circle cx="64.6" cy="115.3" r="4.2" fill="#3E5F4B"/>
-<circle cx="69.5" cy="124.3" r="2.8" fill="#2C4636"/>
-<circle cx="50.1" cy="105.1" r="4.4" fill="#5E8466"/>
-<circle cx="40.7" cy="187.8" r="3.6" fill="#5E8466"/>
-<circle cx="57.2" cy="172.4" r="3.9" fill="#3E5F4B"/>
-<circle cx="71.1" cy="121.5" r="3.7" fill="#2C4636"/>
-<path d="M25 228L60 37L95 228" fill="none" stroke="#1C1A17" stroke-width="1" opacity=".5"/>
-</g></svg></div>
-      <address class="doorway__plate">
-        <span class="doorway__name">The Original Maids of Honour</span>
-        288 Kew Road<br>Richmond, Surrey<br>TW9 3DU
-        <span class="doorway__opp">Opposite Kew Gardens</span>
-      </address>
-      <div class="doorway__tree doorway__tree--r" aria-hidden="true"><svg viewBox="0 0 120 300" xmlns="http://www.w3.org/2000/svg" focusable="false"><g class="topiary">
-<rect x="28" y="238" width="64" height="54" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.6"/>
-<rect x="37" y="247" width="46" height="36" fill="none" stroke="#C9C2B2" stroke-width="1.2"/>
-<rect x="24" y="234" width="72" height="6" fill="#FFFFFF" stroke="#1C1A17" stroke-width="1.4"/>
-<circle cx="31" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
-<rect x="27" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
-<circle cx="89" cy="230" r="5" fill="#FBF9F3" stroke="#1C1A17" stroke-width="1.2"/>
-<rect x="85" y="291" width="8" height="5" fill="#E6E1D5" stroke="#1C1A17" stroke-width="1"/>
-<rect x="57" y="224" width="6" height="12" fill="#5A4636"/>
-<path d="M60 40L95 228L25 228Z" fill="#24392F"/>
-<circle cx="62.9" cy="80.6" r="3.6" fill="#3E5F4B"/>
-<circle cx="49.4" cy="140.6" r="5.1" fill="#3E5F4B"/>
-<circle cx="60.2" cy="146.5" r="3.5" fill="#3E5F4B"/>
-<circle cx="59.9" cy="41.4" r="1.9" fill="#5E8466"/>
-<circle cx="44.6" cy="194.5" r="3.5" fill="#5E8466"/>
-<circle cx="76.7" cy="227.6" r="7" fill="#2C4636"/>
-<circle cx="38.4" cy="164.5" r="4.6" fill="#5E8466"/>
-<circle cx="65.1" cy="70.1" r="2.9" fill="#2C4636"/>
-<circle cx="64.6" cy="78.5" r="2.4" fill="#2C4636"/>
-<circle cx="56.9" cy="216.4" r="5.6" fill="#3E5F4B"/>
-<circle cx="59.6" cy="115.7" r="3" fill="#3E5F4B"/>
-<circle cx="61.6" cy="51.4" r="2.3" fill="#2C4636"/>
-<circle cx="43.5" cy="192.3" r="6.4" fill="#3E5F4B"/>
-<circle cx="74.5" cy="188" r="5.2" fill="#2C4636"/>
-<circle cx="39.8" cy="183.8" r="6" fill="#5E8466"/>
-<circle cx="67.6" cy="88.1" r="4.3" fill="#2C4636"/>
-<circle cx="55.6" cy="128" r="3.7" fill="#5E8466"/>
-<circle cx="52.1" cy="227.2" r="4" fill="#5E8466"/>
-<circle cx="86" cy="181.9" r="4.9" fill="#2C4636"/>
-<circle cx="61.9" cy="142.8" r="5" fill="#3E5F4B"/>
-<circle cx="62.1" cy="92.3" r="3.6" fill="#3E5F4B"/>
-<circle cx="45.1" cy="165.7" r="4.1" fill="#5E8466"/>
-<circle cx="49.9" cy="216.3" r="4.7" fill="#5E8466"/>
-<circle cx="55.6" cy="67.3" r="3.7" fill="#3E5F4B"/>
-<circle cx="65.6" cy="121.7" r="4.4" fill="#3E5F4B"/>
-<circle cx="89.3" cy="211.7" r="5" fill="#2C4636"/>
-<circle cx="92" cy="226.3" r="5.9" fill="#2C4636"/>
-<circle cx="59.4" cy="209.2" r="4.8" fill="#3E5F4B"/>
-<circle cx="68" cy="97.3" r="2.7" fill="#2C4636"/>
-<circle cx="62.2" cy="59.5" r="3.5" fill="#2C4636"/>
-<circle cx="72.7" cy="141.3" r="2.9" fill="#2C4636"/>
-<circle cx="55.4" cy="99.4" r="2.8" fill="#5E8466"/>
-<circle cx="58.8" cy="59.5" r="3.9" fill="#3E5F4B"/>
-<circle cx="58.9" cy="186.5" r="4.1" fill="#3E5F4B"/>
-<circle cx="61.7" cy="221.4" r="6.3" fill="#3E5F4B"/>
-<circle cx="59" cy="49.1" r="3.4" fill="#3E5F4B"/>
-<circle cx="66.4" cy="208.9" r="5" fill="#3E5F4B"/>
-<circle cx="75.4" cy="158.5" r="3.9" fill="#2C4636"/>
-<circle cx="50.8" cy="150.4" r="2.9" fill="#3E5F4B"/>
-<circle cx="83" cy="176.4" r="3.2" fill="#2C4636"/>
-<circle cx="66.5" cy="160.7" r="5.6" fill="#3E5F4B"/>
-<circle cx="49.2" cy="159.1" r="5.9" fill="#5E8466"/>
-<circle cx="36.4" cy="212.8" r="3.9" fill="#5E8466"/>
-<circle cx="59.8" cy="48.3" r="2.1" fill="#3E5F4B"/>
-<circle cx="69.6" cy="206.6" r="3.9" fill="#3E5F4B"/>
-<circle cx="52.7" cy="151.1" r="3.6" fill="#5E8466"/>
-<circle cx="55.2" cy="80.9" r="3.8" fill="#5E8466"/>
-<circle cx="40.9" cy="153.1" r="5.5" fill="#3E5F4B"/>
-<circle cx="76.4" cy="191.3" r="3.3" fill="#2C4636"/>
-<circle cx="44.1" cy="137.9" r="3.3" fill="#3E5F4B"/>
-<circle cx="47" cy="180.8" r="4.2" fill="#5E8466"/>
-<circle cx="59.5" cy="52.7" r="3.6" fill="#5E8466"/>
-<circle cx="60.1" cy="106.6" r="3.8" fill="#3E5F4B"/>
-<circle cx="33.1" cy="219.7" r="5.5" fill="#5E8466"/>
-<circle cx="85.2" cy="184.6" r="4.3" fill="#2C4636"/>
-<circle cx="61.3" cy="178.7" r="5" fill="#3E5F4B"/>
-<circle cx="62.1" cy="58.1" r="3.9" fill="#2C4636"/>
-<circle cx="54.7" cy="118" r="2.8" fill="#3E5F4B"/>
-<circle cx="56.7" cy="61.1" r="3.5" fill="#3E5F4B"/>
-<circle cx="64.3" cy="135" r="2.8" fill="#3E5F4B"/>
-<circle cx="57.2" cy="169.4" r="4.7" fill="#3E5F4B"/>
-<circle cx="56.9" cy="124.3" r="3.2" fill="#3E5F4B"/>
-<circle cx="59.6" cy="54.4" r="2.4" fill="#3E5F4B"/>
-<circle cx="76.5" cy="179.5" r="5.6" fill="#2C4636"/>
-<circle cx="50.5" cy="136.4" r="4.1" fill="#5E8466"/>
-<circle cx="81.9" cy="167.3" r="3.3" fill="#2C4636"/>
-<circle cx="59.7" cy="140.7" r="4.9" fill="#3E5F4B"/>
-<circle cx="77.7" cy="210.3" r="5.8" fill="#2C4636"/>
-<circle cx="69.3" cy="188.6" r="6.2" fill="#3E5F4B"/>
-<circle cx="69.4" cy="178.7" r="4" fill="#3E5F4B"/>
-<circle cx="52.6" cy="214.6" r="6.6" fill="#5E8466"/>
-<circle cx="93.2" cy="222.2" r="3.6" fill="#2C4636"/>
-<circle cx="55.1" cy="110" r="2.8" fill="#5E8466"/>
-<circle cx="42.2" cy="153.7" r="5.8" fill="#5E8466"/>
-<circle cx="58" cy="185.9" r="3.6" fill="#3E5F4B"/>
-<circle cx="73.7" cy="220.9" r="4.4" fill="#2C4636"/>
-<circle cx="63.9" cy="114.3" r="4.3" fill="#3E5F4B"/>
-<circle cx="70.1" cy="100" r="3.2" fill="#2C4636"/>
-<circle cx="67.5" cy="98.7" r="2.7" fill="#2C4636"/>
-<circle cx="44.8" cy="175.7" r="4" fill="#5E8466"/>
-<circle cx="73.5" cy="122.4" r="3.9" fill="#2C4636"/>
-<circle cx="64.1" cy="133" r="3.5" fill="#3E5F4B"/>
-<circle cx="58.2" cy="82.6" r="2.6" fill="#5E8466"/>
-<circle cx="28.5" cy="221.7" r="7.1" fill="#3E5F4B"/>
-<circle cx="35" cy="179.6" r="3.3" fill="#5E8466"/>
-<circle cx="69.2" cy="163.1" r="3.8" fill="#2C4636"/>
-<circle cx="60" cy="43" r="2" fill="#3E5F4B"/>
-<circle cx="58.8" cy="109.3" r="4.7" fill="#3E5F4B"/>
-<circle cx="49" cy="120.8" r="4.8" fill="#3E5F4B"/>
-<circle cx="41.6" cy="149.5" r="4.1" fill="#5E8466"/>
-<circle cx="48.4" cy="153.4" r="5.5" fill="#3E5F4B"/>
-<circle cx="85.1" cy="216" r="3.6" fill="#2C4636"/>
-<circle cx="41.5" cy="158.7" r="5.3" fill="#3E5F4B"/>
-<circle cx="42.7" cy="188.8" r="6" fill="#5E8466"/>
-<circle cx="65.5" cy="162.9" r="4.5" fill="#3E5F4B"/>
-<circle cx="50.6" cy="195.5" r="4.6" fill="#5E8466"/>
-<circle cx="63.2" cy="107.2" r="4.7" fill="#3E5F4B"/>
-<circle cx="56.8" cy="59.9" r="3.3" fill="#5E8466"/>
-<circle cx="56.1" cy="85.8" r="2.3" fill="#5E8466"/>
-<circle cx="67" cy="143.4" r="4.7" fill="#3E5F4B"/>
-<circle cx="54.2" cy="79.2" r="3.4" fill="#3E5F4B"/>
-<circle cx="66.2" cy="127.8" r="4.7" fill="#3E5F4B"/>
-<circle cx="42.9" cy="148.6" r="3.5" fill="#3E5F4B"/>
-<circle cx="59.3" cy="52.3" r="3.1" fill="#5E8466"/>
-<circle cx="63.3" cy="82.5" r="3.3" fill="#2C4636"/>
-<circle cx="65.2" cy="80" r="4" fill="#2C4636"/>
-<circle cx="71.6" cy="212.9" r="4.3" fill="#3E5F4B"/>
-<circle cx="82.8" cy="191.8" r="5.1" fill="#2C4636"/>
-<circle cx="90.3" cy="213.3" r="4.9" fill="#2C4636"/>
-<circle cx="89.1" cy="218.7" r="6.5" fill="#2C4636"/>
-<circle cx="59.8" cy="44.1" r="2.9" fill="#5E8466"/>
-<circle cx="68.1" cy="188.2" r="3.8" fill="#3E5F4B"/>
-<circle cx="62.4" cy="216.9" r="6.8" fill="#3E5F4B"/>
-<circle cx="69.1" cy="89.3" r="3.6" fill="#2C4636"/>
-<circle cx="73.5" cy="191.5" r="6.3" fill="#2C4636"/>
-<circle cx="47.7" cy="119.3" r="3" fill="#5E8466"/>
-<circle cx="73.1" cy="151.3" r="4" fill="#2C4636"/>
-<circle cx="54.1" cy="73.4" r="3.4" fill="#5E8466"/>
-<circle cx="60.5" cy="48.5" r="2.2" fill="#3E5F4B"/>
-<circle cx="64.5" cy="68.1" r="3.2" fill="#2C4636"/>
-<circle cx="60.9" cy="211.1" r="4" fill="#3E5F4B"/>
-<circle cx="58.4" cy="95.9" r="3.9" fill="#3E5F4B"/>
-<circle cx="74.1" cy="190.7" r="5.5" fill="#2C4636"/>
-<circle cx="58.5" cy="98.4" r="3.3" fill="#3E5F4B"/>
-<circle cx="51.1" cy="142.4" r="4.1" fill="#5E8466"/>
-<circle cx="61.3" cy="51" r="3" fill="#2C4636"/>
-<circle cx="73.7" cy="196" r="5.9" fill="#2C4636"/>
-<circle cx="51.4" cy="227" r="3.7" fill="#5E8466"/>
-<circle cx="64" cy="172.8" r="5" fill="#3E5F4B"/>
-<circle cx="38.8" cy="227.6" r="6.5" fill="#5E8466"/>
-<circle cx="59" cy="197.6" r="3.6" fill="#3E5F4B"/>
-<circle cx="69.8" cy="120.8" r="3.9" fill="#2C4636"/>
-<circle cx="56" cy="137.4" r="4.5" fill="#5E8466"/>
-<circle cx="78.7" cy="177.7" r="5.6" fill="#2C4636"/>
-<circle cx="52.4" cy="121.7" r="4.7" fill="#3E5F4B"/>
-<circle cx="40.2" cy="216.5" r="6.8" fill="#3E5F4B"/>
-<circle cx="58.5" cy="61.3" r="2.3" fill="#5E8466"/>
-<circle cx="45.9" cy="200.7" r="4.4" fill="#5E8466"/>
-<circle cx="54.4" cy="91.5" r="4" fill="#5E8466"/>
-<circle cx="63.6" cy="91.5" r="3.1" fill="#3E5F4B"/>
-<circle cx="53.6" cy="170.2" r="3.5" fill="#5E8466"/>
-<circle cx="61.2" cy="56.7" r="2.8" fill="#3E5F4B"/>
-<circle cx="64.5" cy="71.7" r="3.5" fill="#2C4636"/>
-<circle cx="60.6" cy="47.1" r="3" fill="#2C4636"/>
-<circle cx="60" cy="134.2" r="5.4" fill="#3E5F4B"/>
-<circle cx="64.1" cy="121.5" r="4.3" fill="#3E5F4B"/>
-<circle cx="55.4" cy="120" r="4.3" fill="#3E5F4B"/>
-<circle cx="60.5" cy="136.6" r="3.4" fill="#3E5F4B"/>
-<circle cx="32.5" cy="193.8" r="4.9" fill="#5E8466"/>
-<circle cx="61.7" cy="92.2" r="3.7" fill="#3E5F4B"/>
-<circle cx="59.9" cy="63.5" r="2.3" fill="#3E5F4B"/>
-<circle cx="50" cy="195.4" r="4.1" fill="#5E8466"/>
-<circle cx="58.3" cy="54.3" r="3.1" fill="#5E8466"/>
-<circle cx="43" cy="203.3" r="5.3" fill="#5E8466"/>
-<circle cx="58.9" cy="70" r="3.7" fill="#3E5F4B"/>
-<circle cx="63.6" cy="88.5" r="3.5" fill="#3E5F4B"/>
-<circle cx="57.8" cy="63.1" r="2.2" fill="#5E8466"/>
-<circle cx="61.4" cy="88.6" r="4.2" fill="#3E5F4B"/>
-<circle cx="66.6" cy="147.9" r="2.9" fill="#3E5F4B"/>
-<circle cx="55.4" cy="108.1" r="3.4" fill="#3E5F4B"/>
-<circle cx="33.5" cy="193" r="6.4" fill="#5E8466"/>
-<circle cx="64.5" cy="190.8" r="3.9" fill="#3E5F4B"/>
-<circle cx="32.4" cy="216.1" r="6.4" fill="#3E5F4B"/>
-<circle cx="61.6" cy="182.1" r="3.8" fill="#3E5F4B"/>
-<circle cx="64.6" cy="115.3" r="4.2" fill="#3E5F4B"/>
-<circle cx="69.5" cy="124.3" r="2.8" fill="#2C4636"/>
-<circle cx="50.1" cy="105.1" r="4.4" fill="#5E8466"/>
-<circle cx="40.7" cy="187.8" r="3.6" fill="#5E8466"/>
-<circle cx="57.2" cy="172.4" r="3.9" fill="#3E5F4B"/>
-<circle cx="71.1" cy="121.5" r="3.7" fill="#2C4636"/>
-<path d="M25 228L60 37L95 228" fill="none" stroke="#1C1A17" stroke-width="1" opacity=".5"/>
-</g></svg></div>
-    </div>
-
-    <div class="visit__cols">
-      <dl class="hours">
-        <div><dt>Shop &amp; tearoom</dt><dd>Monday to Sunday, 9am to 6pm</dd></div>
-        <div><dt>Breakfast</dt><dd>Cooked and toasted last orders 11am; none on Thursdays</dd></div>
-        <div><dt>Luncheon</dt><dd>12 noon to 3pm</dd></div>
-        <div><dt>Set teas</dt><dd>From 10am; Prosecco and Champagne from 11am</dd></div>
-        <div><dt>Walk-ins</dt><dd>Last seated by 5.30pm</dd></div>
-      </dl>
-      <div class="visit__links">
-        <p><a class="big-link" href="tel:+442089402752">020 8940 2752</a></p>
-        <p><a href="mailto:admin@theoriginalmaidsofhonour.co.uk">admin@theoriginalmaidsofhonour.co.uk</a></p>
-        <p><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Original+Maids+of+Honour+288+Kew+Road+Richmond+TW9+3DU" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (opens in a new tab)</span></a></p>
-        <p class="small">On-street parking. Step-free access is not published. <span class="tbc" title="To be confirmed with the restaurant">to confirm</span><!-- [TO CONFIRM] Accessibility at 288 Kew Road (step-free access, toilets). --></p>
-        <p class="small">Also: “The Maids of Honour Café and Coffee Bar at The National Archives – offering delicious food and drink to staff and visitors.” <a href="https://theoriginalmaidsofhonour.co.uk/pages/national-archives" target="_blank" rel="noopener">Details<span class="vh"> on their site (opens in a new tab)</span></a></p>
-      </div>
-    </div>
-  </div>
-</section>
 
 </main>
 
@@ -2733,7 +2747,7 @@
       <ul>
         <li><a href="menu.html">Menus</a></li>
         <li><a href="#book">Book a table</a></li>
-        <li><a href="#visit">Find us</a></li>
+        <li><a href="#visit">Hours &amp; find us</a></li>
         <li><a href="tel:+442089402752">020 8940 2752</a></li>
         <li><a href="mailto:admin@theoriginalmaidsofhonour.co.uk">Email the tearoom</a></li>
       </ul>
@@ -2746,7 +2760,6 @@
     <li><a href="#book"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M1.5 9.5h7L12 5l3.5 4.5h7v9h-21z"/><path d="M5 14h14"/></svg>Book</a></li>
     <li><a href="menu.html"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false"><rect x="4" y="1.5" width="16" height="17"/><path d="M7.5 6h9M7.5 10h9M7.5 14h5.5"/></svg>Menus</a></li>
     <li><a href="tel:+442089402752"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 2.5l3 .5 1 4-2 1.5c1 2.5 2.5 4 5 5l1.5-2 4 1 .5 3c-.5 1.5-2 2.5-3.5 2.5C9.5 17.5 4 12 4 5.5 4 4 4.8 3 6 2.5z"/></svg>Call</a></li>
-    <li><a href="#visit"><svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M9 4h6l-1-2.5h-4zM9.5 4h5v10h-5zM12 4v10M7.5 14h9L15 16H9zM12 16v2.5"/></svg>Find us</a></li>
   </ul>
 </nav>
 </body>

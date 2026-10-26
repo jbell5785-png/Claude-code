@@ -1914,11 +1914,11 @@
     </a>
     <nav class="nav" aria-label="Main">
       <ul>
-        <li><a href="index.html#teas">Set teas</a></li>
-        <li><a href="index.html#still-here">Still here</a></li>
-        <li><a href="index.html#bakery">Bakery</a></li>
-        <li><a href="index.html#visit">Visit</a></li>
+        <li><a href="index.html#visit">Visit &amp; hours</a></li>
         <li><a href="menu.html" aria-current="page">Menus</a></li>
+        <li><a href="index.html#teas">Set teas</a></li>
+        <li><a href="index.html#still-here">Our history</a></li>
+        <li><a href="index.html#bakery">Bakery</a></li>
       </ul>
     </nav>
     <a class="masthead__menus" href="index.html">Home</a>
@@ -1935,15 +1935,9 @@
       <p class="lede">Every menu in the tearoom, set so you can read it on a phone. Set teas first, then the Patisserie List, breakfast, luncheon and the drinks. Wording and spelling are as printed on the 2024 menus.</p>
       <p class="small"><!-- [TO CONFIRM] whether the 2024 menu prices are current --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Prices are from the 2024 menus and may have changed. Please check availability with the waiting staff.</p>
     </div>
-    <aside class="before frame" aria-labelledby="before-h">
-      <h2 id="before-h" class="frame__h">Before you order</h2>
-      <p><strong>Service.</strong> “Service is not included in menu prices. A discretionary service charge of 12.5% will be added to bill. All gratuities will be shared with the staff of the day.”</p>
-      <p><strong>Allergies.</strong> “Please inform your server if you have any allergies, intolerances or dietary requirements we need to be aware of. Please be aware that due to the open plan nature of our kitchens we are unable to guarantee a complete absence of gluten, however, we do offer dishes and products that are made with non-gluten containing ingredients. In our Craft Bakery products are made where nuts, gluten, sesame seeds, milk, eggs, mustard and soya are used, so may contain traces. Some of our products may also contain traces of peanut due to ingredients from our suppliers.”</p>
-      <p><strong>Vegan.</strong> “We are frequently working on new vegan recipes for our savoury and sweet counters. If you, or any of your party are vegan, please call and speak to the team and we will be more than happy to discuss all of our vegan options currently available. For any bookings or take away orders we need a minimum of 24 hours notice period.” <a href="tel:02089402752">020 8940 2752</a></p>
-    </aside>
   </header>
 
-  <nav class="mnav" aria-label="Menus on this page">
+  <nav class="mnav" aria-label="On this menu">
     <ul>
       <li><a href="#m-teas">Set teas</a></li>
       <li><a href="#m-patisserie">Patisserie</a></li>
@@ -1955,6 +1949,21 @@
       <li><a href="#m-home">To take home</a></li>
     </ul>
   </nav>
+
+  <div class="wrap before-wrap">
+    <aside class="before frame" aria-labelledby="before-h">
+      <h2 id="before-h" class="frame__h">Before you order: dietary marks &amp; allergens</h2>
+      <ul class="before__legend" aria-label="Dietary marks">
+        <li><span class="diet"><span aria-hidden="true">V</span><span class="vh"> vegetarian</span></span> Vegetarian, as named on the menu</li>
+        <li><span class="diet"><span aria-hidden="true">VG</span><span class="vh"> vegan</span></span> Vegan, from the tearoom’s Vegan list</li>
+        <li><span class="diet"><span aria-hidden="true">GF</span><span class="vh"> gluten-free list</span></span> <span class="diet"><span aria-hidden="true">DF</span><span class="vh"> dairy-free list</span></span> From the Gluten &amp; Dairy-Free list: made with non-gluten-containing ingredients</li>
+      </ul>
+      <p><strong>The tart.</strong> “Contains milk, wheat, gluten and eggs.” For the 14 major allergens in any dish, please ask your server.</p>
+      <p><strong>Service.</strong> “Service is not included in menu prices. A discretionary service charge of 12.5% will be added to bill. All gratuities will be shared with the staff of the day.”</p>
+      <p><strong>Allergies.</strong> “Please inform your server if you have any allergies, intolerances or dietary requirements we need to be aware of. Please be aware that due to the open plan nature of our kitchens we are unable to guarantee a complete absence of gluten, however, we do offer dishes and products that are made with non-gluten containing ingredients. In our Craft Bakery products are made where nuts, gluten, sesame seeds, milk, eggs, mustard and soya are used, so may contain traces. Some of our products may also contain traces of peanut due to ingredients from our suppliers.”</p>
+      <p><strong>Vegan.</strong> “We are frequently working on new vegan recipes for our savoury and sweet counters. If you, or any of your party are vegan, please call and speak to the team and we will be more than happy to discuss all of our vegan options currently available. For any bookings or take away orders we need a minimum of 24 hours notice period.” <a href="tel:02089402752">020 8940 2752</a></p>
+    </aside>
+  </div>
 
   <!-- ===================== SET TEAS ===================== -->
   <section id="m-teas" class="msec msec--teas" aria-labelledby="m-teas-h">
@@ -2070,6 +2079,7 @@
         <p class="grat grat--light">Gratuity | Service is not included in menu prices. A discretionary service charge of 12.5% will be added to bill. All gratuities will be shared with the staff of the day.</p>
       </div>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== PATISSERIE ===================== -->
@@ -2110,7 +2120,7 @@
             <li><span class="pl__n">Mixed Fruit Tart</span><span class="pl__p">£6.50</span></li>
             <li><span class="pl__n">Strawberry Tart (seasonal)</span><span class="pl__p">£6.50</span></li>
             <li><span class="pl__n">Apple Strudel</span><span class="pl__p">£5.50</span></li>
-            <li><span class="pl__n">Apple Lattice pie slice</span><span class="pl__p">£6</span></li>
+            <li><span class="pl__n">Apple Lattice pie slice <span class="diet"><span aria-hidden="true">VG</span><span class="vh"> vegan</span></span></span><span class="pl__p">£6</span></li>
           </ul>
         </div>
         <div class="pat__group">
@@ -2128,10 +2138,10 @@
         <div class="pat__group">
           <h3 class="mh3">Gluten &amp; Dairy-Free</h3>
           <ul class="plist">
-            <li><span class="pl__n">Carrot Cake</span><span class="pl__p">£5.50</span></li>
-            <li><span class="pl__n">Rich Chocolate Cake (with Strawberry Jam)</span><span class="pl__p">£5.50</span></li>
-            <li><span class="pl__n">Vegan &amp; Gluten Free Special Brownie</span><span class="pl__p">£4.50</span><span class="pl__d">egg free &amp; with only natural sugars</span></li>
-            <li><span class="pl__n">Orange &amp; Almond Cake</span><span class="pl__p">£5.50</span></li>
+            <li><span class="pl__n">Carrot Cake <span class="diet"><span aria-hidden="true">GF</span><span class="vh"> gluten-free list</span></span><span class="diet"><span aria-hidden="true">DF</span><span class="vh"> dairy-free list</span></span></span><span class="pl__p">£5.50</span></li>
+            <li><span class="pl__n">Rich Chocolate Cake (with Strawberry Jam) <span class="diet"><span aria-hidden="true">GF</span><span class="vh"> gluten-free list</span></span><span class="diet"><span aria-hidden="true">DF</span><span class="vh"> dairy-free list</span></span></span><span class="pl__p">£5.50</span></li>
+            <li><span class="pl__n">Vegan &amp; Gluten Free Special Brownie <span class="diet"><span aria-hidden="true">VG</span><span class="vh"> vegan</span></span><span class="diet"><span aria-hidden="true">GF</span><span class="vh"> gluten-free list</span></span></span><span class="pl__p">£4.50</span><span class="pl__d">egg free &amp; with only natural sugars</span></li>
+            <li><span class="pl__n">Orange &amp; Almond Cake <span class="diet"><span aria-hidden="true">GF</span><span class="vh"> gluten-free list</span></span><span class="diet"><span aria-hidden="true">DF</span><span class="vh"> dairy-free list</span></span></span><span class="pl__p">£5.50</span></li>
           </ul>
         </div>
         <div class="pat__group">
@@ -2146,14 +2156,15 @@
         <div class="pat__group">
           <h3 class="mh3">Vegan</h3>
           <ul class="plist">
-            <li><span class="pl__n">Vegan &amp; Gluten Free Special Brownie</span><span class="pl__p">£4.50</span><span class="pl__d">egg free &amp; with only natural sugars</span></li>
-            <li><span class="pl__n">Apple Lattice pie slice</span><span class="pl__p">£6</span></li>
+            <li><span class="pl__n">Vegan &amp; Gluten Free Special Brownie <span class="diet"><span aria-hidden="true">VG</span><span class="vh"> vegan</span></span><span class="diet"><span aria-hidden="true">GF</span><span class="vh"> gluten-free list</span></span></span><span class="pl__p">£4.50</span><span class="pl__d">egg free &amp; with only natural sugars</span></li>
+            <li><span class="pl__n">Apple Lattice pie slice <span class="diet"><span aria-hidden="true">VG</span><span class="vh"> vegan</span></span></span><span class="pl__p">£6</span></li>
           </ul>
         </div>
       </div>
       <p class="allergen">“Please inform your server if you have any allergies, intolerances or dietary requirements we need to be aware of. Please be aware that due to the open plan nature of our kitchens we are unable to guarantee a complete absence of gluten, however, we do offer dishes and products that are made with non-gluten containing ingredients. In our Craft Bakery products are made where nuts, gluten, sesame seeds, milk, eggs, mustard and soya are used, so may contain traces. Some of our products may also contain traces of peanut due to ingredients from our suppliers.”</p>
       <p class="grat">Gratuity | Service is not included in menu prices. A discretionary service charge of 12.5% will be added to bill. All gratuities will be shared with the staff of the day.</p>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== BREAKFAST ===================== -->
@@ -2169,7 +2180,7 @@
           <h3 class="mh3">English Breakfasts</h3>
           <ul class="plist">
             <li><span class="pl__n">Full English</span><span class="pl__p">£13</span><span class="pl__d">Served with sautéed mushrooms, baked beans, roasted cherry or ‘Bloody Mary’ tomatoes, toast &amp; butter, two free-range eggs, two rashers of cured back bacon &amp; pork sausage</span></li>
-            <li><span class="pl__n">Vegetarian English</span><span class="pl__p">£13</span><span class="pl__d">Served with sautéed mushrooms, baked beans, roasted cherry tomatoes, toast &amp; butter, two Free-Range Eggs, two vegetarian sausages</span></li>
+            <li><span class="pl__n">Vegetarian English <span class="diet"><span aria-hidden="true">V</span><span class="vh"> vegetarian</span></span></span><span class="pl__p">£13</span><span class="pl__d">Served with sautéed mushrooms, baked beans, roasted cherry tomatoes, toast &amp; butter, two Free-Range Eggs, two vegetarian sausages</span></li>
             <li><span class="pl__n">Breakfast Sandwiches</span><span class="pl__p">£8.50</span><span class="pl__d">Roberts of Weybridge cured back or streaky bacon | Pork sausages. Served on hand-cut white or brown buttered bread</span></li>
             <li><span class="pl__n">Extras</span><span class="pl__p">£1.50 each</span><span class="pl__d">Rasher of Bacon | Sausage | 1 slice of Black Pudding | Hash Brown | Sautéed Potatoes | Egg | Mushrooms | Baked Beans | Grilled or Bloody Mary Tomatoes | Slice of toast</span></li>
           </ul>
@@ -2203,6 +2214,7 @@
       </div>
       <p class="grat">Gratuity | Service is not included in menu prices. A discretionary service charge of 12.5% will be added to bill. All gratuities will be shared with the staff of the day.</p>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== LUNCHEON ===================== -->
@@ -2257,6 +2269,7 @@
         </div>
       </div>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== TEAS, COFFEES & SOFT DRINKS ===================== -->
@@ -2326,6 +2339,7 @@
         </div>
       </div>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== LOOSE TEAS ===================== -->
@@ -2389,6 +2403,7 @@
         </div>
       </div>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== WINE, FIZZ, BEER & SPIRITS: the red room ===================== -->
@@ -2451,6 +2466,7 @@
       </div>
       <p class="grat grat--light">“Gratuity | Service is not included in menu prices. A discretionary service charge of 12.5% will be added to your bill. All service will be shared with the staff of the day.”</p>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 
   <!-- ===================== TO TAKE HOME ===================== -->
@@ -2489,6 +2505,7 @@
         </div>
       </div>
     </div>
+    <p class="totop wrap"><a href="#main">Back to top</a></p>
   </section>
 </main>
 
@@ -2514,9 +2531,6 @@
   <a class="dock__a dock__a--book" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9h13v3a6.5 6 0 0 1-13 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 20h17" stroke="currentColor" stroke-width="1.6"/></svg>
     <span>Book<span class="vh"> a table (opens ResDiary in a new tab)</span></span></a>
-  <a class="dock__a" href="#m-teas">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v3M6 7h12M5 13h14M6 19h12" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M6 7a6 2 0 0 0 12 0M5 13a7 2 0 0 0 14 0M6 19a6 2 0 0 0 12 0" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
-    <span>Set teas</span></a>
   <a class="dock__a" href="tel:02089402752">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5l3 3-2 2.5a12 12 0 0 0 7.5 7.5l2.5-2 3 3-2.5 3C10 20 4 14 3.5 6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
     <span>Call</span></a>

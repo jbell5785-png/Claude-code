@@ -115,21 +115,23 @@
     target = progress();
     if (!ticking) { ticking = true; raf(step); }
   }
+  var stillT = 0;
   function step() {
     // a little easing toward the scroll position; the page itself scrolls natively
     var diff = target - current;
     current = Math.abs(diff) < 0.0005 ? target : current + diff * 0.22;
     if (inView) draw();
+    // the ferns stir only while you are walking; they come to rest shortly after you stop
+    svg.classList.add('is-walking'); clearTimeout(stillT);
+    stillT = setTimeout(function () { svg.classList.remove('is-walking'); }, 900);
     if (current !== target) raf(step); else ticking = false;
   }
   function draw() {
     var p = current;
     vault.render(p);
     if (heroCopy) {
-      var o = 1 - smooth(0.015, 0.075, p);
-      heroCopy.style.opacity = o.toFixed(3);
-      heroCopy.style.transform = 'translateY(' + (-p * 260).toFixed(1) + 'px)';
-      heroCopy.style.visibility = o < 0.01 ? 'hidden' : '';
+      // only the wordmark (and its soot plume) fades as you walk in; the Today strip stays put, static
+      heroCopy.style.setProperty('--wm', (1 - smooth(0.02, 0.12, p)).toFixed(3));
     }
     notes.forEach(function (li) {
       var a = parseFloat(li.getAttribute('data-from')), b = parseFloat(li.getAttribute('data-to'));

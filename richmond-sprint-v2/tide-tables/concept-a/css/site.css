@@ -41,7 +41,13 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  /* anchors and focused links never land under the fixed masthead or the bottom action bar (WCAG 2.4.11) */
+  scroll-padding-top: 66px;
+  scroll-padding-bottom: calc(var(--bar-h) + 8px + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 900px) { html { scroll-padding-bottom: 0; } }
 html.motion { scroll-behavior: smooth; }
 body {
   margin: 0;
@@ -158,39 +164,58 @@ html:not(.js) .scene { display: none; }
 .v-sway { transform-box: view-box; transform-origin: 0 0; }
 .kf-pupil { transform: translateY(var(--look, 0px)); }
 .kf-lid { transform: translateY(var(--lid, 0px)); }
-html.motion .v-sway { animation: sway 6s ease-in-out infinite alternate; }
+html.motion .v-sway { animation: sway 6s ease-in-out infinite alternate; animation-play-state: paused; }
+html.motion .scene.is-walking .v-sway { animation-play-state: running; } /* the ferns stir only while you walk past */
 @keyframes sway { from { transform: rotate(-2.4deg); } to { transform: rotate(2.4deg); } }
 
-.hero-copy { position: absolute; inset: 0; pointer-events: none; color: var(--wash); }
+.hero-copy { position: absolute; inset: 0; z-index: 2; pointer-events: none; color: var(--wash); }
 .hero-copy a { pointer-events: auto; }
 .wordmark {
   position: absolute; left: 0; right: 0; top: calc(58px + (var(--crown) - 58px) * 0.42); transform: translateY(-50%);
   display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 var(--gutter);
   text-shadow: 0 2px 18px rgba(20,17,15,.65), 0 1px 2px rgba(20,17,15,.7);
+  opacity: var(--wm, 1);
 }
 .wm-name { font-family: var(--display); font-size: var(--step-4); line-height: 0.95; letter-spacing: -0.012em; }
 .wm-rule { width: min(9.5em, 70%); height: 1px; background: currentColor; opacity: .8; margin: 0.55em 0 0.5em; font-size: var(--step-1); box-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .wm-strap { font-family: var(--text); font-weight: 800; font-size: clamp(0.66rem, 0.6rem + 0.3vw, 0.86rem); letter-spacing: 0.34em; text-transform: uppercase; padding-left: 0.34em; }
 
-.hero-foot {
-  position: absolute; left: 0; right: 0; top: var(--floor); bottom: 0; padding: clamp(1rem, 3.2svh, 2.2rem) var(--gutter) 1rem;
-  color: var(--ink); display: flex; flex-direction: column; align-items: center; text-align: center;
+/* ---------- the Today strip: plain HTML at first paint, laid over the floor of the first screen ---------- */
+.today {
+  position: absolute; left: var(--gutter); right: var(--gutter);
+  bottom: calc(var(--bar-h) + 0.7rem + env(safe-area-inset-bottom, 0px));
+  max-width: 34rem; margin: 0 auto; pointer-events: auto;
+  padding: 0.7rem 0.85rem 0.25rem; background: rgba(233,231,224,.96); color: var(--ink);
+  border-top: 3px solid var(--brick); border-radius: 0 0 3px 3px; box-shadow: 0 14px 28px -16px rgba(20,17,15,.55);
 }
-.hero-lede { font-family: var(--display); font-size: var(--step-1); line-height: 1.2; max-width: 22ch; margin-bottom: 0.55em; }
-.hero-hours { font-size: var(--step--1); font-weight: 700; margin-bottom: 0.8em; }
-.hero-hours a { font-weight: 800; }
-.come-in {
-  display: inline-flex; align-items: center; gap: 0.5em; min-height: 44px; padding: 0 0.4em;
-  font-weight: 800; font-size: var(--step--1); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none;
+.today p { margin: 0; max-width: none; }
+.today-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: -0.35rem; }
+.today-k { font-weight: 900; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fern-deep); }
+.today-v { font-size: var(--step--1); line-height: 1.4; font-weight: 700; }
+.today-where { margin-top: 0.15rem !important; font-family: var(--display); font-size: clamp(0.98rem, 0.86rem + 0.5vw, 1.3rem); line-height: 1.2; }
+.today-where a { display: inline-flex; align-items: center; gap: 0.4em; min-height: 32px; text-decoration-thickness: 1px; }
+.today-where svg { width: 0.95em; height: 0.95em; flex: none; color: var(--brick); }
+.today-acts { display: grid; grid-template-columns: 1.15fr 0.85fr 1fr; gap: 0.4rem; margin: 0.35rem 0 0.6rem !important; }
+.today-acts a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 46px; padding: 0.2em 0.4em;
+  border: 1.5px solid currentColor; border-radius: 3px; text-align: center;
+  font-weight: 800; font-size: 0.86rem; line-height: 1.1; text-decoration: none; white-space: nowrap;
 }
-.come-in svg { width: 18px; height: 18px; }
-html.motion .come-in svg { animation: nudge 2.4s var(--ease) infinite; }
+.today-acts small { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; }
+.today-acts a:first-child { background: var(--chalk); color: var(--bulb); border-color: var(--chalk); }
+.today-acts a:hover { background: var(--chalk); color: var(--chalk-white); border-color: var(--chalk); }
+.today-skip a {
+  display: inline-flex; align-items: center; gap: 0.35em; min-height: 34px;
+  font-weight: 800; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration-thickness: 1px; white-space: nowrap;
+}
+.today-skip svg { width: 14px; height: 14px; }
+html.motion .today-skip svg { animation: nudge 2.4s var(--ease) 2; } /* two nudges (under 5 s), then it rests */
 @keyframes nudge { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(4px); } }
 
 @media (min-aspect-ratio: 19/20) {
   .scene-wrap { --floor: 80%; --crown: 24%; }
   .scene-wrap { --arch-l: 36vw; }
-  .wordmark, .hero-foot { --col: max(15rem, calc(var(--arch-l) - var(--gutter) - 2.5vw)); }
+  .wordmark, .today { --col: max(15rem, calc(var(--arch-l) - var(--gutter) - 2.5vw)); }
   .wordmark {
     top: 50%; right: auto; width: var(--col); align-items: flex-start; text-align: left; padding: 0 0 0 var(--gutter);
     transform: translateY(-62%);
@@ -198,14 +223,19 @@ html.motion .come-in svg { animation: nudge 2.4s var(--ease) infinite; }
   .wm-name { font-size: min(var(--step-4), calc((var(--col) - var(--gutter)) / 5.3)); }
   .wm-rule { width: 100%; max-width: 9.5em; }
   .wm-strap { padding-left: 0; }
-  .hero-foot {
-    bottom: auto; left: 0; right: auto; width: var(--col); padding: 0 0 0 var(--gutter); top: 50%;
-    transform: translateY(42%); color: var(--wash); align-items: flex-start; text-align: left;
-    text-shadow: 0 1px 12px rgba(20,17,15,.8), 0 1px 2px rgba(20,17,15,.8);
+  .today {
+    left: var(--gutter); right: auto; bottom: auto; top: calc(50% + 5rem); width: calc(var(--col) - var(--gutter) * 0.5); margin: 0;
+    background: rgba(20,19,18,.84); color: var(--wash); border-top-color: var(--bulb);
+    padding: 1rem 1.1rem 0.4rem;
   }
+  .today-k { color: var(--bulb); }
+  .today-where svg { color: var(--bulb); }
+  .today-acts a:first-child { background: var(--bulb); color: var(--chalk); border-color: var(--bulb); }
+  .today-acts a:hover { background: var(--wash); color: var(--chalk); border-color: var(--wash); }
   .hero-copy::before { /* a soot plume behind the copy, for contrast over brick */
     content: ""; position: absolute; left: -10vw; top: 10%; width: 58vw; height: 78%;
     background: radial-gradient(closest-side, rgba(20,17,15,.62), rgba(20,17,15,0));
+    opacity: var(--wm, 1);
   }
 }
 
@@ -224,20 +254,21 @@ html.motion .come-in svg { animation: nudge 2.4s var(--ease) infinite; }
 }
 
 /* motion: the stage sticks while you walk the vault */
-html.motion .walk { height: 330vh; height: 330svh; }
+html.motion .walk { height: 180vh; height: 180svh; } /* stage 100 + pinned 80: under one screen on phones */
+@media (min-width: 900px) { html.motion .walk { height: 250vh; height: 250svh; } } /* pinned 1.5 screens on desktop */
 html.motion .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 html.motion .scene-wrap { height: 100%; max-height: none; }
 html.motion .walk-static { position: absolute; inset: 0; background: none; pointer-events: none; }
 html.motion .vault-still { display: none; }
-html.motion .walk-notes { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 var(--gutter) calc(var(--bar-h) + 1.4rem); display: block; }
+html.motion .walk-notes { position: absolute; inset: 0; padding: 0; margin: 0; display: block; }
 html.motion .walk-notes li {
-  position: absolute; left: var(--gutter); right: var(--gutter); bottom: calc(var(--bar-h) + 1.4rem);
+  position: absolute; left: var(--gutter); right: var(--gutter); top: 70px; bottom: auto; /* above the Today strip */
   max-width: 26ch; padding: 0.85rem 1rem 0.9rem 2.1rem; background: rgba(20,19,18,.86); color: var(--wash);
   border-left: 2px solid var(--bulb); opacity: 0; transform: translateY(10px);
 }
 html.motion .walk-notes li::before { left: 0.85rem; top: 1.35rem; }
 @media (min-width: 900px) {
-  html.motion .walk-notes li { left: auto; right: calc(var(--gutter) + 2vw); bottom: 9vh; max-width: 24ch; font-size: var(--step-2); }
+  html.motion .walk-notes li { left: auto; right: calc(var(--gutter) + 2vw); top: auto; bottom: 9vh; max-width: 24ch; font-size: var(--step-2); }
 }
 
 /* ---------- garden ---------- */
@@ -333,6 +364,7 @@ html.motion .walk-notes li::before { left: 0.85rem; top: 1.35rem; }
 
 /* ---------- find us (outside on the towpath: brick) ---------- */
 .find { background: var(--brick); color: var(--wash); padding: clamp(4rem, 10vw, 8rem) var(--gutter); position: relative; }
+.visit { padding-top: clamp(2.5rem, 7vw, 6rem); }
 .find::before, .overdoor::before { /* the towpath brick, softened so text keeps its contrast */
   content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55;
   background: url(../img/brick.svg) repeat; background-size: 450px 180px;
@@ -353,9 +385,25 @@ html.motion .walk-notes li::before { left: 0.85rem; top: 1.35rem; }
   .find-grid { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 6vw, 6rem); }
 }
 @media (min-width: 1100px) {
-  .find-grid { grid-template-columns: 1.15fr 1fr 1fr; }
-  .find-where { grid-row: span 2; }
+  .find-grid { grid-template-columns: 1fr 1.15fr 1fr; }
 }
+
+/* ---------- visit (second on the page) ---------- */
+.visit-head { position: relative; max-width: 1280px; margin: 0 auto 2.5rem; }
+.visit .kicker { color: var(--bulb); }
+.served { font-size: var(--step-0); max-width: 60ch; padding: 0.8rem 1rem; border-left: 3px solid var(--bulb); background: rgba(20,19,18,.45); }
+.served a { font-weight: 800; }
+.hours-table { margin: 0 0 1rem; display: grid; gap: 0.55rem; }
+.hours-table div { display: grid; gap: 0.1rem; padding-bottom: 0.55rem; border-bottom: 1px solid rgba(233,231,224,.25); }
+.hours-table dt { font-family: var(--display); font-size: var(--step-1); line-height: 1.2; color: var(--bulb); }
+.hours-table dd { margin: 0; font-weight: 700; }
+.hours-season dt { font-size: var(--step-0); }
+.hours-season dd { font-weight: 600; font-size: var(--step--1); }
+.visit .address { font-size: var(--step-1); }
+.know { list-style: none; margin: 0 0 1.2rem; padding: 0; display: grid; gap: 0.7rem; }
+.know li { padding-left: 1.1rem; position: relative; max-width: 46ch; }
+.know li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--bulb); }
+.visit .tbc { color: var(--bulb); }
 
 /* ---------- onward: Hollyhock, parties ---------- */
 .onward { background: var(--wash) url(../img/whitewash.svg) repeat; background-size: 600px 240px; padding: clamp(4rem, 9vw, 7rem) var(--gutter); }

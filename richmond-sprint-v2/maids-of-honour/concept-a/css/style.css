@@ -75,7 +75,12 @@
 @view-transition { navigation: auto; }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hd-h) + 16px); }
+html {
+  -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hd-h) + 16px);
+  /* the action bar never hides a focused link or an anchor target (WCAG 2.4.11) */
+  scroll-padding-bottom: calc(var(--bar-h) + 8px + env(safe-area-inset-bottom));
+}
+@media (min-width: 1000px) { html { scroll-padding-bottom: 0; } }
 body {
   margin: 0;
   background: var(--cream);
@@ -266,7 +271,7 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
   box-shadow: inset 0 1px 0 rgba(217, 168, 69, .7), 0 -8px 20px -12px rgba(0, 0, 0, .45);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.bar ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); height: var(--bar-h); }
+.bar ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); height: var(--bar-h); }
 .bar a {
   height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
   color: var(--gold-hi); text-decoration: none; font-size: .84rem; font-weight: 600; letter-spacing: .03em;
@@ -319,10 +324,51 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
 .today__go { font-size: .9rem; color: var(--clay); text-decoration: underline; text-underline-offset: .2em; }
 
 @media (max-width: 699px) {
+  /* phones: a wider, shorter window on the whole building, so the Today strip
+     clears the action bar inside a 390×660 safe area */
+  .art-crop { aspect-ratio: 1160 / 690; }
+  .art-crop .frontage { left: -25.862%; top: -28.986%; width: 137.931%; }
+  .hero { padding-top: 6px; }
   .hero__strap { font-size: clamp(1.7rem, 1.2rem + 2.4vw, 2.1rem); }
   .hero__text { padding-top: 1rem; }
   .eyebrow { margin-bottom: .4rem; }
 }
+/* ---------- The Today strip: status, address, Book and Menus at first paint --- */
+.tstrip {
+  position: relative; max-width: 34rem; margin: 1.15rem 0 1.2rem;
+  padding: .7rem 1rem .55rem; background: var(--cream-hi);
+  border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--green);
+  line-height: 1.3;
+}
+.tstrip p { margin: 0; }
+.tstrip__h { position: absolute; top: 0; left: .9rem; margin: 0; transform: translateY(-100%); }
+.tstrip__gable {
+  display: block; padding: .32em 1.2em .1em; font-family: var(--font-display); font-weight: 700; font-size: 1rem; line-height: 1;
+  color: var(--gold); background: var(--green); clip-path: polygon(0 100%, 18% 0, 82% 0, 100% 100%);
+}
+.tstrip__status { font-size: var(--step-1); white-space: nowrap; }
+@media (min-width: 1000px) { .tstrip__status { font-size: var(--step-0); } }
+.tstrip__status strong { font-weight: 700; color: var(--green); }
+.tstrip__status [data-state="closed"] { color: var(--clay); }
+.tstrip__hours { color: var(--ink-soft); font-variant-numeric: lining-nums; }
+.tstrip__where a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.tstrip__map { white-space: nowrap; }
+.tstrip__acts { display: flex; flex-wrap: wrap; align-items: center; gap: .2rem 1.3rem; }
+.tstrip__acts .board-btn { margin-top: 11px; }
+.tstrip__menus {
+  display: inline-flex; align-items: center; min-height: 48px; margin-top: 11px; padding: 0 1rem;
+  border: 1.5px solid var(--green); color: var(--green); font-weight: 700; text-decoration: none;
+}
+.tstrip__menus:hover { background: var(--green); color: var(--gold-hi); }
+.tstrip__skip a { display: inline-flex; align-items: center; min-height: 40px; font-size: var(--step--1); font-weight: 600; }
+@media (max-width: 699px) {
+  .hero__text .eyebrow { font-size: .82rem; margin-bottom: 1.5rem; }
+  .hero__text { padding-top: .65rem; padding-bottom: .4rem; }
+  .hero__text .hero__strap { font-size: var(--step-1); max-width: none; margin-bottom: .2rem; }
+  .hero__text .today { min-height: 0; margin-top: .6rem; padding: .55rem .8rem; }
+  .hero__text .today__now { font-size: var(--step-0); }
+}
+
 @media (min-width: 700px) {
   .hero__cap { display: block; }
   .art-crop { aspect-ratio: 1600 / 860; }
@@ -333,7 +379,10 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
     display: grid; grid-template-columns: minmax(19rem, 31%) 1fr; align-items: end;
     max-width: 1680px; margin: 0 auto; padding-top: 18px;
   }
-  .hero__art { grid-column: 2; grid-row: 1; }
+  /* the art sits at the top of the row, so it never moves while the text column
+     is still arriving (progressive render of the large inline drawing) */
+  .hero__art { grid-column: 2; grid-row: 1; align-self: start; margin-top: clamp(1rem, 4vw, 4rem); }
+  .hero__text .hero__strap { font-size: clamp(2rem, .9rem + 2vw, 3rem); }
   .hero__art .art-crop {
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%);
     mask-image: linear-gradient(to right, transparent 0, #000 7%);
@@ -385,6 +434,29 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
   display: block; font-family: var(--font-display); color: var(--gold); font-size: 1.35rem; line-height: 1.1; margin-bottom: .2rem;
 }
 .sign-noscript { max-width: 540px; margin: 0 auto; font-size: var(--step--1); }
+.sign-status { position: relative; }
+.glint-toggle {
+  float: right; margin: -.2rem -.3rem .2rem .6rem; min-height: 44px; padding: 0 .7rem;
+  font: inherit; font-size: .85rem; font-weight: 700; color: var(--gold-hi); background: transparent;
+  border: 1px solid rgba(217, 168, 69, .7); cursor: pointer;
+}
+.glint-toggle:hover { background: rgba(255, 255, 255, .06); }
+.glint-toggle:focus-visible { outline-color: var(--gold-hi); }
+.skipby { display: flex; flex-wrap: wrap; gap: 0 1.4rem; margin: 0; padding: .3rem var(--gutter); background: var(--cream-lo); border-top: 1px solid rgba(28, 26, 23, .5); }
+.skipby a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; font-size: var(--step--1); }
+.skipby + .wall { border-top: 0; }
+@media (max-width: 999px) {
+  /* phones and tablets: the board, its status and the clock hold to one screen */
+  .wall { padding-top: 1rem; padding-bottom: 2.5rem; }
+  .wall__head .board { margin-top: 1.9rem; margin-bottom: .8rem; font-size: var(--step-3); }
+  .wall__head .lede { font-size: var(--step--1); line-height: 1.4; margin-bottom: 0; max-width: 30rem; }
+  .wall__grid { margin-top: .8rem; gap: 1.6rem; }
+
+  .sign-wrap { max-width: min(256px, 70vw); }
+  .sign-status { margin-top: .8rem; padding: .6rem .8rem; min-height: 0; }
+  .clock { margin-top: .6rem; }
+  .clock fieldset { padding: .45rem .7rem .6rem; }
+}
 .wall__fine .fine { max-width: 540px; margin: 0 auto; }
 @media (min-width: 1000px) { .wall__fine .fine { margin: 0 0 0 2rem; } }
 
@@ -434,7 +506,7 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
 /* the five lines explained */
 .lines { list-style: none; margin: 0; padding: 0; counter-reset: none; }
 .line {
-  position: relative; padding: 2.4rem 0 1.8rem 1.4rem; max-width: var(--measure);
+  position: relative; padding: 2.1rem 0 .6rem 1.4rem; max-width: var(--measure);
   border-left: 2px solid rgba(28, 26, 23, .18);
 }
 .line + .line { margin-top: .6rem; }
@@ -446,16 +518,16 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
 .line.is-lit::before { background: var(--gold); border-color: var(--green); }
 .line.is-lit { border-left-color: var(--green); }
 .line__name {
-  font-family: var(--font-display); font-weight: 600; font-size: var(--step-3); line-height: 1; margin: 0 0 .35rem; color: var(--green);
+  font-family: var(--font-display); font-weight: 600; font-size: var(--step-2); line-height: 1; margin: 0 0 .35rem; color: var(--green);
 }
-.line__name--teas { font-size: var(--step-4); }
+.line__name--teas { font-size: var(--step-3); }
 .line__state {
   position: absolute; top: .35rem; left: 1.4rem;
   font-family: var(--font-text); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
   color: var(--gold-hi); background: var(--green); padding: .25em .5em .2em; border: 1px solid #0F1A14;
 }
-.line__time { font-style: italic; color: var(--ink-soft); }
-.line__links { display: flex; flex-wrap: wrap; gap: .2rem 1.4rem; margin-top: 1rem; }
+.line__time { font-style: italic; color: var(--ink-soft); margin-bottom: 0; }
+.line__links { display: flex; flex-wrap: wrap; gap: .2rem 1.4rem; margin-top: .4rem; }
 .line__links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 .pull { margin: 1rem 0; padding: 0; font-size: var(--step-1); line-height: 1.38; color: var(--ink); max-width: 21.3em; }
 .pull--italic { font-style: italic; max-width: 20.4em; }
@@ -500,6 +572,9 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
 .canopy-svg { width: 100%; height: 100%; }
 .front__in { max-width: 1400px; margin: 0 auto; padding: 1rem var(--gutter) 4rem; }
 .front__cols { display: grid; gap: 2.5rem; }
+.front__bake { max-width: var(--measure); }
+.front__bake .minor { margin-top: 0; }
+.front .rooms { max-width: var(--measure); }
 .front__story { max-width: var(--measure); }
 .front__kicker { font-size: var(--step-1); font-style: italic; color: var(--green); }
 .family { list-style: none; margin: 0; padding: 0; }
@@ -584,8 +659,71 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
   .rooms { grid-column: 2; }
 }
 
-/* ---------- Visit: the doorway between two topiary cones -------------------- */
-.visit { padding: 1.5rem var(--gutter) 4rem; border-top: 1px solid var(--ink); background: var(--cream); }
+/* ---------- Visit: hours, booking and the doorway, second on the page -------- */
+.visit { padding: .2rem var(--gutter) 1.2rem; border-top: 1px solid var(--ink); background: linear-gradient(180deg, var(--cream-lo), var(--cream) 14rem); }
+.visit .board { font-size: var(--step-3); margin: 1.9rem 0 .2rem; }
+.vminor { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1); line-height: 1.05; color: var(--green); margin: 1rem 0 .4rem; }
+/* each service: its hours, and its own BOOK plate, as on the side-wall sign */
+.svcs { list-style: none; margin: 0; padding: 0; max-width: 36rem; }
+.svc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem .9rem; align-items: center; padding: .38rem 0; border-top: 1px solid var(--rule); }
+.svc:last-child { border-bottom: 1px solid var(--rule); }
+.svc__name { margin: 0; font-size: 1em; font-weight: 700; line-height: 1.25; }
+.svc__when { margin: 0; font-size: var(--step--1); line-height: 1.4; color: var(--ink-soft); }
+.svc__book {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 4.6rem; padding: 0 .7rem;
+  background: linear-gradient(180deg, var(--green-hi), var(--green)); border: 1.5px solid #0F1A14;
+  box-shadow: inset 0 0 0 3px var(--green), inset 0 0 0 4px rgba(217, 168, 69, .75);
+  color: var(--gold-hi); text-decoration: none; font-weight: 700; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase;
+}
+.svc__book:hover { color: #fff; }
+.svc__book:focus-visible { outline-color: var(--clay); }
+.policy, .getting { list-style: none; margin: .45rem 0 0; padding: 0; max-width: var(--measure); font-size: var(--step--1); color: var(--ink-soft); line-height: 1.38; }
+.policy li, .getting li { padding: .2rem 0 .2rem 1rem; position: relative; }
+.policy li::before, .getting li::before { content: ""; position: absolute; left: 0; top: .85em; width: 5px; height: 5px; background: var(--clay); transform: rotate(45deg); }
+.policy a { font-weight: 600; }
+.visit__acts { display: flex; flex-wrap: wrap; gap: 0 1.4rem; margin: 0; }
+.visit__acts a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+.visit .doorway { margin: .4rem 0 .4rem; }
+.visit .doorway__plate { margin-bottom: 4%; }
+.doorway__acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 1.1rem; margin-top: .2rem; font-size: .8em; }
+.doorway__acts a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; }
+@media (max-width: 699px) {
+  .visit .doorway { grid-template-columns: 34px minmax(0, 19rem) 34px; gap: .6rem; margin: .2rem 0 .3rem; }
+  .visit .doorway__plate { font-size: var(--step-0); padding: .55rem .5rem .1rem; line-height: 1.3; margin-bottom: 0; }
+  .visit .doorway__name { font-size: 1.15em; margin-bottom: .2rem; }
+  .visit .doorway__opp { margin-top: .25rem; }
+  .visit .vminor { margin-top: .8rem; }
+  .visit .board, .taster .board { font-size: var(--step-2); margin-top: 1.7rem; }
+  .taster .board { margin-bottom: .4rem; }
+  .hero__text .today { grid-template-columns: 1fr auto; column-gap: .8rem; }
+  .hero__text .today__label { grid-column: 1 / -1; }
+  .hero__text .today__go { align-self: end; }
+}
+@media (min-width: 1000px) {
+  .visit__cols { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); column-gap: 5rem; align-items: start; }
+  .visit .board { font-size: var(--step-4); }
+  .visit .doorway { grid-template-columns: 56px minmax(0, 1fr) 56px; }
+}
+
+/* ---------- Taster: the menus, priced, within two scrolls ------------------- */
+.taster { padding: 0 var(--gutter) 2.4rem; border-top: 1px solid var(--ink); background: var(--cream-hi); }
+.taster__in { max-width: 1400px; margin: 0 auto; }
+.taster .board { font-size: var(--step-3); margin: 2rem 0 .7rem; }
+.bill--taster { margin: 0 0 .6rem; max-width: 36rem; }
+.bill--taster li { padding: .32rem 0; }
+.bill--taster b { font-weight: 700; }
+.bill--taster em { display: block; font-size: .86em; line-height: 1.3; }
+.bill--taster li > span:first-child { max-width: 75%; }
+.bill--taster .price { font-weight: 700; }
+
+.taster__go { margin: .4rem 0 0; }
+@media (min-width: 1000px) {
+  .taster .board { font-size: var(--step-4); }
+  .bill--taster { max-width: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 5rem; }
+  .taster .fine { max-width: 40em; }
+}
+
+/* ---------- (former Visit styles: the doorway between two topiary cones) ---- */
 .visit__in { max-width: 1400px; margin: 0 auto; }
 .doorway {
   display: grid; grid-template-columns: clamp(52px, 15vw, 120px) minmax(0, 26rem) clamp(52px, 15vw, 120px);
@@ -601,7 +739,7 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
 }
 .doorway__name { display: block; font-family: var(--font-display); font-weight: 600; color: var(--green); font-size: 1.35em; line-height: 1.05; margin-bottom: .5rem; }
 .doorway__opp { display: block; margin-top: .6rem; font-size: .72em; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--clay); }
-.visit__cols { display: grid; gap: 2rem; }
+.visit__cols { display: grid; gap: .6rem; }
 .hours { margin: 0; display: grid; gap: 0; max-width: 36rem; }
 .hours div { display: grid; grid-template-columns: 9.5rem 1fr; gap: .8rem; padding: .6rem 0; border-top: 1px solid var(--rule); }
 .hours div:last-child { border-bottom: 1px solid var(--rule); }
@@ -831,3 +969,24 @@ a:hover { color: var(--clay-deep); text-decoration-thickness: 2px; }
   .clock__time { order: 4; grid-column: 1 / -1; }
   .clock select { width: 100%; }
 }
+
+/* phones: the time-travel clock stays compact, so the board, its status and
+   the clock hold to one screen together */
+@media (max-width: 999px) {
+  .wall .clock fieldset { padding: .2rem .6rem .35rem; }
+  .wall .clock legend { font-size: .85rem; }
+  .wall .clock__row { row-gap: 0; }
+  .wall .clock input[type="range"] { min-height: 36px; }
+}
+
+/* ---------- Dietary marks and the menu page's "Before you order" box ------- */
+.diet { display: inline-block; margin-left: .3em; font-family: var(--font-text); font-style: normal; font-size: .72rem; font-weight: 700; line-height: 1; letter-spacing: .04em;
+  border: 1px solid var(--green); color: var(--green); padding: .2em .35em .15em; border-radius: 2px; vertical-align: .15em; }
+.before { margin: .4rem max(var(--gutter), calc((100% - 1400px) / 2 + var(--gutter))) 0; padding: .9rem 1.1rem .4rem; background: var(--cream-hi); border: 1.5px solid var(--ink); box-shadow: 4px 4px 0 var(--green); max-width: 52rem; }
+.before__h { margin: 0 0 .5rem; font-size: .9rem; letter-spacing: .14em; text-transform: uppercase; color: var(--clay); }
+.before p { font-size: var(--step--1); margin-bottom: .6rem; }
+.before__legend { list-style: none; margin: 0 0 .7rem; padding: 0; display: grid; gap: .25rem; font-size: var(--step--1); }
+.before__legend .diet { margin: 0 .3em 0 0; }
+.before a { font-weight: 600; }
+.totop { margin: 1.2rem 0 0; font-size: var(--step--1); }
+.totop a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }

@@ -148,7 +148,7 @@
   <nav class="site-nav" aria-label="Main">
     <a class="lamp" href="menu.html">Menu</a>
     <a class="lamp hide-s" href="index.html#visit">Visit</a>
-    <a class="lamp hide-s" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order<span class="vh"> (opens Toast in a new tab)</span></a>
+    <a class="lamp" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order<span class="vh"> for collection (opens Toast in a new tab)</span></a>
     <a class="btn btn--light hide-m" href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book a table<span class="vh"> (opens Favourite Table in a new tab)</span></a>
   </nav>
   <div class="frieze" aria-hidden="true"></div>
@@ -159,22 +159,109 @@
   <!-- Arrive: the wall is the hero; the plate hangs on it like a table card -->
   <section class="hero" id="top" aria-labelledby="h-hero">
     <div class="hero__plate panel hang" style="--from:3%;--span:44%">
-      <p class="kicker"><span class="step-mark" aria-hidden="true"></span>10 Red Lion Street, Richmond</p>
+      <p class="kicker"><span class="step-mark" aria-hidden="true"></span>Japanese restaurant, Richmond</p>
       <h1 id="h-hero" class="hero__title">Pull up a chair. <span>Take a taste.</span> <span>Come join us.</span></h1>
+      <div class="today">
+        <p class="status status--hero"><span class="mini-sconce" aria-hidden="true"></span><span class="status__text" data-today>Mon&nbsp;<!-- [TO CONFIRM] Monday opening --><span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span>&ndash;Fri 12&ndash;3pm&nbsp;<!-- [TO CONFIRM] lunch end time --><span class="tbc" title="Lunch end time: published as 3pm, 2:45pm and 2:30pm; to be confirmed">to confirm</span>, 5&ndash;10pm &middot; Sat 12&ndash;10pm &middot; Sun&nbsp;closed</span></p>
+        <p class="today__where"><a class="lamp today__map" href="https://www.google.com/maps/search/?api=1&query=Matsuba%2C%2010%20Red%20Lion%20Street%2C%20Richmond%20TW9%201RW" target="_blank" rel="noopener">10 Red Lion St, TW9&nbsp;1RW &middot; Directions<span class="vh"> (Google Maps, opens in a new tab)</span></a></p>
+        <p class="today__cta">
+          <a class="btn btn--dark" href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book a table<span class="vh"> (opens Favourite Table in a new tab)</span></a>
+          <a class="btn btn--line" href="menu.html">Menu</a>
+        </p>
+        <p class="today__skip"><a class="skiplink" href="#visit">Skip to visit info</a></p>
+      </div>
       <p class="hero__sub">A family-run Japanese restaurant in the heart of Richmond. First opened in 2004.</p>
-      <p class="status status--hero" data-status aria-live="polite"><span class="mini-sconce" aria-hidden="true"></span><span class="status__text">Lunch and dinner Tuesday to Saturday, and Monday <!-- [TO CONFIRM] Monday opening --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span>. Closed Sunday.</span></p>
-      <p class="hero__actions">
-        <a class="btn btn--dark" href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book a table<span class="vh"> (opens Favourite Table in a new tab)</span></a>
-        <a class="btn btn--line" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order, 20% off collection<span class="vh"> (opens Toast in a new tab)</span></a>
-        <a class="lamp" href="menu.html">See the menu</a>
-      </p>
+<script>/* Today strip: status from the published hours, in London time. Runs inline, before first paint; the HTML above is the no-JS fallback. Monday and the lunch end time keep their "to confirm" markers. */
+(function(){var els=document.querySelectorAll('[data-today]');if(!els.length)return;
+var H={0:[],1:[[720,900],[1020,1320]],2:[[720,900],[1020,1320]],3:[[720,900],[1020,1320]],4:[[720,900],[1020,1320]],5:[[720,900],[1020,1320]],6:[[720,1320]]};
+var D=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function tbc(t){return '<span class="tbc" title="'+t+'">to confirm</span>';}
+var MON=tbc('Monday opening: to be confirmed with the restaurant'),LUN=tbc('Lunch end time: published as 3pm, 2:45pm and 2:30pm; to be confirmed');
+function now(){try{var o={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).forEach(function(x){o[x.type]=x.value;});
+return{d:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[o.weekday],m:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10)};}catch(e){var n=new Date();return{d:n.getDay(),m:n.getHours()*60+n.getMinutes()};}}
+function f(m){var h=Math.floor(m/60),mm=m%60;return(h%12||12)+(mm?':'+(mm<10?'0':'')+mm:'')+(h<12?'am':'pm');}
+function hrs(d){return H[d].map(function(r){return '<span style="white-space:nowrap">'+f(r[0])+'\u2013'+f(r[1])+(r[1]===900?'\u00a0'+LUN:'')+'</span>';}).join(', ');}
+var n=now(),r=H[n.d],i,s,open=false,next=null;
+for(i=0;i<r.length;i++){if(n.m>=r[i][0]&&n.m<r[i][1])open=true;else if(next===null&&n.m<r[i][0])next=r[i][0];}
+var day='Today'+(n.d===1?' <span style="white-space:nowrap">(Monday '+MON+')</span>':'');
+if(open)s='<strong>Open now</strong> · '+day+' '+hrs(n.d);
+else if(next!==null)s='<strong>Closed now</strong>, opens '+f(next)+' · '+day+' '+hrs(n.d);
+else{var k,dd;for(k=1;k<=7;k++){dd=(n.d+k)%7;if(H[dd].length)break;}
+var when=dd===1?'Monday '+MON+' or Tuesday':(k===1?'tomorrow':D[dd]);
+s='<strong>'+(r.length?'Closed now':'Closed today')+'</strong> · Opens '+when+' at '+f(H[dd][0][0]);}
+for(i=0;i<els.length;i++){els[i].innerHTML=s;els[i].parentNode.classList.toggle('is-open',open);}
+document.documentElement.setAttribute('data-day',n.d);
+})();</script>
     </div>
+  </section>
+
+  <!-- Visit: second on the page -->
+  <section class="visit panel hang" id="visit" aria-labelledby="h-visit" style="--from:22%;--span:72%">
+    <div class="visit__head">
+      <p class="kicker"><span class="step-mark" aria-hidden="true"></span>Visit</p>
+      <h2 id="h-visit">Hours, address, booking</h2>
+      <p class="status status--visit" data-status aria-live="polite"><span class="mini-sconce" aria-hidden="true"></span><span class="status__text">See the hours below.</span></p>
+    </div>
+    <div class="visit__hours">
+      <h3 class="caps">Opening hours, as published</h3>
+      <table class="hours">
+        <tbody>
+          <tr data-day="1"><th scope="row">Monday <!-- [TO CONFIRM] Monday: the set-menu card says Tuesday - Friday; listings show Monday closed --><span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span></th><td><span class="nw">12pm–3pm,</span> <span class="nw">5pm–10pm</span></td></tr>
+          <tr data-day="2 3 4 5"><th scope="row">Tuesday – Friday</th><td><span class="nw">12pm–3pm <!-- [TO CONFIRM] lunch end: 3pm, 2:45pm or 2:30pm --><span class="tbc" title="Lunch end time: published as 3pm, 2:45pm and 2:30pm; to be confirmed">to confirm</span>,</span> <span class="nw">5pm–10pm</span></td></tr>
+          <tr data-day="6"><th scope="row">Saturday</th><td>12pm–10pm</td></tr>
+          <tr data-day="0"><th scope="row">Sunday</th><td>Closed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="visit__where">
+      <h3 class="caps">Address and getting there</h3>
+      <p class="visit__addr">10 Red Lion Street, Richmond TW9 1RW</p>
+      <p class="visit__links">
+        <a class="lamp" href="https://www.google.com/maps/search/?api=1&query=Matsuba%2C%2010%20Red%20Lion%20Street%2C%20Richmond%20TW9%201RW" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (new tab)</span></a>
+        <a class="lamp" href="tel:+442086053513">020 8605 3513</a>
+      </p>
+      <p class="visit__p">In the heart of Richmond. Nearest station, parking and step-free access: <!-- [TO CONFIRM] station and walking time, parking, step-free access: not published --><span class="tbc" title="Not published; to be confirmed with the restaurant">to confirm</span></p>
+    </div>
+    <div class="visit__book">
+      <h3 class="caps">Booking</h3>
+      <p class="visit__p">Book online for up to 12 guests. A card secures the table and nothing is taken when you book, but Matsuba may charge £10 per person if you don’t come or give less than 24 hours’ notice. Over 12? Call <a href="tel:+442086053513">020 8605 3513</a>. <a href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book a table<span class="vh"> (opens Favourite Table in a new tab)</span></a></p>
+    </div>
+    <div class="visit__collect">
+      <h3 class="caps">Collection</h3>
+      <p class="visit__p">20% off collection, every day, ordering online with Toast (kids’ menu not included). <a href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order for collection<span class="vh"> (opens Toast in a new tab)</span></a></p>
+    </div>
+  </section>
+
+  <!-- From the menu: the special rolls, on a white table -->
+  <section class="rolls panel hang" id="rolls" aria-labelledby="h-rolls" style="--from:30%;--span:64%">
+    <svg class="table-rest" viewBox="0 0 160 64" aria-hidden="true"><use href="#rest"/></svg>
+    <p class="kicker"><span class="step-mark" aria-hidden="true"></span>From the menu</p>
+    <h2 id="h-rolls">Special Rolls</h2>
+    <p class="rolls__strap">Large 8 piece rolls, exclusively created by MATSUBA.</p>
+    <ul class="dishes dishes--rolls">
+      <li class="dish"><span class="dish__name">Matsuba Roll</span><span class="dish__price">£12.9<span class="slash">/</span>22.9</span><span class="dish__desc">Prawn tempura, avocado, cucumber, spring onion, crispy coating, tobiko, lemon mayo</span></li>
+      <li class="dish"><span class="dish__name">Dynamite Roll</span><span class="dish__price">£24.9</span><span class="dish__desc">Prawn tempura, spicy tuna, salmon, cucumber, jalapeño, spicy mayo</span></li>
+      <li class="dish"><span class="dish__name">Special K Roll (Beef or Veg <abbr class="diet" title="suitable for vegans">vg</abbr>)</span><span class="dish__price">£17.9<span class="slash">/</span>16.9</span><span class="dish__desc">Carrot, spinach, pickled radish, sesame seed, cucumber, seasoned tofu</span></li>
+    </ul>
+    <h3 class="caps rolls__sub">And to start</h3>
+    <ul class="dishes dishes--rolls">
+      <li class="dish"><span class="dish__name">Tuna Tataki</span><span class="dish__price">£14.9</span><span class="dish__desc">“Our signature appetizer”: torched-seared tuna slices with mooli and ponzu sauce</span></li>
+      <li class="dish"><span class="dish__name">Nasu Dengaku <abbr class="diet" title="suitable for vegans">vg</abbr></span><span class="dish__price">£9.9</span><span class="dish__desc">Lightly fried aubergine coated in sweet miso sauce</span></li>
+      <li class="dish"><span class="dish__name">Edamame (Spicy / Garlic Butter) <abbr class="diet" title="suitable for vegetarians">v</abbr></span><span class="dish__price">£6.9</span><span class="dish__desc">Soybean pods grilled in Japanese spicy powder or fresh garlic</span></li>
+    </ul>
+    <p class="rolls__key"><abbr class="diet" title="suitable for vegetarians">v</abbr> suitable for vegetarians · <abbr class="diet" title="suitable for vegans">vg</abbr> suitable for vegans · prices as published · allergies: please tell a member of staff</p>
+    <p><a class="lamp" href="menu.html">See the full menu</a></p>
+    <figure class="shot" style="--ratio:4/5">
+      <div class="shot__frame" aria-hidden="true"><svg viewBox="0 0 160 64" class="shot__rest"><use href="#rest"/></svg></div>
+      <figcaption><span class="caps">Photograph to commission</span> Overhead, daylight: the Matsuba Roll on a white marble-look table, a black pebble rest and plain chopsticks beside it. 4:5.</figcaption>
+    </figure>
   </section>
 
   <!-- The room: the wall itself, drawn as an elevation -->
   <section class="room panel hang" id="room" aria-labelledby="h-room" style="--from:9%;--span:84%">
     <div class="room__text">
       <p class="kicker"><span class="step-mark" aria-hidden="true"></span>The room</p>
+      <p class="room__intro">A family-run Japanese restaurant in the heart of Richmond. First opened in 2004.</p>
       <h2 id="h-room">Two layers of oak, stepping down one slat at a time.</h2>
       <p>Down the side of the long room and across the far end, square oak slats rise from a grey wall in two layers. The back layer runs up to the ceiling. The front layer stops short, and its tops step down one slat at a time in a straight line. Brass twin sconces throw two warm glows across the wood.</p>
       <p class="room__aside">This proposal is built on that wall. The step on the wall behind this page moves down as you read. On the menu, each course is a slat. Every light you switch on here is one of those sconces.</p>
@@ -189,26 +276,7 @@
     </figure>
   </section>
 
-  <!-- Only here: the special rolls, on a white table -->
-  <section class="rolls panel hang" id="rolls" aria-labelledby="h-rolls" style="--from:30%;--span:64%">
-    <svg class="table-rest" viewBox="0 0 160 64" aria-hidden="true"><use href="#rest"/></svg>
-    <p class="kicker"><span class="step-mark" aria-hidden="true"></span>Special Rolls</p>
-    <h2 id="h-rolls">Large 8 piece rolls, exclusively created by MATSUBA.</h2>
-    <ul class="dishes dishes--rolls">
-      <li class="dish"><span class="dish__name">Matsuba Roll</span><span class="dish__price">12.9<span class="slash">/</span>22.9</span><span class="dish__desc">Prawn tempura, avocado, cucumber, spring onion, crispy coating, tobiko, lemon mayo</span></li>
-      <li class="dish"><span class="dish__name">Spider Roll</span><span class="dish__price">13.9<span class="slash">/</span>23.9</span><span class="dish__desc">Soft shell crab, avocado, cucumber, spring onion, tobiko, lemon mayo</span></li>
-      <li class="dish"><span class="dish__name">Crunch Tuna Roll</span><span class="dish__price">23.9</span><span class="dish__desc">Crispy coated tuna, avocado, cucumber, spring onion, spicy mayo</span></li>
-      <li class="dish"><span class="dish__name">Dynamite Roll</span><span class="dish__price">24.9</span><span class="dish__desc">Prawn tempura, spicy tuna, salmon, cucumber, jalapeño, spicy mayo</span></li>
-      <li class="dish"><span class="dish__name">Chicken Katsu Roll</span><span class="dish__price">21.9</span><span class="dish__desc">Crispy coated chicken katsu, cucumber, salad, Tonkatsu sauce</span></li>
-      <li class="dish"><span class="dish__name">Special K Roll (Beef or Veg <abbr class="diet" title="suitable for vegans">vg</abbr>)</span><span class="dish__price">17.9<span class="slash">/</span>16.9</span><span class="dish__desc">Carrot, spinach, pickled radish, sesame seed, cucumber, seasoned tofu</span></li>
-    </ul>
-    <p class="rolls__sig">And to start, <em>“our signature appetizer, Tuna Tataki”</em>: torched-seared tuna slices with mooli and ponzu sauce. <span class="dish__price">14.9</span></p>
-    <figure class="shot" style="--ratio:4/5">
-      <div class="shot__frame" aria-hidden="true"><svg viewBox="0 0 160 64" class="shot__rest"><use href="#rest"/></svg></div>
-      <figcaption><span class="caps">Photograph to commission</span> Overhead, daylight: the Matsuba Roll on a white marble-look table, a black pebble rest and plain chopsticks beside it. 4:5.</figcaption>
-    </figure>
-    <p><a class="lamp" href="menu.html#rolls-maki">All the rolls and maki</a></p>
-  </section>
+
 
   <!-- Fourteen dishes, fourteen slats -->
   <section class="fourteen panel hang" id="tasting" aria-labelledby="h-fourteen" style="--from:3%;--span:62%">
@@ -255,45 +323,20 @@
     </div>
   </section>
 
-  <!-- Visit -->
-  <section class="visit panel hang" id="visit" aria-labelledby="h-visit" style="--from:22%;--span:72%">
-    <div class="visit__where">
-      <p class="kicker"><span class="step-mark" aria-hidden="true"></span>Visit</p>
-      <h2 id="h-visit">10 Red Lion Street, Richmond TW9 1RW</h2>
-      <p class="status status--visit" data-status aria-live="polite"><span class="mini-sconce" aria-hidden="true"></span><span class="status__text">See the hours below.</span></p>
-      <p class="visit__links">
-        <a class="lamp" href="https://www.google.com/maps/search/?api=1&query=Matsuba%2C%2010%20Red%20Lion%20Street%2C%20Richmond%20TW9%201RW" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (new tab)</span></a>
-        <a class="lamp" href="tel:+442086053513">020 8605 3513</a>
-        <a class="lamp" href="mailto:info@matsuba.co.uk">info@matsuba.co.uk</a>
-        <a class="lamp" href="https://www.instagram.com/matsuba.london/" target="_blank" rel="noopener">@matsuba.london<span class="vh"> on Instagram (new tab)</span></a>
-      </p>
-    </div>
-    <div class="visit__hours">
-      <h3 class="caps">Opening hours, as published</h3>
-      <table class="hours">
-        <tbody>
-          <tr data-day="1"><th scope="row">Monday</th><td>12pm – 3pm<br>5pm – 10pm</td><td class="hours__note"><!-- [TO CONFIRM] Monday: the set-menu card says Tuesday - Friday; listings show Monday closed --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></td></tr>
-          <tr data-day="2 3 4 5"><th scope="row">Tuesday – Friday</th><td>12pm – 3pm<br>5pm – 10pm</td><td class="hours__note"><!-- [TO CONFIRM] lunch end: 3pm, 2:45pm or 2:30pm -->lunch end <span class="tbc" title="To be confirmed with the restaurant">to confirm</span></td></tr>
-          <tr data-day="6"><th scope="row">Saturday</th><td>12pm – 10pm</td><td class="hours__note"></td></tr>
-          <tr data-day="0"><th scope="row">Sunday</th><td>Closed</td><td class="hours__note"></td></tr>
-        </tbody>
-      </table>
-      <p class="visit__fine">Lunch is published as ending at 3pm, 2:45pm and 2:30pm in different places, and Monday opening differs between Matsuba’s own pages. Call before you set off.</p>
-    </div>
-  </section>
+
 
 </main>
 <footer class="site-footer">
   <div class="site-footer__inner">
     <p class="wordmark wordmark--foot" aria-hidden="true">MATSUBA</p>
     <p class="site-footer__addr">10 Red Lion Street, Richmond TW9 1RW · <a class="lamp" href="tel:+442086053513">020 8605 3513</a> · <a class="lamp" href="mailto:info@matsuba.co.uk">info@matsuba.co.uk</a></p>
+    <p class="site-footer__hours">Monday <span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span> to Friday 12pm–3pm <span class="tbc" title="Lunch end time: to be confirmed with the restaurant">to confirm</span>, 5pm–10pm · Saturday 12pm–10pm · Sunday closed</p>
     <p class="site-footer__links"><a class="lamp" href="index.html">Home</a> <a class="lamp" href="menu.html">Menu</a> <a class="lamp" href="index.html#book">Book</a> <a class="lamp" href="index.html#visit">Visit</a> <a class="lamp" href="https://www.instagram.com/matsuba.london/" target="_blank" rel="noopener">Instagram<span class="vh"> (opens in a new tab)</span></a></p>
     <p class="site-footer__honest">A speculative design proposal by an independent studio. Not the official Matsuba website, and not commissioned or endorsed by Matsuba. The official website is <a class="lamp" href="https://matsuba.co.uk/">matsuba.co.uk</a>.</p>
   </div>
 </footer>
 <nav class="actionbar" aria-label="Quick actions">
   <a class="btn btn--light" href="https://booking.favouritetable.com/?SiteCode=2122" target="_blank" rel="noopener">Book<span class="vh"> a table (opens Favourite Table in a new tab)</span></a>
-  <a class="ab-link lamp lamp--quiet" href="https://order.toasttab.com/online/matsuba-10-red-lion-street" target="_blank" rel="noopener">Order<span class="vh"> for collection (opens Toast in a new tab)</span></a>
   <a class="ab-link lamp lamp--quiet" href="menu.html">Menu</a>
   <a class="ab-link lamp lamp--quiet" href="tel:+442086053513">Call<span class="vh"> 020 8605 3513</span></a>
 </nav>
