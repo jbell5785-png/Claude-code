@@ -21,7 +21,7 @@
 ## 2. What exists (all in the repo)
 | Path | What |
 |---|---|
-| `README.md`, `research.md`, `brief.md`, `concept-a/b/c/` | **Caffè Mamma**: three concepts. Recommended: C "Bucato", the washing line of shirts as navigation. **Don't modify this project.** |
+| `README.md`, `research.md`, `brief.md`, `concept-a/b/c/` | **Caffè Mamma**: three concepts. Recommended: C "Bucato", the washing line of shirts as navigation. The user approved the Useful-first and voice fixes (now applied); ask before any further changes. |
 | `richmond-sprint/` | **Round 1** (Chez Lindsay, Matsuba, Swagat). Well built but judged generic by the user. Kept for reference only. |
 | `richmond-sprint-v2/<biz>/` | **Round 2**, the current work: Matsuba, The Original Maids of Honour and Tide Tables Café. Each has `research/` (identity, copy-deck, dossier, photo-notes), `brief.md` and `concept-a/b/c/`, each with its own NOTES.md, structured data and `llms.txt`. |
 | `richmond-sprint-v2/_shared/tech-spec-v2.md` | The round 2 build spec: swap test, craft bar, content rules and banned fonts. It builds on `richmond-sprint/_shared/tech-spec.md`. |
@@ -181,7 +181,9 @@ The concepts are already built, so they're only needed for new work. Ask the use
   - Matsuba: lead with **B "The stepped wall"**, not C.
   - Caffè Mamma: the audit recommends **A "La Carta"** over C.
   - Maids A and Tide A stay.
-- **Caffè Mamma's three concepts have NOT been fixed.** The original brief said not to modify that project, and the user hasn't yet said yes.
+- **Caffè Mamma's three concepts have now been fixed** (the user said yes). Self-scored: A 31/32, B 31/32, C 30/32. All republished to their original URLs. C "Bucato" is reinstated as the lead (its first screen now has today's status, address and Book/Menu/Find us).
+- **Voice rule applied to all 12 concepts:** designer commentary, annotated diagrams, "photograph to commission" placeholders and researcher asides are removed. The rationale is in each concept's NOTES.md under "Pitch notes (not for the site)".
+- **Publishing Caffè Mamma:** build with `banner_build.py` then `publish_build.py` into `$S/publish/concept-<x>`, and always pass the original `url`. Publishing without it creates a duplicate.
 - **Your own website:** it's in `portfolio/`, preview https://claude.ai/artifact/DbXDkuyiuLfz9QJb1LsjCN.
   - Anonymised case studies, no mention of AI in how the work is made.
   - Contact: 07931 373488 / jbell5785@gmail.com.
