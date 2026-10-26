@@ -413,13 +413,14 @@ h1 .osf .dn, h2 .osf .dn, .display .osf .dn { top: .27em; }
 .garden .vignette { margin: 0 0 18px; }
 .garden .vignette svg { width: 100%; height: auto; border: 1px solid var(--ink); outline: 1px solid rgba(42, 47, 51, .35); outline-offset: 5px; background: var(--stone); }
 .garden .vignette figcaption { font-size: var(--step--2); font-style: italic; color: var(--ink-soft); margin-top: 12px; }
-.garden blockquote { margin: 0 0 1em; font-family: var(--f-display); font-size: var(--step-2); line-height: 1.25; text-indent: -.42em; }
+.garden .garden-lead { margin: 0 0 1em; font-family: var(--f-display); font-size: var(--step-2); line-height: 1.25; }
 .gravel { height: 46px; margin-top: clamp(40px, 6vw, 80px);
   background-image: radial-gradient(circle, rgba(42, 47, 51, .55) .7px, transparent 1.1px), radial-gradient(circle, rgba(42, 47, 51, .38) .6px, transparent 1px);
   background-size: 9px 7px, 13px 11px; background-position: 0 0, 4px 5px;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 70%); mask-image: linear-gradient(to bottom, transparent, #000 70%);
 }
 @media (min-width: 900px) {
+  .garden { grid-template-rows: auto 1fr; }
   .garden .sect-head { grid-column: 2 / 9; grid-row: 1; }
   .garden .body { grid-column: 2 / 9; grid-row: 2; }
   .garden .vignette { grid-column: 9 / 12; grid-row: 1 / span 2; padding-left: 24px; }

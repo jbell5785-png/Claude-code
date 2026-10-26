@@ -219,3 +219,20 @@ The client felt the signature came before being useful. The waterline is still t
 **Still worth knowing**
 - The hero water still drifts by default (with the pause). If the client prefers, it could settle after one pass instead.
 - Parking and step-free access score only because the standard accepts "to confirm" placeholders. Both need answers from the client.
+
+## Pitch notes (not for the site)
+
+Editorial pass, 26 Oct 2026. The client asked that every word on the page reads as the café talking to customers, not as the designer explaining the design. These lines and elements were cut from the pages; the rationale stays here for the pitch.
+
+- **The tide engine explanation** is down to two sentences and the PLA link: "The Thames at Richmond is tidal. Downstream, Richmond's half-tide weir raises its gates for about two hours either side of high water." Cut: "opened in 1894" (not in the copy deck); "and the rest of the time holds the river here at or above half-tide"; "Despite the name, there are no tide times on this site. The tide you scroll through is drawn, not measured: as you scroll, the water rises…"; the "This page's drawn tide" readout; and the annotated tide-shape diagram (H.W., gates up, held, half-tide, the dashed natural tide) with its caption "Illustrative shape only… The dot follows this page's drawn tide as you scroll." The hero's short "Drawn tide, illustrative" chip and "Pause the water" stay. The button now reads "Tide times: Port of London Authority". `tide.js` tolerates the missing diagram marker.
+- **Hire-board caption:** "Quoted from the boat-hire board next door, a separate business. It isn't the café's own sign, but it's how the river here keeps time." is now "From the boat-hire board next door." The footer credit ("…is quoted from the boat-hire board… Weir facts follow the Port of London Authority's published wording. All illustrations are original drawings made for this proposal.") was cut on both pages.
+- **"In the café's own words"** framing and the quotation marks around the café's own sentences were removed throughout: on its own site the café doesn't quote itself. The section's eyebrow is now "Stay all day".
+- **Garden caption:** "Drawn for this proposal from photographs of the garden: gravel underfoot, black mesh chairs, the bridge's stone arches, and bark that flakes in plates."
+- **Photo placeholder:** "Photograph to commission: the riverside steps from the towpath at high water…". See the shot list.
+- **Hollyhock walk:** "This is only our sketch of the walk, drawn from the café's directions. Ask for the real map when you stop in."; "The route in one line…" (it duplicated the five steps); the map caption "No distances or walking times until the route is measured. Route from a 2017 Thames Path guide." (now "Not to scale. Route to confirm"); the postcode note "The café's site gives TW10 6UX. Richmond Council lists Terrace Gardens as TW10 6RH." (the "to confirm" marker and HTML comment stay); and the repeat of "Open during daylight hours" in step 5.
+- **Food teaser:** "We've made a sample layout from the dishes mentioned on their site, without prices." is now "Our menu sample has no prices."
+- **Duplicates removed:** "You'll find people out there all year round" (Good to know; kept in the garden) and "Watch out… crowded on sunny days" (café section; kept in Good to know).
+- **Menu page:** "Food on the steps, drinks in the river." (explained the layout); "Coffee, Tea and Organic Wines & Beers are headings from the café's counter board."; "Every item above is one the café mentions on its own site. The café publishes no prices, so none are shown." The H1 "Down the steps" is now "Food and drink".
+- **Hero illustration description (screen readers):** "As you scroll, the drawn water rises over the steps and the skiffs lift…" was removed.
+- **Kept:** the sample-menu banner and strip, every "to confirm" marker, the waterline, the walk stepper and map, and the footer's existing honesty line (nothing new added).
+- **Page length at 390×844:** index 13.5 → 11.4 screens; menu 4.0 → 3.6.

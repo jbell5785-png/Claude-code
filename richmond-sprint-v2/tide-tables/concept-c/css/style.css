@@ -260,17 +260,8 @@ address { font-style: normal; }
 .bigquote { font-weight: 500; font-size: clamp(1.75rem, 1.2rem + 2.8vw, 4.1rem); line-height: 1.08; letter-spacing: -.03em; }
 
 /* ---------- tidal ---------- */
-.readout { margin: clamp(18px, 2.4vw, 30px) 0 0; display: grid; gap: 6px; }
-.readout__k { font: 600 .74rem/1.2 var(--sans); letter-spacing: .16em; text-transform: uppercase; opacity: .85; }
-.readout__v { font: 500 var(--step-1)/1.2 var(--display); letter-spacing: -.015em; max-width: 14ch; }
-@media (min-width: 900px) { .readout { grid-column: 1 / span 4; grid-row: 2; } .tidal .datum__body { grid-row: 2; } }
 .tidal { padding-top: clamp(36px, 6vw, 96px); }
 .weir { font-size: var(--step-1); line-height: 1.45; }
-.diagram { margin: clamp(32px, 5vw, 64px) auto 0; }
-.diagram__frame { border-top: 1.5px solid rgb(243 240 232 / .5); border-bottom: 1.5px solid rgb(243 240 232 / .5); padding-block: clamp(10px, 2vw, 24px); }
-.diagram svg { width: 100%; max-width: 920px; height: auto; aspect-ratio: 600 / 320; margin-inline: auto; overflow: visible; }
-.diagram figcaption { margin-top: 14px; font-size: var(--step--1); max-width: 62ch; }
-@media (min-width: 900px) { .diagram figcaption { margin-left: calc((100% - 920px) / 2); } }
 
 /* ---------- shores: every land/river edge on the site, one shared tide ---------- */
 .shore { --h: 112px; --top: 22px; --range: 50px; position: relative; height: var(--h); overflow: hidden; background: var(--gravel); margin-block: -1px; }
@@ -318,24 +309,14 @@ address { font-style: normal; }
 .ethos { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
 .ethos li { padding: .8em 0 .8em 2.1em; border-bottom: 1px solid rgb(20 19 18 / .22); position: relative; }
 .ethos li::before { content: ""; position: absolute; left: 0; top: 1.25em; width: 1.4em; height: 8px; background: url(../img/wave-line.svg) 0 0/84px 8px repeat-x; }
-.slot { margin: clamp(32px, 5vw, 64px) 0 0; }
-@media (min-width: 900px) { .slot__frame { aspect-ratio: 4 / 5; } .slot { grid-column: 1 / span 4; grid-row: 3 / span 2; margin-top: clamp(18px, 2.4vw, 30px); } .words .datum__body { grid-row: 3; } }
-.slot__frame { aspect-ratio: 3 / 2; background: var(--deep); position: relative; overflow: hidden; max-width: 420px;
-  background-image: repeating-linear-gradient(180deg, transparent 0 22px, rgb(243 240 232 / .07) 22px 24px); }
-.slot__line { position: absolute; left: 0; right: 0; top: 56%; height: 24px; background: url(../img/wave-line-chalk.svg) 0 0/200px 12px repeat-x; }
-.slot__line::after { content: ""; position: absolute; inset: 12px 0 auto; height: 400px; background: rgb(111 135 152 / .35); }
-.slot figcaption { margin-top: 12px; font-size: var(--step--1); max-width: 40ch; }
-.slot__k { display: block; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; font-size: .72rem; margin-bottom: 2px; }
 
 /* ---------- garden ---------- */
 .garden { padding-bottom: 0; }
-.garden__art { margin: clamp(28px, 5vw, 64px) 0 0; }
+.garden__art { margin: clamp(28px, 5vw, 64px) 0 0; padding-bottom: clamp(40px, 6vw, 80px); }
 .garden__frame { aspect-ratio: 4 / 5; overflow: hidden; background: #DCE3E4; }
 @media (min-width: 600px) { .garden__frame { aspect-ratio: 3 / 2; } }
 @media (min-width: 1400px) { .garden__frame { aspect-ratio: 16 / 9; } .garden__frame img { object-position: 50% 62%; } }
 .garden__frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
-.garden__art figcaption { padding-block: 16px clamp(40px, 6vw, 80px); font-size: var(--step--1); }
-.garden__art figcaption span { display: block; max-width: 60ch; padding-left: 16px; border-left: 4px solid var(--plane-ink); }
 
 /* ---------- walk / map ---------- */
 .walk .datum__body p:not(.say) { max-width: 50ch; }
@@ -410,8 +391,7 @@ address { font-style: normal; }
 /* ---------- footer ---------- */
 .site-foot { background: var(--ink); color: var(--chalk); padding-block: clamp(48px, 7vw, 96px) clamp(36px, 5vw, 64px); }
 .site-foot__mark { font: 800 clamp(3rem, 1rem + 11vw, 13rem)/.82 var(--display); text-transform: uppercase; letter-spacing: -.045em; margin: 0 0 .25em -.04em; color: var(--river); }
-.site-foot__grid { display: grid; gap: 20px 48px; font-size: var(--step--1); }
-@media (min-width: 900px) { .site-foot__grid { grid-template-columns: 1fr 1fr; } }
+.site-foot__grid { display: grid; gap: 20px 48px; font-size: var(--step--1); max-width: 62ch; }
 
 /* ---------- menu page ---------- */
 .sample-strip { position: sticky; top: 0; z-index: 25; margin: 0; background: var(--ink); color: var(--chalk); text-align: center; padding: 10px 16px; font: 700 .78rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; }

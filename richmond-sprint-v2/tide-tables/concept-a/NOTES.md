@@ -146,7 +146,7 @@ Run it with `python3 -m http.server 8521 --directory richmond-sprint-v2/tide-tab
 
 ## Assets to replace
 
-- The two photo slots (the arch-topped placeholders) need commissioned photographs.
+- Two photographs to commission (shots 1 and 2 below). Their placeholder slots were removed from the page in the editorial pass.
 - The wordmark is a stand-in set in Gloock. Swap in the café's own logo only if they want it.
 - The keystone face drawing should be reviewed with the client once they know what the face is.
 
@@ -238,3 +238,17 @@ The client felt the signature came before being useful. The walk stays as the he
 **Still worth knowing**
 - While the walk is pinned, the strip sits over the vault floor. This is deliberate (the essentials stay visible during the signature), but the near floor is hidden for that screen.
 - Parking and step-free access score only because the standard accepts "to confirm" placeholders. Both need answers from the client (client question 10).
+
+## Pitch notes (not for the site)
+
+Editorial pass, 26 Oct 2026. The client asked that every word on the page reads as the café talking to customers, not as the designer explaining the design. These lines and elements were cut from the pages; the rationale stays here for the pitch.
+
+- **Reduced-motion still caption:** "Inside the arch: drawn from scratch, not to scale." The vault drawing is an interpretation (see Known limitations); that is a pitch point, not a customer one.
+- **Hero illustration label (screen readers):** "As you scroll, the view passes under the face and down the whitewashed vault to the far door…" explained the interaction. The label now describes the picture only.
+- **Two photo placeholders** ("Photograph to commission: the garden from the far door on a weekday morning… No faces." and "…the vault at opening time, looking towards the far door…"). The briefs are in the Photography shot list (shots 1 and 2); the slots return when the photographs exist.
+- **The keystone face:** "Who carved it, and when, isn't known yet. (to confirm)". What the face is stays a question for the client (copy deck, client question 3) and an HTML comment beside the text. "Tide Tables sits in a converted arch beneath Richmond Bridge" was cut from the same block because the Visit block already says it.
+- **Duplicates removed:** "You'll find people out there all year round" (Good to know, kept as the garden heading); "Watch out though, we get very crowded on sunny days" (garden, kept in Good to know); "Nights and dates to be confirmed" after the Jam Jar's "to confirm" marker.
+- **Menu page:** "Inside the vault, the long counter has its chalkboards. Here is how those boards might read online." The footer link "Through the arch" (the signature's name) is now "Home".
+- **Quotation marks** around Hollyhock's description were dropped: on the café's own site, the café doesn't quote itself.
+- **Kept:** the sample-menu banner, every "to confirm" marker, the walk captions, the Hollyhock route, and the footer's existing honesty line (nothing new added).
+- **Page length at 390×844:** index 10.1 → 9.1 screens; menu 4.5 → 4.4.

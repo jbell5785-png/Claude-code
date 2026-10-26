@@ -231,3 +231,20 @@ The client felt the signature came before being useful. The plate is still the h
 **Still worth knowing**
 - On phones the plate is cropped tighter and loses its caption, so the planes are only partly in frame.
 - Parking and step-free access score only because the standard accepts "to confirm" placeholders. Both need answers from the client.
+
+## Pitch notes (not for the site)
+
+Editorial pass, 26 Oct 2026. The client asked that every word on the page reads as the café talking to customers, not as the designer explaining the design. These lines and elements were cut from the pages; the rationale stays here for the pitch.
+
+- **"Of the bridge overhead" is no longer a keyed diagram.** The second view of the plate, its caption ("Elevation, keyed to the facts. Choose a dotted phrase to find it on the drawing." / "After the listing description"), the five toggle phrases (`role="button"`, `aria-pressed`), the note "The date the listing gives for the bridge", the Sources list (Historic England list entry 1180951; Richmond Riverside Conservation Area Appraisal 2023; the parapet as seen from the garden) and the bicentenary (7 May 1977) are gone. What remains is the H2, the big 1777 and one sentence built only from copy deck §7: 1777, Paine and Couse, Grade I, five Portland-stone arches rising to the widest and tallest at the centre, widened 1937. The keyed-facts CSS and JS were removed with it. Section 3's "Second moment" describes the old version and is kept as a record.
+- **Not-to-measure notes:** the plate caption "Drawn anew; not to measure" and the footer line "The elevation of Richmond Bridge is an original drawing made for this proposal from the listing description, not to measure." The drawing's proportions are discussed under § 2 and Known limitations.
+- **Hero note:** "Five arches, rising to the centre: the centre arch takes you home. The café itself is in the converted arches beneath the bridge, on the Richmond bank." It explained the navigation; the arches carry literal labels, so no instruction is needed. Nothing on the page now claims the café is in a river arch.
+- **Arch numbering in the kickers** ("The fifth arch · visit", "The centre arch · the café", "The fourth arch · the garden", "The second arch · our sister café") is now just Visit, The café, The garden, Our sister café. The small five-arch locators stay as decoration.
+- **Two photo placeholders** (the glazed arch from the towpath at opening time; the gravel garden under the planes, late morning). See § 7 for the shot list.
+- **Hollyhock:** "The route is from a 2017 description of the walk. No distance or time is given until it has been walked and measured." The "to confirm" marker now sits on the last step of the route, with the reason in an HTML comment. The Hollyhock "Parties" line duplicated the party panel and was cut.
+- **Garden vignette:** "Detail: the planes beside the stone…" is now "The plane trees beside the bridge, on the Richmond bank." The garden quote is set without quotation marks (the café doesn't quote itself).
+- **Duplicates removed:** the Thames Path sentence in the café section (kept under "From the towpath"); "You'll find people out there all year round" in Good to know (kept in the garden); "Watch out… crowded on sunny days" in the garden (kept in Good to know).
+- **Menu page:** "Dishes as listed on tidetablescafe.com. 'Coffee', 'Tea' and 'Organic Wines & Beers' are headings from the café's own chalkboard; 'From the counter' and 'Juices & smoothies' are layout headings added for this sample." and the footer's repeat of the sample notice (the banner at the top already says it).
+- **Screen-reader labels:** the plate is now titled "Richmond Bridge" and described as "A drawing of Richmond Bridge" (was "an engraved elevation", "An original copperplate-style drawing").
+- **Kept:** the sample-menu banner, every "to confirm" marker, the arch navigation, the inking interaction and the footer's existing honesty line (nothing new added).
+- **Page length at 390×844:** index 9.5 → 7.0 screens; menu 3.9 → 3.8.
