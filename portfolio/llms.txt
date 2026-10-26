@@ -1,0 +1,37 @@
+# Joseph Bell
+
+> Joseph Bell is a web designer in Richmond, south-west London. He designs bespoke, illustration-led websites for independent restaurants, cafés and tearooms, each one drawn from something only that place has: the building, the room, an object or a ritual. He trades under his own name and works with places in Richmond, Kew, Twickenham, St Margarets and nearby.
+
+## Contact
+- Email: jbell5785@gmail.com
+- Phone: 07931 373488 (+44 7931 373488)
+- Based in: Richmond, London
+- Area served: Richmond, Kew, Twickenham, St Margarets and nearby
+- Prices: not published. Every service is quoted individually ("Ask for a quote").
+
+## Services
+- A bespoke restaurant website: designed around what only the place has, with original illustration instead of stock photos, the menu as real text (not a PDF or a photo), an honest hand-off to the booking system, phone or email the business already uses, and structured data built in.
+- "Get found" setup: Google Business Profile, listings and structured data set up so they agree with each other and with the website. The business stays the owner of its Google profile. No fake reviews and no keyword stuffing.
+- AI visibility check: what Google's AI and ChatGPT tell customers about the business, checked against what it publishes, with screenshots and a short list of what to fix.
+- Monthly AI check: the same questions asked again every month, with a one-page note on what changed.
+
+## How he works
+- Every concept starts from something only that place has.
+- The swap test: if a design would still work with another restaurant's name on it, it fails.
+- Original illustration instead of stock photos.
+- Menus as real text, so customers and search engines can read them.
+- Booking hands over to the business's existing system; the site never pretends a table is booked.
+
+## Work
+The case studies are unsolicited concepts for real local businesses, shown unnamed until their owners agree:
+- A neighbourhood Italian restaurant: a line of shirts across the dining room becomes the site's navigation.
+- A family-run Japanese restaurant: the printed menu card comes online and a small torch sears the names of the dishes the menu calls seared.
+- A historic tearoom and bakery: the painted wall sign keeps London time and lights the line being served now.
+- A riverside café under a bridge arch: you enter under the keystone and scroll down the vault to the river.
+
+## The blind test (with caveats)
+For three of these places, AI search tools were asked the same ten customer questions with the business's current web pages and then with the redesign in their place. Every answer was checked against the business's own published facts without knowing which version it came from. Answers right out of 20: 17 to 20, 16 to 20 and 10 to 18. It is a small, simulated test of accuracy, not of ranking. Nobody can guarantee rankings.
+
+## Pages
+- [Home: work, method, services and contact](index.html)
+- [The AI visibility check, with the full caveats](ai-check.html)
