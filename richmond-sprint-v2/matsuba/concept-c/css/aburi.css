@@ -755,3 +755,34 @@ html[data-day="6"] .hours [data-days~="6"] > * { color: var(--burgundy); }
 .js .filter { visibility: visible; }
 .foot__hours { margin: 1rem auto 0; max-width: 46ch; font-size: var(--step--1); line-height: 1.7; }
 .foot__hours a { color: inherit; }
+.foot__since { margin-top: 0.4rem; font-size: var(--step--1); letter-spacing: 0.08em; }
+@media (max-width: 40em) {
+  .hero__since { display: none; }
+  .hero__facts { letter-spacing: 0.16em; }
+  .hero__actions { flex-wrap: nowrap; width: min(100%, 22rem); }
+  .hero__actions .btn { flex: 1 1 0; }
+}
+/* the visit block: compact on phones, two columns from tablet */
+.find .hours div[data-days] { grid-template-columns: auto; }
+@media (max-width: 39.99em) {
+  .find { gap: 1.1rem; }
+  .hours { gap: 0.3rem; }
+  .find .hours div[data-days] { grid-template-columns: 8.4rem auto; column-gap: 0.9rem; text-align: left; align-items: baseline; }
+  .find .hours div[data-days] dt { text-align: right; white-space: nowrap; }
+  .find .hours div[data-days] dt .tbc { display: block; width: max-content; margin: 0.15rem 0 0 auto; }
+  .hero { min-height: 0; padding-bottom: 2.6rem; }
+  .aburi__grid { margin-top: 1.4rem; }
+  .window#find { padding-top: 1.7rem; }
+  .find { margin-top: 1rem; }
+  .aburi { padding-top: 2rem; }
+  .find__links { gap: 0 1.2rem; }
+}
+.window--art { padding: clamp(2.5rem, 8vw, 6rem) 0; border-top: 0; }
+.window--art .window__art { max-width: 46rem; margin-inline: auto; }
+.nw { white-space: nowrap; }
+/* menu page: the key and allergen statement sit at the top, under the title */
+.mkey { margin: 1.2rem auto 0; padding: 0.9rem 0 0.2rem; max-width: 40rem; border-top: 1px solid var(--gold-tint); display: grid; gap: 0.6rem; font-size: var(--step--1); color: var(--brown); }
+.mkey .key { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 1.4rem; color: var(--taupe); }
+.mkey .key .mk { font-style: normal; margin-right: 0.3em; }
+.mkey a { color: var(--burgundy); }
+.totop { margin-top: 1.6rem; text-align: center; }

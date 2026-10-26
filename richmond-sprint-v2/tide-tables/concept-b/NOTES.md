@@ -72,14 +72,14 @@ Source IDs refer to `research/dossier.md` § 8. Photo references were studied, n
   - The current page's arch rests inked: the centre arch on home, the menu arch on the menu page. When you explore another arch, the current one steps back to half strength.
 - **Phones: the bridge bar.** A fixed bottom bar with a condensed five-arch bridge.
   - It keeps the same span ratios, with flatter heights and heavier lines for small sizes.
-  - The link widths match each span plus half-piers, from 62 to 86 px at 390.
-  - The current arch is inked solid, and tapping inks the others.
+  - Since the Useful-first pass, it carries three literal actions laid over the drawing: Find us over arches 1–2, Call under the centre arch, and Menu sample over arches 4–5. That is about 135, 85 and 135 px at 390. Tapping inks the arches under the link.
+  - On phones, the five-arch navigation now sits under the plate as a lettered key with literal labels (see the Useful-first pass below).
 - **Intro (once per session; skipped for reduced motion and without JS).**
   - The plate is "engraved" first: parapet, cornice, arch rings from the centre outward, piers.
   - It is then "inked": the tone layers open from the centre with a clip-path and opacity.
   - Finally the centre arch inks in.
-  - About 3 s in total. Text and actions are never hidden beyond a 0.25 s fade.
-- **The live river.** Paper-coloured "glints" shimmer in place across the reflections, back and forth over 6.5 s.
+  - About 3 s in total. Text and actions are never hidden: the title no longer fades in.
+- **The live river.** Paper-coloured "glints" shimmer in place across the reflections: two 2.4 s passes (4.8 s), then the river rests.
   - The river flows across the bridge's line, not along it, so in an elevation nothing should drift sideways.
   - The animation pauses off-screen and is off for reduced motion.
 - **Second moment: keyed facts.** The listing quotes are toggle controls (`role="button"`, `aria-pressed`, keyboard Enter/Space). Hover, focus or press washes the matching part of a second view of the plate (`<use href="#plate-art">`) in river grey-blue: arches with a construction line through the crowns, cutwaters, land arches, stone, parapet. The highlight passes through `<use>` via CSS custom properties.
@@ -166,3 +166,68 @@ Whether "serving from" means food and drink; which of the two official sites and
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+## Useful-first pass (26 Oct 2026)
+
+The client felt the signature came before being useful. The plate is still the hero, and the arches are still the navigation, but the essentials now sit beside them. The standard is `pipeline/research/information-hierarchy.md` §(b); the audit is `pipeline/research/useful-first-audit.md`. Facts come only from `research/copy-deck.md`.
+
+**What changed**
+- **Today strip under the plate,** inside the 390×660 safe area. It holds:
+  - "Today, Monday · Open from 7:30am · food and drink from 8am · until dusk", from an inline script before first paint in London time, including the Christmas Day and Boxing Day hours. Without JS it shows the whole week.
+  - "Under Richmond Bridge, on the riverside", linked to Google Maps;
+  - Call (with 020 8948 8285) · Find us · Menu sample.
+  - On desktop it runs as one band under the plate.
+- **To fit the strip on phones:**
+  - the masthead becomes an overlay that appears only once you scroll, and its Find us and Call links move to the strip and the bar;
+  - the plate is cropped a little tighter, to the bridge;
+  - the plate caption is hidden on phones (Paine & Couse and 1777 remain in the facts section).
+- **"Skip to visit info"** is lettered beside the strapline, before the plate.
+- **The arch navigation has literal labels on phones:** a key row under the plate reads Menu sample · Hollyhock walk · Home · Garden · Visit. Literal labels now lead on desktop too, with the voice beneath: "Menu sample / from the board", "Hollyhock walk / our sister café", "Home / the café", "Garden / under the planes", "Visit / hours & find us".
+- **The bridge bar** has three literal actions: Find us · Call · Menu sample. Hollyhock and Garden live in the arch key and the page. The bar's `aria-label` is now "Quick actions".
+- **"What's served"** sits under the strip, linking to the menu sample: vegetarian, vegan and gluten-free options, organic and Fairtrade, licensed with organic wine, beer and cider.
+- **Visit (the copper plate) is second,** straight after the hero (it was at screen 8). It holds:
+  - the full hours by day, plus Christmas Day and Boxing Day, and "For specifics, call 020 8948 8285";
+  - the address with "beneath Richmond Bridge", a map link, and how to find it from the bridge and from the towpath;
+  - parking and step-free access, both "not published, to confirm";
+  - outdoor seating in the garden, "very crowded on sunny days", and parties on 07922 474327;
+  - booking and dogs, both "to confirm"; the email; and boats, "to confirm".
+- **Motion:**
+  - The shimmer now plays two passes (4.8 s) and rests. The intro no longer hides the name.
+  - Nothing animates after 6 s on either page (checked with `document.getAnimations()`).
+  - `scroll-padding-bottom` is set to the bar height plus 8 px.
+- **Menu page:**
+  - The sample banner is kept.
+  - A sticky "On this menu" jump row is added (Food · Coffee · Tea · Juices & smoothies · Wines & beers), with a back-to-top link.
+  - The same arch labels and three-item bar as the home page.
+  - No dietary marks are used, so no legend is needed.
+- **Kept:** fonts, palette, the plate, JSON-LD and `llms.txt`. No visible fact that they encode changed.
+- An inline `js` class is now set in `<head>`, so the phone masthead never flashes.
+
+**Measured** (390 wide; Playwright):
+- The Today strip spans 357–537 px with JS and 357–561 px without JS, with the bar at 584 at 660.
+- "What's served" is at 616 px. Visit starts at 832 px.
+- No focused element was hidden under the bar in a 60-Tab run, on either page.
+- QA (`qa.sh … 8948 v2-tide-b-uf`): no console errors, no failed requests, no bad links, no overflow, and axe clean. CLS: index 0 / 0.039 / 0.001 and menu 0.002 / 0.002 / 0 (390 / 768 / 1440).
+
+**Rubric re-score** (items 8, 10 and 13 n/a; maximum 26)
+
+| # | Item | Before | After | Why |
+|---|---|---|---|---|
+| 1 (G) | Essentials on screen 1 | 1 | 2 | All present at 660 and 844, with JS on or off; Call is in the bar and the strip |
+| 2 (G) | Time to essentials | 2 | 2 | Plain HTML at first paint; the title is no longer faded in |
+| 3 (G) | Parallel, not a gate | 2 | 2 | Strip, bar and skip link |
+| 4 | Signature budget | 1 | 2 | No pin; intro of 3 s or less; shimmer stops after 4.8 s |
+| 5 | Hidden content duplicated | 2 | 2 | Arch destinations are lettered on phones; keyed facts are plain text |
+| 6 (G) | Reduced motion and no JS | 2 | 2 | Static plate, strip with the week |
+| 7 | Hours table | 2 | 2 | Today on screen 1; the full table by day, with seasonal hours, at 832 px |
+| 9 | Find us | 1 | 2 | Screen 1–2: address, map, transport, from the bridge and the towpath; parking and step-free flagged "to confirm" |
+| 11 (G) | HTML menu | 2 | 2 | Unchanged |
+| 12 | Menu navigation | 1 | 2 | Sticky "On this menu" jump row and back-to-top |
+| 14 | Action bar | 1 | 2 | Three literal actions over the bridge drawing; `scroll-padding-bottom` set |
+| 15 | Accessibility of the interaction | 1 | 2 | Arch links and keyed facts work by keyboard; no endless shimmer |
+| 16 | Literal labels | 1 | 2 | "Home" and "Hollyhock walk" replace "Café" and "Hollyhock"; literal first everywhere |
+| | **Total** | **19/26** | **26/26** | |
+
+**Still worth knowing**
+- On phones the plate is cropped tighter and loses its caption, so the planes are only partly in frame.
+- Parking and step-free access score only because the standard accepts "to confirm" placeholders. Both need answers from the client.

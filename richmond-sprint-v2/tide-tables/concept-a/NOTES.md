@@ -21,15 +21,15 @@ Run it with `python3 -m http.server 8521 --directory richmond-sprint-v2/tide-tab
   1. The arch front is the hero. It is drawn in sooty purple-brown brick laid in stretcher bond, with pale mortar and two rings of radiating voussoirs.
   2. Under the keystone face are the steel-framed glazed screen and double doors with D handles, the hanging CAFÉ sign, and festoon bulbs following the curve of the arch.
   3. You approach, and the face's eyes drop to look down at you. The glass doors swing open and you pass under the keystone.
-  4. Inside, the ferns sway in their baskets (CSS, about 6 s, ±2.4°). The festoon bulbs along the two strings light ahead of you down the curve.
+  4. Inside, the ferns stir in their baskets while you walk (CSS, ±2.4°; paused whenever the scroll stops, so nothing loops on its own). The festoon bulbs along the two strings light ahead of you down the curve.
   5. At the end, the far door opens onto gravel, a plane tree, a stone bridge arch and the river.
 - **How it scrolls:**
-  - The section is 330svh tall with a sticky 100svh stage. The page scrolls natively; the script only reads the scroll position, with light easing.
+  - The section is 180svh tall on phones and 250svh on desktop, with a sticky 100svh stage (pinned 0.8 of a screen on phones, 1.5 on desktop; it was 330svh, 2.3 screens, before the Useful-first pass). The page scrolls natively; the script only reads the scroll position, with light easing.
   - There is no scroll-jacking, and the stage never blocks a tap.
   - The camera follows a monotone cubic path through keyframes, so there is no overshoot and no jerk between phases.
   - Rendering pauses when the section is off-screen.
-- **Captions:** four short descriptive lines fade in at stages, and they are real text in the DOM.
-- **Primary actions:** Find us, Call and Menu sample are reachable throughout. They sit in a fixed bottom bar on phones and in the header on desktop. There is no Book button anywhere.
+- **Captions:** four short descriptive lines fade in at stages, near the top of the stage, and they are real text in the DOM.
+- **Primary actions:** Find us, Call and Menu sample are reachable throughout. They sit in the Today strip on the first screen, in a fixed bottom bar on phones and in the header on desktop. There is no Book button anywhere.
 - **Reduced motion:**
   - No sticky stage, no scrubbing, no sway.
   - The hero renders the arch front once, then a composed still of the vault (`img/vault-still.svg`, every bulb lit) sits beside the four captions as a list.
@@ -179,3 +179,62 @@ Run it with `python3 -m http.server 8521 --directory richmond-sprint-v2/tide-tab
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+## Useful-first pass (26 Oct 2026)
+
+The client felt the signature came before being useful. The walk stays as the hero, but now it sits beside the essentials instead of in front of them. The standard is `pipeline/research/information-hierarchy.md` §(b); the audit is `pipeline/research/useful-first-audit.md`. Facts come only from `research/copy-deck.md`.
+
+**What changed**
+- **Today strip on the first screen.** A plain-HTML panel laid over the floor of the arch (standard §C15: "backdrop with the essentials laid over it as static text"). It holds:
+  - "Today, Monday · Open from 7:30am · food and drink from 8am · until dusk";
+  - "Under Richmond Bridge, on the riverside", linked to Google Maps;
+  - Call 020 8948 8285 · Find us · Menu sample;
+  - "Skip to visit info".
+  - An inline script before first paint picks today's line in London time, including the published Christmas Day and Boxing Day hours. Without JS, the strip shows the whole week in one line.
+  - The strip never fades or moves during the walk; only the wordmark fades. At 390×660 it ends at 585 px, above the bar at 596 px.
+- **Visit block second,** straight after the walk (it replaces the old Find us section, which was on screen 7). It holds:
+  - a "What's served" line, linking to the menu sample: vegetarian, vegan and gluten-free options, organic and Fairtrade, licensed with organic wine, beer and cider;
+  - the full hours by day, plus Christmas Day and Boxing Day, and "For specifics, call 020 8948 8285";
+  - the address with "beneath Richmond Bridge", a map link, and how to find it from the bridge and from the towpath;
+  - parking and step-free access, both "not published, to confirm";
+  - outdoor seating in the garden, "we get very crowded on sunny days", parties on 07922 474327;
+  - booking (no online booking) and dogs, both "to confirm"; and the email.
+- **The walk on phones** is pinned 0.8 of a screen, down from 2.3. On desktop it is 1.5. There is no scroll-jacking. Captions moved to the top of the stage.
+- **Loops:** the ferns stir only while you scroll through the vault. The skip arrow nudges twice (4.8 s) and then rests. Nothing animates on its own after 6 s (checked with `document.getAnimations()`).
+- **Action bar:** unchanged labels (Find us · Call · Menu sample). `scroll-padding-bottom` is now set to the bar height plus 8 px, and `scroll-padding-top` to 66 px.
+- **Menu page:** the sample banner is kept. No dietary marks are used, so no legend is needed.
+- **Kept:** fonts, palette, illustrations, the fallback SVGs, JSON-LD and `llms.txt`. No visible fact that they encode changed.
+
+**Measured** (390 wide, motion; Playwright):
+
+| | 390×660 | 390×844 |
+|---|---|---|
+| Today strip | 405–585 px (bar at 596) | 589–769 px (bar at 780) |
+| Visit block starts | 1,188 px | 1,519 px |
+| "What's served" line | 1,347 px | 1,678 px |
+
+- No focused element was hidden under the bar in a 60-Tab run, on either page.
+- QA (`qa.sh … 8947 v2-tide-a-uf`): no console errors, no failed requests, no bad links, no overflow, and axe clean. CLS: index 0.003 / 0.009 / 0.005 and menu 0 / 0.003 / 0 (390 / 768 / 1440).
+
+**Rubric re-score** (items 8, 10 and 13 n/a; maximum 26)
+
+| # | Item | Before | After | Why |
+|---|---|---|---|---|
+| 1 (G) | Essentials on screen 1 | 2 | 2 | Today, address link, Call with the number, Find us and Menu sample, at 660 and 844 |
+| 2 (G) | Time to essentials | 2 | 2 | Plain HTML at first paint, never faded |
+| 3 (G) | Parallel, not a gate | 2 | 2 | Strip, bar and skip link all reach Visit and the menu without the walk |
+| 4 | Signature budget | 0 | 2 | Pinned 0.8 screen on phones (was 2.3); no automatic loop |
+| 5 | Hidden content duplicated | 2 | 2 | Captions are DOM text, listed with reduced motion and without JS |
+| 6 (G) | Reduced motion and no JS | 2 | 2 | Designed still plus the strip, which shows the week without JS |
+| 7 | Hours table | 2 | 2 | Today on screen 1; the full table by day, with seasonal hours, on screen 2 |
+| 9 | Find us | 1 | 2 | Screen 2: address, map, transport, from the bridge and the towpath; parking and step-free flagged "to confirm" |
+| 11 (G) | HTML menu | 2 | 2 | Unchanged |
+| 12 | Menu navigation | 2 | 2 | Unchanged sticky board picker |
+| 14 | Action bar | 1 | 2 | Three literal items, opaque, `scroll-padding-bottom` set |
+| 15 | Accessibility of the interaction | 1 | 2 | No endless fern or arrow loops; native scroll; skip link |
+| 16 | Literal labels | 2 | 2 | Unchanged |
+| | **Total** | **21/26** | **26/26** | |
+
+**Still worth knowing**
+- While the walk is pinned, the strip sits over the vault floor. This is deliberate (the essentials stay visible during the signature), but the near floor is hidden for that screen.
+- Parking and step-free access score only because the standard accepts "to confirm" placeholders. Both need answers from the client (client question 10).

@@ -11,7 +11,7 @@ Port 8523 · `python3 -m http.server 8523 --directory tide-tables/concept-c`
 - **Source detail:** the tidal Thames at Richmond and the half-tide weir. Its gates are raised for about two hours either side of high water, and the rest of the time it holds the reach at or above half-tide (identity #3; `[S18]` Wikipedia, Richmond Lock; `[S19]` PLA wording in search excerpts). The setting is the Richmond riverside steps with wooden skiffs moored for hire (identity #10; café gallery `[S2]`; client photo 2 `[S24-2]`).
 - **How it works:**
   - **Hero.** The hero is an original SVG of the riverside steps seen from the water: stone flights with a tide mark, the towpath railing, lamp posts, the hire A-board, the terrace wall and planes, and five clinker skiffs on mooring ropes.
-    - The hero scene is sticky for one extra screen while two text beats scroll over it (no scroll-jacking).
+    - The hero scene stays sticky while two text beats scroll over it (no scroll-jacking). Since the Useful-first pass this is 0.6 of a screen on phones, with a shorter hire-board beat; it was 1.0.
     - Three translucent water layers move together with a CSS variable `--tide`. The submerged steps show faintly through them, and the skiffs rise and bob.
     - `js/tide.js` redraws the mooring ropes each frame so they slacken as the boats lift.
   - **Tide model** (`js/tide.js`).
@@ -72,8 +72,8 @@ No cuisine clichés are used. The name "Tide Tables" is never claimed to mean an
 - **Artwork:** all illustration is original SVG, generated deterministically by a script kept outside the repo (scratchpad `build-tide-c/gen/gen.py` and `build.py`). The hero, map and diagram are inlined in `index.html` so CSS variables can drive them, and the garden is `img/garden.svg`. Reference photos were studied for proportion and colour only. Nothing was traced or embedded.
 - **Hero art sizing:** on phones the scene is scaled up (`width: max(100%, 118svh)`) and sits above the action bar. On landscape desktop it is offset down so the wall sits about 60% of the way down, leaving sky for the name (left) and the practical column (top right).
 - **Actions:**
-  - Find us, Call and See the menu sample sit in the first frame at every width: the fixed bottom bar on phones, the sticky header and hero buttons from 768px.
-  - On the menu page the bar offers Find us, Call and Home.
+  - Find us, Call and Menu sample sit in the first frame at every width: the Today strip, the fixed bottom bar on phones, and the sticky header from 768px.
+  - On the menu page the bar offers Find us, Call and Menu sample (current).
   - There is no booking. Parties are by phone.
 - **Accessibility:**
   - Skip link, landmarks and a logical heading order.
@@ -145,3 +145,77 @@ No cuisine clichés are used. The name "Tide Tables" is never claimed to mean an
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+## Useful-first pass (26 Oct 2026)
+
+The client felt the signature came before being useful. The waterline is still the page, but the essentials now sit beside it. The standard is `pipeline/research/information-hierarchy.md` §(b); the audit is `pipeline/research/useful-first-audit.md`. Facts come only from `research/copy-deck.md`.
+
+**What changed**
+- **Today strip on a solid paper panel,** directly under the name, so the drawing never crosses it (at 660 it used to overlap the lamp post). It holds:
+  - "Today, Monday · Open from 7:30am · food and drink from 8am · until dusk", from an inline script before first paint in London time, including the Christmas Day and Boxing Day hours. Without JS it shows the whole week.
+  - "Under Richmond Bridge, on the riverside", linked to Google Maps;
+  - Call (with 020 8948 8285) · Find us · Menu sample;
+  - "Skip to visit info".
+  - The longer lede shows from 768 px up.
+- **Visit block second,** straight after the hero (Find us was at screen 11). It is a land section on gravel. It holds:
+  - the "What's served" line, linking to the menu sample;
+  - the full hours by day, plus Christmas Day and Boxing Day, and "For specifics, call 020 8948 8285";
+  - the address with "beneath Richmond Bridge", a map link, and how to find it from the bridge and from the towpath;
+  - parking and step-free access, both "not published, to confirm";
+  - outdoor seating in the garden, "very crowded on sunny days" (as the black signal strip), and parties on 07922 474327;
+  - booking and dogs, both "to confirm"; the email; and boats, "to confirm".
+  - It carries no `data-phase`, so the tide still runs smoothly from the hire board (high water) into the tidal section.
+- **The hero on phones** is pinned 0.6 of a screen (was 1.0): the hire-board beat is shorter on phones.
+- **"Pause the water":** a visible button in the hero, stacked above the tide chip.
+  - It stills every drift and bob, and the choice is remembered in `localStorage`, wrapped in try/catch.
+  - It is hidden when nothing moves (reduced motion, no JS).
+  - The text layer above the scene now lets taps through, so the button is reachable.
+  - The shores and the bar's little tide drift only while you scroll. The hero water is the only loop that runs on its own, and it has the pause.
+- **Revealed content is also plain text:**
+  - The tidal section now says in words what the scroll does: the water rises to high water, falls, and is held at half-tide or above.
+  - Every walk step's description stays visible; the stepper only highlights the current one.
+  - A one-line route sits above the map, marked "to confirm".
+- **Labels:**
+  - Nav: Hours & find us · Menu sample · Garden · Walk to Hollyhock · About the river.
+  - The menu-page bar is now Find us · Call · Menu sample.
+  - `scroll-padding-bottom` is set to the bar height plus 8 px.
+- **Menu page:**
+  - The sample strip and banner are kept.
+  - An "On this menu" jump row is added (Food · Coffee · Tea · Juices & smoothies · Wines & beers), with back-to-top links.
+  - The banner reserves the extra line Unbounded adds over its fallback on phones, which took CLS from 0.086 to 0.013.
+  - No dietary marks are used, so no legend is needed.
+- **Kept:** fonts, palette, illustrations, the tide model, JSON-LD and `llms.txt`. No visible fact that they encode changed.
+
+**Measured** (390 wide, motion; Playwright):
+
+| | 390×660 | 390×844 |
+|---|---|---|
+| Today strip | 191–394 px | 202–405 px |
+| Visit starts | 1,127 px | 1,362 px |
+| "What's served" | 1,371 px | 1,606 px |
+
+- No focused element was hidden under the bar in a 60-Tab run, on either page.
+- QA (`qa.sh … 8949 v2-tide-c-uf`): no console errors, no failed requests, no bad links, no overflow, and axe clean. CLS: index 0.002 / 0.006 / 0.011 and menu 0.013 / 0.064 / 0 (390 / 768 / 1440). The 768 menu figure comes from the Unbounded fallback metrics that were already there, and it stays under 0.1.
+
+**Rubric re-score** (items 8, 10 and 13 n/a; maximum 26)
+
+| # | Item | Before | After | Why |
+|---|---|---|---|---|
+| 1 (G) | Essentials on screen 1 | 2 | 2 | On a solid panel at 660 and 844 |
+| 2 (G) | Time to essentials | 2 | 2 | Plain HTML at first paint |
+| 3 (G) | Parallel, not a gate | 2 | 2 | Strip, bar and skip link |
+| 4 | Signature budget | 1 | 2 | Pinned 0.6 screen; the water has a visible pause; shores move only with scroll |
+| 5 | Hidden content duplicated | 2 | 2 | The tide is described in words; all walk steps are visible |
+| 6 (G) | Reduced motion and no JS | 2 | 2 | Static mid-tide plus the strip |
+| 7 | Hours table | 2 | 2 | Today on screen 1; the full table by day, with seasonal hours, on screen 2 |
+| 9 | Find us | 1 | 2 | Screen 2 (was 11): address, map, transport, from the bridge and the towpath; parking and step-free flagged "to confirm" |
+| 11 (G) | HTML menu | 2 | 2 | Unchanged |
+| 12 | Menu navigation | 1 | 2 | "On this menu" jump row and back-to-top |
+| 14 | Action bar | 1 | 2 | Three literal items; `scroll-padding-bottom` set |
+| 15 | Accessibility of the interaction | 1 | 2 | Pause control; keyboard stepper |
+| 16 | Literal labels | 1 | 2 | "The walk" and "The river" are now "Walk to Hollyhock" and "About the river" |
+| | **Total** | **20/26** | **26/26** | |
+
+**Still worth knowing**
+- The hero water still drifts by default (with the pause). If the client prefers, it could settle after one pass instead.
+- Parking and step-free access score only because the standard accepts "to confirm" placeholders. Both need answers from the client.

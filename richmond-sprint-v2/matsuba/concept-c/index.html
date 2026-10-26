@@ -187,7 +187,7 @@
     <p class="hero__price"><span class="hero__pound">£</span>14.9</p>
     <ul class="hero__facts">
       <li>Family-run Japanese restaurant</li>
-      <li>First opened in 2004</li>
+      <li class="hero__since">First opened in 2004</li>
     </ul>
     <div class="today">
       <p class="today__status" data-today>Mon&nbsp;<!-- [TO CONFIRM] Monday opening --><span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span>&ndash;Fri 12&ndash;3pm&nbsp;<!-- [TO CONFIRM] lunch end time --><span class="tbc" title="Lunch end time: published as 3pm, 2:45pm and 2:30pm; to be confirmed">to confirm</span>, 5&ndash;10pm &middot; Sat 12&ndash;10pm &middot; Sun&nbsp;closed</p>
@@ -250,23 +250,23 @@ document.documentElement.setAttribute('data-day',n.d);
 
   <!-- ============ VISIT: second on the page. Hours, the window, booking, collection ============ -->
   <section class="window" id="find" aria-labelledby="find-h">
-    <div class="wrap window__grid">
+    <div class="wrap">
       <div class="window__text">
         <h2 class="head will-draw" id="find-h"><span>Visit</span></h2>
         <div class="find">
           <div>
             <h3 class="subhead"><span aria-hidden="true">• </span>Opening hours<span aria-hidden="true"> •</span></h3>
             <dl class="hours">
-              <div data-days="1"><dt>Monday <!-- [TO CONFIRM] Monday: own Lunch & Early Evening card says Tuesday – Friday; OpenTable, Harden's, Square Meal and Tripadvisor list Monday closed --><span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span></dt><dd>12pm – 3pm / 5pm – 10pm</dd></div>
-              <div data-days="2 3 4 5"><dt>Tuesday – Friday</dt><dd>12pm – 3pm <!-- [TO CONFIRM] lunch end: 3pm (footer), 2:45pm (Lunch Menu tab), 2:30pm (Lunch & Early Evening card) --><span class="tbc" title="Lunch end time: to be confirmed with the restaurant">to confirm</span> / 5pm – 10pm</dd></div>
-              <div data-days="6"><dt>Saturday</dt><dd>12pm – 10pm</dd></div>
+              <div data-days="1"><dt>Monday <!-- [TO CONFIRM] Monday: own Lunch & Early Evening card says Tuesday – Friday; OpenTable, Harden's, Square Meal and Tripadvisor list Monday closed --><span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span></dt><dd><span class="nw">12pm–3pm,</span> <span class="nw">5pm–10pm</span></dd></div>
+              <div data-days="2 3 4 5"><dt>Tuesday – Friday</dt><dd><span class="nw">12pm–3pm <!-- [TO CONFIRM] lunch end: 3pm (footer), 2:45pm (Lunch Menu tab), 2:30pm (Lunch & Early Evening card) --><span class="tbc" title="Lunch end time: to be confirmed with the restaurant">to confirm</span>,</span> <span class="nw">5pm–10pm</span></dd></div>
+              <div data-days="6"><dt>Saturday</dt><dd>12pm–10pm</dd></div>
               <div data-days="0"><dt>Sunday</dt><dd>Closed</dd></div>
             </dl>
           </div>
           <div>
             <h3 class="subhead"><span aria-hidden="true">• </span>Find us<span aria-hidden="true"> •</span></h3>
             <address class="find__addr">10 Red Lion St, Richmond TW9 1RW</address>
-            <p class="find__links"><a class="link-ember" href="https://www.google.com/maps/search/?api=1&amp;query=Matsuba%2C%2010%20Red%20Lion%20St%2C%20Richmond%20TW9%201RW" target="_blank" rel="noopener">Open in Google Maps<span class="vh"> (opens in a new tab)</span></a> <a class="link-ember" href="tel:+442086053513">020 8605 3513</a></p>
+            <p class="find__links"><a class="link-ember" href="https://www.google.com/maps/search/?api=1&amp;query=Matsuba%2C%2010%20Red%20Lion%20St%2C%20Richmond%20TW9%201RW" target="_blank" rel="noopener">Google Maps<span class="vh"> (opens in a new tab)</span></a> <a class="link-ember" href="tel:+442086053513">020 8605 3513</a></p>
             <p class="find__p">In the heart of Richmond. Nearest station, parking and step-free access: <!-- [TO CONFIRM] station and walking time, parking, step-free access: not published --><span class="tbc" title="Not published; to be confirmed with the restaurant">to confirm</span></p>
           </div>
           <div>
@@ -280,179 +280,7 @@ document.documentElement.setAttribute('data-day',n.d);
         </div>
       </div>
 
-      <figure class="window__art rise">
-        <svg viewBox="0 0 720 540" role="img" aria-labelledby="window-t">
-          <title id="window-t">Drawing: Matsuba's slate-painted window on Red Lion Street, with phalaenopsis orchids in white pots along the sill and the lit menu case on the pier between the windows.</title>
-          <defs>
-            <linearGradient id="g-inside" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#3D2B1F"/>
-              <stop offset=".6" stop-color="#2A1D14"/>
-              <stop offset="1" stop-color="#1D140E"/>
-            </linearGradient>
-            <radialGradient id="g-lamp" cx=".5" cy=".5" r=".5">
-              <stop offset="0" stop-color="#FFD28C" stop-opacity=".55"/>
-              <stop offset="1" stop-color="#FFD28C" stop-opacity="0"/>
-            </radialGradient>
-            <linearGradient id="g-sheen" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
-              <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".07"/>
-              <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
-            </linearGradient>
-            <linearGradient id="g-pot" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#B9B2A8"/>
-              <stop offset=".32" stop-color="#FFFFFF"/>
-              <stop offset=".62" stop-color="#EEEAE3"/>
-              <stop offset="1" stop-color="#A9A196"/>
-            </linearGradient>
-            <linearGradient id="g-leaf" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#5C8048"/>
-              <stop offset="1" stop-color="#2A4626"/>
-            </linearGradient>
-            <linearGradient id="g-steel" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#7E868C"/>
-              <stop offset=".4" stop-color="#DCE1E4"/>
-              <stop offset=".7" stop-color="#A1A9AF"/>
-              <stop offset="1" stop-color="#666E74"/>
-            </linearGradient>
-            <radialGradient id="g-caseglow" cx=".5" cy=".5" r=".5">
-              <stop offset="0" stop-color="#FFF6DE" stop-opacity=".6"/>
-              <stop offset="1" stop-color="#FFF6DE" stop-opacity="0"/>
-            </radialGradient>
-            <pattern id="p-brick" width="48" height="24" patternUnits="userSpaceOnUse">
-              <rect width="48" height="24" fill="#263440"/>
-              <path d="M0 .5H48M0 12.5H48M24 0V12M0 12V24M48 12V24" stroke="#1D2933" stroke-width="1.2"/>
-              <path d="M0 1.6H48M0 13.6H48" stroke="#33444F" stroke-width=".6"/>
-            </pattern>
-            <!-- one phalaenopsis flower, coloured per plant -->
-            <symbol id="orchid" viewBox="-24 -24 48 48" overflow="visible">
-              <ellipse cx="0" cy="-11" rx="6.2" ry="11" fill="var(--sepal, #C766B4)"/>
-              <ellipse cx="-7.5" cy="9.5" rx="5" ry="10" transform="rotate(38 -7.5 9.5)" fill="var(--sepal, #C766B4)"/>
-              <ellipse cx="7.5" cy="9.5" rx="5" ry="10" transform="rotate(-38 7.5 9.5)" fill="var(--sepal, #C766B4)"/>
-              <ellipse cx="-11" cy="-1" rx="11.5" ry="10" fill="var(--petal, #B4479F)"/>
-              <ellipse cx="11" cy="-1" rx="11.5" ry="10" fill="var(--petal, #B4479F)"/>
-              <path d="M-16 -2C-11 -1-6 0-2 1M16 -2C11 -1 6 0 2 1M-14 4C-9 3-5 2-2 2M14 4C9 3 5 2 2 2" stroke="var(--vein, #7E1F6E)" stroke-width=".7" fill="none" opacity=".45"/>
-              <path d="M-4.5 3.5C-7 9-3 14.5 0 15.5 3 14.5 7 9 4.5 3.5 2 5-2 5-4.5 3.5Z" fill="var(--lip, #7E1F6E)"/>
-              <circle cx="0" cy="4.2" r="1.6" fill="#F2C94C"/>
-              <ellipse cx="0" cy=".6" rx="2.2" ry="2.8" fill="#FFF6E6"/>
-            </symbol>
-            <symbol id="bud" viewBox="-8 -8 16 16" overflow="visible">
-              <ellipse cx="0" cy="0" rx="4.2" ry="5.2" fill="var(--sepal, #C766B4)"/>
-              <path d="M0 -5C1 -2 1 2 0 5" stroke="var(--vein, #7E1F6E)" stroke-width=".6" fill="none" opacity=".5"/>
-            </symbol>
-          </defs>
 
-          <!-- the room, seen through the glass -->
-          <rect y="20" width="720" height="412" fill="url(#g-inside)"/>
-          <circle cx="170" cy="110" r="110" fill="url(#g-lamp)"/>
-          <circle cx="590" cy="96" r="100" fill="url(#g-lamp)"/>
-          <path d="M22 352H700" stroke="#46331F" stroke-width="1.4" opacity=".7"/>
-          <path d="M60 300H210M300 300H420" stroke="#F4F2EE" stroke-width="3" opacity=".12"/>
-
-          <!-- orchids: three magenta, one yellow-green, as along the real sills -->
-          <g style="--petal:#B4479F;--sepal:#C766B4;--lip:#7E1F6E;--vein:#7E1F6E">
-            <path d="M110 396C113 330 100 270 122 214 136 182 160 170 184 182" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-            <path d="M107 400V226" stroke="#9A8560" stroke-width="1.4"/>
-            <use href="#orchid" x="98" y="196" width="48" height="48" transform="rotate(-8 122 220)"/>
-            <use href="#orchid" x="118" y="170" width="44" height="44"/>
-            <use href="#orchid" x="142" y="160" width="40" height="40" transform="rotate(10 162 180)"/>
-            <use href="#bud" x="168" y="170" width="16" height="16"/>
-            <use href="#bud" x="180" y="180" width="12" height="12"/>
-            <use href="#orchid" x="92" y="236" width="44" height="44" transform="rotate(-14 114 258)"/>
-          </g>
-          <g style="--petal:#C25AAE;--sepal:#D27CC1;--lip:#86206F;--vein:#86206F">
-            <path d="M334 396C330 340 344 290 330 240 322 210 300 196 276 204" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-            <path d="M338 400V250" stroke="#9A8560" stroke-width="1.4"/>
-            <use href="#orchid" x="306" y="218" width="46" height="46" transform="rotate(6 329 241)"/>
-            <use href="#orchid" x="284" y="190" width="42" height="42"/>
-            <use href="#orchid" x="262" y="186" width="38" height="38" transform="rotate(-10 281 205)"/>
-            <use href="#bud" x="256" y="200" width="14" height="14"/>
-            <use href="#orchid" x="312" y="262" width="42" height="42" transform="rotate(12 333 283)"/>
-          </g>
-          <g style="--petal:#A9408F;--sepal:#BC5FA9;--lip:#6E1A5E;--vein:#6E1A5E">
-            <path d="M590 396C594 334 584 282 604 232 614 206 636 196 656 204" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-            <path d="M587 400V244" stroke="#9A8560" stroke-width="1.4"/>
-            <use href="#orchid" x="580" y="214" width="46" height="46" transform="rotate(-6 603 237)"/>
-            <use href="#orchid" x="602" y="190" width="42" height="42"/>
-            <use href="#orchid" x="626" y="186" width="36" height="36" transform="rotate(12 644 204)"/>
-            <use href="#bud" x="650" y="198" width="13" height="13"/>
-            <use href="#orchid" x="572" y="258" width="40" height="40" transform="rotate(-12 592 278)"/>
-          </g>
-          <g style="--petal:#C9CF6A;--sepal:#D6DA84;--lip:#8A5A2A;--vein:#7D7A2C">
-            <path d="M676 398C678 360 670 320 682 286" stroke="#5E6B3C" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <use href="#orchid" x="664" y="268" width="36" height="36"/>
-            <use href="#orchid" x="660" y="296" width="32" height="32" transform="rotate(-10 676 312)"/>
-            <use href="#bud" x="680" y="258" width="11" height="11"/>
-          </g>
-
-          <!-- leaves and white pots on the sill -->
-          <g>
-            <path d="M110 398C84 384 64 386 52 400 74 396 92 398 110 402ZM110 398C136 382 156 384 170 396 148 394 130 398 110 402ZM110 400C98 386 88 376 70 372 84 384 96 394 110 404Z" fill="url(#g-leaf)"/>
-            <path d="M334 398C308 386 290 388 278 400 300 396 316 398 334 402ZM334 398C360 384 380 388 392 398 370 396 352 398 334 402Z" fill="url(#g-leaf)"/>
-            <path d="M590 398C564 386 546 388 534 400 556 396 572 398 590 402ZM590 398C616 384 636 388 648 398 626 396 608 398 590 402ZM590 400C604 386 616 378 632 376 618 388 604 396 590 404Z" fill="url(#g-leaf)"/>
-            <path d="M676 400C660 390 648 392 640 400 654 398 664 400 676 404ZM676 400C690 390 698 392 702 398 692 398 684 400 676 404Z" fill="url(#g-leaf)"/>
-            <g fill="url(#g-pot)">
-              <path d="M90 398H130L128 430H92Z"/><path d="M314 398H354L352 430H316Z"/><path d="M570 398H610L608 430H572Z"/><path d="M660 400H692L690 430H662Z"/>
-            </g>
-            <g fill="#ECE7DF">
-              <ellipse cx="110" cy="398" rx="20" ry="3.6"/><ellipse cx="334" cy="398" rx="20" ry="3.6"/><ellipse cx="590" cy="398" rx="20" ry="3.6"/><ellipse cx="676" cy="400" rx="16" ry="3"/>
-            </g>
-          </g>
-
-          <rect y="20" width="720" height="412" fill="url(#g-sheen)"/>
-          <path d="M40 420 230 40M270 420 300 360" stroke="#FFFFFF" stroke-width="16" opacity=".03"/>
-
-          <!-- slate frame: transom, stiles, mullions, the pier -->
-          <g fill="#263440">
-            <rect width="720" height="22"/>
-            <rect y="0" width="22" height="452"/>
-            <rect x="234" y="0" width="14" height="452"/>
-            <rect x="420" y="0" width="114" height="452"/>
-            <rect x="646" y="0" width="12" height="452"/>
-            <rect x="702" y="0" width="18" height="452"/>
-          </g>
-          <g stroke="#1C2731" stroke-width="2">
-            <path d="M22 22V430M234 22V430M248 22V430M420 22V430M534 22V430M646 22V430M658 22V430M702 22V430M22 22H702"/>
-          </g>
-          <path d="M424 24V430" stroke="#33444F" stroke-width="1"/>
-
-          <!-- the lit menu case on the pier -->
-          <g>
-            <ellipse class="case-light" cx="477" cy="226" rx="110" ry="140" fill="url(#g-caseglow)"/>
-            <rect x="441" y="118" width="72" height="210" rx="3" fill="url(#g-steel)"/>
-            <text x="477" y="129" text-anchor="middle" font-size="6.4" letter-spacing="2.8" fill="#4E585F" font-family="Albert Sans, Arial, sans-serif">MATSUBA</text>
-            <rect class="case-light" x="448" y="134" width="58" height="186" fill="#FFF8EA"/>
-            <g class="case-card">
-              <rect x="453" y="139" width="48" height="176" fill="#FFFFFF"/>
-              <rect x="455.5" y="141.5" width="43" height="171" fill="none" stroke="#D1A75B" stroke-width=".8"/>
-              <path d="M464 150H490" stroke="#5B4A42" stroke-width="2"/>
-              <path d="M468 155H486" stroke="#D1A75B" stroke-width="1.2"/>
-              <path d="M466 160H488" stroke="#640934" stroke-width="1.6"/>
-              <g stroke-width="1">
-                <path d="M459 170H468M486 170H495" stroke="#D1A75B"/><path d="M471 170H483" stroke="#640934" stroke-width="1.8"/>
-                <path d="M463 177H491M466 181H488" stroke="#5B4A42" stroke-width="1.1"/>
-                <path d="M462 186H492M467 190H487" stroke="#9B8D84" stroke-width=".8"/>
-                <path d="M459 200H468M486 200H495" stroke="#D1A75B"/><path d="M472 200H482" stroke="#640934" stroke-width="1.8"/>
-                <path d="M469 206H485" stroke="#D1A75B" stroke-width="1.1"/>
-                <path d="M463 213H491M466 217H488M462 224H492M467 228H487M464 235H490" stroke="#5B4A42" stroke-width="1.1"/>
-                <path d="M459 246H468M486 246H495" stroke="#D1A75B"/><path d="M471 246H483" stroke="#5B4A42" stroke-width="1.8"/>
-                <path d="M463 253H491M466 257H488M462 264H492" stroke="#5B4A42" stroke-width="1.1"/>
-                <path d="M459 276H468M486 276H495" stroke="#D1A75B"/><path d="M470 276H484" stroke="#640934" stroke-width="1.8"/>
-                <path d="M463 283H491M466 287H488M464 294H490" stroke="#5B4A42" stroke-width="1.1"/>
-                <path d="M466 304H488" stroke="#3A9A35" stroke-width=".8"/>
-              </g>
-            </g>
-            <circle cx="446" cy="123" r="1.3" fill="#5E676D"/><circle cx="508" cy="123" r="1.3" fill="#5E676D"/>
-            <circle cx="446" cy="323" r="1.3" fill="#5E676D"/><circle cx="508" cy="323" r="1.3" fill="#5E676D"/>
-          </g>
-
-          <!-- sill and the painted-brick plinth below -->
-          <rect y="430" width="720" height="22" fill="#34485A"/>
-          <path d="M0 430.6H720" stroke="#556B7C" stroke-width="1.2"/>
-          <path d="M0 451.5H720" stroke="#1C2731" stroke-width="1.4"/>
-          <rect y="452" width="720" height="88" fill="url(#p-brick)"/>
-        </svg>
-        <figcaption>Orchids along the sills and the lit menu case, 10 Red Lion Street. Drawn for this proposal.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -707,6 +535,185 @@ document.documentElement.setAttribute('data-day',n.d);
     </div>
   </section>
 
+  <!-- ============ THE WINDOW: orchids on the sill, the lit menu case ============ -->
+  <section class="window window--art" aria-label="The window on Red Lion Street">
+    <div class="wrap">
+      <figure class="window__art rise">
+        <svg viewBox="0 0 720 540" role="img" aria-labelledby="window-t">
+          <title id="window-t">Drawing: Matsuba's slate-painted window on Red Lion Street, with phalaenopsis orchids in white pots along the sill and the lit menu case on the pier between the windows.</title>
+          <defs>
+            <linearGradient id="g-inside" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#3D2B1F"/>
+              <stop offset=".6" stop-color="#2A1D14"/>
+              <stop offset="1" stop-color="#1D140E"/>
+            </linearGradient>
+            <radialGradient id="g-lamp" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#FFD28C" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#FFD28C" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="g-sheen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+              <stop offset=".5" stop-color="#FFFFFF" stop-opacity=".07"/>
+              <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="g-pot" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#B9B2A8"/>
+              <stop offset=".32" stop-color="#FFFFFF"/>
+              <stop offset=".62" stop-color="#EEEAE3"/>
+              <stop offset="1" stop-color="#A9A196"/>
+            </linearGradient>
+            <linearGradient id="g-leaf" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5C8048"/>
+              <stop offset="1" stop-color="#2A4626"/>
+            </linearGradient>
+            <linearGradient id="g-steel" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#7E868C"/>
+              <stop offset=".4" stop-color="#DCE1E4"/>
+              <stop offset=".7" stop-color="#A1A9AF"/>
+              <stop offset="1" stop-color="#666E74"/>
+            </linearGradient>
+            <radialGradient id="g-caseglow" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="#FFF6DE" stop-opacity=".6"/>
+              <stop offset="1" stop-color="#FFF6DE" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="p-brick" width="48" height="24" patternUnits="userSpaceOnUse">
+              <rect width="48" height="24" fill="#263440"/>
+              <path d="M0 .5H48M0 12.5H48M24 0V12M0 12V24M48 12V24" stroke="#1D2933" stroke-width="1.2"/>
+              <path d="M0 1.6H48M0 13.6H48" stroke="#33444F" stroke-width=".6"/>
+            </pattern>
+            <!-- one phalaenopsis flower, coloured per plant -->
+            <symbol id="orchid" viewBox="-24 -24 48 48" overflow="visible">
+              <ellipse cx="0" cy="-11" rx="6.2" ry="11" fill="var(--sepal, #C766B4)"/>
+              <ellipse cx="-7.5" cy="9.5" rx="5" ry="10" transform="rotate(38 -7.5 9.5)" fill="var(--sepal, #C766B4)"/>
+              <ellipse cx="7.5" cy="9.5" rx="5" ry="10" transform="rotate(-38 7.5 9.5)" fill="var(--sepal, #C766B4)"/>
+              <ellipse cx="-11" cy="-1" rx="11.5" ry="10" fill="var(--petal, #B4479F)"/>
+              <ellipse cx="11" cy="-1" rx="11.5" ry="10" fill="var(--petal, #B4479F)"/>
+              <path d="M-16 -2C-11 -1-6 0-2 1M16 -2C11 -1 6 0 2 1M-14 4C-9 3-5 2-2 2M14 4C9 3 5 2 2 2" stroke="var(--vein, #7E1F6E)" stroke-width=".7" fill="none" opacity=".45"/>
+              <path d="M-4.5 3.5C-7 9-3 14.5 0 15.5 3 14.5 7 9 4.5 3.5 2 5-2 5-4.5 3.5Z" fill="var(--lip, #7E1F6E)"/>
+              <circle cx="0" cy="4.2" r="1.6" fill="#F2C94C"/>
+              <ellipse cx="0" cy=".6" rx="2.2" ry="2.8" fill="#FFF6E6"/>
+            </symbol>
+            <symbol id="bud" viewBox="-8 -8 16 16" overflow="visible">
+              <ellipse cx="0" cy="0" rx="4.2" ry="5.2" fill="var(--sepal, #C766B4)"/>
+              <path d="M0 -5C1 -2 1 2 0 5" stroke="var(--vein, #7E1F6E)" stroke-width=".6" fill="none" opacity=".5"/>
+            </symbol>
+          </defs>
+
+          <!-- the room, seen through the glass -->
+          <rect y="20" width="720" height="412" fill="url(#g-inside)"/>
+          <circle cx="170" cy="110" r="110" fill="url(#g-lamp)"/>
+          <circle cx="590" cy="96" r="100" fill="url(#g-lamp)"/>
+          <path d="M22 352H700" stroke="#46331F" stroke-width="1.4" opacity=".7"/>
+          <path d="M60 300H210M300 300H420" stroke="#F4F2EE" stroke-width="3" opacity=".12"/>
+
+          <!-- orchids: three magenta, one yellow-green, as along the real sills -->
+          <g style="--petal:#B4479F;--sepal:#C766B4;--lip:#7E1F6E;--vein:#7E1F6E">
+            <path d="M110 396C113 330 100 270 122 214 136 182 160 170 184 182" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M107 400V226" stroke="#9A8560" stroke-width="1.4"/>
+            <use href="#orchid" x="98" y="196" width="48" height="48" transform="rotate(-8 122 220)"/>
+            <use href="#orchid" x="118" y="170" width="44" height="44"/>
+            <use href="#orchid" x="142" y="160" width="40" height="40" transform="rotate(10 162 180)"/>
+            <use href="#bud" x="168" y="170" width="16" height="16"/>
+            <use href="#bud" x="180" y="180" width="12" height="12"/>
+            <use href="#orchid" x="92" y="236" width="44" height="44" transform="rotate(-14 114 258)"/>
+          </g>
+          <g style="--petal:#C25AAE;--sepal:#D27CC1;--lip:#86206F;--vein:#86206F">
+            <path d="M334 396C330 340 344 290 330 240 322 210 300 196 276 204" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M338 400V250" stroke="#9A8560" stroke-width="1.4"/>
+            <use href="#orchid" x="306" y="218" width="46" height="46" transform="rotate(6 329 241)"/>
+            <use href="#orchid" x="284" y="190" width="42" height="42"/>
+            <use href="#orchid" x="262" y="186" width="38" height="38" transform="rotate(-10 281 205)"/>
+            <use href="#bud" x="256" y="200" width="14" height="14"/>
+            <use href="#orchid" x="312" y="262" width="42" height="42" transform="rotate(12 333 283)"/>
+          </g>
+          <g style="--petal:#A9408F;--sepal:#BC5FA9;--lip:#6E1A5E;--vein:#6E1A5E">
+            <path d="M590 396C594 334 584 282 604 232 614 206 636 196 656 204" stroke="#5E6B3C" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M587 400V244" stroke="#9A8560" stroke-width="1.4"/>
+            <use href="#orchid" x="580" y="214" width="46" height="46" transform="rotate(-6 603 237)"/>
+            <use href="#orchid" x="602" y="190" width="42" height="42"/>
+            <use href="#orchid" x="626" y="186" width="36" height="36" transform="rotate(12 644 204)"/>
+            <use href="#bud" x="650" y="198" width="13" height="13"/>
+            <use href="#orchid" x="572" y="258" width="40" height="40" transform="rotate(-12 592 278)"/>
+          </g>
+          <g style="--petal:#C9CF6A;--sepal:#D6DA84;--lip:#8A5A2A;--vein:#7D7A2C">
+            <path d="M676 398C678 360 670 320 682 286" stroke="#5E6B3C" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <use href="#orchid" x="664" y="268" width="36" height="36"/>
+            <use href="#orchid" x="660" y="296" width="32" height="32" transform="rotate(-10 676 312)"/>
+            <use href="#bud" x="680" y="258" width="11" height="11"/>
+          </g>
+
+          <!-- leaves and white pots on the sill -->
+          <g>
+            <path d="M110 398C84 384 64 386 52 400 74 396 92 398 110 402ZM110 398C136 382 156 384 170 396 148 394 130 398 110 402ZM110 400C98 386 88 376 70 372 84 384 96 394 110 404Z" fill="url(#g-leaf)"/>
+            <path d="M334 398C308 386 290 388 278 400 300 396 316 398 334 402ZM334 398C360 384 380 388 392 398 370 396 352 398 334 402Z" fill="url(#g-leaf)"/>
+            <path d="M590 398C564 386 546 388 534 400 556 396 572 398 590 402ZM590 398C616 384 636 388 648 398 626 396 608 398 590 402ZM590 400C604 386 616 378 632 376 618 388 604 396 590 404Z" fill="url(#g-leaf)"/>
+            <path d="M676 400C660 390 648 392 640 400 654 398 664 400 676 404ZM676 400C690 390 698 392 702 398 692 398 684 400 676 404Z" fill="url(#g-leaf)"/>
+            <g fill="url(#g-pot)">
+              <path d="M90 398H130L128 430H92Z"/><path d="M314 398H354L352 430H316Z"/><path d="M570 398H610L608 430H572Z"/><path d="M660 400H692L690 430H662Z"/>
+            </g>
+            <g fill="#ECE7DF">
+              <ellipse cx="110" cy="398" rx="20" ry="3.6"/><ellipse cx="334" cy="398" rx="20" ry="3.6"/><ellipse cx="590" cy="398" rx="20" ry="3.6"/><ellipse cx="676" cy="400" rx="16" ry="3"/>
+            </g>
+          </g>
+
+          <rect y="20" width="720" height="412" fill="url(#g-sheen)"/>
+          <path d="M40 420 230 40M270 420 300 360" stroke="#FFFFFF" stroke-width="16" opacity=".03"/>
+
+          <!-- slate frame: transom, stiles, mullions, the pier -->
+          <g fill="#263440">
+            <rect width="720" height="22"/>
+            <rect y="0" width="22" height="452"/>
+            <rect x="234" y="0" width="14" height="452"/>
+            <rect x="420" y="0" width="114" height="452"/>
+            <rect x="646" y="0" width="12" height="452"/>
+            <rect x="702" y="0" width="18" height="452"/>
+          </g>
+          <g stroke="#1C2731" stroke-width="2">
+            <path d="M22 22V430M234 22V430M248 22V430M420 22V430M534 22V430M646 22V430M658 22V430M702 22V430M22 22H702"/>
+          </g>
+          <path d="M424 24V430" stroke="#33444F" stroke-width="1"/>
+
+          <!-- the lit menu case on the pier -->
+          <g>
+            <ellipse class="case-light" cx="477" cy="226" rx="110" ry="140" fill="url(#g-caseglow)"/>
+            <rect x="441" y="118" width="72" height="210" rx="3" fill="url(#g-steel)"/>
+            <text x="477" y="129" text-anchor="middle" font-size="6.4" letter-spacing="2.8" fill="#4E585F" font-family="Albert Sans, Arial, sans-serif">MATSUBA</text>
+            <rect class="case-light" x="448" y="134" width="58" height="186" fill="#FFF8EA"/>
+            <g class="case-card">
+              <rect x="453" y="139" width="48" height="176" fill="#FFFFFF"/>
+              <rect x="455.5" y="141.5" width="43" height="171" fill="none" stroke="#D1A75B" stroke-width=".8"/>
+              <path d="M464 150H490" stroke="#5B4A42" stroke-width="2"/>
+              <path d="M468 155H486" stroke="#D1A75B" stroke-width="1.2"/>
+              <path d="M466 160H488" stroke="#640934" stroke-width="1.6"/>
+              <g stroke-width="1">
+                <path d="M459 170H468M486 170H495" stroke="#D1A75B"/><path d="M471 170H483" stroke="#640934" stroke-width="1.8"/>
+                <path d="M463 177H491M466 181H488" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M462 186H492M467 190H487" stroke="#9B8D84" stroke-width=".8"/>
+                <path d="M459 200H468M486 200H495" stroke="#D1A75B"/><path d="M472 200H482" stroke="#640934" stroke-width="1.8"/>
+                <path d="M469 206H485" stroke="#D1A75B" stroke-width="1.1"/>
+                <path d="M463 213H491M466 217H488M462 224H492M467 228H487M464 235H490" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M459 246H468M486 246H495" stroke="#D1A75B"/><path d="M471 246H483" stroke="#5B4A42" stroke-width="1.8"/>
+                <path d="M463 253H491M466 257H488M462 264H492" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M459 276H468M486 276H495" stroke="#D1A75B"/><path d="M470 276H484" stroke="#640934" stroke-width="1.8"/>
+                <path d="M463 283H491M466 287H488M464 294H490" stroke="#5B4A42" stroke-width="1.1"/>
+                <path d="M466 304H488" stroke="#3A9A35" stroke-width=".8"/>
+              </g>
+            </g>
+            <circle cx="446" cy="123" r="1.3" fill="#5E676D"/><circle cx="508" cy="123" r="1.3" fill="#5E676D"/>
+            <circle cx="446" cy="323" r="1.3" fill="#5E676D"/><circle cx="508" cy="323" r="1.3" fill="#5E676D"/>
+          </g>
+
+          <!-- sill and the painted-brick plinth below -->
+          <rect y="430" width="720" height="22" fill="#34485A"/>
+          <path d="M0 430.6H720" stroke="#556B7C" stroke-width="1.2"/>
+          <path d="M0 451.5H720" stroke="#1C2731" stroke-width="1.4"/>
+          <rect y="452" width="720" height="88" fill="url(#p-brick)"/>
+        </svg>
+        <figcaption>Orchids along the sills and the lit menu case, 10 Red Lion Street. Drawn for this proposal.</figcaption>
+      </figure>
+    </div>
+  </section>
+
 
 </main>
 
@@ -714,6 +721,7 @@ document.documentElement.setAttribute('data-day',n.d);
   <div class="wrap">
     <p class="wordmark" aria-hidden="true"><span>Matsuba</span></p>
     <p class="foot__line">We look forward to welcoming you to MATSUBA!</p>
+    <p class="foot__since">Family-run. First opened in 2004.</p>
     <p class="foot__hours">10 Red Lion St, Richmond TW9 1RW · <a href="tel:+442086053513">020 8605 3513</a><br>Monday <span class="tbc" title="Monday opening: to be confirmed with the restaurant">to confirm</span> to Friday 12pm–3pm <span class="tbc" title="Lunch end time: to be confirmed with the restaurant">to confirm</span>, 5pm–10pm · Saturday 12pm–10pm · Sunday closed</p>
     <nav class="foot__links" aria-label="Footer">
       <a href="menu.html">Menu</a>
