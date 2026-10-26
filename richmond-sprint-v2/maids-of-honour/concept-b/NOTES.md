@@ -192,3 +192,16 @@ The client felt the site put its signature ahead of being useful. The signature 
 - The tart price in the taster is at 1,734 px; the whole taster is inside screen 3.
 - JSON-LD and `llms.txt` unchanged.
 
+
+## Pitch notes (not for the site)
+Moved here in the editorial pass of 27 October 2026. These lines explained the design to the owner, so they came off the page. Use them in the pitch.
+
+- **The iron box.** The ticket now says only "Turn the key to see what's inside." The tart layer's description ("Round puff pastry, flaky at the edge, its top blistered gold. Served warm on silver, on a paper doily.") was cut. It described our illustration, not the copy deck. Two tags were relabelled: "In the bakery's own words" is now "How it tastes", and "Allergens, as published" is now "Allergens".
+- **Duplicate legend.** The full Henry VIII legend appeared twice, inside the box and again in the "Who has kept the secret" timeline. It now lives only in the box. The box's ticket keeps an ungated one-line version ("under lock and key at Richmond Palace!") with the Legend label. The timeline's "Today" item no longer repeats the "still a secret" line, which closes the box.
+- **The 1907 postcard.** The caption "Our drawing after a postcard on the bakery's history page" became "The Original Shop on Hill Street, on a postcard dated 'September 25th 1907'". The to-confirm marker stays, for permission to show the original scan.
+- **Source discrepancies.** These were on the page in a researcher's voice and are now only behind the to-confirm markers: "Est. 1850, the bakery's own date", "(their own date)", "£22 (menu) or £20 (booking page)", and "not published" walking time and step-free access.
+- **Site mechanics.** "Book opens ResDiary in a new tab; nothing is booked until you confirm there" is now "Book online, or call". The no-JS oven note "The timer needs JavaScript. The instruction is all you need" is now just the instruction.
+- **Finest when warmed.** The "In short" list repeated the oven temperature and time from the quote above it. It now keeps only the two steps the quote doesn't cover.
+- **Photography to commission.** A placeholder was cut from "Also at 288": the counter at 288 Kew Road at opening time, a silver stand of Maids of Honour warm from the oven on a paper doily, natural light, no people. The guest rooms and National Archives cards now sit side by side.
+- **Menu page.** These lines are cut: "Patisserie first" (the oval now reads "288 Kew Road / Tearoom & bakery"), "Transcribed from the tearoom's 2024 printed menus", "Spellings are kept as printed and marked [sic]", "From the boxed text on the High Tea menu. The story is a legend." and "Loose teas: no prices on this sheet". The visible [sic] marks are gone, and the printed typos are corrected as a live menu would correct them: Cappuccino, By-the-Slice, FILTER COFFEE, rounded, the repeated "with added flavours", "bed of salad leaves" and Prosecco. The allergen statement had appeared three times. It is now shown once, under "Before you order"; the closing section keeps only online orders, vegan options and service. "Allergens" moved to the front of the menu index.
+- **Footer.** "All illustrations and lettering are original to this proposal" is cut. The speculative-design notice itself is unchanged.

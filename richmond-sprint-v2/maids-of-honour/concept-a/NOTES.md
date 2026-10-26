@@ -282,3 +282,16 @@ The client felt the site put its signature ahead of being useful. The signature 
 - No station or bus is in the copy deck, so getting there gives Kew Gardens, parking and the to-confirm walk instead.
 - Fonts, palette, drawings, JSON-LD and `llms.txt` are unchanged (no visible fact changed).
 
+
+## Pitch notes (not for the site)
+Moved here in the editorial pass of 27 October 2026. These lines explained the design to the owner, so they came off the page. Use them in the pitch.
+
+- **The hero drawing.** "288 Kew Road, drawn for this proposal: the fascia and its TEAS gable, the Newens canopy, the lantern and the iron cresting." The drawing now runs without a caption; the eyebrow below it already says "Shop & Tea Room on 288 Kew Road".
+- **The side-wall sign.** "The board on the side of the shop keeps time: the line served now is gilded … Same times in Visit us." The page now gives only what a visitor needs to use it: "The gilded line is being served now. Tap a line for its menu, or a plate to book." The no-JS note "With JavaScript on, the line being served now is gilded" is gone, and the default clock label reads "Opening times", not "Times as published".
+- **Morning coffee window.** On the page this was "Morning coffee is shown from opening until luncheon begins at 12 noon. That end time is our reading, not a published one." It now reads "Morning coffee 9am to 12 noon", with a to-confirm marker. The 12 noon end is still our inference from the 12:00 luncheon start.
+- **Source discrepancies.** These were written on the page in a researcher's voice and are now only behind the to-confirm markers: the luncheon minimum (the menu says £22, the booking page £20), the founding date (1850, 1860, 1868 or 1887), "not published" walking time and step-free access, and "The tearoom's own sign-off" under "Serving you since 1850".
+- **"Nothing is booked here."** This was on the booking policy line and only made sense on a proposal.
+- **Our story.** The Mock Tudor description ("painted pebbledash, red clay roof tiles, heavy timbering and casement windows") was cut as decor detail. The "Peter Newens" list item was cut because it repeated the paragraph above it.
+- **Photography to commission.** Two placeholder frames were on the page and are now cut. (1) The first tray of Maids of Honour on the counter at 9am, puff edges flaking, tops blistered gold, shot from counter height. (2) The fascia and TEAS gable from across Kew Road in low October sun, gold leaf lit, the canopy and its lantern in shade below. The shot list in §6 still applies.
+- **Menu page.** "set out as the tearoom prints them" and "Printed on the High Tea menu" are cut. The Patisserie List's full allergen statement (a copy of the one at the top of the menus) is now a one-line pointer. The closing "Allergens" block, a second pointer plus the table-preference line, is cut.
+- **"Their" shop.** Links that said "Order from their shop" and "on their site" now say "Order online" and so on.

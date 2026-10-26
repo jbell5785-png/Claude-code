@@ -42,7 +42,7 @@
 
   var SANDWICHES = ['sw-cheddar', 'sw-salmon', 'sw-ham', 'sw-egg', 'sw-cucumber'];
   var SANDWICH_LINE = 'English Cheddar | Oak-Smoked Salmon | Roasted Ham | Free Range Egg Mayonnaise | Cucumber';
-  var COFFEE = { t: 'Tea or Filter Coffee (unlimited refreshes)', d: 'Upgrade your coffee to a Latte | Capuchino | Mocha | Hot chocolate for extra £2', sic: 'Capuchino' };
+  var COFFEE = { t: 'Tea or Filter Coffee (unlimited refreshes)', d: 'Upgrade your coffee to a Latte | Cappuccino | Mocha | Hot chocolate for extra £2', sic: 'Cappuccino' };
   var SCONES_TWO = { t: 'Two Scones served with Clotted Cream (or English Butter) & Preserve', d: 'Plain | Fruit' };
 
   var TEAS = [
@@ -75,7 +75,7 @@
         bottom: [['sw-cheddar', 'sw-salmon', 'sw-ham', 'sw-egg'], ['roll', 'sw-cucumber', 'roll']]
       },
       table: { glass: 0 },
-      note: 'The top plate holds the quiche or pasty: our reading of the menu, to confirm with the tearoom.'
+      note: ''
     },
     {
       id: 'special', name: 'The Special Set Tea', price: '£50', per: 'per person', from: '10:00',

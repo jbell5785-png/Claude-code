@@ -487,6 +487,8 @@ body { padding-bottom: 56px; }
 .slot p { position: relative; font-size: .9rem; color: var(--on-dark-soft); margin: 0; max-width: 19.21em; }
 .slot b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.1rem; color: var(--gold-foil); }
 .also { display: grid; gap: 18px; margin-top: 28px; }
+.also--pair { margin-top: 0; }
+@media (min-width: 700px) { .also--pair { grid-template-columns: 1fr 1fr; gap: 32px; } }
 .also h3 { font-size: 1.35rem; color: var(--gold-foil); }
 .also p { font-size: var(--fs-small); margin-bottom: .4em; }
 
