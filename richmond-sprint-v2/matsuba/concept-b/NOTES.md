@@ -92,3 +92,23 @@ The signature comes directly from detail 1. Details 2, 3 and 4 each appear as de
 6. Top-down: each course's table setting (white top, pebble rest, chopsticks) with one dish, consistent framing across all nine courses. 1:1.
 
 Screenshots from the self-review are in the studio scratchpad (`v2/build-matsuba-b/shots/`), not in the repo.
+
+## Structured data and llms.txt
+
+**Encoded** (facts from `research/copy-deck.md` only):
+- `index.html`: one JSON-LD block (it replaces the earlier block, which also pointed `menu` at the live site's `/matsuba-menu/`). Type `Restaurant`, `servesCuisine` "Japanese", `name`, `description` ("A family-run Japanese restaurant in the heart of Richmond. First opened in 2004.", sentences shown on this page), `foundingDate` 2004 ("First opened in 2004"), `address` (10 Red Lion Street, Richmond, TW9 1RW, GB), `telephone`, `email`, `url` https://matsuba.co.uk/, `sameAs` Instagram (@matsuba.london), `acceptsReservations` = the Favourite Table URL, `potentialAction` ReserveAction (Favourite Table) and OrderAction (Toast, collection), `hasMenu` https://matsuba.co.uk/menu.html.
+- `menu.html`: one `Menu` block (it replaces the earlier `Restaurant` block): 8 sections, 141 items, 141 GBP offers, generated from this page's own DOM. Names, descriptions and spellings are as printed ("Uangi Steak", "Eby Fry"). A dual price such as "12.9/22.9" is two offers with no variant label, because which price goes with which variant is [TO CONFIRM]; "6.9/6.9" is one offer. `suitableForDiet` is set only where a vg/v mark covers the whole dish (not "Katsu Curry (… Pumpkin vg)"). Each kids bento is one priced item. The tasting menu's "£100 per person (minimum 2 persons)" is the section description; its 14 dishes carry no individual price.
+- `llms.txt`: name, one-line description, address, phone, email, Instagram, hours as published with Monday and the lunch end time marked "to confirm", booking (Favourite Table, up to 12 guests online) and collection ordering (Toast, 20% off collection), links to the menu and the takeaway PDF, a preview note matching the page banner.
+- `<meta name="description">`: index 154 characters, menu 155 characters. The menu one no longer advertises the Lunch & Early Evening set.
+
+**Deliberately left out, and why:**
+- `openingHoursSpecification`: Monday opening and the lunch end time (3pm, 2:45pm or 2:30pm) are disputed. A partial schedule would tell search engines the restaurant is closed at times it may be open, so hours appear only in `llms.txt`, flagged.
+- The Lunch & Early Evening set menu (whether it still runs is [TO CONFIRM]); the lunch-menu time "12pm – 2:45pm"; the 2024 vegan and gluten-free PDFs ([TO CONFIRM]); the expired kids promotion; delivery (never mentioned).
+- `geo`: `research/identity.md` has an FSA geocode, but no coordinates are shown on the page.
+- The Food Hygiene Rating, the name's meaning, heritage, people and any review or "best" claims.
+
+**Notes:**
+- **Official-domain assumption.** `url`, `@id` and `hasMenu` assume this concept is deployed at https://matsuba.co.uk/ with the menu at `/menu.html` (the file name this concept uses). If the live site keeps a different menu path, change `hasMenu` and the Menu `url`/`@id`, or add a redirect. `llms.txt` links to the menu relatively (`menu.html`), so it works on the preview and on the domain.
+- **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
+- **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
+- **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.

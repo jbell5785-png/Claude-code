@@ -157,3 +157,24 @@ Run it with `python3 -m http.server 8521 --directory richmond-sprint-v2/tide-tab
 4. The counter chalkboards, straight on, for a future real menu.
 5. An oilcloth table with a coffee and a Popina tart, from above.
 6. The arch front at dusk with the festoons lit, from the towpath.
+
+## Structured data and llms.txt
+
+**Encoded** (facts from `research/copy-deck.md` only):
+- `index.html`: one JSON-LD block (it replaces the earlier one). Type `CafeOrCoffeeShop`, `name`, `description` ("The café is in a converted arch beneath Richmond Bridge. Open during daylight hours. For more specific information, please call +44 (0)20 8948 8285."). This includes the café's approved hours wording, which is visible on this page. Also `servesCuisine` "Vegetarian" ("The food is all vegetarian"), `address` (2 The Arches, Richmond, Surrey, TW9 1TH, GB), `telephone`, `email` and `url` https://tidetablescafe.com/.
+- `menu.html`: a minimal `CafeOrCoffeeShop` identity block (name, url, telephone, all visible there) so the two pages agree. **No `Menu` JSON-LD**: Tide Tables publishes no menu or prices, and this page is a labelled sample layout. Its earlier `CafeOrCoffeeShop` block on `menu.html` included the address, which is also shown there. It now matches the other two concepts (name, url and phone).
+- `llms.txt`: name, the one-line description in the café's words, address, phone, email (with "only monitored periodically"), the approved hours wording ("Open during daylight hours. For more specific information, please call…"), "no online booking, please phone", and a link to the menu page described as a sample layout with no current menu or prices. A preview note matches the page banner.
+- `<meta name="description">`: index 160 characters, menu 146 characters, both in the café's voice.
+
+**Deliberately left out, and why:**
+- `openingHoursSpecification`: only "Open during daylight hours" is published, and day-by-day times are [TO CONFIRM].
+- `hasMenu` and any `Menu`/`MenuItem`/prices: no published menu exists.
+- `acceptsReservations` and `potentialAction`: there is no online booking, and the booking or walk-in policy is [TO CONFIRM].
+- The private-parties number (whether it is current is [TO CONFIRM]), The Jam Jar, boat services, blankets, refills and the plane-tree count ([TO CONFIRM]), and Hollyhock Café (a separate business with a disputed postcode).
+- `sameAs`: the café has no known social accounts. `geo`: no coordinates in the research.
+
+**Notes:**
+- **Official-domain assumption.** `url`, `@id` and `hasMenu` assume this concept is deployed at https://tidetablescafe.com/ with the menu at `/menu.html` (the file name this concept uses). If the live site keeps a different menu path, change `hasMenu` and the Menu `url`/`@id`, or add a redirect. `llms.txt` links to the menu relatively (`menu.html`), so it works on the preview and on the domain.
+- **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
+- **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
+- **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.

@@ -119,3 +119,29 @@ The brief lists `Henry_postcard_large.jpg` as "the 1907 Hill Street postcard". T
 
 ## To confirm with the client
 The 1850 / 1860 / 1868 / 1887 dates; both tart prices; the £20 or £22 luncheon minimum; whether the 2024 menus are current; whether the Thursday breakfast rule is current; separate shop and tearoom hours; permission for archive images; logo files.
+
+## Structured data and llms.txt
+
+**Encoded** (facts from `research/copy-deck.md` only):
+- `index.html`: one JSON-LD block (it replaces the earlier `Restaurant` block). Type `["CafeOrCoffeeShop","Bakery"]`, `name`, `description` ("A Historic Traditional English Tearoom Shop and Bakery. “We make everything ourselves on the premises using traditional methods to our own original recipes.”", shown on this page), `address` (288 Kew Road, Richmond, Surrey, TW9 3DU, GB), `telephone`, `email`, `url` https://theoriginalmaidsofhonour.co.uk/, `openingHoursSpecification` Monday–Sunday 09:00–18:00 (VERIFIED), `acceptsReservations` true, `potentialAction` ReserveAction with the four ResDiary entry points shown on the page (Book a table, Breakfast, Luncheon, Set tea), `hasMenu` https://theoriginalmaidsofhonour.co.uk/menu.html.
+- `menu.html`: one `Menu` block (it replaces the earlier `Restaurant` block): 8 sections, 147 items, 182 GBP offers, generated from this page's own DOM. The Menu `description` carries the page's own caveat ("Transcribed from the tearoom’s 2024 printed menus. Dishes and prices may have changed since."), because the copy deck marks the 2024 prices [TO CONFIRM]. Printed labels become offer names: Hot/Cold, bottle/glass columns, "for 2, two glasses…" on the Champagne and Prosecco teas, and "Chicken or Steak £8". "From £2.50" uses a minimum price. Set teas are one item each, with their contents as the description. "Extra Portions" is its own item, not a price of the Roast.
+- `llms.txt`: name, one-line description, address, phone, email, hours (9am–6pm every day; the shop/tearoom split and holiday hours marked "to be confirmed"), luncheon and set-tea times, the walk-in policy, the four ResDiary links, a link to the menus (prices "may have changed") and the service charge, plus a preview note matching the page banner.
+- `<meta name="description">`: index 146 characters, menu 151 characters.
+
+**Deliberately left out, and why:**
+- `foundingDate` and any "Est. 1850" or "since 1850" claim: 1850, 1860, 1868 and 1887 are disputed.
+- The Henry VIII and Anne Boleyn legend, and anything from the history labelled LEGEND or REPORTED-only.
+- Tart prices (£3.50 in the tearoom; £2.25 and box prices in the shop): copy deck [TO CONFIRM] item 6. The tart is listed by name and description only.
+- The Luncheon minimum charge (£20 or £22, disputed). The Thursday no-cooked-breakfast rule ([TO CONFIRM]).
+- Upgrade and add-on prices ("extra £2", "£15 Extra", "Weekday Special: £15 each", plant milks "£0.50 extra"). They stay in descriptions as printed and are not offers.
+- Unpriced lists such as the loose teas: they are priced per pot elsewhere, so they are not separate offers.
+- `sameAs`: the copy deck lists no social profile URLs. `servesCuisine`: the copy deck states no cuisine. `geo`: no coordinates in the research. The guest rooms and the National Archives café are separate businesses.
+- A single "main" booking URL: which ResDiary link is the main one is [TO CONFIRM], so `acceptsReservations` is `true` and all four links are listed.
+- The page labels the hours "shop and tearoom to confirm". Only the published "every day 9am–6pm" is encoded. Whether the shop and tearoom keep separate hours is not encoded.
+- The tart's name is drawn as SVG lettering with an accessible name ("Maids of Honour Tart"). The validator reads that name as visible text.
+
+**Notes:**
+- **Official-domain assumption.** `url`, `@id` and `hasMenu` assume this concept is deployed at https://theoriginalmaidsofhonour.co.uk/ with the menu at `/menu.html` (the file name this concept uses). If the live site keeps a different menu path, change `hasMenu` and the Menu `url`/`@id`, or add a redirect. `llms.txt` links to the menu relatively (`menu.html`), so it works on the preview and on the domain.
+- **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
+- **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
+- **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
