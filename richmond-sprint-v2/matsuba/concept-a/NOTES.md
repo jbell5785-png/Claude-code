@@ -125,7 +125,7 @@ The slat wall appears in A only as the room's far end (beat 4 and the booking ba
   - the menu is one scrolling page; the course row is a set of sticky jump links (the ARIA tabs were removed in the Useful first pass because they hid 100 of 121 prices)
   - tap targets are 44px or more
   - the action bar is a labelled `<nav>`
-- **Booking:** the form's party size is not sent anywhere. Submitting opens `https://booking.favouritetable.com/?SiteCode=2122` in a new tab (`opener` nulled) and states plainly that nothing is booked until the guest confirms it there. If `window.open` is blocked, a visible link appears instead. Choosing "13 or more" points to the phone, as Matsuba's terms say. The terms are quoted verbatim. Without JS, the form submits as a GET to the same URL in a new tab.
+- **Booking:** the form's party size is not sent anywhere. Submitting opens `https://booking.favouritetable.com/?SiteCode=2122` in a new tab (`opener` nulled) and states plainly that nothing is booked until the guest confirms it there. If `window.open` is blocked, a visible link appears instead. Choosing "13 or more" points to the phone, as Matsuba's terms say. The terms are stated in Visit › Booking. Without JS, the form submits as a GET to the same URL in a new tab.
 - **Checked with Playwright** at 390, 768 and 1440: no console errors, no failed requests, no horizontal overflow on either page. Also checked: reduced-motion and no-JS states, the "Come in" click (lands on the bar card with focus moved there), the booking pop-up (opens Favourite Table's real booking page) and keyboard tabs. Screenshots are in `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/build-matsuba-a/`.
 
 ## Content and honesty
@@ -198,3 +198,34 @@ The slat wall appears in A only as the room's far end (beat 4 and the booking ba
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+## Editorial pass (26 October 2026): the site talks to diners
+
+After client review, every word was reread as a diner deciding where to eat. This section supersedes anything above that describes the cut items. The awning, the walk down the long room, the Useful-first structure, the menu and the "to confirm" markers are unchanged.
+
+**Homepage, cut or rewritten**
+- *From the menu:* the "The lit menu case" eyebrow and the line "The case hangs on the pier between the orchids, so you can read it from the pavement. These five are from it, at Matsuba's published prices." removed; "served on Red Lion Street" dropped from the tasting line.
+- *Step inside:* hint shortened to "From the bar to the far wall. Swipe or tap a stop." (the stop buttons stay; they are the control). The four stop cards are one plain sentence each; "the front one stepping down a slat at a time. This is as far as the room goes, and where you book." is gone. "Skip the walk to booking" became "Skip to booking".
+- *Reservations:* eyebrow "At the far wall" became "Reservations"; the intro is now "Choose how many of you, then pick a date and time with Favourite Table, our booking service." The verbatim booking-terms quotes were removed (Visit › Booking states them; choosing "13 or more" still shows the phone note).
+- *Collect from the corner:* removed; it repeated Visit › Collection. The takeaway PDF link moved into Visit › Collection.
+- *Out on the street / Find the corner:* removed: the conservation-area quotes and source line, the winding-line graphic, and the 1904 F. Viner image slot. Its Instagram link moved to the footer (email and map were already on the page).
+- Visit › Getting there no longer repeats the awnings line from the hero lede. "Opening hours as published" (screen-reader caption) became "Opening hours".
+
+**Menu, cut or rewritten**
+- "The case on the pier, between the orchids, at 10 Red Lion Street." removed.
+- "The dine-in menu as published on matsuba.co.uk (updated 16 August 2026). Prices in pounds. Spellings as published." became "Our dine-in menu, updated 16 August 2026. Prices in pounds."
+- "Transcribed from the restaurant's image menu." (Kids) removed; "Transcribed from the restaurant's set-menu card. to confirm still running" became "Still running? to confirm".
+- Meta, Open Graph and JSON-LD descriptions lost "as published" and "from the lit case in the window".
+
+**Page length at 390px:** homepage 6,346px → 4,407px (7.5 → 5.2 screens); menu 18,690px → 18,535px (22.1 → 22.0 screens). Today strip (406px) and Visit (725px) unchanged in position.
+
+## Pitch notes (not for the site)
+
+Use these when presenting the concept; they no longer appear on the pages.
+
+- **The menu case:** the lit, framed menu case hangs on the pier between the orchid windows, so passers-by can read it from the pavement. The homepage teaser and the whole menu page are drawn as that case ("The case on the pier, between the orchids, at 10 Red Lion Street"). The five teaser dishes are at Matsuba's published prices.
+- **The walk:** from the bar to the far slat wall, where you book. The slat wall's front layer steps down a slat at a time; "this is as far as the room goes, and where you book." The booking panel was framed as "At the far wall", and collection as "At the door".
+- **Room details behind the stop cards:** glasses hang upturned beneath a perforated metal canopy, with a shelf of sake along the top; black swing-arm lamps reach out over the tables with fairy lights strung in swags between them, tables in single file along the banquette; booths behind perforated screens, white marble-look tables and black pebble chopstick rests.
+- **The street:** Red Lion Street "was a narrow and winding alley", widened in the early 20th century; no. 10 is part of "the 1920s terrace of shops at nos. 8-32 (even)" (Richmond Council, *Central Richmond Conservation Area Appraisal*, 2023). The dashed winding line straightened as it scrolled in. A historic image is available, subject to the gallery's permission: F. Viner, *The Red Lion, Red Lion Street, Richmond 1904*, Orleans House Gallery, Richmond Borough Art Collection (LDORL : 03126).
+- **Lion King nigiri:** "a Lion King nigiri, served on Red Lion Street" (playful; no claim about the name).
+- **Menu provenance:** verbatim from matsuba.co.uk (updated 16 August 2026), spellings as published; Kids and Lunch & Early Evening transcribed from the restaurant's images.

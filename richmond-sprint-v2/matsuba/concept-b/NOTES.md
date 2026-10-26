@@ -94,8 +94,8 @@ The signature comes directly from detail 1. Details 2, 3 and 4 each appear as de
 - All copy is from `research/copy-deck.md` and `research/identity.md`. Their own lines used: "Pull up a chair. Take a taste. Come join us."; "We look forward to welcoming you to MATSUBA"; "Book your table today!"; "Special Rolls: large 8 piece rolls exclusively created by MATSUBA"; "our signature appetizer, Tuna Tataki"; the takeaway deal; and the takeaway PDF straplines on the menu sub-sections.
 - The menu is the live published menu, verbatim, so it is not labelled as a sample. Two cards are flagged on the page: the Lunch & Early Evening card ("Still running? to confirm") and the 2024 vegan/GF PDFs.
 - "To confirm" markers (visible span plus `<!-- [TO CONFIRM] -->` comment): Monday opening; lunch end time (3pm, 2:45pm or 2:30pm); whether Lunch & Early Evening still runs; the vegan and GF PDFs. The "open now" text adds the same markers at the relevant times.
-- Booking and ordering are plain links that open Favourite Table or Toast in a new tab, with an honest note that nothing is booked until the guest confirms there. There is no fake confirmation and no `window.open`.
-- Not used, by design: the street history (Concept A tells it), the sear or flame treatment (Concept C), any noren, parasols, kanji, pine imagery, the family's heritage, staff names, ratings or reviews. The Lion King nigiri is mentioned playfully ("Slat eight is the Lion King nigiri") with no claim about the street.
+- Booking and ordering are plain links that open Favourite Table or Toast in a new tab, with "(opens Favourite Table in a new tab)" in the accessible name. There is no fake confirmation and no `window.open`.
+- Not used, by design: the street history (Concept A tells it), the sear or flame treatment (Concept C), any noren, parasols, kanji, pine imagery, the family's heritage, staff names, ratings or reviews. The Lion King nigiri is mentioned ("Among them, the Lion King nigiri") with no claim about the street.
 - **Spelling proposals (not applied; menu kept verbatim, owner sign-off needed):** "Uangi Steak" → Unagi Steak; "Eby Fry" → Ebi Fry; "(all samon)" → salmon; "South Amerian" → South American; "Chrispy" → Crispy; "chilli papper" → chilli pepper; "Yuzu Te" → Yuzu Tea; "Aperol Com Fanta" → Aperol con Fanta (to check); "Vanila" → Vanilla; "torched-seared" / "Torch-seared" → pick one; and "Salmon Combo_B" repeats its own name inside its description.
 
 ## Distinct from A and C
@@ -110,7 +110,7 @@ The signature comes directly from detail 1. Details 2, 3 and 4 each appear as de
 - On Safari before 17, CSS `round()` is ignored and panels fall back to unsnapped percentages (still tidy). Older browsers without `color-mix()` lose the per-slat tone variation and show flat oak. `translate` as an individual property needs a 2022+ browser; older ones show the static wall.
 - The fixed wall layer paints 80 textured elements. It's smooth in Chromium at 1440; low-end Android has not been tested.
 - The tasting card's hover preview selects the slat under the mouse, which some users may find eager. Click and keyboard work the same way.
-- The elevation drawing's labels are hidden below 760px and its caption carries the same words. At 390px the drawing is small.
+- At 390px the booth drawing is small (it is unlabelled since the editorial pass).
 - Dual prices (for example "12.9/22.9") are shown as published, without explaining which portion is which (copy-deck TO CONFIRM item 5).
 
 ## Assets to replace
@@ -149,3 +149,34 @@ Screenshots from the self-review are in the studio scratchpad (`v2/build-matsuba
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+## Editorial pass (26 October 2026): the site talks to diners
+
+After client review ("what is the point of this?"), every word was reread as a diner deciding where to eat. This section supersedes anything above that describes the cut items. Signature, Useful-first structure, menu and "to confirm" markers are unchanged.
+
+**Homepage, cut or rewritten**
+- *The room:* the joinery paragraph, the "This proposal is built on that wall…" pull quote, the five callout labels and the dashed step guide on the elevation, and the "drawn from photographs for this proposal. Not to scale" caption. The section is now a kicker, the family-run line (phones only), the heading "Oak slats and warm brass light." and the drawing, unlabelled, captioned "Booths along the oak wall."
+- *Tasting menu:* "Fourteen dishes. Fourteen slats." became "Fourteen dishes, £100 per person."; "Slat eight is the Lion King nigiri" became "Among them, the Lion King nigiri"; "Walk the fourteen on the menu" became "See all fourteen dishes". The lit eighth slat in the mini wall stays as decoration.
+- *Takeaway section:* removed; it repeated Visit › Collection. The takeaway PDF link moved into Visit › Collection.
+- *Reservations:* the "Before you book" terms (a repeat of Visit › Booking) and the "Booking opens Favourite Table… Nothing is booked until you confirm there" hand-off line were removed. The panel keeps the welcome line, Book a table and Call.
+- *Photo slot:* the art-direction caption became "Photograph to come · The Matsuba Roll." (the brief is shot 1 in the list above).
+- "Opening hours, as published" became "Opening hours"; "prices as published" was dropped from the dietary key.
+
+**Menu, cut or rewritten**
+- Lead: "Every dish, description and price as Matsuba publishes it… The courses are the slats: pick one to step down to it." became "Menu updated 16 August 2026. Prices in pounds."
+- "Transcribed from Matsuba's kids menu image." and "Transcribed from Matsuba's March 2026 set-menu card." removed ("Still running? to confirm" kept).
+- Tasting hint: "Fourteen dishes, fourteen slats, in the order they are served on the published menu." became "Fourteen dishes."; the desktop wall hint became "Fourteen dishes. Point at or tap a slat to see each one." The tablist label is now "Tasting menu, 14 dishes".
+- "live menu" became "this menu" in the vegan/GF flag; meta and JSON-LD descriptions lost "as published".
+
+**Page length at 390px:** homepage 7,140px → 5,680px (8.5 → 6.7 screens); menu 22,555px → 22,393px (26.7 → 26.5 screens). Today strip and Visit unchanged in position (Visit still starts at 630px).
+
+## Pitch notes (not for the site)
+
+Use these when presenting the concept; they no longer appear on the pages.
+
+- **The idea in one line:** "This proposal is built on that wall. The step on the wall behind this page moves down as you read. On the menu, each course is a slat. Every light you switch on here is one of those sconces."
+- **The wall, described:** down the side of the long room and across the far end, square oak slats rise from a grey wall in two layers. The back layer runs up to the ceiling. The front layer stops short, and its tops step down one slat at a time in a straight line. Brass twin sconces throw two warm glows across the wood.
+- **The elevation drawing:** a booth bay drawn from photographs, not to scale. Callouts that were on it: back layer, up to the ceiling; front layer, stepped; brass twin sconce; perforated screen; white table, black pebble rest. The dashed line traced the step.
+- **Tasting menu as fourteen slats:** "Fourteen dishes. Fourteen slats." The mini wall lights slat eight, the Lion King nigiri. On the menu page the course index is the wall: "the courses are the slats: pick one to step down to it."
+- **Menu provenance:** every dish, description and price is verbatim from matsuba.co.uk (page modified 16 August 2026), spellings as published; the Kids and Lunch & Early Evening cards were transcribed from Matsuba's images.
+- **Booking hand-off:** Book a table opens Favourite Table, Matsuba's booking service, in a new tab; nothing is booked until the guest confirms there.

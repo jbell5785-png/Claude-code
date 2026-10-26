@@ -147,7 +147,7 @@
     var say = function (on) {
       var n = visibleCount();
       status.textContent = on
-        ? 'Showing the ' + n + ' seared dishes, each with its torch mark.'
+        ? 'Showing the ' + n + ' seared dishes.'
         : 'Showing the full menu, ' + n + ' dishes.';
     };
 

@@ -113,7 +113,7 @@ The honest weak point: "aburi" itself is a technique many Japanese restaurants u
 - `menu.html` was generated from `research/copy-deck.md` by a small script kept outside the repo, so the dish text, spellings and prices are the deck's, character for character. Kids and the Lunch & Early Evening card were set by hand from the deck. It is plain static HTML and can be edited by hand.
 - Layout: centred card axis; the drawings step off it (table bleeds to the left edge, window to the right) on desktop.
 - Gold #D1A75B is used only for rules, borders and on dark backgrounds; on light, gold text uses #7E5B1C (5.5:1). vg/v green is #2A7326 on light (5.3:1) and the print's own #42B23C on dark.
-- Booking: plain links to Favourite Table and the phone number, with the published terms summarised on the page and "Nothing is booked on this page." No `window.open`, no fake confirmation. Ordering: link to Toast.
+- Booking: plain links to Favourite Table and the phone number, with the published terms summarised in Visit › Booking. No `window.open`, no fake confirmation. Ordering: link to Toast.
 - Page-to-page: CSS `@view-transition` cross-fade where supported; ignored elsewhere.
 - Self-review screenshots: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/build-matsuba-c/` (390/768/1440, mid-sear, at rest, filter, reduced motion, no JS). Zero console errors and failed requests on both pages at all three widths; no horizontal overflow; no duplicate ids or broken anchors.
 
@@ -137,7 +137,7 @@ As published → suggested: "Uangi Steak" → Unagi Steak; "Eby Fry" → Ebi Fry
 
 ## Assets to replace
 - Wordmark: the owner's logo file could replace the typeset wordmark (white on brown, as on the takeaway cover).
-- Photograph slot on the homepage ("Shot list, no. 1").
+- Photograph slot on the homepage ("Photograph to come", Tuna Tataki; shot list no. 1).
 - Optional: the owner's own scan of the Lunch & Early Evening card for reference when updating prices.
 - `img/flame.svg` and `img/favicon.svg` are source copies of the inline flame and favicon.
 
@@ -168,3 +168,32 @@ As published → suggested: "Uangi Steak" → Unagi Steak; "Eby Fry" → Ebi Fry
 - **Matches the visible page.** Every price, phone number, hour, address part, description sentence and booking/order link in the JSON-LD was checked against this page's `document.body.innerText` (plus each menu tab's panel), and each menu price is paired with its own printed line. `llms.txt` phones, emails, times and links were checked against the index and menu pages. No console errors. Nothing visible changed: only the JSON-LD block and `<meta name="description">` in `<head>` were edited.
 - **Preview mechanisms untouched.** The "speculative design proposal" banner is unchanged. Note: neither page has a `<meta name="robots" content="noindex">` tag (there was none before this pass, and none was added); if previews rely on `noindex`, it must come from the host (an `X-Robots-Tag` header).
 - **Regenerating.** Scripts: `/tmp/claude-0/-home-user-Claude-code/e50707d5-9ec5-571e-9915-9e7145ebe50f/scratchpad/v2/aivis/jsonld/` (`extract.js` reads items and prices from each menu page's DOM, `build.js` writes JSON-LD, meta and `llms.txt` from `facts.js` (copy deck only), `validate.js` checks against the rendered pages, `servers.sh` serves ports 8701–8709). Re-run them if a menu or a fact changes.
+
+## Editorial pass (26 October 2026): the site talks to diners
+
+After client review, every word was reread as a diner deciding where to eat. This section supersedes anything above that describes the cut items. The sear, the Aburi filter, the Useful-first structure, the menu and the "to confirm" markers are unchanged.
+
+**Homepage, cut or rewritten**
+- *Photo slot:* "Photograph to commission" with "Shot list, no. 1: Tuna Tataki on the white marble table, shot from above the moment the torch lifts…" became "Photograph to come · Tuna Tataki · Our signature appetizer." (the brief is in the shot list above).
+- *Takeaway deal card* beside the Special Rolls: removed; it repeated Visit › Collection. The takeaway PDF link moved into Visit › Collection, and the rolls list now runs full width.
+- *Evening table drawing:* the caption "White marble, black pebble rest, and the candle in its small copper holder. Drawn for this proposal." removed (the drawing keeps its text alternative).
+- *Booking:* the verbatim terms (a repeat of Visit › Booking) and "Bookings are made on Favourite Table, the booking service on matsuba.co.uk. Nothing is booked on this page." removed. The panel keeps "Book your table today!", Book a table and Call.
+- *Window drawing:* "Orchids along the sills and the lit menu case, 10 Red Lion Street. Drawn for this proposal." became "Our window on Red Lion Street."
+
+**Menu, cut or rewritten**
+- "Transcribed word for word from matsuba.co.uk on 25 October 2026, spellings and all. Prices in £, as printed. Please check with the restaurant before you visit." became "Menu updated 16 August 2026. Prices in £."
+- Lunch & Early Evening: heading "The printed card" became "Set menu"; "Lunch & Early Evening, set as Matsuba print it. to confirm still running" became "Still running? to confirm". The card's own title stays.
+- Aburi filter status: "…seared dishes, each with its torch mark." became "…seared dishes."
+- Meta, Open Graph and JSON-LD descriptions lost "in the style of its printed menus", "The printed menu, online. Press Aburi…" and "Transcribed word for word…".
+
+**Page length at 390px:** homepage 7,714px → 6,814px (9.1 → 8.1 screens); menu 22,301px → 22,201px (26.4 → 26.3 screens). Today strip and Visit (751px) unchanged in position.
+
+## Pitch notes (not for the site)
+
+Use these when presenting the concept; they no longer appear on the pages.
+
+- **Shot list, no. 1:** Tuna Tataki on the white marble table, shot from above the moment the torch lifts: mooli and ponzu beside it, a black pebble chopstick rest in frame.
+- **The takeaway cover:** the deal card was set in the grammar of Matsuba's own takeaway menu cover (MATSUBA label bar, "TAKEAWAY DEAL 20% OFF", "COLLECTION ONLY EVERYDAY", "Kids Menu not included*"). It can return as a print or social asset.
+- **The drawings:** both were drawn for this proposal from the client photos: the white marble table with the black pebble rest and the candle in its small copper holder; the window with orchids along the sills and the lit menu case on the pier.
+- **The menu:** transcribed word for word from matsuba.co.uk on 25 October 2026, spellings and all, prices as printed. The Lunch & Early Evening section is set as Matsuba print their card ("The printed card"). Every seared dish carries the torch mark.
+- **Booking:** bookings are made on Favourite Table, the booking service already used on matsuba.co.uk; nothing is booked on the concept page itself.

@@ -514,7 +514,6 @@ body { padding-bottom: calc(var(--dock-h) + var(--mat) + env(safe-area-inset-bot
 .deal__fine { font-size: 0.85rem; font-style: italic; font-weight: 300; color: var(--taupe); }
 .deal .btn { margin-top: 1.25rem; width: 100%; }
 @media (min-width: 64em) {
-  .rolls__grid { grid-template-columns: 1fr 20rem; align-items: center; }
   .rolls .dishes { --cols: 2; }
   .deal { transform: rotate(-2.2deg); box-shadow: 0 1.4rem 2.5rem -1.6rem rgb(63 43 28 / 0.45); }
 }
