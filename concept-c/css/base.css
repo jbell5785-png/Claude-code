@@ -2,18 +2,18 @@
    Shared by index.html and menu.html. */
 
 /* Metric-adjusted fallbacks, measured in Chromium against each local family so the
-   swap to the web fonts barely moves anything. Bricolage is matched at its condensed
-   display widths; ascent + descent reproduce its 1.20em (Atkinson 1.24em) line box. */
+   swap to the web fonts barely moves anything. Bricolage's bold faces are matched at the
+   condensed (75%) widths the design sets them in, its light/regular faces at normal width; ascent + descent reproduce its 1.20em (Atkinson 1.24em) line box. */
 @font-face { font-family: "Bricolage Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"), local("Liberation Sans"), local("LiberationSans"); font-weight: 100 549;
-  size-adjust: 80%; ascent-override: 116.3%; descent-override: 33.8%; line-gap-override: 0%; }
+  size-adjust: 91.6%; ascent-override: 101.5%; descent-override: 29.5%; line-gap-override: 0%; }
 @font-face { font-family: "Bricolage Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Bold"), local("Liberation Sans Bold"), local("LiberationSans-Bold"); font-weight: 550 900;
   size-adjust: 80%; ascent-override: 116.3%; descent-override: 33.8%; line-gap-override: 0%; }
 @font-face { font-family: "Bricolage Fallback Noto"; src: local("Noto Sans"), local("NotoSans-Regular"); font-weight: 100 549;
-  size-adjust: 77%; ascent-override: 120.8%; descent-override: 35.1%; line-gap-override: 0%; }
+  size-adjust: 87.8%; ascent-override: 105.9%; descent-override: 30.8%; line-gap-override: 0%; }
 @font-face { font-family: "Bricolage Fallback Noto"; src: local("Noto Sans Bold"), local("NotoSans-Bold"); font-weight: 550 900;
   size-adjust: 77%; ascent-override: 120.8%; descent-override: 35.1%; line-gap-override: 0%; }
 @font-face { font-family: "Bricolage Fallback DejaVu"; src: local("DejaVu Sans"), local("DejaVuSans"); font-weight: 100 549;
-  size-adjust: 67%; ascent-override: 138.8%; descent-override: 40.3%; line-gap-override: 0%; }
+  size-adjust: 81.4%; ascent-override: 114.3%; descent-override: 33.2%; line-gap-override: 0%; }
 @font-face { font-family: "Bricolage Fallback DejaVu"; src: local("DejaVu Sans Bold"), local("DejaVuSans-Bold"); font-weight: 550 900;
   size-adjust: 67%; ascent-override: 138.8%; descent-override: 40.3%; line-gap-override: 0%; }
 @font-face { font-family: "Atkinson Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"), local("Liberation Sans"), local("LiberationSans"); font-weight: 100 549;
