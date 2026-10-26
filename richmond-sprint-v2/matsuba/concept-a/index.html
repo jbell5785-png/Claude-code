@@ -33,6 +33,7 @@
 <main id="main">
 
 <section class="walk" id="arrive" aria-labelledby="hero-title">
+<script>/* switch the walk on before first paint, with the same checks as js/walk.js, so the layout never jumps */(function(){var w=document.getElementById("arrive");if(w&&document.documentElement.classList.contains("motion-ok")&&window.requestAnimationFrame&&window.CSS&&CSS.supports&&CSS.supports("position","sticky"))w.classList.add("is-live");})();</script>
   <div class="stage">
     <div class="hero">
       <div class="hero__art">
@@ -226,7 +227,7 @@
 <path d="M1370.8 558.5 L1382.1 758.6" stroke="#0f171d" stroke-opacity=".3" stroke-width="1.5"/>
 <path d="M1192 748 L1480 764 L1480 806 L1192 792Z" fill="url(#fr-val)"/>
 <path d="M1194 754 L1478 770M1194 786 L1478 800" stroke="#F5F3EE" stroke-opacity=".28" stroke-width="1.2" stroke-dasharray="4 5"/>
-<text transform="matrix(.84 .085 0 1 1336 665)" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-weight="400" font-size="44" letter-spacing="19.8" dx="9.9" fill="#F5F3EE">MATSUBA</text>
+<text transform="matrix(.84 .085 0 1 1330 665)" text-anchor="middle" font-family="Josefin Sans, sans-serif" font-weight="400" font-size="41" letter-spacing="18.5" dx="9.2" fill="#F5F3EE">MATSUBA</text>
 <path d="M1182 540 L1468 568 L1480 764 L1480 806 L1192 792 L1192 748Z" fill="none" stroke="#0f171d" stroke-width="2.2" stroke-linejoin="round"/>
 </g>
 <g id="fr-awn-near"><g class="fr-awn-hint">
@@ -247,7 +248,8 @@
 </g></g>
 <rect id="fr-roll" x="292" y="532" width="896" height="0" rx="7" fill="url(#fr-tube)" opacity="0"/>
 <g fill="#0a1014"><rect x="1236" y="1042" width="10" height="108"/><circle cx="1241" cy="1038" r="7"/><rect x="1236" y="1080" width="300" height="4"/><rect x="1236" y="1136" width="300" height="4"/><rect x="1258" y="1074" width="3" height="76"/><rect x="1279" y="1074" width="3" height="76"/><rect x="1300" y="1074" width="3" height="76"/><rect x="1321" y="1074" width="3" height="76"/><rect x="1342" y="1074" width="3" height="76"/><rect x="1363" y="1074" width="3" height="76"/><rect x="1384" y="1074" width="3" height="76"/><rect x="1405" y="1074" width="3" height="76"/><rect x="1426" y="1074" width="3" height="76"/><rect x="1447" y="1074" width="3" height="76"/><rect x="1468" y="1074" width="3" height="76"/><rect x="1489" y="1074" width="3" height="76"/><rect x="1510" y="1074" width="3" height="76"/></g><path fill="none" stroke="#0a1014" stroke-width="3" d="M1258 1075a10.5 10 0 0 1 21 0M1279 1075a10.5 10 0 0 1 21 0M1300 1075a10.5 10 0 0 1 21 0M1321 1075a10.5 10 0 0 1 21 0M1342 1075a10.5 10 0 0 1 21 0M1363 1075a10.5 10 0 0 1 21 0M1384 1075a10.5 10 0 0 1 21 0M1405 1075a10.5 10 0 0 1 21 0M1426 1075a10.5 10 0 0 1 21 0M1447 1075a10.5 10 0 0 1 21 0M1468 1075a10.5 10 0 0 1 21 0M1489 1075a10.5 10 0 0 1 21 0"/><path d="M1241 1042v108" stroke="#4c5a65" stroke-width="1.5" opacity=".6"/>
-<rect x="-40" y="1150" width="1680" height="140" fill="url(#fr-pave)"/>
+<rect x="-1200" y="1150" width="4000" height="140" fill="url(#fr-pave)"/>
+<rect x="-1200" y="1289" width="4000" height="1800" fill="#151e26"/>
 <rect x="-40" y="1150" width="1680" height="3" fill="#3c4852"/>
 <path d="M310 1153 L1180 1153 L1330 1270 L170 1270Z" fill="url(#fr-spill)"/>
 <path d="M150 1153 L300 1153 L345 1270 L100 1270Z" fill="url(#fr-spill)" opacity=".85"/>

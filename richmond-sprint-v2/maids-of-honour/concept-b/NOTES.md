@@ -1,0 +1,121 @@
+# The Original Maids of Honour, Concept B: "A royal secret"
+
+**In two lines:** One tart, one secret. The site presents a single object the way a fine jeweller presents a ring: the tart on its silver stand in the hero, and the recipe locked in an iron box that the visitor opens with a key. The page itself is the bakery's white box, tied off-centre with their own black-and-gold ribbon.
+
+Port 8532. Pages: `index.html`, `menu.html`. Plain HTML, CSS and JS; no framework, no build step at runtime, no GSAP (CSS transitions and the Web Animations API do the work).
+
+---
+
+## The signature: "The iron box"
+
+**Only-here detail:** the legend that Henry VIII had the recipe "kept secret in a locked iron box at Richmond Palace".
+**Sources:** Our History page [S3] (LEGEND, in the business's own words); homepage "kept it under lock and key at Richmond Palace!" and "A Royal Secret...." [S1]; High Tea menu boxed text [S8]; Richmond Council local history note [S21]. Labelled as legend everywhere on the page.
+
+**How it works** (`index.html#box`, `js/box.js`, `.casket` in `css/style.css`):
+- A wrought-iron casket built in real CSS 3D: front plate with riveted straps, S-scrolls and back-to-back C-scroll "lyre" panels, an ogee lock plate with a keyhole, a hasp hanging from the lid, a lattice-strapped lid with a ring handle, bun feet, and an oxblood velvet lining with our own blackletter "Newens" stamped in the lid.
+- The key is a real `<button>` (`aria-controls="box-contents"`, `aria-expanded`, a visible hint "Turn the key / Click, tap, or press Enter or Space"). Click, tap, Enter and Space all work, because it is a native button.
+- The sequence: the key turns (rotates 90°), the lid lifts on its back hinge and warm light spills out, then the layers rise one by one:
+  1. **Legend has it…** (tagged LEGEND; the S3 text, the second "imprisoned Maid" account, and the Council's note of R. May's *The Accomplisht Cook*, 1665)
+  2. **The tart** (our illustration)
+  3. **In the bakery's own words**: "Deliciously sweet and yet slightly savoury, light and crisp yet unctuously soft in the middle." [S14]
+  4. **Allergens, as published**: "Contains milk, wheat, gluten and eggs." [S14], with the Craft Bakery trace statement [S8]
+  5. **The price**: £3.50 in the tearoom [S8]; £2.25 in the shop [S14] (to confirm)
+- **The final beat:** a sealed recipe (a folded paper with an oxblood wax seal bearing our blackletter N) stirs as if to come out, then sinks back. The lid comes down on it and the key turns back. Then the line settles word by word: *"The recipe stays in the box."* with the bakery's own "That's still a secret – one that's safe with us for a good long time to come…" [S3]. Everything else came out of the box; the recipe did not.
+- Turning the key during the sequence skips to the end; turning it again puts everything back.
+- **The filling is never stated**, anywhere on either page.
+- **Without JS:** the box is drawn open with the sealed recipe visible inside, every layer is on the page as an ordered list, and the button stays hidden (it would do nothing).
+- **Reduced motion:** the box rests open with every layer showing. The key still toggles open and closed, instantly.
+- **Layout shift:** while locked, the layers are `display:none`. They take their space at the moment of the click (inside the input window), then fade in, so no shift is counted.
+
+## Second interaction: "Finest when warmed" (the reheating timer)
+
+**Only-here detail:** the bakery's own instruction, "'Maids of Honour are finest when warmed in a moderate oven' (150° Gas Mark 3) for 5 to 8 mins. Place onto a warmed baking tray or wire rack. Devour when cooling from the oven, deliciously warm" [S14].
+
+`index.html#warm`, `js/oven.js`:
+- The instruction is quoted as published, then broken into four short steps.
+- An oven dial (our drawing): a steel bezel, an enamel face with Gas Marks 1–9, mark 3 picked out in oxblood with "150°", and a black knob set to 3. A gold ring around the bezel fills as the minutes pass.
+- Choose 5, 6, 7 or 8 minutes (a native radio group). Start, Pause or Resume, and Reset. The time is computed from `Date.now()`, so it stays accurate in a background tab.
+- The small tart beside the dial grows warmer (saturation, brightness, glow) as time passes.
+- **Sound only after the visitor's own tap:** the AudioContext is created only when they tick "Chime when warm" (a quiet preview chime confirms it) or press Start with it ticked. When the time is up: a soft three-note bell, three times.
+- **Live region (polite):** announces the start, each whole minute left, pauses, and "Your tart is warm. Devour when cooling from the oven, deliciously warm." The ticking digits are `aria-hidden` so nothing is spoken every second.
+- **Without JS:** the controls stay disabled and a line says the instruction is all you need.
+
+---
+
+## Every only-here detail used, with its source and where it appears
+
+| Detail | Source | Where, and how it is used as design |
+|---|---|---|
+| **The tart itself**: round puff pastry, flaky layered sides, a blistered golden-to-caramel top, served warm on a silver cake stand with a paper doily | identity §1.4; official tart photo `IMG_9604_SQ.jpg` [S1] (reference `tart.jpg`); "served warm from our ovens" [S1, S3] | The hero illustration (`img/tart-salver.svg`: beaded silver stand, lace doily, three tarts with laminated sides, caramel blistering and rising steam). The single tart (`img/tart.svg`) in the box and in the timer. |
+| **The locked iron box legend** | [S1], [S3], [S8], [S21] | The signature (above). |
+| **The packaging**: white box, black ribbon printed in gold blackletter with "Original Maids of Honour" alternating with "Newens", and a black oval label with a gold border | identity §1.14; box-of-8 product photos [S15] (references `box-a.jpg`, `box-b.jpg`) | **The layout logic.** A vertical ribbon runs the full page height at a fixed off-centre line; it is the gutter between the narrow "ticket" column (labels, times, prices) and the content column. Every section break is a horizontal ribbon crossing it, tied with a satin bow at the crossing, and it ties itself as it scrolls into view. The **oval label** names every section. The ribbon lettering is **our own drawn blackletter** (see Type), not their artwork. A tied white-box illustration with its own label sits in the postal section. |
+| **Their reheating instruction** "150° Gas Mark 3, 5 to 8 mins" | [S14] | The second interaction (above). |
+| **The 1907 postcard of the Hill Street "Original Shop"**, handwritten "September 25th 1907", "THE ORIGINAL SHOP FOR MAIDS OF HONOUR", "BILLETT" in the window, "LUNCHEON & TEA ROOMS" upstairs, caption "ESTABLISHED IN RICHMOND NEARLY 200 YEARS" | Our History page image `CCI02062011_00005_large.jpg` [S3]; Billett on Hill Street confirmed by [S21] | The "Before Kew" section: our own SVG drawing of that shopfront in the postcard's tinted ink-and-card palette, tilted like a card on a table, beside a "Who has kept the secret" line of keepers. |
+| **The Patisserie List leads with "Our Famous Maids of Honour Tart £3.50"**, with "Maids of Honour Tart" set in blackletter on the printed menu | `Food_Menu_2024-5.jpg` [S8] | It leads `menu.html` and the booking section on the homepage, with "Maids of Honour Tart" set in our own blackletter, exactly as their menu does it. |
+| **The burgundy-red gratuity line** on their printed menus | identity §2 (menus: "a burgundy-red gratuity line"); [S6]–[S10] | Every menu's service-charge line is set in oxblood italic. |
+| **The blackletter "N" monogram** (in their QR code) | identity §1.19; High Tea menu [S8] | Our own drawn N is the favicon (an oval label in gold on black) and the wax seal on the secret recipe. |
+| **The line of keepers**: Robert Newens apprenticed at Hill Street; Alfred Nashbar Newens on the Kew Road; John and Kathleen; Peter's rebuild "with new gas ovens" | [S3], [S21] (names the business itself publishes, in historical context) | "Who has kept the secret": a diamond-marked line of keepers next to the postcard. No disputed dates are used; "Est. 1850" appears only as "the bakery's own date", with a to-confirm marker. |
+| **"A Royal Secret...."**, "Shop & Tea Room on 288 Kew Road", "Serving you since 1850" | homepage [S1] | The hero label, the visit kicker, and the footer sign-off (as their own claim, marked to confirm). |
+| **Silver dish and the Maids of Honour** in the legend | [S3] | The hero shows the tarts on silver, which is the legend's own image ("eating the tarts from a silver dish"), as well as how they are served today. |
+
+## The swap test
+
+Replace "The Original Maids of Honour" with any other tearoom or bakery and the concept stops working:
+- The signature is a **locked iron box** because of a legend only this tart has. Another bakery has no royal recipe locked at Richmond Palace, and no recipe it refuses to publish.
+- The hero is **this tart**: round puff with a blistered top on a silver stand and doily. It is not a cupcake or a scone.
+- The **page is their box**: black ribbon printed with "Original Maids of Honour · Newens" and their oval label. It is their packaging, not a generic ribbon.
+- The tool is **their reheating instruction**, to the degree and gas mark, for tarts that arrive by post.
+- The history is **their 1907 Hill Street postcard** and their own family of keepers.
+
+Swap the name and you would have to remove the signature, the hero, the layout device, the tool and the history section. Nothing is left that a generic tearoom could keep, so the concept passes.
+
+---
+
+## Type
+- **IM Fell English** (roman and italic) for display: a 17th-century English face, the century of R. May's *Accomplisht Cook* and close to the legend's world.
+- **Crimson Pro** (400, 500, 600, italic) for text. It uses old-style figures in prose and lining figures for prices and the timer, like their printed menus.
+- **The blackletter is not a font.** It is our own textura, drawn with a broad-nib simulation: each glyph is a set of pen strokes swept by a nib held at 42°. It is used only on the ribbon, the wordmark's "Newens", the menu's "Maids of Honour Tart", the lid stamp, the seal and the favicon (`img/lettering.svg`, `img/ribbon.svg`, `img/ribbon-v.svg`). This avoids reusing Concept A's Grenze Gotisch and never redraws their logo.
+- **Wordmark:** our own "Newens" blackletter above "The Original Maids of Honour" set in IM Fell English. It is not their logo. Replace it with the real logo only if the client wants it.
+- Metric-adjusted Georgia fallback faces are declared for both families.
+
+## Colour
+Iron #26262A · Box white #FAF8F3 · Ribbon black #111 · Gold #C79A3E (on dark only; a lighter foil #E2C27C for text on iron) · Pastry gold #D9A55B (illustration only) · Oxblood #5E1A22 (accents, prices, the gratuity line, the legend tag). WCAG AA was checked by script on both pages.
+
+## Implementation notes
+- `css/style.css` holds everything, including the tokens, the tied-box grid (`.frame`, `.ribbon-v`, `.tie`), the casket, the oven and the menus.
+- `js/site.js`: the header ground on scroll, ribbons that tie themselves in view, and the menu index scroll-spy. `js/box.js`: the iron box. `js/oven.js`: the timer.
+- A first-paint script adds `.js`, plus `.motion` unless reduced motion is set. Content is only hidden when both are present.
+- The illustrations were generated by small Node scripts (not shipped; they are in the studio scratchpad at `…/scratchpad/v2/build-maids-b/gen/`), and the static SVG output is committed. There is no build step to run the site.
+- Booking hands off to ResDiary per service, in a new tab, as plain links: Breakfast 33175, Luncheon 33176, Set tea 33177, any table ThreeMonth 32717. Guest rooms go to direct-book.com. An honest line says nothing is booked until it is confirmed there.
+- JSON-LD `Restaurant` holds confirmed facts only.
+
+## Reference images: a discrepancy
+The brief lists `Henry_postcard_large.jpg` as "the 1907 Hill Street postcard". That file is actually a painted portrait of Henry VIII. The 1907 postcard is `CCI02062011_00005_large.jpg`, which is what the "Before Kew" drawing is based on. The portrait was not drawn or used; a Tudor king's portrait would be a generic cliché.
+
+## Content decisions
+- The High Tea menu's boxed text is reproduced as legend. I cut its second paragraph with an ellipsis, because it contains the unverified "oldest on-sight bakery in the country" claim and the disputed 1850 opening.
+- Menus are transcribed verbatim from the 2024 menu images, with printed spellings kept and marked [sic]. A banner says they are the 2024 menus and may have changed.
+- The tart's look is described from the photographs only; the filling is never named.
+
+## Known limitations
+- The salver and tart are rich SVGs (210 KB and 98 KB) with turbulence filters. They render well in Chromium; other browsers should be checked on a real device. The caramel blistering is procedural and could be refined by hand.
+- The casket's 3D lid uses CSS `preserve-3d`. It is tested in Chromium only; Safari should be checked on a device.
+- The vertical ribbon only appears at 960px and wider. On phones the section breaks are horizontal ribbons only.
+- The key has a visible text hint, but the keyhole drawing is small on very narrow screens (the button is at least 64px).
+- The chime depends on Web Audio being available; without it the live region and visual state still report the finish.
+- The menu page is long (it holds every published menu). The sticky index and scroll-spy help, but there is no filter.
+
+## Assets to replace
+- The wordmark: swap in the real logo files if a vector exists (to confirm).
+- The postcard drawing: use the archive scan with permission (to confirm).
+- The photo slot in "Visit" (see the shot list).
+
+## Photography shot list
+1. The counter at 288 Kew Road at opening: a silver stand of Maids of Honour, warm, on a paper doily. Natural light, no people.
+2. One tart, close, at the moment it comes out of the oven: the blistered top and flaky edge, with steam.
+3. The white box being tied with the black and gold ribbon; the oval label in sharp focus.
+4. Hands placing a tart on a warmed wire rack (for the warming instructions).
+5. The 1907 postcard and the other archive images, scanned flat (with permission).
+
+## To confirm with the client
+The 1850 / 1860 / 1868 / 1887 dates; both tart prices; the £20 or £22 luncheon minimum; whether the 2024 menus are current; whether the Thursday breakfast rule is current; separate shop and tearoom hours; permission for archive images; logo files.

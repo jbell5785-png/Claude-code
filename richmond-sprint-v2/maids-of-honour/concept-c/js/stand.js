@@ -244,6 +244,7 @@
     var perEl = section.querySelector('.st-price__per');
     var fromEl = section.querySelector('.st-from');
     var live = section.querySelector('.st-live');
+    var shownEl = section.querySelector('.st-shown__name');
     var scene = section.querySelector('.st-scene');
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     var canAnimate = function () { return !reduce.matches && typeof Element.prototype.animate === 'function'; };
@@ -269,7 +270,8 @@
         priceEl.textContent = tea.price;
         perEl.textContent = tea.per;
       }
-      fromEl.textContent = 'Book a ' + tea.name + ' sitting from ' + tea.from + ', any day.';
+      fromEl.textContent = (tea.fizz ? 'The ' + tea.fizz + ' teas can be booked' : (/^The /.test(tea.name) ? 'Book ' : 'Book a ') + tea.name) + ' from ' + tea.from + ', any day.';
+      if (shownEl) shownEl.textContent = tea.name;
       live.textContent = tea.name + ' on the stand. ' + priceEl.textContent + ' ' + perEl.textContent + '.';
     }
 

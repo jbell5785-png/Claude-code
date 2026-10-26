@@ -37,7 +37,7 @@
   function say(t) { live.textContent = ''; setTimeout(function () { live.textContent = t; }, 60); }
 
   function restOpen() { clear(); setState('is-open is-rest is-turned'); setExpanded(true); }
-  function locked() { clear(); setState('is-collapsed'); setExpanded(false); }
+  function locked() { clear(); setState('is-locked is-collapsed'); setExpanded(false); }
   function sealed() { clear(); setState('is-revealed is-sealed'); setExpanded(true); }
 
   function play() {
@@ -68,7 +68,10 @@
   });
 
   if (motion) {
+    // Lock instantly on load: the no-JS markup is drawn open, and it should not visibly swing shut.
+    root.setAttribute('data-instant', '');
     locked();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { root.removeAttribute('data-instant'); }); });
     // A small nudge of the key the first time the box comes into view.
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (es) {

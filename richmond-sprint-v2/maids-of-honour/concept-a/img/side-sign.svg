@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original artwork for concept A (speculative proposal). Drawn from study of reference photos; not traced. -->
+<svg class="sign" id="side-sign" viewBox="0 0 640 1034" xmlns="http://www.w3.org/2000/svg" aria-labelledby="sign-t" >
+<title id="sign-t">The side-wall sign. Each painted line links to its menu; each plate books that sitting on ResDiary.</title>
+<defs><style>@import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&amp;family=Grenze+Gotisch:wght@400..800&amp;display=swap");</style>
+<linearGradient id="sboard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F8F3E7"/><stop offset=".6" stop-color="#F3ECDC"/><stop offset="1" stop-color="#ECE3CE"/></linearGradient>
+<linearGradient id="sgreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B4437"/><stop offset="1" stop-color="#1E3128"/></linearGradient>
+<linearGradient id="sframe" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E4A3C"/><stop offset=".5" stop-color="#1D3027"/><stop offset="1" stop-color="#15241D"/></linearGradient>
+<linearGradient id="sleaf" gradientUnits="userSpaceOnUse" x1="-170" y1="0" x2="170" y2="0" gradientTransform="translate(-2000 0)">
+  <stop offset="0" stop-color="#D9A845"/><stop offset=".3" stop-color="#CC9B40"/><stop offset=".44" stop-color="#F4D488"/><stop offset=".5" stop-color="#FFFAEA"/><stop offset=".56" stop-color="#F7DC97"/><stop offset=".7" stop-color="#D2A040"/><stop offset="1" stop-color="#D9A845"/></linearGradient>
+<linearGradient id="sleafV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF7D6" stop-opacity=".85"/><stop offset=".45" stop-color="#FFF7D6" stop-opacity="0"/><stop offset="1" stop-color="#6B4A12" stop-opacity=".3"/></linearGradient>
+<pattern id="sbrush" width="640" height="9" patternUnits="userSpaceOnUse"><path d="M0 3.5C160 2.6 320 4.4 640 3.2" stroke="#B9A985" stroke-width=".7" fill="none" opacity=".25"/><path d="M0 7.5C200 8.3 420 6.8 640 7.9" stroke="#FFFFFF" stroke-width=".8" fill="none" opacity=".35"/></pattern>
+</defs>
+<rect x="2" y="2" width="636" height="1030" rx="7" fill="url(#sframe)" stroke="#0F1A14" stroke-width="3"/>
+<rect x="12" y="12" width="616" height="1010" rx="3" fill="none" stroke="#D9A845" stroke-width="1.3" opacity=".9"/>
+<rect x="22" y="22" width="596" height="990" fill="url(#sboard)"/>
+<rect x="22" y="22" width="596" height="990" fill="url(#sbrush)"/>
+<rect x="22" y="22" width="596" height="990" fill="none" stroke="#0F1A14" stroke-width="2"/>
+<g class="sign-head">
+<rect x="40" y="40" width="560" height="204" rx="2" fill="url(#sgreen)" stroke="#0F1A14" stroke-width="2"/>
+<rect x="50" y="50" width="540" height="184" fill="none" stroke="#D9A845" stroke-width="1.2" opacity=".85"/>
+<text x="320" y="166" font-family="'Grenze Gotisch','Grenze Fallback',Georgia,serif" font-size="116" font-weight="700" text-anchor="middle" fill="#08100C" opacity=".45" transform="translate(2.9 5.2)" aria-hidden="true">Newens</text><text class="sign-gilt" x="320" y="166" font-family="'Grenze Gotisch','Grenze Fallback',Georgia,serif" font-size="116" font-weight="700" text-anchor="middle" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">Newens</text><text x="320" y="166" font-family="'Grenze Gotisch','Grenze Fallback',Georgia,serif" font-size="116" font-weight="700" text-anchor="middle" fill="url(#sleafV)" opacity=".5" aria-hidden="true">Newens</text>
+<text x="320" y="214" font-family="'Grenze Gotisch','Grenze Fallback',Georgia,serif" font-size="33" font-weight="600" text-anchor="middle" fill="#08100C" opacity=".45" transform="translate(0.8 1.5)" aria-hidden="true">The Original Maids of Honour</text><text class="sign-gilt" x="320" y="214" font-family="'Grenze Gotisch','Grenze Fallback',Georgia,serif" font-size="33" font-weight="600" text-anchor="middle" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="1.0" paint-order="stroke" stroke-linejoin="round">The Original Maids of Honour</text><text x="320" y="214" font-family="'Grenze Gotisch','Grenze Fallback',Georgia,serif" font-size="33" font-weight="600" text-anchor="middle" fill="url(#sleafV)" opacity=".5" aria-hidden="true">The Original Maids of Honour</text>
+</g>
+<g class="rule" aria-hidden="true"><path d="M60 262 H580 M60 267 H580" stroke="#1C1A17" stroke-width="1.1"/><path d="M320 259 l7 5.5 -7 5.5 -7 -5.5z" fill="#1C1A17"/></g>
+<g class="sl" data-line="bread" data-state="static">
+<a class="sl-menu" href="menu.html#bakery" aria-label="Home Made Bread: Bakery breakfasts">
+<rect class="sl-hit" x="34" y="290" width="452" height="100" fill="transparent"/>
+<rect class="sl-tablet" x="40" y="294" width="440" height="92" rx="2" fill="url(#sgreen)"/>
+<rect class="sl-tablet-line" x="47" y="301" width="426" height="78" fill="none" stroke="#D9A845" stroke-width="1" />
+<text class="sl-ink" x="266" y="338" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="600" text-anchor="middle" fill="#1C1A17" textLength="396" lengthAdjust="spacingAndGlyphs">HOME MADE BREAD</text>
+<g class="sl-gold" aria-hidden="true"><text x="266" y="338" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="#08100C" opacity=".45" transform="translate(1.0 1.8)" aria-hidden="true">HOME MADE BREAD</text><text class="" x="266" y="338" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="1.2" paint-order="stroke" stroke-linejoin="round">HOME MADE BREAD</text><text x="266" y="338" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="url(#sleafV)" opacity=".5" aria-hidden="true">HOME MADE BREAD</text></g>
+<text class="sl-note" x="266" y="368" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="22" font-style="italic" text-anchor="middle" fill="#3B342B">Daily, 9am to 6pm</text>
+<path class="sl-mark" d="M50 316 l8 7 -8 7 -8 -7z" fill="#24392F" />
+</a>
+<a class="sl-book" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener" aria-label="Book a table on ResDiary (opens in a new tab)">
+<rect class="plate" x="494" y="298" width="108" height="84" rx="3" fill="url(#sgreen)" stroke="#0F1A14" stroke-width="1.6"/>
+<rect x="500" y="304" width="96" height="72" fill="none" stroke="#D9A845" stroke-width="1" opacity=".9"/>
+<text x="549" y="338" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="21" font-weight="700" letter-spacing="3" text-anchor="middle" fill="#E7C46E">BOOK</text>
+<path d="M537 356 h22 m-6 -5 l6 5 -6 5" stroke="#E7C46E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</a>
+</g>
+<g class="sl" data-line="cakes" data-state="static">
+<a class="sl-menu" href="menu.html#patisserie" aria-label="Cakes and Pastries: The patisserie list">
+<rect class="sl-hit" x="34" y="398" width="452" height="100" fill="transparent"/>
+<rect class="sl-tablet" x="40" y="402" width="440" height="92" rx="2" fill="url(#sgreen)"/>
+<rect class="sl-tablet-line" x="47" y="409" width="426" height="78" fill="none" stroke="#D9A845" stroke-width="1" />
+<text class="sl-ink" x="266" y="446" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="600" text-anchor="middle" fill="#1C1A17" textLength="396" lengthAdjust="spacingAndGlyphs">CAKES &amp; PASTRIES</text>
+<g class="sl-gold" aria-hidden="true"><text x="266" y="446" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="#08100C" opacity=".45" transform="translate(1.0 1.8)" aria-hidden="true">CAKES &amp; PASTRIES</text><text class="" x="266" y="446" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="1.2" paint-order="stroke" stroke-linejoin="round">CAKES &amp; PASTRIES</text><text x="266" y="446" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="url(#sleafV)" opacity=".5" aria-hidden="true">CAKES &amp; PASTRIES</text></g>
+<text class="sl-note" x="266" y="476" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="22" font-style="italic" text-anchor="middle" fill="#3B342B">Daily, 9am to 6pm</text>
+<path class="sl-mark" d="M50 424 l8 7 -8 7 -8 -7z" fill="#24392F" />
+</a>
+<a class="sl-book" href="https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717" target="_blank" rel="noopener" aria-label="Book a table on ResDiary (opens in a new tab)">
+<rect class="plate" x="494" y="406" width="108" height="84" rx="3" fill="url(#sgreen)" stroke="#0F1A14" stroke-width="1.6"/>
+<rect x="500" y="412" width="96" height="72" fill="none" stroke="#D9A845" stroke-width="1" opacity=".9"/>
+<text x="549" y="446" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="21" font-weight="700" letter-spacing="3" text-anchor="middle" fill="#E7C46E">BOOK</text>
+<path d="M537 464 h22 m-6 -5 l6 5 -6 5" stroke="#E7C46E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</a>
+</g>
+<g class="rule" aria-hidden="true"><path d="M60 512 H580 M60 517 H580" stroke="#1C1A17" stroke-width="1.1"/><path d="M320 509 l7 5.5 -7 5.5 -7 -5.5z" fill="#1C1A17"/></g>
+<g class="sl" data-line="coffee" data-state="static">
+<a class="sl-menu" href="menu.html#breakfast" aria-label="Morning Coffee: The breakfast menu">
+<rect class="sl-hit" x="34" y="532" width="452" height="100" fill="transparent"/>
+<rect class="sl-tablet" x="40" y="536" width="440" height="92" rx="2" fill="url(#sgreen)"/>
+<rect class="sl-tablet-line" x="47" y="543" width="426" height="78" fill="none" stroke="#D9A845" stroke-width="1" />
+<text class="sl-ink" x="266" y="580" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="600" text-anchor="middle" fill="#1C1A17" textLength="396" lengthAdjust="spacingAndGlyphs">MORNING COFFEE</text>
+<g class="sl-gold" aria-hidden="true"><text x="266" y="580" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="#08100C" opacity=".45" transform="translate(1.0 1.8)" aria-hidden="true">MORNING COFFEE</text><text class="" x="266" y="580" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="1.2" paint-order="stroke" stroke-linejoin="round">MORNING COFFEE</text><text x="266" y="580" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="40" font-weight="700" text-anchor="middle" textLength="396" lengthAdjust="spacingAndGlyphs" fill="url(#sleafV)" opacity=".5" aria-hidden="true">MORNING COFFEE</text></g>
+<text class="sl-note" x="266" y="610" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="22" font-style="italic" text-anchor="middle" fill="#3B342B">From 9am · cooked breakfast last orders 11am</text>
+<path class="sl-mark" d="M50 558 l8 7 -8 7 -8 -7z" fill="#24392F" />
+</a>
+<a class="sl-book" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175" target="_blank" rel="noopener" aria-label="Book breakfast on ResDiary (opens in a new tab)">
+<rect class="plate" x="494" y="540" width="108" height="84" rx="3" fill="url(#sgreen)" stroke="#0F1A14" stroke-width="1.6"/>
+<rect x="500" y="546" width="96" height="72" fill="none" stroke="#D9A845" stroke-width="1" opacity=".9"/>
+<text x="549" y="580" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="21" font-weight="700" letter-spacing="3" text-anchor="middle" fill="#E7C46E">BOOK</text>
+<path d="M537 598 h22 m-6 -5 l6 5 -6 5" stroke="#E7C46E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</a>
+</g>
+<g class="sl" data-line="luncheons" data-state="static">
+<a class="sl-menu" href="menu.html#luncheon" aria-label="Luncheons: The luncheon menu">
+<rect class="sl-hit" x="34" y="640" width="452" height="100" fill="transparent"/>
+<rect class="sl-tablet" x="40" y="644" width="440" height="92" rx="2" fill="url(#sgreen)"/>
+<rect class="sl-tablet-line" x="47" y="651" width="426" height="78" fill="none" stroke="#D9A845" stroke-width="1" />
+<text class="sl-ink" x="266" y="688" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="44" font-weight="600" text-anchor="middle" fill="#1C1A17" textLength="300" lengthAdjust="spacingAndGlyphs">LUNCHEONS</text>
+<g class="sl-gold" aria-hidden="true"><text x="266" y="688" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="44" font-weight="700" text-anchor="middle" textLength="300" lengthAdjust="spacingAndGlyphs" fill="#08100C" opacity=".45" transform="translate(1.1 2.0)" aria-hidden="true">LUNCHEONS</text><text class="" x="266" y="688" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="44" font-weight="700" text-anchor="middle" textLength="300" lengthAdjust="spacingAndGlyphs" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="1.3" paint-order="stroke" stroke-linejoin="round">LUNCHEONS</text><text x="266" y="688" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="44" font-weight="700" text-anchor="middle" textLength="300" lengthAdjust="spacingAndGlyphs" fill="url(#sleafV)" opacity=".5" aria-hidden="true">LUNCHEONS</text></g>
+<text class="sl-note" x="266" y="718" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="22" font-style="italic" text-anchor="middle" fill="#3B342B">Daily, 12 noon to 3pm</text>
+<path class="sl-mark" d="M98 665 l8 7 -8 7 -8 -7z" fill="#24392F" />
+</a>
+<a class="sl-book" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176" target="_blank" rel="noopener" aria-label="Book luncheon on ResDiary (opens in a new tab)">
+<rect class="plate" x="494" y="648" width="108" height="84" rx="3" fill="url(#sgreen)" stroke="#0F1A14" stroke-width="1.6"/>
+<rect x="500" y="654" width="96" height="72" fill="none" stroke="#D9A845" stroke-width="1" opacity=".9"/>
+<text x="549" y="688" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="21" font-weight="700" letter-spacing="3" text-anchor="middle" fill="#E7C46E">BOOK</text>
+<path d="M537 706 h22 m-6 -5 l6 5 -6 5" stroke="#E7C46E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</a>
+</g>
+<g class="rule" aria-hidden="true"><path d="M60 756 H580 M60 761 H580" stroke="#1C1A17" stroke-width="1.1"/><path d="M320 753 l7 5.5 -7 5.5 -7 -5.5z" fill="#1C1A17"/></g>
+<g class="sl" data-line="teas" data-state="static">
+<a class="sl-menu" href="menu.html#set-teas" aria-label="Teas: The set teas">
+<rect class="sl-hit" x="34" y="774" width="452" height="142" fill="transparent"/>
+<rect class="sl-tablet" x="40" y="778" width="440" height="134" rx="2" fill="url(#sgreen)"/>
+<rect class="sl-tablet-line" x="47" y="785" width="426" height="120" fill="none" stroke="#D9A845" stroke-width="1" />
+<text class="sl-ink" x="266" y="865" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="108" font-weight="600" text-anchor="middle" fill="#1C1A17" textLength="250" lengthAdjust="spacingAndGlyphs">TEAS</text>
+<g class="sl-gold" aria-hidden="true"><text x="266" y="865" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="108" font-weight="700" text-anchor="middle" textLength="250" lengthAdjust="spacingAndGlyphs" fill="#08100C" opacity=".45" transform="translate(2.7 4.9)" aria-hidden="true">TEAS</text><text class="" x="266" y="865" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="108" font-weight="700" text-anchor="middle" textLength="250" lengthAdjust="spacingAndGlyphs" fill="url(#sleaf)" stroke="#2A1D08" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round">TEAS</text><text x="266" y="865" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="108" font-weight="700" text-anchor="middle" textLength="250" lengthAdjust="spacingAndGlyphs" fill="url(#sleafV)" opacity=".5" aria-hidden="true">TEAS</text></g>
+<text class="sl-note" x="266" y="899" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="22" font-style="italic" text-anchor="middle" fill="#3B342B">From 10am · last walk-ins seated by 5.30pm</text>
+<path class="sl-mark" d="M123 819 l8 7 -8 7 -8 -7z" fill="#24392F" />
+</a>
+<a class="sl-book" href="https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177" target="_blank" rel="noopener" aria-label="Book a set tea on ResDiary (opens in a new tab)">
+<rect class="plate" x="494" y="803" width="108" height="84" rx="3" fill="url(#sgreen)" stroke="#0F1A14" stroke-width="1.6"/>
+<rect x="500" y="809" width="96" height="72" fill="none" stroke="#D9A845" stroke-width="1" opacity=".9"/>
+<text x="549" y="843" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="21" font-weight="700" letter-spacing="3" text-anchor="middle" fill="#E7C46E">BOOK</text>
+<path d="M537 861 h22 m-6 -5 l6 5 -6 5" stroke="#E7C46E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</a>
+</g>
+<a class="sl-tel" href="tel:+442089402752" aria-label="Telephone 020 8940 2752">
+<rect x="140" y="926" width="360" height="82" fill="transparent"/>
+<text x="320" y="976" font-family="'Alegreya','Alegreya Fallback',Georgia,serif" font-size="27" font-weight="600" letter-spacing="3" text-anchor="middle" fill="#1C1A17">020 8940 2752</text>
+</a>
+</svg>

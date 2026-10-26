@@ -258,6 +258,9 @@ p { margin: 0 0 1em; }
 .select::after { content: ""; position: absolute; right: 16px; top: 50%; width: 8px; height: 8px; margin-top: -6px; border-right: 1.5px solid var(--bulb); border-bottom: 1.5px solid var(--bulb); transform: rotate(45deg); pointer-events: none; }
 .select select { appearance: none; -webkit-appearance: none; width: 100%; min-height: 48px; padding: 10px 44px 8px 14px; border-radius: 2px; border: 1px solid rgba(245,243,238,.4); background: var(--slate-deep); color: var(--awning); font: inherit; font-variant-numeric: lining-nums; }
 .select select:hover { border-color: var(--bulb); }
+.book__form .btn { flex: 1 1 100%; letter-spacing: .14em; }
+@media (min-width: 560px) { .book__form .btn { flex: 0 0 auto; } }
+.visit .textlink { display: inline-block; padding: 9px 0; }
 .book__status { min-height: 1.6em; margin: 6px 0 14px; color: #fff3dc; }
 .book__status:empty { margin: 0; min-height: 0; }
 .book__status a { color: var(--bulb); }

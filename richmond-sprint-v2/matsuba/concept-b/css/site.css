@@ -267,7 +267,7 @@ abbr[title] { text-decoration: none; }
   transform-origin: 50% 100%;
   transform: scaleY(clamp(0, (var(--k, 0) - var(--i)) / 5 + 1, 1));
   transition: transform .4s var(--ease) calc(var(--j, 0) * 12ms); }
-@media (min-width: 560px) { .status--head { display: flex; } }
+@media (max-width: 559px) { .status--head { display: none; } } /* the hero carries the live status on phones; the header has no room */
 @media (max-width: 380px) { .status--head .status__text { font-size: .74rem; } .wordmark { letter-spacing: .4em; margin-right: -.4em; } }
 @media (min-width: 760px) { .hide-m { display: inline-flex !important; } }
 @media (min-width: 960px) {
@@ -329,7 +329,8 @@ h3.caps { margin: 0 0 1rem; }
 .hero__actions { display: none; }
 @media (min-width: 760px) {
   .hero { min-height: calc(100svh - var(--hh) - 10px); justify-content: center; padding: 6vh 0 8vh; }
-  .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin: 0; }
+  /* one action per line, so nothing re-wraps (and shifts) when the web fonts arrive */
+  .hero__actions { display: grid; justify-items: start; gap: 14px; margin: 0; }
 }
 
 /* ---------- The room ---------- */
@@ -348,7 +349,7 @@ h3.caps { margin: 0 0 1rem; }
 
 /* ---------- Dishes (shared by homepage and menu) ---------- */
 .dishes { list-style: none; display: grid; gap: 0 clamp(28px, 4vw, 56px); }
-.dish { display: grid; grid-template-columns: 1fr auto; column-gap: 16px; align-items: baseline; padding: 14px 0 15px; border-top: 1px solid rgba(30, 33, 36, .13); break-inside: avoid; }
+.dish { display: grid; grid-template-columns: 1fr auto; column-gap: 16px; align-items: baseline; align-content: start; padding: 14px 0 15px; border-top: 1px solid rgba(30, 33, 36, .13); break-inside: avoid; }
 .dish__name { font: 500 var(--t-h3)/1.3 var(--f-serif); }
 .dish__price { font: 500 1rem/1.3 var(--f-serif); font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); }
 .dish__price .slash { margin: 0 .25em; color: var(--oak-text); }
@@ -577,9 +578,10 @@ h3.caps { margin: 0 0 1rem; }
 .dishes--plain .dish { padding: 10px 0 11px; }
 
 @media (min-width: 760px) {
-  .course { --from: calc(var(--n) * var(--u) + var(--u)); --span: calc(100% - 10 * var(--u)); }
-  .course .dishes { grid-template-columns: 1fr 1fr; }
-  .dishes--plain { grid-template-columns: 1fr !important; }
+  /* each course hangs half a slat further along the wall than the one before */
+  .course { --from: calc(var(--u) + var(--n) * var(--u) * .5); --span: calc(100% - 6 * var(--u)); }
+  .course .dishes { display: block; columns: 2; column-gap: clamp(28px, 4vw, 56px); }
+  .course .dishes--plain { columns: 1; }
   .kids { display: grid; grid-template-columns: 1fr 1fr; gap: 30px clamp(28px, 4vw, 56px); }
   .kids .group + .group { margin-top: 0; }
 }
@@ -587,6 +589,7 @@ h3.caps { margin: 0 0 1rem; }
   .course { scroll-margin-top: calc(var(--hh) + 84px); }
 }
 @media (min-width: 1200px) {
+  .course { --from: calc(var(--n) * var(--u) + var(--u)); --span: calc(100% - 10 * var(--u)); }
   .course { display: grid; grid-template-columns: minmax(220px, 3fr) 9fr; gap: 0 clamp(32px, 4vw, 64px); align-items: start; }
   .course__head { position: sticky; top: calc(var(--hh) + 96px); margin-bottom: 0; }
   .course > :not(.course__head) { grid-column: 2; }

@@ -50,6 +50,9 @@
   var fig = document.querySelector('.facts-fig');
   var keys = document.querySelectorAll('.key[data-hl]');
   keys.forEach(function (k) {
+    k.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); k.click(); }
+    });
     k.addEventListener('click', function () {
       var pressed = k.getAttribute('aria-pressed') === 'true';
       keys.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });

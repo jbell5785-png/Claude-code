@@ -51,6 +51,7 @@
 .tabs { position: sticky; top: var(--top-h); z-index: 6; background: #2b333a; border-top: 1px solid #4a535a; box-shadow: 0 6px 14px rgba(15,23,29,.25); }
 .tabs__list { list-style: none; margin: 0; padding: 0 4px; display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
 .tabs__list::-webkit-scrollbar { display: none; }
+@media (max-width: 999px) { .tabs__list { -webkit-mask-image: linear-gradient(90deg, #000 0, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 0, #000 82%, transparent); padding-right: 40px; } }
 .tabs__list li { flex: 0 0 auto; scroll-snap-align: start; }
 .tab {
   position: relative; display: flex; align-items: center; min-height: 48px; padding: 4px 13px 2px calc(13px + .18em);

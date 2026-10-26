@@ -100,6 +100,7 @@
     this.floor = mk('path', { fill: COL.tile }, svg);
     this.floorShade = mk('path', { fill: 'url(#v-floorshade)' }, svg);
     this.grout = mk('path', { fill: 'none', stroke: COL.grout, 'stroke-width': 1 }, svg);
+    this.courses = mk('path', { fill: 'none', stroke: '#8C8177', 'stroke-opacity': 0.13, 'stroke-width': 1 }, svg);
     this.patchA = mk('path', { fill: '#9A6E5C', opacity: 0.26 }, svg);
     this.patchB = mk('path', { fill: '#6A5045', opacity: 0.24 }, svg);
     this.buildPatches();
@@ -614,7 +615,6 @@
     list.push({ type: 'board', z: 9.2, z0: 4.4, z1: 14.2 });
     sprite(domeSprite(), 1.6, 0.98, 4.0);
     sprite(domeSprite(), 1.62, 0.98, 4.6);
-    sprite(espressoSprite(), 1.72, 0.98, 8.6);
     // red enamel pendants over the counter
     [5.2, 7.4, 9.6, 11.8].forEach(function (z) { sprite(pendantSprite(), 1.72, ceilY(1.72), z, 0.5); });
     // globe lights on the left wall
@@ -688,9 +688,9 @@
       floorY = h * 0.64;
       cx0 = w / 2;
     } else {
-      s0 = Math.min((h * 0.56) / (HS + B + RING + 0.2), (w * 0.56) / (2 * (A + RING) + 0.4));
+      s0 = Math.min((h * 0.56) / (HS + B + RING + 0.2), (w * 0.5) / (2 * (A + RING) + 0.4));
       floorY = h * 0.8;
-      cx0 = w * 0.6;
+      cx0 = w * 0.63;
     }
     this.s0 = s0;
     this.zStart = -9;
@@ -741,10 +741,18 @@
     for (i = 0; i <= 8; i++) { var gx = -A + i * (2 * A / 8); gd += 'M' + pt(this.P(gx, 0, z0)) + 'L' + pt(this.P(gx, 0, L)); }
     for (var gz = Math.ceil(z0 / 0.65) * 0.65; gz < L; gz += 0.65) gd += 'M' + pt(this.P(-A, 0, gz)) + 'L' + pt(this.P(A, 0, gz));
     this.grout.setAttribute('d', gd);
+    // faint brick coursing running down the vault
+    var cd = '';
+    for (i = 1; i < 26; i++) {
+      var tt = (i / 26) * Math.PI, e = ell(tt, 0);
+      cd += 'M' + pt(this.P(e[0], e[1], z0)) + 'L' + pt(this.P(e[0], e[1], L));
+    }
+    [0.35, 0.7].forEach(function (yy) { cd += 'M' + pt(self.P(-A, yy, z0)) + 'L' + pt(self.P(-A, yy, L)) + 'M' + pt(self.P(A, yy, z0)) + 'L' + pt(self.P(A, yy, L)); });
+    this.courses.setAttribute('d', cd);
     // brick patches
     var pa = '', pb = '';
     this.patchList.forEach(function (q) {
-      if (q.z < near + 0.1) return;
+      if (q.z < zc + 2.2) return;
       var c;
       if (q.wall) {
         var x = q.wall * A;
@@ -866,8 +874,8 @@
     var lw = 0.035;
     o.legs.setAttribute('d', Q([[x1 - 0.06, dy, z1 - 0.06], [x1 - 0.06 - lw, dy, z1 - 0.06], [x1 - 0.06 - lw, 0, z1 - 0.06], [x1 - 0.06, 0, z1 - 0.06]]) + (z0 > o.z0 + 0.05 ? '' : Q([[x1 - 0.06, dy, o.z0 + 0.06], [x1 - 0.06 - lw, dy, o.z0 + 0.06], [x1 - 0.06 - lw, 0, o.z0 + 0.06], [x1 - 0.06, 0, o.z0 + 0.06]])));
     var dots = [];
-    dotsOn(this, [[x0, ty, z0], [x1, ty, z0], [x1, ty, z1], [x0, ty, z1]], 4, 5, 0.017, dots);
-    dotsOn(this, [[x1, ty - 0.03, z0], [x1, ty - 0.03, z1], [x1, dy + 0.03, z1], [x1, dy + 0.03, z0]], 2, 5, 0.017, dots);
+    dotsOn(this, [[x0, ty, z0], [x1, ty, z0], [x1, ty, z1], [x0, ty, z1]], 6, 8, 0.011, dots);
+    dotsOn(this, [[x1, ty - 0.025, z0], [x1, ty - 0.025, z1], [x1, dy + 0.025, z1], [x1, dy + 0.025, z0]], 3, 8, 0.011, dots);
     o.dots.setAttribute('d', dots.join(''));
   };
 

@@ -22,7 +22,7 @@
     function step(t) {
       if (t0 === null) t0 = t;
       var k = Math.min(1, (t - t0) / ms);
-      var e = 1 - Math.pow(1 - k, 3);
+      var e = -(Math.cos(Math.PI * k) - 1) / 2; // sine in-out: an even pass, like the sun moving across a board
       grad.setAttribute('gradientTransform', 'translate(' + (from + (to - from) * e).toFixed(1) + ' 0)');
       if (k < 1) requestAnimationFrame(step); else if (done) done();
     }
@@ -97,7 +97,7 @@
   }
 
   function glint() {
-    sweep(sleaf, -300, 960, 1900);
+    sweep(sleaf, -260, 920, 2800);
   }
 
   function render() {
