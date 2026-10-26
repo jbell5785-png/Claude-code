@@ -304,7 +304,8 @@ button, input, select { font: inherit; color: inherit; }
 .site-foot { padding-bottom: var(--s-5); }
 .site-foot__mark { font: 800 min(20.2vw, 28rem)/.85 var(--display); font-stretch: 75%; letter-spacing: -.015em; margin: var(--s-4) 0 var(--s-5); white-space: nowrap; }
 .site-foot__cols { row-gap: var(--s-4); }
-.site-foot__cols > * { grid-column: span 4; }
+.site-foot__cols > * { grid-column: span 2; min-width: 0; }
+.site-foot__cols a { overflow-wrap: anywhere; }
 @media (min-width: 768px) { .site-foot__cols > * { grid-column: span 4; } }
 @media (min-width: 1200px) { .site-foot__cols > * { grid-column: span 3; } }
 .site-foot h2 { font: 800 var(--fs-tag)/1 var(--display); font-stretch: 80%; text-transform: uppercase; margin-bottom: .6em; }

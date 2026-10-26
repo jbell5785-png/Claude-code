@@ -133,9 +133,11 @@
         p: 1, ease: 'none',
         onUpdate: function () { scene(proxy.p); },
         scrollTrigger: {
+          // the pin's scroll distance is the hero's bottom margin (CSS: half a screen on phones,
+          // 1.1 on desktop), reserved from first paint; pinSpacing is off so nothing is added later
           trigger: hero, start: 'top top',
-          end: c.phone ? '+=50%' : '+=110%',   // half a screen on phones, 1.1 on desktop
-          pin: true, scrub: c.phone ? 0.5 : 0.9, anticipatePin: 1
+          end: function () { return '+=' + (parseFloat(getComputedStyle(hero).marginBottom) || window.innerHeight * 0.5); },
+          pin: true, pinSpacing: false, scrub: c.phone ? 0.5 : 0.9, anticipatePin: 1, invalidateOnRefresh: true
         }
       });
       scene(done);

@@ -88,12 +88,12 @@
 .course .course__body { --price-bg: var(--c); --price-fg: var(--cf); }
 .course--yellow .course__body { --price-edge: var(--ink); --price-edge-w: 2px; }
 
-.course__body { padding-block: clamp(8px, 2vw, 24px) clamp(56px, 7vw, 112px); }
+.course__body { padding-block: clamp(8px, 2vw, 24px) clamp(40px, 7vw, 112px); }
 .dishes { list-style: none; }
 @media (min-width: 1024px) { .dishes { columns: 2; column-gap: calc(var(--gap) * 2.4); } }
 .dish {
   break-inside: avoid; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 18px; align-items: start;
-  border-top: 2px solid var(--ink); padding: 20px 0 24px; --string: 22px; --string-c: var(--ink); --surface: #fff;
+  border-top: 2px solid var(--ink); padding: 16px 0 20px; --string: 22px; --string-c: var(--ink); --surface: #fff;
 }
 .dish__name { font: 800 var(--fs-dish)/.95 var(--display); font-stretch: 78%; letter-spacing: -.02em; text-wrap: balance; }
 .dish__desc { margin: .45em 0 0; max-width: 34em; }
@@ -134,3 +134,5 @@
 .menu-foot-cta { padding-block: clamp(48px, 6vw, 96px); }
 .menu-foot-cta .display { font-size: clamp(2.5rem, 1rem + 6vw, 8rem); margin-bottom: var(--s-4); }
 .mhero .today__dot { background: var(--tovagliolo); }
+.mhero .is-open .today__dot { background: #6EE08F; }
+.mhero .is-closed .today__dot { background: #fff; }

@@ -30,6 +30,7 @@
   background: var(--bg); color: var(--ink);
 }
 .hero__art {
+  order: -1;
   position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden;
   border-bottom: 1px solid var(--rule);
   container-type: size;
@@ -68,6 +69,13 @@
   .hero__title { max-width: 12em; }
   .hero__do { justify-items: start; }
   .hero__row .call { display: inline-flex; }
+}
+/* With motion, the scroll distance of the pin is reserved from first paint, so nothing jumps when it starts */
+@media (min-height: 520px) {
+  html.motion .hero { margin-bottom: 50svh; }
+}
+@media (min-height: 520px) and (min-width: 900px) {
+  html.motion .hero { margin-bottom: 110svh; }
 }
 @media (max-height: 640px) and (orientation: landscape) {
   .hero { height: auto; min-height: 100svh; }
