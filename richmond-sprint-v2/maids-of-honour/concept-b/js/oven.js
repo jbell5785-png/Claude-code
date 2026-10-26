@@ -31,9 +31,13 @@
     root.style.setProperty('--warm', p.toFixed(3));
   }
 
+  var hush = 0;
   function chime(times, vol) {
     if (!ctx) return;
+    if (ctx.state === 'suspended') ctx.resume();
     var now = ctx.currentTime;
+    clearTimeout(hush);
+    hush = setTimeout(function () { if (ctx && ctx.state === 'running') ctx.suspend(); }, times * 850 + 2000); // let the audio device sleep once the bell has rung
     for (var i = 0; i < times; i++) {
       [784, 1176, 1568].forEach(function (hz, j) {
         var o = ctx.createOscillator(), g = ctx.createGain();
@@ -119,6 +123,7 @@
   });
   radios.forEach(function (r) { r.addEventListener('change', function () { if (status === 'idle' || status === 'done') { status = 'idle'; reset(); } }); });
   document.addEventListener('visibilitychange', function () { if (status === 'running') step(); });
+  window.addEventListener('pagehide', function () { clearInterval(tick); clearTimeout(hush); if (ctx && ctx.close) ctx.close(); ctx = null; });
 
   setTotal(); render();
 })();
