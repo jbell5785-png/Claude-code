@@ -1,0 +1,20 @@
+# Tide Tables Café
+
+> Richmond Riverside Café: a café in a converted arch beneath Richmond Bridge, on the Thames Path. The food is all vegetarian, and there are vegan and gluten-free dishes, too.
+
+Preview note: this file belongs to a speculative design proposal by an independent studio. It is not the official Tide Tables Café website and is not commissioned or endorsed by Tide Tables Café. The official website is https://tidetablescafe.com/.
+
+## Visit
+
+- Address: 2 The Arches, Richmond, Surrey TW9 1TH
+- Phone: +44 (0)20 8948 8285
+- Email: hey@tidetablescafe.com (email only monitored periodically; for urgent enquiries please telephone)
+- Opening hours: "Open during daylight hours. For more specific information, please call +44 (0)20 8948 8285." Day-by-day times are not published.
+
+## Booking
+
+- There is no online booking. Please phone the café.
+
+## Menu
+
+- No current menu or prices are published online. The [menu page](menu.html) is a sample layout using only dishes the café mentions on its own site, without prices: "This is a sample menu, and all items and prices are subject to change. For the daily offerings or specials please phone the café."

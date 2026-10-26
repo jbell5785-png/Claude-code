@@ -1,0 +1,30 @@
+# Matsuba
+
+> A family-run Japanese restaurant at 10 Red Lion Street, Richmond, first opened in 2004.
+
+Preview note: this file belongs to a speculative design proposal by an independent studio. It is not the official Matsuba website and is not commissioned or endorsed by Matsuba. The official website is https://matsuba.co.uk/.
+
+## Visit
+
+- Address: 10 Red Lion St, Richmond TW9 1RW
+- Phone: 020 8605 3513
+- Email: info@matsuba.co.uk
+- Instagram: [@matsuba.london](https://www.instagram.com/matsuba.london/)
+
+## Opening hours, as published on matsuba.co.uk
+
+- Monday – Friday: 12pm – 3pm / 5pm – 10pm
+- Saturday: 12pm – 10pm
+- Sunday: Closed
+- To confirm with the restaurant: Monday opening, and the time lunch service ends (the restaurant publishes different times in different places). Please call before you visit.
+
+## Book or order
+
+- [Book a table](https://booking.favouritetable.com/?SiteCode=2122) through Favourite Table. Web reservations are for tables up to 12 guests; for larger parties, call 020 8605 3513.
+- [Order online for collection](https://order.toasttab.com/online/matsuba-10-red-lion-street) through Toast. Takeaway deal: 20% off collection, every day; kids menu not included.
+
+## Menu
+
+- [Menu](menu.html): the dine-in menu as published, with prices in pounds. A discretionary 12.5% service charge will be added to your bill. All prices are inclusive of VAT.
+- [Takeaway menu (PDF)](https://matsuba.co.uk/wp-content/uploads/2026/06/MATSUBA-TA10-kids.pdf)
+- Allergies: "If you have a food allergy or a special dietary requirement, please inform a member of the staff."

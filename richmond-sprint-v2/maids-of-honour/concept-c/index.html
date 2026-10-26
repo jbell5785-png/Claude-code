@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Original Maids of Honour · Tearoom and bakery, 288 Kew Road</title>
-<meta name="description" content="A Historic Traditional English Tearoom Shop and Bakery at 288 Kew Road, Richmond. Set teas on three-tier stands, blue-and-white china, luncheons, breakfasts and the Maids of Honour tart.">
+<meta name="description" content="A Historic Traditional English Tearoom Shop and Bakery at 288 Kew Road, Richmond: set teas on three-tier stands, luncheons, breakfasts and the tart.">
 <meta name="theme-color" content="#1F3F8F">
 <meta property="og:title" content="The Original Maids of Honour · The tearoom at 288 Kew Road">
 <meta property="og:description" content="Windsor chairs, chintz, iron chandeliers and blue-and-white china. Choose a set tea and watch the three-tier stand fill.">
@@ -18,9 +18,12 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
+  "@type": [
+    "CafeOrCoffeeShop",
+    "Bakery"
+  ],
+  "@id": "https://theoriginalmaidsofhonour.co.uk/#tearoom",
   "name": "The Original Maids of Honour",
-  "alternateName": "Newens The Original Maids of Honour",
   "description": "A Historic Traditional English Tearoom Shop and Bakery.",
   "url": "https://theoriginalmaidsofhonour.co.uk/",
   "telephone": "+44 20 8940 2752",
@@ -33,15 +36,74 @@
     "postalCode": "TW9 3DU",
     "addressCountry": "GB"
   },
-  "openingHoursSpecification": [{
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "09:00",
-    "closes": "18:00"
-  }],
-  "servesCuisine": ["Afternoon tea", "British"],
-  "acceptsReservations": "https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717",
-  "hasMenu": "menu.html"
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  "acceptsReservations": true,
+  "hasMenu": "https://theoriginalmaidsofhonour.co.uk/menu.html",
+  "potentialAction": [
+    {
+      "@type": "ReserveAction",
+      "target": [
+        {
+          "@type": "EntryPoint",
+          "name": "Book a table",
+          "urlTemplate": "https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Breakfast",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Luncheon",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Set tea",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        }
+      ],
+      "result": {
+        "@type": "FoodEstablishmentReservation"
+      }
+    }
+  ]
 }
 </script>
 <script src="js/stand.js" defer></script>

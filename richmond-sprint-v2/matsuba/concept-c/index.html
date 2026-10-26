@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Matsuba · Tuna Tataki, torched-seared · 10 Red Lion Street, Richmond</title>
-<meta name="description" content="Matsuba, a family-run Japanese restaurant at 10 Red Lion Street, Richmond, first opened in 2004. Torched-seared Tuna Tataki, eight aburi nigiri and Special Rolls exclusively created by MATSUBA.">
+<meta name="description" content="Family-run Japanese restaurant at 10 Red Lion Street, Richmond, first opened in 2004. Tuna Tataki, aburi nigiri and Special Rolls exclusively created by MATSUBA.">
 <meta name="theme-color" content="#640934">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Matsuba · Richmond">
@@ -26,9 +26,10 @@
 {
   "@context": "https://schema.org",
   "@type": "Restaurant",
+  "@id": "https://matsuba.co.uk/#restaurant",
   "name": "Matsuba",
+  "description": "We are a family-run Japanese restaurant well established in the heart of Richmond, South West London. Pull up a chair. Take a taste. Come join us.",
   "url": "https://matsuba.co.uk/",
-  "servesCuisine": "Japanese",
   "telephone": "+44 20 8605 3513",
   "email": "info@matsuba.co.uk",
   "address": {
@@ -38,9 +39,43 @@
     "postalCode": "TW9 1RW",
     "addressCountry": "GB"
   },
+  "servesCuisine": "Japanese",
+  "foundingDate": "2004",
   "acceptsReservations": "https://booking.favouritetable.com/?SiteCode=2122",
-  "menu": "https://matsuba.co.uk/matsuba-menu/",
-  "sameAs": ["https://www.instagram.com/matsuba.london/"]
+  "hasMenu": "https://matsuba.co.uk/menu.html",
+  "sameAs": [
+    "https://www.instagram.com/matsuba.london/"
+  ],
+  "potentialAction": [
+    {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://booking.favouritetable.com/?SiteCode=2122",
+        "inLanguage": "en-GB",
+        "actionPlatform": [
+          "https://schema.org/DesktopWebPlatform",
+          "https://schema.org/MobileWebPlatform"
+        ]
+      },
+      "result": {
+        "@type": "FoodEstablishmentReservation"
+      }
+    },
+    {
+      "@type": "OrderAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://order.toasttab.com/online/matsuba-10-red-lion-street",
+        "inLanguage": "en-GB",
+        "actionPlatform": [
+          "https://schema.org/DesktopWebPlatform",
+          "https://schema.org/MobileWebPlatform"
+        ]
+      },
+      "deliveryMethod": "https://schema.org/OnSitePickup"
+    }
+  ]
 }
 </script>
 <script src="js/aburi.js" defer></script>

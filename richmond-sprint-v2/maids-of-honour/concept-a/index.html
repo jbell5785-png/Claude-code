@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Original Maids of Honour · Tearoom &amp; Bakery, 288 Kew Road</title>
-<meta name="description" content="A Historic Traditional English Tearoom Shop and Bakery on 288 Kew Road, Richmond, opposite Kew Gardens. Morning coffee, luncheons and set teas, daily 9am to 6pm.">
+<meta name="description" content="A Historic Traditional English Tearoom Shop and Bakery at 288 Kew Road, Richmond. Breakfasts, luncheons, set teas and the Maids of Honour tart, daily 9am to 6pm.">
 <meta name="theme-color" content="#24392F">
 <meta property="og:title" content="The Original Maids of Honour, 288 Kew Road">
 <meta property="og:description" content="Home made bread, cakes &amp; pastries. Morning coffee, luncheons, teas. Daily 9am to 6pm, opposite Kew Gardens.">
@@ -17,9 +17,12 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
+  "@type": [
+    "CafeOrCoffeeShop",
+    "Bakery"
+  ],
+  "@id": "https://theoriginalmaidsofhonour.co.uk/#tearoom",
   "name": "The Original Maids of Honour",
-  "alternateName": "Newens The Original Maids of Honour",
   "description": "A Historic Traditional English Tearoom Shop and Bakery.",
   "url": "https://theoriginalmaidsofhonour.co.uk/",
   "telephone": "+44 20 8940 2752",
@@ -32,14 +35,74 @@
     "postalCode": "TW9 3DU",
     "addressCountry": "GB"
   },
-  "openingHoursSpecification": [{
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "09:00",
-    "closes": "18:00"
-  }],
-  "acceptsReservations": "https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717",
-  "hasMenu": "menu.html"
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  "acceptsReservations": true,
+  "hasMenu": "https://theoriginalmaidsofhonour.co.uk/menu.html",
+  "potentialAction": [
+    {
+      "@type": "ReserveAction",
+      "target": [
+        {
+          "@type": "EntryPoint",
+          "name": "Book a table",
+          "urlTemplate": "https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Breakfast",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Luncheon",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Set tea",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        }
+      ],
+      "result": {
+        "@type": "FoodEstablishmentReservation"
+      }
+    }
+  ]
 }
 </script>
 <script>document.documentElement.classList.add('js');</script>

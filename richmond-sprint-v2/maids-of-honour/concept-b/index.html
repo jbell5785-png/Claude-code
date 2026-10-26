@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Original Maids of Honour, 288 Kew Road: A Royal Secret</title>
-<meta name="description" content="Our Famous Maids of Honour Tart, still made to a secret recipe and served warm at 288 Kew Road, Richmond. Turn the key on the iron box, warm a posted tart, and book breakfast, luncheon or a set tea.">
+<meta name="description" content="Our Famous Maids of Honour Tart, still made to our secret recipe and served warm at 288 Kew Road, Richmond. Book breakfast, luncheon or a set tea.">
 <meta name="theme-color" content="#1B1B1E">
 <meta property="og:title" content="The Original Maids of Honour: A Royal Secret">
 <meta property="og:description" content="One tart, one secret. The Maids of Honour tart, served warm at 288 Kew Road, Richmond.">
@@ -24,17 +24,92 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
+  "@type": [
+    "CafeOrCoffeeShop",
+    "Bakery"
+  ],
+  "@id": "https://theoriginalmaidsofhonour.co.uk/#tearoom",
   "name": "The Original Maids of Honour",
-  "alternateName": "Newens The Original Maids of Honour",
+  "description": "A Historic Traditional English Tearoom Shop and Bakery. “We make everything ourselves on the premises using traditional methods to our own original recipes.”",
   "url": "https://theoriginalmaidsofhonour.co.uk/",
   "telephone": "+44 20 8940 2752",
   "email": "admin@theoriginalmaidsofhonour.co.uk",
-  "address": { "@type": "PostalAddress", "streetAddress": "288 Kew Road", "addressLocality": "Richmond", "addressRegion": "Surrey", "postalCode": "TW9 3DU", "addressCountry": "GB" },
-  "openingHours": "Mo-Su 09:00-18:00",
-  "servesCuisine": "British",
-  "acceptsReservations": "https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717",
-  "hasMenu": "menu.html"
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "288 Kew Road",
+    "addressLocality": "Richmond",
+    "addressRegion": "Surrey",
+    "postalCode": "TW9 3DU",
+    "addressCountry": "GB"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  "acceptsReservations": true,
+  "hasMenu": "https://theoriginalmaidsofhonour.co.uk/menu.html",
+  "potentialAction": [
+    {
+      "@type": "ReserveAction",
+      "target": [
+        {
+          "@type": "EntryPoint",
+          "name": "Book a table",
+          "urlTemplate": "https://booking.resdiary.com/widget/ThreeMonth/NewensTheOriginalMaidsofHonour/32717",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Breakfast",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33175",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Luncheon",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33176",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        {
+          "@type": "EntryPoint",
+          "name": "Set tea",
+          "urlTemplate": "https://booking.resdiary.com/widget/Standard/NewensTheOriginalMaidsofHonour/33177",
+          "inLanguage": "en-GB",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        }
+      ],
+      "result": {
+        "@type": "FoodEstablishmentReservation"
+      }
+    }
+  ]
 }
 </script>
 <script src="js/site.js" defer></script>
