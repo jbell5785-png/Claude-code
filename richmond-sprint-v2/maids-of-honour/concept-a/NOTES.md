@@ -114,7 +114,9 @@ Schedule produced by the logic (Wednesday, then where Thursday differs):
 - **Fonts:** Google Fonts only.
   - **Grenze Gotisch** (400–800) is used for display only: boards, headings, the wordmark, smoothie names and the lettering in the drawing and sign.
   - **Alegreya** (roman and italic) is used for all text and menus. Its default old-style figures are used in running text; prices use `lining-nums tabular-nums`. Alegreya on Google Fonts has no `smcp`, so caps labels are tracked capitals.
-  - The metric-adjusted fallbacks are "Alegreya Fallback" and "Grenze Fallback" (Georgia, with size-adjust and ascent/descent overrides measured from the font files).
+  - **Fallbacks without layout shift.** There is one fallback family per real local serif: Georgia, Times New Roman/Liberation/Tinos, Noto Serif (Android), DejaVu Serif and FreeSerif. Each has separate roman, italic and bold faces, with `size-adjust` matched to Alegreya and Grenze by glyph advances over the site's own text, plus ascent and descent overrides. Georgia's values are estimated (it could not be measured here); the others were measured from the font files.
+  - All measures use `em`, not `ch`, because `ch` changes width when the font swaps. Each was converted from Alegreya's real "0" advance (0.533em roman, 0.510em italic), so layout widths are unchanged.
+  - CLS (PerformanceObserver over 2.5s, at 390, 768 and 1440): index 0.003 / 0.004 / 0.029 and menu 0.001 / 0.001 / 0.001. Before the fix: index up to 0.021 / 0.111 / 0.183 and menu up to 0.154 / 0.008 / 0.005.
 - **Gilding:** `.gilt` builds the leaf from four layers:
   - a vertical leaf gradient (lit top edge, burnished middle) clipped to the text;
   - a 0.6px dark text stroke;
