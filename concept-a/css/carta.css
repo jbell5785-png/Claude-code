@@ -4,23 +4,30 @@
    Spacing steps 8 / 16 / 24 / 40 / 64 / 104 on an 8px baseline.
    ========================================================================== */
 
-/* Metric-adjusted fallbacks, so the swap to the web fonts barely moves the page */
-@font-face {
-  font-family: "Young Serif Fallback";
-  src: local("Georgia"), local("Times New Roman"), local("Liberation Serif");
-  size-adjust: 104%;
-  ascent-override: 92%;
-  descent-override: 24%;
-  line-gap-override: 0%;
-}
-@font-face {
-  font-family: "Instrument Sans Fallback";
-  src: local("Arial"), local("Helvetica"), local("Liberation Sans");
-  size-adjust: 96%;
-  ascent-override: 98%;
-  descent-override: 26%;
-  line-gap-override: 0%;
-}
+/* Metric-adjusted fallbacks, one face per local font, so the swap to the web fonts barely moves the page.
+   Widths computed from the Google Fonts files (letter-frequency average advance); overrides are divided by size-adjust.
+   Instrument Sans gets a second face for the 87.5% width used by labels, buttons and the nav. */
+@font-face { font-family: "YS Fallback Georgia"; src: local("Georgia");
+  size-adjust: 112.4%; ascent-override: 93.1%; descent-override: 32.6%; line-gap-override: 0%; }
+@font-face { font-family: "YS Fallback Times"; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"), local("LiberationSerif"), local("Tinos"), local("Times");
+  size-adjust: 125.8%; ascent-override: 83.1%; descent-override: 29.1%; line-gap-override: 0%; }
+@font-face { font-family: "YS Fallback DejaVu"; src: local("DejaVu Serif"), local("DejaVuSerif");
+  size-adjust: 98.3%; ascent-override: 106.5%; descent-override: 37.2%; line-gap-override: 0%; }
+@font-face { font-family: "YS Fallback Noto"; src: local("Noto Serif"), local("NotoSerif-Regular");
+  size-adjust: 105.1%; ascent-override: 99.5%; descent-override: 34.8%; line-gap-override: 0%; }
+
+@font-face { font-family: "IS Fallback Arial"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"), local("Helvetica");
+  font-stretch: 100%; size-adjust: 102.5%; ascent-override: 94.6%; descent-override: 24.4%; line-gap-override: 0%; }
+@font-face { font-family: "IS Fallback Arial"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"), local("Arimo"), local("Helvetica");
+  font-stretch: 87.5%; size-adjust: 91%; ascent-override: 106.6%; descent-override: 27.5%; line-gap-override: 0%; }
+@font-face { font-family: "IS Fallback DejaVu"; src: local("DejaVu Sans"), local("DejaVuSans");
+  font-stretch: 100%; size-adjust: 89.3%; ascent-override: 108.6%; descent-override: 28%; line-gap-override: 0%; }
+@font-face { font-family: "IS Fallback DejaVu"; src: local("DejaVu Sans"), local("DejaVuSans");
+  font-stretch: 87.5%; size-adjust: 79.2%; ascent-override: 122.5%; descent-override: 31.6%; line-gap-override: 0%; }
+@font-face { font-family: "IS Fallback Noto"; src: local("Noto Sans"), local("NotoSans-Regular");
+  font-stretch: 100%; size-adjust: 95.9%; ascent-override: 101.1%; descent-override: 26.1%; line-gap-override: 0%; }
+@font-face { font-family: "IS Fallback Noto"; src: local("Noto Sans"), local("NotoSans-Regular");
+  font-stretch: 87.5%; size-adjust: 85%; ascent-override: 114.1%; descent-override: 29.4%; line-gap-override: 0%; }
 
 :root {
   /* Inks and stock */
@@ -45,10 +52,11 @@
   --gutter: 16px;
   --col-gap: 16px;
   --strip-h: 56px;
+  --bar-h: 56px;          /* the bottom action bar on phones and tablets */
   --head-h: 0px;          /* the desktop header is sticky; set below */
 
-  --serif: "Young Serif", "Young Serif Fallback", Georgia, serif;
-  --sans: "Instrument Sans", "Instrument Sans Fallback", Arial, sans-serif;
+  --serif: "Young Serif", "YS Fallback Georgia", "YS Fallback Times", "YS Fallback DejaVu", "YS Fallback Noto", Georgia, serif;
+  --sans: "Instrument Sans", "IS Fallback Arial", "IS Fallback DejaVu", "IS Fallback Noto", Arial, sans-serif;
 
   --ease: cubic-bezier(.33, 1, .68, 1);
   color-scheme: light;
@@ -68,7 +76,10 @@ html {
   text-size-adjust: 100%;
   background: var(--card);
   overflow-x: clip;
+  /* anchors and focused links never land under the bottom action bar */
+  scroll-padding-bottom: calc(var(--bar-h) + 16px + env(safe-area-inset-bottom));
 }
+@media (min-width: 1024px) { html { scroll-padding-bottom: 8px; } }
 body {
   margin: 0;
   background: var(--card);
@@ -93,7 +104,7 @@ a { color: inherit; }
 abbr[title] { text-decoration: none; }
 [hidden] { display: none !important; }
 
-:target, [id] { scroll-margin-top: calc(var(--strip-h) + var(--s3)); }
+:target, [id] { scroll-margin-top: var(--s3); }
 @media (min-width: 1024px) {
   :target, [id] { scroll-margin-top: calc(var(--head-h) + var(--s4)); }
 }
@@ -355,8 +366,7 @@ abbr[title] { text-decoration: none; }
 
 /* Running header strip (mobile and tablet): date, hours, Call, Book */
 .running {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 25;
   display: flex;
   align-items: center;
@@ -389,12 +399,7 @@ abbr[title] { text-decoration: none; }
 .running__hours .tbc { vertical-align: 0.2em; margin-left: 4px; }
 .running__acts { display: flex; gap: 8px; flex: none; }
 .running .btn { min-height: 44px; }
-.running .btn--call { padding: 0; width: 44px; }
-.running .btn--call .call-text { display: none; }
-@media (min-width: 480px) {
-  .running .btn--call { width: auto; padding: 0 14px; }
-  .running .btn--call .call-text { display: inline; }
-}
+.running .btn--call { padding: 0 14px; }
 @media (min-width: 1024px) {
   .running { display: none; }
 }
@@ -510,14 +515,14 @@ abbr[title] { text-decoration: none; }
 /* ==========================================================================
    Hero · il foglio del giorno
    ========================================================================== */
-.hero { padding: var(--s3) 0 var(--s5); }
+.hero { padding: var(--s1) 0 var(--s5); }
 .mast {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 4px var(--s3);
-  padding: 12px 0 11px;
+  padding: 8px 0 7px;
 }
 .mast__title { color: var(--ink); }
 .mast__phone { color: var(--pencil); }
@@ -525,10 +530,10 @@ abbr[title] { text-decoration: none; }
 .mast__phone a:hover { color: var(--ink); text-decoration: underline; }
 
 .wordmark {
-  margin: var(--s3) 0 var(--s2);
+  margin: var(--s2) 0 var(--s1);
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(4rem, 21vw, 8rem);
+  font-size: clamp(3.5rem, 17.5vw, 8rem);
   line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--rosso);
@@ -538,10 +543,11 @@ abbr[title] { text-decoration: none; }
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: var(--s2);
+  margin-top: 12px;
 }
 .wordmark__sub .label { letter-spacing: 0.42em; color: var(--ink); font-size: 0.8125rem; }
 .wordmark__sub::after { content: ""; flex: 1; height: 1px; background: var(--ink); }
+.wordmark__sub .wordmark__where { letter-spacing: 0.14em; }
 
 @media (min-width: 700px) {
   .wordmark__line { display: inline; }
@@ -553,18 +559,20 @@ abbr[title] { text-decoration: none; }
 .mast__date { display: none; }
 @media (min-width: 1024px) { .mast__date { display: inline; } }
 
-.hero__grid { display: grid; gap: var(--s4); margin-top: var(--s4); }
+.hero__grid { display: grid; gap: var(--s4); margin-top: var(--s2); }
+.hero__voice { font-size: 1.1875rem; }
 .hero__voice { max-width: 21em; }
-.hero__hours {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 12px;
-  margin-top: var(--s3);
-  font-size: 0.9375rem;
-}
-.hero__hours .label { color: var(--rosso); }
-.hero__acts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: var(--s3); }
+/* Today: status and address, set like the date block of a printed day-sheet */
+.today { margin-top: var(--s2); padding: 10px 0 12px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule); }
+.today__status { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; font-family: var(--serif); font-size: 1.125rem; line-height: 1.35; }
+.today__status .tbc { vertical-align: 0.25em; }
+.today__where { margin-top: 2px; font-size: 0.9375rem; line-height: 1.47; }
+.today__where .link { display: inline-block; padding: 2px 0; }
+.hero__acts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: var(--s2); }
+.hero__week { margin-top: 12px; }
+.hero__week .tbc { vertical-align: 0.15em; }
+.hero__week .link, .hero__call .link { display: inline-block; padding: 2px 0; }
+.hero__call { margin-top: var(--s1); }
 .hero__acts .btn { min-height: 52px; padding: 0 12px; }
 
 .drawing {
@@ -575,31 +583,6 @@ abbr[title] { text-decoration: none; }
 .drawing svg { width: 100%; height: 100%; overflow: visible; }
 .pen-art { fill: none; stroke: var(--rosso); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .pen-art path { vector-effect: non-scaling-stroke; }
-.drawing__cap { margin-top: var(--s1); }
-
-.logo-slot {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: var(--s2);
-  margin-top: var(--s3);
-  padding: 12px;
-  border: 1px dashed var(--pencil);
-}
-.logo-slot__frame {
-  display: grid;
-  place-items: center;
-  width: 112px;
-  aspect-ratio: 12 / 5;
-  background:
-    linear-gradient(to top right, transparent calc(50% - .5px), var(--rule) 50%, transparent calc(50% + .5px)),
-    linear-gradient(to bottom right, transparent calc(50% - .5px), var(--rule) 50%, transparent calc(50% + .5px)),
-    var(--slip);
-  border: 1px solid var(--rule);
-}
-.logo-slot__text { font-size: 0.8125rem; line-height: 1.38; color: var(--pencil); }
-.logo-slot__text strong { display: block; color: var(--ink); font-weight: 600; }
-
 @media (min-width: 768px) {
   .hero { padding-top: var(--s4); }
   .hero__grid {
@@ -608,31 +591,15 @@ abbr[title] { text-decoration: none; }
   }
   .hero__text { grid-column: 1 / 6; }
   .hero__art { grid-column: 6 / 11; padding-top: var(--s1); }
-  .hero__acts { display: flex; flex-wrap: wrap; }
+  .hero__grid { margin-top: var(--s4); }
+  .hero__voice { font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem); }
+  .today { margin-top: var(--s3); }
+  .hero__acts { display: flex; flex-wrap: wrap; margin-top: var(--s3); }
   .hero__acts .btn { padding: 0 24px; }
 }
 @media (min-width: 1024px) {
   .hero { padding-top: var(--s5); }
   .wordmark { margin-top: var(--s4); }
-}
-
-/* ==========================================================================
-   Oggi: three items in ruled columns
-   ========================================================================== */
-.oggi { padding: var(--s4) 0 var(--s5); }
-.oggi__head { display: flex; align-items: baseline; gap: var(--s2); margin-bottom: var(--s3); }
-.oggi__title { font-family: var(--serif); font-size: 1.75rem; line-height: 1; color: var(--rosso); }
-.oggi__list { border-top: 1px solid var(--ink); }
-.oggi__item { padding: var(--s3) 0; border-bottom: 1px solid var(--rule); }
-.oggi__item .label { display: block; margin-bottom: var(--s1); }
-.oggi__item .h3 { margin-bottom: var(--s1); }
-.oggi__item p { font-size: 0.9375rem; line-height: 1.47; }
-.oggi__item .link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-size: 0.9375rem; }
-@media (min-width: 768px) {
-  .oggi__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
-  .oggi__item { padding: var(--s3) var(--s3) var(--s2); border-bottom: 0; }
-  .oggi__item:first-child { padding-left: 0; }
-  .oggi__item + .oggi__item { border-left: 1px solid var(--rule); }
 }
 
 /* ==========================================================================
@@ -821,8 +788,7 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
   color: var(--rosso);
   font-weight: 500;
 }
-.marker__fallback { margin-top: var(--s1); }
-.js .marker__fallback { display: none; }
+html:not(.js) .marker { display: none; }
 
 /* ==========================================================================
    Set-menu slips, stapled on
@@ -888,71 +854,6 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 }
 @media (min-width: 1024px) {
   .preview .marker { top: calc(var(--head-h) + var(--s4)); }
-}
-
-/* ==========================================================================
-   Gallery: plates tipped into the page
-   ========================================================================== */
-.plates {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: var(--s4) var(--col-gap);
-  align-items: start;
-}
-.plate { margin: 0; }
-.plate--a { grid-column: 1 / 6; }
-.plate--b { grid-column: 2 / 7; }
-.plate--c { grid-column: 1 / 4; }
-.plate--d { grid-column: 4 / 7; margin-top: var(--s5); }
-.plate__frame {
-  position: relative;
-  display: grid;
-  place-items: center;
-  padding: 16px;
-  background: var(--wash);
-}
-.plate--a .plate__frame { aspect-ratio: 4 / 5; }
-.plate--b .plate__frame { aspect-ratio: 3 / 2; }
-.plate--c .plate__frame { aspect-ratio: 1 / 1; }
-.plate--d .plate__frame { aspect-ratio: 4 / 5; }
-/* photo corners, the way prints are tipped into an album or a menu folder */
-.plate__frame::before,
-.plate__frame::after {
-  content: "";
-  position: absolute;
-  width: 26px; height: 26px;
-  background: linear-gradient(to bottom right, var(--ink) 50%, transparent 50.5%);
-}
-.plate__frame::before { top: -6px; left: -6px; }
-.plate__frame::after { right: -6px; bottom: -6px; transform: rotate(180deg); }
-.plate__corners::before,
-.plate__corners::after {
-  content: "";
-  position: absolute;
-  width: 26px; height: 26px;
-  background: linear-gradient(to bottom right, var(--ink) 50%, transparent 50.5%);
-}
-.plate__corners::before { top: -6px; right: -6px; transform: rotate(90deg); }
-.plate__corners::after { bottom: -6px; left: -6px; transform: rotate(-90deg); }
-.plate__mark {
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-  text-align: center;
-  color: var(--pencil);
-}
-.plate__mark svg { width: 44px; height: 44px; }
-.plate__mark svg path { fill: none; stroke: var(--rosso); stroke-width: 1.4; stroke-linecap: round; }
-.plate__cap { margin-top: 14px; font-size: 0.875rem; line-height: 1.43; color: var(--pencil); max-width: 30em; }
-.plate__cap strong { display: block; color: var(--ink); font-family: var(--serif); font-weight: 400; font-size: 1.0625rem; line-height: 1.3; margin-bottom: 2px; }
-
-@media (min-width: 768px) {
-  .plates { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: var(--s4) var(--col-gap); }
-  .plate--a { grid-column: 1 / 5; grid-row: 1 / span 2; }
-  .plate--b { grid-column: 5 / 11; }
-  .plate--c { grid-column: 5 / 8; }
-  .plate--d { grid-column: 8 / 11; margin-top: var(--s4); }
-  .plate--d .plate__frame { aspect-ratio: 4 / 5; }
 }
 
 /* ==========================================================================
@@ -1042,6 +943,9 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 .find__addr { font-family: var(--serif); font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem); line-height: 1.25; }
 .find__addr-acts { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-top: var(--s3); }
 .facts { margin-top: var(--s4); border-top: 1px solid var(--ink); }
+.facts--hours { margin: 0 0 var(--s4); }
+.facts--hours dd { font-family: var(--serif); font-size: 1.125rem; }
+.tbc.tbc--solo { margin-left: 0; vertical-align: 0.1em; }
 .facts__row { display: grid; gap: 4px; padding: var(--s2) 0; border-bottom: 1px solid var(--rule); }
 .facts__row dt { color: var(--rosso); }
 .facts__row dd { font-size: 1rem; line-height: 1.5; }
@@ -1049,10 +953,6 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 @media (min-width: 560px) {
   .facts__row { grid-template-columns: 9.5em 1fr; gap: var(--s3); align-items: baseline; }
 }
-.route { margin-top: var(--s1); }
-.route svg { width: 100%; height: auto; aspect-ratio: 250 / 300; max-width: 272px; }
-.route text { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: .08em; fill: var(--ink); text-transform: uppercase; }
-.route .route__small { font-weight: 400; letter-spacing: .02em; text-transform: none; fill: var(--pencil); font-size: 11px; }
 .copy-status { min-height: 20px; margin-top: 8px; color: var(--basilico); font-size: 0.875rem; font-weight: 500; }
 
 /* ==========================================================================
@@ -1060,7 +960,7 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
    ========================================================================== */
 .foot {
   margin-top: var(--s5);
-  padding: var(--s4) var(--gutter) var(--s5);
+  padding: var(--s4) var(--gutter) calc(var(--s5) + var(--bar-h) + env(safe-area-inset-bottom));
   border-top: 3px solid var(--ink);
   box-shadow: 0 -5px 0 -4px var(--ink);
 }
@@ -1074,6 +974,7 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 .foot__proposal { padding-top: var(--s3); border-top: 1px solid var(--rule); font-size: 0.875rem; color: var(--pencil); }
 .foot__proposal p + p { margin-top: 4px; }
 .foot__proposal a { color: var(--ink); text-underline-offset: .2em; display: inline-flex; align-items: center; min-height: 44px; margin-right: 12px; }
+@media (min-width: 1024px) { .foot { padding-bottom: var(--s5); } }
 @media (min-width: 768px) {
   .foot__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
   .foot__brand { grid-column: 1 / 5; }
@@ -1087,6 +988,42 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
   .foot__links { grid-column: 8 / 13; }
   .foot__proposal { grid-column: 3 / -1; }
 }
+
+/* ==========================================================================
+   Action bar: phones and tablets, in the thumb zone. Desktop has these in the header.
+   ========================================================================== */
+.actbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  height: calc(var(--bar-h) + env(safe-area-inset-bottom));
+  padding: 6px var(--gutter) calc(6px + env(safe-area-inset-bottom));
+  background: var(--card);
+  border-top: 1px solid var(--ink);
+  box-shadow: 0 -3px 0 -2px var(--card), 0 -4px 0 -2px var(--ink);
+}
+.actbar__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: var(--card);
+  font-stretch: 87.5%;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.actbar__btn--book { border-color: var(--rosso); background: var(--rosso); color: var(--card); box-shadow: inset 0 0 0 3px var(--rosso), inset 0 0 0 4px rgba(250, 248, 243, .7); }
+.actbar__btn:active { transform: translateY(1px); }
+@media (min-width: 1024px) { .actbar { display: none; } }
 
 /* ==========================================================================
    Menu page
@@ -1141,7 +1078,7 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
 /* The mobile mark bar, pinned under the running strip */
 .mark-bar {
   position: sticky;
-  top: var(--strip-h);
+  top: 0;
   z-index: 20;
   margin: var(--s3) calc(-1 * var(--gutter)) 0;
   padding: 10px var(--gutter);
@@ -1163,7 +1100,7 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
   /* JS moves the marker into the mark bar on phones: lay out that final state from first paint */
   .js .menu-margin .marker { display: none; }
   .js .mark-bar:empty { display: block; min-height: calc(44px + 20px + 1px); }
-  .page-menu [id] { scroll-margin-top: calc(var(--strip-h) + 64px + var(--s3)); }
+  .page-menu [id] { scroll-margin-top: calc(64px + var(--s3)); }
 }
 
 @media (min-width: 1024px) {
@@ -1226,6 +1163,10 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
   .slips .slip:nth-child(even) { margin-left: 0; margin-top: var(--s5); }
 }
 
+.back-top { margin-top: var(--s2); font-size: 0.875rem; }
+.back-top .link { display: inline-flex; align-items: center; min-height: 44px; }
+.back-top .link::before { content: "\2191\2009"; }
+.menu-notes h2 { font-weight: 600; }
 .menu-foot { margin-top: var(--s5); padding-top: var(--s3); border-top: 1px solid var(--rule); }
 .menu-foot p { max-width: 40em; }
 .menu-foot p + p { margin-top: var(--s2); }
@@ -1244,7 +1185,7 @@ a.dish__course:hover { text-decoration: underline; text-underline-offset: .2em; 
    Print: it is a menu card, after all
    ========================================================================== */
 @media print {
-  .top, .running, .mark-bar, .marker, .skip, .book__actions, .foot__proposal { display: none !important; }
+  .top, .running, .mark-bar, .marker, .skip, .book__actions, .foot__proposal, .actbar, .back-top { display: none !important; }
   .page { display: block; }
   .margin { display: block; }
   .margin__sticky, .margin__home { position: static; max-height: none; overflow: visible; }

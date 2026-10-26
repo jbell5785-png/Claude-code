@@ -80,11 +80,10 @@
     <span class="running__hours">Today 12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
   </p>
   <div class="running__acts">
-    <a class="btn btn--call" href="tel:+442089488330" aria-label="Call 020 8948 8330">
+    <a class="btn btn--call" href="tel:+442089488330">
       <svg class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M5.2 2.8h3l1.6 4-2.1 1.5a11 11 0 0 0 5.9 5.9l1.5-2.1 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.2 5a2 2 0 0 1 2-2.2z"/></svg>
-      <span class="call-text">Call</span>
+      <span class="call-text">Call</span><span class="sr-only"> 020 8948 8330</span>
     </a>
-    <a class="btn btn--stamp" href="index.html#book">Book</a>
   </div>
 </div>
 
@@ -108,10 +107,10 @@
 
   <div class="page">
     <aside class="margin menu-margin" aria-label="Menu notes and course index">
-      <div class="menu-notes">
-        <p class="label label--pencil">Notes</p>
-        <!-- [TO CONFIRM] prices from the current website, being re-checked -->
-        <p class="note" style="margin-top:8px">Prices in pounds, from our current menu, being re-checked.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+      <div class="menu-notes" id="allergens">
+        <h2 class="label label--pencil">Dietary key and allergies</h2>
+        <!-- [TO CONFIRM] prices from the current website, being re-checked; service charge unknown -->
+        <p class="note" style="margin-top:8px">Prices in £, from our current menu, being re-checked.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Service charge<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
         <!-- [TO CONFIRM] dietary markers inferred from dish names -->
         <p class="note">Dietary markers to be confirmed with the kitchen.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
         <ul class="key">
@@ -123,12 +122,12 @@
       <div class="margin__sticky">
         <div class="marker" data-marker data-scope="#carta" data-mobile-host="#mark-bar">
           <p class="marker__title" role="heading" aria-level="2">Mark the menu</p>
-          <p class="note marker__intro">Pick one and we’ll ring it in red pen.</p>
+          <p class="note marker__intro">What are you after?</p>
           <div class="marker__btns" data-marker-btns></div>
           <p class="marker__status" role="status"></p>
         </div>
-        <nav class="index" aria-label="Courses">
-          <p class="label label--pencil index__title">Index</p>
+        <nav class="index" id="courses" aria-label="On this menu">
+          <p class="label label--pencil index__title">On this menu</p>
           <ul class="index__list">
               <li><a href="#antipasti">Antipasti</a></li>
               <li><a href="#insalate">Insalate</a></li>
@@ -175,7 +174,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Bruschetta</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">7.50</span>
+                <span class="dish__price">£7.50</span>
               </div>
               <p class="dish__desc">Toasted bread with garlic, tomato, basil and olive oil.</p>
             </li>
@@ -183,7 +182,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Funghi Mirele</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">9.25</span>
+                <span class="dish__price">£9.25</span>
               </div>
               <p class="dish__desc">Deep-fried mushrooms in breadcrumbs with garlic butter.</p>
             </li>
@@ -191,7 +190,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Calamari fritti</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">10.50</span>
+                <span class="dish__price">£10.50</span>
               </div>
               <p class="dish__desc">Deep-fried calamari with tartare sauce.</p>
             </li>
@@ -199,11 +198,12 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Antipasto misto</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">10.50</span>
+                <span class="dish__price">£10.50</span>
               </div>
               <p class="dish__desc">Parma ham, mortadella, salami, egg and mixed salad.</p>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="insalate" aria-labelledby="h-insalate">
@@ -211,14 +211,13 @@
           <header class="course__head">
             <hr class="dbl" data-rule>
             <h2 class="course__title" id="h-insalate"><span>Insalate<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span><span class="label course__en">Salads</span></h2>
-            <p class="note course__note">Taken from a third-party listing of our menu, so this section is being checked.</p>
           </header>
           <ul class="dishes">
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">San Daniele e melone</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">10.95</span>
+                <span class="dish__price">£10.95</span>
               </div>
               <p class="dish__desc">San Daniele ham and melon.</p>
             </li>
@@ -226,11 +225,12 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Insalata mista o verde</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">6.95</span>
+                <span class="dish__price">£6.95</span>
               </div>
               <p class="dish__desc">Mixed or green salad.</p>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="pasta" aria-labelledby="h-pasta">
@@ -243,42 +243,42 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Ravioli aurora</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.25</span>
+                <span class="dish__price">£13.25</span>
               </div>
             </li>
             <li class="dish" data-tags="v">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Tagliatelle al pesto</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.45</span>
+                <span class="dish__price">£13.45</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Penne alla mediterranea</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.45</span>
+                <span class="dish__price">£13.45</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Penne siciliana</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.45</span>
+                <span class="dish__price">£13.45</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Spaghetti carbonara</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.75</span>
+                <span class="dish__price">£13.75</span>
               </div>
             </li>
             <li class="dish" data-tags="kids">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Spaghetti bolognese</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.75</span>
+                <span class="dish__price">£13.75</span>
               </div>
             </li>
             <li class="dish">
@@ -286,14 +286,14 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Lasagne</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.95<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+                <span class="dish__price">£13.95<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
               </div>
             </li>
             <li class="dish" data-tags="fish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Tagliatelle al salmone affumicato</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.45</span>
+                <span class="dish__price">£14.45</span>
               </div>
               <p class="dish__desc">Smoked salmon.</p>
             </li>
@@ -301,7 +301,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Penne polpette e pomodoro</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
               <p class="dish__desc">Meatballs and tomato.</p>
             </li>
@@ -309,7 +309,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Linguine alle vongole</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
               <p class="dish__desc">Clams.</p>
             </li>
@@ -325,7 +325,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Tagliatelle gamberoni</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">16.95</span>
+                <span class="dish__price">£16.95</span>
               </div>
               <p class="dish__desc">King prawns.</p>
             </li>
@@ -333,7 +333,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Linguine tutto mare</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">16.95</span>
+                <span class="dish__price">£16.95</span>
               </div>
               <p class="dish__desc">Seafood.</p>
             </li>
@@ -341,7 +341,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Risotto paisana</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.45</span>
+                <span class="dish__price">£13.45</span>
               </div>
               <p class="dish__desc">Mushrooms, courgettes and broad beans.</p>
             </li>
@@ -349,11 +349,12 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Risotto di mare</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">16.95</span>
+                <span class="dish__price">£16.95</span>
               </div>
               <p class="dish__desc">Seafood.</p>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="pizze" aria-labelledby="h-pizze">
@@ -366,28 +367,28 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Margherita</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">12.95</span>
+                <span class="dish__price">£12.95</span>
               </div>
             </li>
             <li class="dish" data-tags="v">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Funghi</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.25</span>
+                <span class="dish__price">£13.25</span>
               </div>
             </li>
             <li class="dish" data-tags="v">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Vegetariana</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.75</span>
+                <span class="dish__price">£13.75</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Fiorentina</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">13.95</span>
+                <span class="dish__price">£13.95</span>
               </div>
             </li>
             <li class="dish" data-tags="v">
@@ -402,7 +403,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Diavola</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
               <p class="dish__desc">Tomato, mozzarella, pepperoni sausage and onion.</p>
             </li>
@@ -410,14 +411,14 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Capricciosa</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Quattro stagioni</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
               <p class="dish__desc">Ham, salami, mushroom, anchovies and artichokes.</p>
             </li>
@@ -425,7 +426,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Tonno e cipolle</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
               <p class="dish__desc">Tuna and onion.</p>
             </li>
@@ -433,14 +434,14 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Tropicana</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Calzone</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
             </li>
             <li class="dish" data-tags="fish">
@@ -453,6 +454,7 @@
               </div>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="carne" aria-labelledby="h-carne">
@@ -465,7 +467,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Pollo e gamberoni alla Mamma</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">16.25</span>
+                <span class="dish__price">£16.25</span>
               </div>
               <p class="dish__desc">Chicken and king prawns.</p>
             </li>
@@ -473,21 +475,21 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Pollo alla crema</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">17.25</span>
+                <span class="dish__price">£17.25</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Pollo alla siciliana</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">17.25</span>
+                <span class="dish__price">£17.25</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Vitello</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price"><span class="dish__from">from</span> 17.25</span>
+                <span class="dish__price"><span class="dish__from">from</span> £17.25</span>
               </div>
               <p class="dish__desc">Milanese, al funghetto, al limone or saltimbocca alla romana.</p>
             </li>
@@ -495,17 +497,18 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Bistecca al Barolo</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">20.95</span>
+                <span class="dish__price">£20.95</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Bistecca alla griglia</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">20.95</span>
+                <span class="dish__price">£20.95</span>
               </div>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="pesce" aria-labelledby="h-pesce">
@@ -518,7 +521,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Branzino alla griglia</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">18.95</span>
+                <span class="dish__price">£18.95</span>
               </div>
               <p class="dish__desc">Grilled sea bass.</p>
             </li>
@@ -526,7 +529,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Branzino alla livornese</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">18.95</span>
+                <span class="dish__price">£18.95</span>
               </div>
               <p class="dish__desc">Sea bass with herbs and cherry tomatoes.</p>
             </li>
@@ -534,11 +537,12 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Tonno alla Cleopatra</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">18.95</span>
+                <span class="dish__price">£18.95</span>
               </div>
               <p class="dish__desc">Tuna steak.</p>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="dolci" aria-labelledby="h-dolci">
@@ -551,7 +555,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Dolci della casa</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">5.95</span>
+                <span class="dish__price">£5.95</span>
               </div>
               <p class="dish__desc">Crème caramel, tiramisù, profiteroles, cheesecake, chocolate cake or oranges in caramel.</p>
             </li>
@@ -559,7 +563,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Macedonia di frutta</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">5.95</span>
+                <span class="dish__price">£5.95</span>
               </div>
               <p class="dish__desc">Fresh fruit salad.</p>
             </li>
@@ -567,7 +571,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Frullati</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">5.95</span>
+                <span class="dish__price">£5.95</span>
               </div>
               <p class="dish__desc">Fresh fruit or any other milkshake.</p>
             </li>
@@ -575,7 +579,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Zabaglione</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">9.50</span>
+                <span class="dish__price">£9.50</span>
               </div>
               <p class="dish__desc">Egg yolk, marsala and sugar, whisked to order and served hot.</p>
             </li>
@@ -583,18 +587,19 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Formaggi italiani</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">8.50</span>
+                <span class="dish__price">£8.50</span>
               </div>
               <p class="dish__desc">Italian cheese plate.</p>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course course--slips" id="set-menus" aria-labelledby="h-set-menus">
           <header class="course__head">
             <hr class="dbl" data-rule>
             <h2 class="course__title" id="h-set-menus"><span>Menù fissi</span><span class="label course__en">Set menus</span></h2>
-            <p class="note course__note">Stapled to the card: lunch, the children’s menu, parties and Christmas.</p>
+            <p class="note course__note">Lunch, the children’s menu, parties and Christmas.</p>
           </header>
           <div class="slips">
             <article class="slip" id="xpress-lunch" data-tags="lunch" data-kind="slip" data-name="the Xpress Lunch menu" aria-labelledby="h-xpress">
@@ -646,6 +651,7 @@
               </div>
             </article>
           </div>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
         <section class="course" id="bevande" aria-labelledby="h-bevande">
@@ -653,14 +659,14 @@
             <hr class="dbl" data-rule>
             <h2 class="course__title" id="h-bevande"><span>Bevande</span><span class="label course__en">Drinks</span></h2>
             <!-- [TO CONFIRM] full wine and drinks list -->
-            <p class="note course__note">A short list from our current menu. Full wine and drinks list<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+            <p class="note course__note">A few of our drinks. The full wine and drinks list<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
           </header>
           <ul class="dishes">
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Peroni or Kaliber</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">4.00</span>
+                <span class="dish__price">£4.00</span>
               </div>
               <p class="dish__desc">Kaliber is alcohol-free.</p>
             </li>
@@ -668,30 +674,30 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Bellini</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">5.95</span>
+                <span class="dish__price">£5.95</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Soft drinks, juices and water</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price"><span class="dish__from">from</span> 1.90</span>
+                <span class="dish__price"><span class="dish__from">from</span> £1.90</span>
               </div>
             </li>
             <li class="dish">
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Red wine by the bottle</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">22.50–23.95</span>
+                <span class="dish__price">£22.50–£23.95</span>
               </div>
               <p class="dish__desc">Including Merlot (Veneto) and Dolcetto d’Alba (Piemonte).</p>
             </li>
           </ul>
+          <p class="back-top"><a class="link link--ink" href="#courses">Back to the courses</a></p>
         </section>
 
       <div class="menu-foot">
-        <p class="note"><strong>Allergies or intolerances?</strong> Please tell us when you book and ask your server before you order. We can tell you about all 14 major allergens in every dish.</p>
-        <p class="note">Spellings follow standard Italian. Prices in pounds.</p>
+        <p class="note">Open 7 days, 12 noon – 11pm.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Groups, same-day tables and takeaway: call us.</p>
         <p style="display:flex;flex-wrap:wrap;gap:12px;margin-top:24px">
           <a class="btn btn--stamp" href="index.html#book">Book a table</a>
           <a class="btn" href="tel:+442089488330">Call 020 8948 8330</a>
@@ -710,6 +716,7 @@
     <address class="foot__contact">
       110 Kew Road, Richmond TW9 2PQ<br>
       <a href="tel:+442089488330">020 8948 8330</a><br>
+      Open 7 days, 12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span><br>
       <a href="mailto:contact@caffemamma.co.uk">contact@caffemamma.co.uk</a><br>
       Bookings and parties: <a href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a>
     </address>
@@ -721,10 +728,15 @@
       </ul>
     </nav>
     <div class="foot__proposal">
-      <p>A design proposal for Caffè Mamma, not the live site. Concept A of three.</p>
-      <p><a href="../concept-b/index.html">Concept B</a><a href="../concept-c/index.html">Concept C</a><a href="index.html">Home</a></p>
+      <p>A speculative design proposal by an independent studio. Not the official Caffè Mamma website, and not commissioned or endorsed by Caffè Mamma. The official website is <a href="https://www.caffemamma.co.uk/" rel="noopener">caffemamma.co.uk</a>.</p>
     </div>
   </div>
 </footer>
+
+<nav class="actbar" aria-label="Book, call or find us">
+  <a class="actbar__btn actbar__btn--book" href="index.html#book">Book</a>
+  <a class="actbar__btn" href="tel:+442089488330">Call</a>
+  <a class="actbar__btn" href="index.html#find-us">Find us</a>
+</nav>
 </body>
 </html>

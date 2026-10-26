@@ -85,11 +85,10 @@
     <span class="running__hours">Today 12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
   </p>
   <div class="running__acts">
-    <a class="btn btn--call" href="tel:+442089488330" aria-label="Call 020 8948 8330">
+    <a class="btn btn--call" href="tel:+442089488330">
       <svg class="icon" viewBox="0 0 22 22" aria-hidden="true"><path d="M5.2 2.8h3l1.6 4-2.1 1.5a11 11 0 0 0 5.9 5.9l1.5-2.1 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.2 5a2 2 0 0 1 2-2.2z"/></svg>
-      <span class="call-text">Call</span>
+      <span class="call-text">Call</span><span class="sr-only"> 020 8948 8330</span>
     </a>
-    <a class="btn btn--stamp" href="#book">Book</a>
   </div>
 </div>
 
@@ -135,28 +134,30 @@
       <h1 class="wordmark" id="hero-title">
         <span class="js-set wordmark__line">Caffè</span>
         <span class="js-set wordmark__line">Mamma</span>
-        <span class="wordmark__sub js-set"><span class="label">Ristorante</span><span class="label label--pencil" style="letter-spacing:.14em">110 Kew Road, Richmond</span></span>
+        <span class="wordmark__sub js-set"><span class="label">Ristorante</span><span class="label label--pencil wordmark__where">Italian · Richmond</span></span>
       </h1>
 
       <div class="hero__grid">
         <div class="hero__text">
-          <p class="lede hero__voice js-set">Pasta, pizza and a line of shirts strung across the dining room. On Kew Road since 2006, and in Richmond since 1983.<!-- [TO CONFIRM] opening year --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
-          <p class="hero__hours js-set">
-            <span class="label">Table for tonight?</span>
-            <!-- [TO CONFIRM] hours -->
-            <span>We’re open today, 12 noon – 11pm.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
-          </p>
+          <!-- [TO CONFIRM] opening year -->
+          <p class="lede hero__voice">Pasta, pizza and a line of shirts strung across the dining room. In Richmond since 1983.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+          <div class="today">
+            <!-- [TO CONFIRM] hours from the door decal; kitchen and last-order times unknown -->
+            <p class="today__status"><span class="label label--red">Oggi</span> <span>Open today, 12 noon – 11pm.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span></p>
+            <p class="today__where"><span>110 Kew Road, Richmond TW9 2PQ</span> <a class="link arrow" href="https://www.google.com/maps/search/?api=1&amp;query=Caff%C3%A8+Mamma%2C+110+Kew+Road%2C+Richmond+TW9+2PQ" target="_blank" rel="noopener">Directions</a></p>
+          </div>
           <div class="hero__acts">
             <a class="btn btn--stamp" href="#book">Book a table</a>
             <a class="btn" href="menu.html">See the menu</a>
           </div>
-          <p class="note" style="margin-top:16px">Groups, same-day tables and takeaway: call <a class="link link--ink" href="tel:+442089488330">020 8948 8330</a>.</p>
+          <p class="note hero__week">Open 7 days, 12 noon – 11pm. Last orders<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> <a class="link" href="#find-us">Opening hours and getting here</a></p>
+          <p class="note hero__call">Groups, same-day tables and takeaway: call <a class="link link--ink" href="tel:+442089488330">020 8948 8330</a>.</p>
         </div>
 
         <div class="hero__art">
           <figure class="drawing">
             <svg class="pen-art pen-art--draw" data-draw viewBox="0 0 640 240" role="img" aria-labelledby="line-title">
-              <title id="line-title">A red-pen drawing of the washing line in the dining room: six plain shirts pegged along a sagging line.</title>
+              <title id="line-title">The washing line across our dining room: six shirts pegged along a sagging line.</title>
               <path pathLength="1" class="ink-line" d="M14 58Q320 150 626 42"/>
               <path pathLength="1" d="M10 54l8 8M18 54l-8 8"/>
               <path pathLength="1" d="M622 38l8 8M630 38l-8 8"/>
@@ -168,115 +169,26 @@
               <g transform="translate(534.2 70.9) rotate(-13.3)"><path pathLength="1" d="M8.7 -0.4Q16.9 2.1 24.9 4.7Q32.6 12.8 41.9 19.1Q37.6 22.4 32.4 23.8Q27.3 20.3 22.4 16.4Q22.7 39.9 22.1 63.4Q0.1 64.2 -21.8 62.5Q-23.1 39.8 -21.9 17Q-27.1 20.5 -32.5 23.5Q-37.7 21.8 -41.9 18.4Q-34.2 10.6 -25.6 3.7Q-16.7 2.9 -8.3 0.1Q0 17.1 8.5 0"/><path pathLength="1" d="M-22.1 33.1Q0.1 34.3 22.4 33.3"/><path pathLength="1" d="M-20 -9L-20.2 6Q-18 8.5 -15.8 6L-16 -9"/><path pathLength="1" d="M16 -9L15.8 6Q18 8.5 20.2 6L20 -9"/></g>
             </svg>
           </figure>
-          <p class="note drawing__cap">The line across our dining room, drawn in red pen.</p>
-          <div class="logo-slot">
-            <div class="logo-slot__frame" aria-hidden="true"></div>
-            <p class="logo-slot__text"><strong>Logo slot</strong>Original wordmark goes here: the red script with the green stroke, supplied as vector art.</p>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Oggi ============ -->
+    <!-- ============ From the menu: priced taster + Mark the menu ============ -->
     <hr class="dbl" data-rule>
-    <section class="oggi" aria-labelledby="oggi-title">
-      <div class="oggi__head">
-        <h2 class="oggi__title" id="oggi-title">Oggi</h2>
-        <p class="label label--pencil">Today, and most days</p>
-      </div>
-      <ul class="oggi__list">
-        <li class="oggi__item" data-reveal>
-          <p class="label label--red">Monday to Friday, 12 noon – 5pm</p>
-          <h3 class="h3">Xpress Lunch</h3>
-          <!-- [TO CONFIRM] Xpress Lunch price: £11.95 on one page, £18.95 on another -->
-          <p>Two courses at a set price.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> A good reason to stop on the way to Kew Gardens.</p>
-          <a class="link arrow" href="menu.html#xpress-lunch">The lunch menu</a>
-        </li>
-        <li class="oggi__item" data-reveal>
-          <p class="label label--red">Takeaway, by phone</p>
-          <h3 class="h3">Pizza to take away</h3>
-          <p>Ring us and order. You’ll find us on Just Eat too.</p>
-          <a class="link arrow" href="tel:+442089488330">Call 020 8948 8330</a>
-        </li>
-        <li class="oggi__item" data-reveal>
-          <p class="label label--red">Upstairs</p>
-          <h3 class="h3">A room for up to 58</h3>
-          <p>The function room is for private parties, and children’s parties are welcome.</p>
-          <a class="link arrow" href="#parties">Parties</a>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ============ Story ============ -->
-    <hr class="dbl" data-rule>
-    <section class="sec story" id="story" aria-labelledby="story-title">
-      <div class="sec__grid">
-        <header class="sec__body sec__head">
-          <p class="label label--red sec__kicker">La storia</p>
-          <h2 class="h2" id="story-title" data-reveal>The restaurant with the washing</h2>
-        </header>
-        <div class="sec__wide story__rows story__lead">
-          <div class="story__row" data-reveal>
-            <p>Caffè Mamma opened on Hill Street in Richmond, serving pasta. The room was dressed like a street in Naples, with washing lines strung overhead and murals on the walls, and locals soon had a name for it: the restaurant with the washing.</p>
-            <p class="story__date">
-              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="story__thread" data-thread aria-hidden="true"></span>
-              <!-- [TO CONFIRM] opening year, 1983 per the About page -->
-              <span class="story__year">1983<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
-              <span class="label story__place">Hill Street, Richmond</span>
-            </p>
-          </div>
-          <div class="story__row" data-reveal>
-            <p>Then came a move to Rocks Lane in Barnes, as Mamma Ristorante, and a longer menu: meat, fish and more.</p>
-            <p class="story__date">
-              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="story__thread" data-thread aria-hidden="true"></span>
-              <span class="story__year">2004</span>
-              <span class="label story__place">Rocks Lane, Barnes</span>
-            </p>
-          </div>
-          <div class="story__row" data-reveal>
-            <p>In March 2006 it came back to Richmond, its spiritual home, and opened here at 110 Kew Road.</p>
-            <p class="story__date">
-              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="story__thread" data-thread aria-hidden="true"></span>
-              <span class="story__year">2006</span>
-              <span class="label story__place">110 Kew Road</span>
-            </p>
-          </div>
-          <div class="story__row" data-reveal>
-            <div>
-              <p>The line is still up. It runs across the dining room under a deep-blue ceiling, hung now with sports shirts. Below it: white cloths, yellow napkins, a yellow rose on every table, and a curved staircase up to the function room.</p>
-              <!-- [TO CONFIRM] how the owners would like the Portuguese family told -->
-              <p class="story__family">An Italian kitchen with a Portuguese family behind it, and family-run to this day.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
-            </div>
-            <p class="story__date">
-              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
-              <span class="story__year">Today</span>
-              <span class="label story__place">The line, still up</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ Menu preview + Mark the menu ============ -->
-    <hr class="dbl" data-rule>
-    <section class="sec preview" id="from-the-card" aria-labelledby="preview-title">
+    <section class="sec preview" id="from-the-menu" aria-labelledby="preview-title">
       <div class="sec__grid">
         <header class="sec__body sec__head">
           <p class="label label--red sec__kicker">Dalla carta</p>
-          <h2 class="h2" id="preview-title" data-reveal>From the card</h2>
-          <p class="prose" style="margin-top:16px">A few lines from the full menu: pasta and pizza, fish from the grill, and zabaglione whisked to order.</p>
+          <h2 class="h2" id="preview-title" data-reveal>From the menu</h2>
+          <p class="prose" style="margin-top:16px">Pasta and pizza, fish from the grill, and zabaglione whisked to order.</p>
         </header>
 
         <div class="sec__aside">
           <div class="marker" data-marker data-scope="#preview-list">
             <h3 class="marker__title">Mark the menu</h3>
-            <p class="note marker__intro">Tell us what you’re after and we’ll ring it in red pen, the way a waiter marks a menu for you.</p>
+            <p class="note marker__intro">What are you after?</p>
             <div class="marker__btns" data-marker-btns></div>
             <p class="marker__status" role="status"></p>
-            <p class="note marker__fallback">On the <a class="link" href="menu.html">full menu</a> you can mark vegetarian dishes, fish, dishes for the kids and the lunch deal.</p>
           </div>
         </div>
 
@@ -287,7 +199,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Bruschetta</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">7.50</span>
+                <span class="dish__price">£7.50</span>
               </div>
               <p class="dish__desc">Toasted bread with garlic, tomato, basil and olive oil.</p>
             </li>
@@ -296,7 +208,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Linguine alle vongole</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">14.95</span>
+                <span class="dish__price">£14.95</span>
               </div>
               <p class="dish__desc">Clams.</p>
             </li>
@@ -305,7 +217,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Margherita</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">12.95</span>
+                <span class="dish__price">£12.95</span>
               </div>
             </li>
             <li class="dish" data-tags="fish">
@@ -313,7 +225,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Branzino alla livornese</span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">18.95</span>
+                <span class="dish__price">£18.95</span>
               </div>
               <p class="dish__desc">Sea bass with herbs and cherry tomatoes.</p>
             </li>
@@ -322,7 +234,7 @@
               <div class="dish__line">
                 <h3 class="dish__name"><span class="mark-target">Zabaglione</span><span class="v" title="Vegetarian"><span aria-hidden="true">V</span><span class="sr-only">vegetarian</span></span></h3>
                 <span class="dish__leader" aria-hidden="true"></span>
-                <span class="dish__price">9.50</span>
+                <span class="dish__price">£9.50</span>
               </div>
               <p class="dish__desc">Egg yolk, marsala and sugar, whisked to order and served hot.</p>
             </li>
@@ -337,48 +249,84 @@
           </ul>
 
           <div class="preview__more">
-            <a class="btn" href="menu.html">The whole menu</a>
-            <!-- [TO CONFIRM] prices from the current website, being re-checked -->
-            <p class="note">Prices in pounds, from our current menu, being re-checked.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+            <a class="btn" href="menu.html">See the full menu</a>
+            <!-- [TO CONFIRM] prices from the current website, being re-checked; dietary markers inferred -->
+            <p class="note">Prices from our current menu, being re-checked.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> V: vegetarian.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Allergies? Tell us when you book: we can tell you about all 14 major allergens in every dish. <a class="link" href="menu.html#allergens">Dietary key and allergies</a></p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Gallery: plates tipped in ============ -->
+    <!-- ============ Opening hours and find us ============ -->
     <hr class="dbl" data-rule>
-    <section class="sec gallery" id="pictures" aria-labelledby="pictures-title">
+    <section class="sec find" id="find-us" aria-labelledby="find-title">
       <div class="sec__grid">
         <header class="sec__body sec__head">
-          <p class="label label--red sec__kicker">Fotografie</p>
-          <h2 class="h2" id="pictures-title" data-reveal>Pictures to come</h2>
-          <p class="prose" style="margin-top:16px">Four photographs to commission, each one framed here at the size and shape it should be shot.</p>
+          <p class="label label--red sec__kicker">Orari e dove siamo</p>
+          <h2 class="h2" id="find-title" data-reveal>Opening hours and how to find us</h2>
         </header>
-        <div class="sec__wide plates">
-          <figure class="plate plate--a" data-reveal>
-            <div class="plate__frame"><span class="plate__corners" aria-hidden="true"></span>
-              <div class="plate__mark"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M2 12V2h10M32 2h10v10M42 32v10H32M12 42H2V32M22 15v14M15 22h14"/></svg><span class="label">Photograph · 4 : 5</span></div>
+        <div class="sec__body">
+          <!-- [TO CONFIRM] hours from the door decal (12.00–11.00pm, 7 days); OpenTable lists 12:00–22:00, probably last bookings. Kitchen and last-order times unknown -->
+          <dl class="facts facts--hours" id="hours">
+            <div class="facts__row">
+              <dt class="label">Monday to Sunday</dt>
+              <dd>12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
             </div>
-            <figcaption class="plate__cap"><strong>The line, from below</strong>To commission: the shirts on the line, shot from below in lunch light, with the deep-blue ceiling behind.</figcaption>
-          </figure>
-          <figure class="plate plate--b" data-reveal>
-            <div class="plate__frame"><span class="plate__corners" aria-hidden="true"></span>
-              <div class="plate__mark"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M2 12V2h10M32 2h10v10M42 32v10H32M12 42H2V32M22 15v14M15 22h14"/></svg><span class="label">Photograph · 3 : 2</span></div>
+            <div class="facts__row">
+              <dt class="label">Last orders</dt>
+              <dd><span class="tbc tbc--solo" title="To be confirmed with the restaurant">to confirm</span></dd>
             </div>
-            <figcaption class="plate__cap"><strong>Kew Road at dusk</strong>To commission: the frontage at dusk with the fairy lights on, the cream sign lit and the terrace tables laid.</figcaption>
-          </figure>
-          <figure class="plate plate--c" data-reveal>
-            <div class="plate__frame"><span class="plate__corners" aria-hidden="true"></span>
-              <div class="plate__mark"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M2 12V2h10M32 2h10v10M42 32v10H32M12 42H2V32M22 15v14M15 22h14"/></svg><span class="label">Photograph · 1 : 1</span></div>
+            <div class="facts__row">
+              <dt class="label">Xpress Lunch</dt>
+              <dd>Monday to Friday, 12 noon – 5pm</dd>
             </div>
-            <figcaption class="plate__cap"><strong>A table, laid</strong>To commission: overhead, a white cloth, a yellow napkin and the yellow rose.</figcaption>
-          </figure>
-          <figure class="plate plate--d" data-reveal>
-            <div class="plate__frame"><span class="plate__corners" aria-hidden="true"></span>
-              <div class="plate__mark"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M2 12V2h10M32 2h10v10M42 32v10H32M12 42H2V32M22 15v14M15 22h14"/></svg><span class="label">Photograph · 4 : 5</span></div>
+          </dl>
+
+          <address class="find__addr" id="addr">Caffè Mamma Ristorante<br>110 Kew Road, Richmond<br>TW9 2PQ</address>
+          <div class="find__addr-acts" data-copy-host>
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Caff%C3%A8+Mamma%2C+110+Kew+Road%2C+Richmond+TW9+2PQ" target="_blank" rel="noopener">Open in Google Maps</a>
+          </div>
+          <p class="copy-status" role="status" data-copy-status></p>
+
+          <dl class="facts">
+            <div class="facts__row">
+              <dt class="label">From the station</dt>
+              <dd>A five-minute walk from Richmond Station.</dd>
             </div>
-            <figcaption class="plate__cap"><strong>Zabaglione, to order</strong>To commission: the zabaglione being whisked, hands and pan, close and warm.</figcaption>
-          </figure>
+            <div class="facts__row">
+              <dt class="label">Kew Gardens</dt>
+              <!-- [TO CONFIRM] walking time to Kew Gardens -->
+              <dd>Up the road: a walk along Kew Road.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
+            </div>
+            <div class="facts__row">
+              <dt class="label">Parking</dt>
+              <!-- [TO CONFIRM] parking still true -->
+              <dd>Free street parking nearby after 4.30pm.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
+            </div>
+            <div class="facts__row">
+              <dt class="label">Step-free access</dt>
+              <!-- [TO CONFIRM] step-free access to the dining room and toilets -->
+              <dd>Please ask us before you come.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> The function room is upstairs.</dd>
+            </div>
+            <div class="facts__row">
+              <dt class="label">Booking</dt>
+              <!-- [TO CONFIRM] booking system -->
+              <dd>Online through OpenTable,<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> or by phone. For nine or more, or a table today, please call.</dd>
+            </div>
+            <div class="facts__row">
+              <dt class="label">Phone</dt>
+              <dd><a class="link" href="tel:+442089488330">020 8948 8330</a></dd>
+            </div>
+            <div class="facts__row">
+              <dt class="label">Takeaway</dt>
+              <!-- [TO CONFIRM] Deliveroo and Uber Eats listings -->
+              <dd>Order by phone. We’re on Just Eat too; Deliveroo and Uber Eats<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
+            </div>
+            <div class="facts__row">
+              <dt class="label">Write to us</dt>
+              <dd><a class="link" href="mailto:contact@caffemamma.co.uk">contact@caffemamma.co.uk</a><br>Bookings and parties: <a class="link" href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a></dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -427,7 +375,7 @@
             </div>
 
             <!-- [TO CONFIRM] booking system: OpenTable or the restaurant's own -->
-            <p class="note" style="margin-top:24px">Online booking goes through OpenTable for now.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Nothing is booked until OpenTable confirms it.</p>
+            <p class="note" style="margin-top:24px">Online bookings are made and confirmed through OpenTable.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
           </div>
 
           <div class="book__offer" data-reveal>
@@ -486,73 +434,55 @@
       </div>
     </section>
 
-    <!-- ============ Find us ============ -->
+    <!-- ============ Story ============ -->
     <hr class="dbl" data-rule>
-    <section class="sec find" id="find-us" aria-labelledby="find-title">
+    <section class="sec story" id="story" aria-labelledby="story-title">
       <div class="sec__grid">
         <header class="sec__body sec__head">
-          <p class="label label--red sec__kicker">Dove siamo</p>
-          <h2 class="h2" id="find-title" data-reveal>Find us on Kew Road</h2>
+          <p class="label label--red sec__kicker">La storia</p>
+          <h2 class="h2" id="story-title" data-reveal>The restaurant with the washing</h2>
         </header>
-        <div class="sec__body">
-          <address class="find__addr" id="addr">Caffè Mamma Ristorante<br>110 Kew Road, Richmond<br>TW9 2PQ</address>
-          <div class="find__addr-acts" data-copy-host>
-            <a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Caff%C3%A8+Mamma%2C+110+Kew+Road%2C+Richmond+TW9+2PQ" target="_blank" rel="noopener">Open in Google Maps</a>
+        <div class="sec__wide story__rows story__lead">
+          <div class="story__row" data-reveal>
+            <p>Caffè Mamma opened on Hill Street in Richmond, serving pasta. The room was dressed like a street in Naples, with washing lines strung overhead and murals on the walls, and locals soon had a name for it: the restaurant with the washing.</p>
+            <p class="story__date">
+              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="story__thread" data-thread aria-hidden="true"></span>
+              <!-- [TO CONFIRM] opening year, 1983 per the About page -->
+              <span class="story__year">1983<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></span>
+              <span class="label story__place">Hill Street, Richmond</span>
+            </p>
           </div>
-          <p class="copy-status" role="status" data-copy-status></p>
-
-          <dl class="facts">
-            <div class="facts__row">
-              <dt class="label">Hours</dt>
-              <!-- [TO CONFIRM] kitchen and last-order times -->
-              <dd>Open 7 days, 12 noon – 11pm.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
+          <div class="story__row" data-reveal>
+            <p>Then came a move to Rocks Lane in Barnes, as Mamma Ristorante, and a longer menu: meat, fish and more.</p>
+            <p class="story__date">
+              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="story__thread" data-thread aria-hidden="true"></span>
+              <span class="story__year">2004</span>
+              <span class="label story__place">Rocks Lane, Barnes</span>
+            </p>
+          </div>
+          <div class="story__row" data-reveal>
+            <p>In March 2006 it came back to Richmond, its spiritual home, and opened here at 110 Kew Road.</p>
+            <p class="story__date">
+              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="story__thread" data-thread aria-hidden="true"></span>
+              <span class="story__year">2006</span>
+              <span class="label story__place">110 Kew Road</span>
+            </p>
+          </div>
+          <div class="story__row" data-reveal>
+            <div>
+              <p>The line is still up, strung across the dining room and hung now with sports shirts.</p>
+              <!-- [TO CONFIRM] how the owners would like the Portuguese family told -->
+              <p class="story__family">An Italian kitchen with a Portuguese family behind it, and family-run to this day.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
             </div>
-            <div class="facts__row">
-              <dt class="label">From the station</dt>
-              <dd>A five-minute walk from Richmond Station.</dd>
-            </div>
-            <div class="facts__row">
-              <dt class="label">Kew Gardens</dt>
-              <!-- [TO CONFIRM] walking time to Kew Gardens -->
-              <dd>Up the road: a walk along Kew Road.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
-            </div>
-            <div class="facts__row">
-              <dt class="label">Parking</dt>
-              <!-- [TO CONFIRM] parking still true -->
-              <dd>Free street parking nearby after 4.30pm.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
-            </div>
-            <div class="facts__row">
-              <dt class="label">Takeaway</dt>
-              <!-- [TO CONFIRM] Deliveroo and Uber Eats listings -->
-              <dd>Order by phone on <a class="link" href="tel:+442089488330">020 8948 8330</a>. We’re on Just Eat too; Deliveroo and Uber Eats<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></dd>
-            </div>
-            <div class="facts__row">
-              <dt class="label">Write to us</dt>
-              <dd><a class="link" href="mailto:contact@caffemamma.co.uk">contact@caffemamma.co.uk</a><br>Bookings and parties: <a class="link" href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a></dd>
-            </div>
-          </dl>
-        </div>
-        <div class="sec__aside">
-          <figure class="route">
-            <svg class="pen-art" data-draw-scroll viewBox="0 0 250 300" role="img" aria-labelledby="route-title">
-              <title id="route-title">Sketch, not to scale: Richmond Station at the foot of Kew Road, Caffè Mamma at number 110 a five-minute walk up, and Kew Gardens further up the road.</title>
-              <path pathLength="1" d="M104 286C108 240 103 200 110 150S116 60 118 26"/>
-              <path pathLength="1" d="M110 34l8-12 7 13"/>
-              <path pathLength="1" d="M97 279a8 8 0 1 0 16 0a8 8 0 1 0-16 0"/>
-              <path pathLength="1" d="M102 142h15v15h-15z"/>
-              <path pathLength="1" d="M86 270C80 230 80 190 88 158" stroke-dasharray="3 5"/>
-              <text x="132" y="31">Kew Gardens</text>
-              <text class="route__small" x="132" y="46">up the road</text>
-              <text x="128" y="148">Caffè Mamma</text>
-              <text class="route__small" x="128" y="163">No. 110</text>
-              <text x="124" y="276">Richmond</text>
-              <text x="124" y="291">Station</text>
-              <text class="route__small" x="10" y="218">5 min</text>
-              <text class="route__small" x="10" y="232">walk</text>
-              <text class="route__small" x="148" y="226" transform="rotate(-84 148 226)">Kew Road</text>
-            </svg>
-            <figcaption class="note">A sketch, not to scale.</figcaption>
-          </figure>
+            <p class="story__date">
+              <svg class="story__peg" viewBox="0 0 10 22" aria-hidden="true"><path d="M3 1v15q2 3 4 0V1" fill="var(--card)" stroke="var(--rosso)" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <span class="story__year">Today</span>
+              <span class="label story__place">The line, still up</span>
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -569,6 +499,7 @@
     <address class="foot__contact">
       110 Kew Road, Richmond TW9 2PQ<br>
       <a href="tel:+442089488330">020 8948 8330</a><br>
+      Open 7 days, 12 noon – 11pm<span class="tbc" title="To be confirmed with the restaurant">to confirm</span><br>
       <a href="mailto:contact@caffemamma.co.uk">contact@caffemamma.co.uk</a><br>
       Bookings and parties: <a href="mailto:bookings@caffemamma.co.uk">bookings@caffemamma.co.uk</a>
     </address>
@@ -576,14 +507,19 @@
       <ul class="foot__nav">
         <li><a class="link link--ink" href="menu.html">The full menu</a></li>
         <li><a class="link link--ink" href="#book">Book a table</a></li>
-        <li><a class="link link--ink" href="#find-us">Find us</a></li>
+        <li><a class="link link--ink" href="#find-us">Opening hours and find us</a></li>
       </ul>
     </nav>
     <div class="foot__proposal">
-      <p>A design proposal for Caffè Mamma, not the live site. Concept A of three.</p>
-      <p><a href="../concept-b/index.html">Concept B</a><a href="../concept-c/index.html">Concept C</a><a href="menu.html">The menu</a></p>
+      <p>A speculative design proposal by an independent studio. Not the official Caffè Mamma website, and not commissioned or endorsed by Caffè Mamma. The official website is <a href="https://www.caffemamma.co.uk/" rel="noopener">caffemamma.co.uk</a>.</p>
     </div>
   </div>
 </footer>
+
+<nav class="actbar" aria-label="Book, menu or find us">
+  <a class="actbar__btn actbar__btn--book" href="#book">Book</a>
+  <a class="actbar__btn" href="menu.html">Menu</a>
+  <a class="actbar__btn" href="#find-us">Find us</a>
+</nav>
 </body>
 </html>
