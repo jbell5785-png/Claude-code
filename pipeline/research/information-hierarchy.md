@@ -210,3 +210,13 @@ Test each concept at **390×844** in a mobile browser or device emulation with 4
 | 16 | **Literal labels and information scent** | Navigation is only creative labels | Mixed, with some vague labels | Literal labels lead, with voice alongside | Read the nav aloud: can a stranger predict each target? |
 
 **Reporting format per concept:** total /32, any gate failures, the weakest three items, and one concrete fix for each. For example: "Move hours out of the sign's swing animation into static text under the shopfront; keep the sign as decoration."
+
+## (d) Voice rule: the site talks to diners, never about itself
+Added after client review, 27 Oct 2026. The concepts contained designer commentary, e.g. "This proposal is built on that wall. The step… moves down as you read", annotated architectural drawings, and captions like "drawn from photographs for this proposal. Not to scale."
+
+1. **Write every word as it would appear on the restaurant's live site,** read by a diner deciding where to eat. Use the restaurant's voice (we/our) or a neutral voice, never the designer's.
+2. **Never explain the design on the page.** No "this proposal", "this concept", "this page", "as you scroll", "each course is a slat", or why an interaction exists. The design must work without being explained.
+3. **No annotated diagrams or callout labels.** Drawings carry atmosphere, not notation.
+4. **Atmosphere in a sentence, not a paragraph.** Cut decor, joinery and planning history unless the business itself tells that story.
+5. **Design rationale goes in NOTES.md** under "Pitch notes (not for the site)", where the designer uses it in the pitch.
+6. **Before handing over, read the page's full visible text once as a diner** and cut anything that sounds like the designer talking.
