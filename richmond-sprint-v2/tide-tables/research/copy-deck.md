@@ -2,6 +2,8 @@
 
 **This is the ONLY content designers may use.** Sources were accessed on 25 Oct 2026; IDs refer to `dossier.md` § 8.
 
+**Update, 26 Oct 2026:** the café runs a second official website, http://www.tidetablescafe.co.uk/ (`[S26]` Home, `[S27]` Contact, `[S28]` About Us). Its Contact page publishes day-by-day hours, so hours are now **VERIFIED** (§ 3). Quotes below marked `[S26]`–`[S28]` were re-fetched with plain `curl` over http on 26 Oct 2026.
+
 **Rules:**
 - Do not add facts, prices, hours, staff names or review quotes.
 - Anything marked **[TO CONFIRM]** may appear only in a clearly labelled sample or placeholder.
@@ -14,10 +16,12 @@
 - **Name:** Tide Tables Café
 - **Strapline:** Richmond Riverside Cafe (from the logo `[S1]`). Typeset it as "Richmond Riverside Café".
 - **Sister café:** Hollyhock Café, Terrace Gardens
+- **Official websites (two):** https://tidetablescafe.com `[S1]` and http://www.tidetablescafe.co.uk/ `[S26]`. The `.co.uk` site works only over **http**: https fails with a certificate mismatch (the certificate does not name www.tidetablescafe.co.uk). The client reports that Google treats the `.co.uk` site as the business website (not checked here).
 
 ## 2. Find us
 
 - **Address (Tide Tables):** Tide Tables Café, 2 The Arches, Richmond, Surrey TW9 1TH `[S1]`
+  - The `.co.uk` Contact page adds "Beneath Richmond Bridge": "Tide Tables Café / 2 The Arches, Beneath Richmond Bridge / Richmond, Surrey / TW9 1TH" `[S27]`.
 - **Where:** "The cafe is in a converted arch beneath Richmond Bridge." `[S1]`
 - **Getting here:** "Richmond is easily accessible by London Underground, Overground and [mainline] trains as well as a huge number of buses. Once you reach Richmond, head straight for Richmond Bridge, only a few minutes away, and Tide Tables is nestled in the arch beneath." `[S1]`
   - The café's own text says "Southwest Trains". It is generalised here to avoid naming a train operator without checking which one is current.
@@ -26,14 +30,30 @@
 
 ## 3. Opening hours
 
-- **Approved wording:** "Open during daylight hours. For more specific information, please call +44 (0)20 8948 8285." `[S1]`
-- **Do not publish day-by-day times.** Sources conflict (see dossier § 2). Any timetable layout must be labelled "Sample hours: to be confirmed" **[TO CONFIRM]**.
+**Status: VERIFIED** from the café's own `.co.uk` Contact page `[S27]` (fetched 26 Oct 2026). Verbatim:
+- "Christmas Day 9:30 till dusk"
+- "Boxing Day 8:30 till dusk (serving from 9)"
+- "Monday-Friday 7:30am, serving from 8am till Dusk."
+- "Saturday & Sunday 7am, serving from 7:30am till Dusk."
+
+**Approved display wording (Tide Tables):** "Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk", followed by "For more specific information, please call +44 (0)20 8948 8285." `[S1]` (or 020 8948 8285).
+
+**Rules:**
+- **"Dusk" is the café's own word.** Do not turn it into a clock time, on the page or in structured data.
+- The `.com` site still says only "Open during daylight hours. For more specific information, please call +44 (0)20 8948 8285." `[S1]`. That remains true but is less specific; keep the "please call" line.
+- Christmas Day and Boxing Day hours are published `[S27]` and may be used for a seasonal notice.
+- Do **not** use VisitRichmond, Yelp, Tripadvisor or Yell times (dossier § 2).
+- Hollyhock's hours are separate: still "Open during daylight hours" (§ 8).
 
 ## 4. Contact
 
 - **Phone:** +44 (0)20 8948 8285 `[S1]`
-- **Email:** hey@tidetablescafe.com `[S1]`
-  - Note to carry with it: "Email only monitored periodically – for urgent enquiries please telephone." `[S1]`
+- **Phone (national form on the `.co.uk` site):** "Phone: 020 8948 8285" `[S27]`
+- **Email (two, one per official site):**
+  - hey@tidetablescafe.com `[S1]`. Note to carry with it: "Email only monitored periodically – for urgent enquiries please telephone." `[S1]`
+  - contact@tidetablescafe.co.uk `[S27]` (no monitoring note on that page).
+  - Which address the café prefers is **[TO CONFIRM]**. Pages show only hey@ for now.
+- **Jobs:** "Vacancies / Please email your CV to vacancies@tidetablescafe.co.uk" `[S27]`
 - **Private parties:** 07922474327 `[S1]`
 
 ## 5. About us (the café's own words, `[S1]`)
@@ -48,6 +68,12 @@
 - "All our milk is organic, too."
 - "Free WiFi in our cafe."
 - "We are also just by the embarkation point for boats to Hampton Court, and for boats that head to the city during the summer months." Current boat services are **[TO CONFIRM]**.
+
+**From the `.co.uk` site (verbatim):**
+- "We are two sister cafes on the banks of the Thames at Richmond. One café in a converted arch beneath Richmond Bridge. The other café is in the middle of the famous flower gardens at Terrace Gardens." `[S26]`
+- "The food is strictly vegetarian, and there are vegan and gluten-free menus. Fairtrade and organic products are available, and we only use organic milk. We are licensed and serve organic wines, beers and ciders. We don't charge extra for cow milk alternatives." `[S26]`
+- "We have a beautiful outside seating area, directly adjoining the towpath." `[S28]`
+- "Stunning views over the Thames from our leafy garden." `[S26]`
 
 ## 6. Food and drink
 
@@ -68,6 +94,9 @@
 - Smoothies
 - Organic milk
 - Wine and beer
+- From `[S26]`: the café is **licensed** and serves "organic wines, beers and ciders"; "we only use organic milk"; "We don't charge extra for cow milk alternatives."
+- `[S26]` also says: "From January 2022 onwards we shall be making an extra charge for cow's milk in our coffees to help keep plant milk low-priced for everyone." Whether this charge still applies is **[TO CONFIRM]**; do not quote prices.
+- `[S26]` mentions "vegan and gluten-free menus", but no menu is published on either site.
 
 **On the board:** these headings are partly legible in a 2026 third-party photo `[S24-1]`. Use them as section names only:
 - "Coffee"
@@ -118,7 +147,7 @@
 
 ## [TO CONFIRM] with the client
 
-1. **Opening hours**, day by day, summer and winter. Do Saturdays and Sundays differ? Is the café ever closed on Sundays?
+1. ~~Opening hours~~ **Resolved 26 Oct 2026** from the café's `.co.uk` Contact page `[S27]`. Still worth asking: does "serving from" mean food and drink, or food only? Should the `.com` "daylight hours" wording be updated to match?
 2. **A current menu with prices**, for both cafés. Is it the same menu at both?
 3. **The keystone face:** what is it, and does anyone know its date or maker? Are the café's brick arches part of the 1777 bridge, the 1937–40 widening, or later?
 4. **Blankets** to borrow from the basket at the door: still offered?
@@ -136,6 +165,8 @@
 16. Does the garden ever flood at high spring tides? Does the café close for it?
 17. Boats to Hampton Court and to the city: current operator and season?
 18. Number of plane trees in the garden (the site says three).
-19. Social media accounts, if any.
+19. Social media accounts, if any. (The `.co.uk` homepage's only Facebook link is captioned "the Exciting New Arts Centre in Totnes", so it is not the café's own account.)
 20. Permission or a licence to show PLA tide predictions or Richmond gauge data on the site.
 21. The website: who maintains it? The Press page contains the injected word "Omisga" in its title and text.
+22. **Two official sites and two emails** (tidetablescafe.com with hey@tidetablescafe.com; tidetablescafe.co.uk with contact@tidetablescafe.co.uk): which is primary, and should the `.co.uk` site get a valid https certificate?
+23. The cow's-milk surcharge "From January 2022 onwards": still in place?

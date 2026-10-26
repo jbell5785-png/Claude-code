@@ -87,7 +87,8 @@ No cuisine clichés are used. The name "Tide Tables" is never claimed to mean an
 
 ## Content and honesty
 
-- **Hours:** only the café's wording, "Open during daylight hours. For more specific information, please call +44 (0)20 8948 8285." No VisitRichmond times are used.
+- **Hours:** only the café's own published hours (`.co.uk` Contact page) plus "For more specific information, please call +44 (0)20 8948 8285." No VisitRichmond times are used.
+- **Hours update (26 Oct 2026):** The hero hours line and the "Hours" block in Find us now show the café's published hours, "Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk", with "please call +44 (0)20 8948 8285" kept for specifics. Source: the café's second official site, Contact page http://www.tidetablescafe.co.uk/contact/ (fetched with curl over http; see `research/dossier.md` S27). The Find us hours lose their quotation marks, because the display line is a summary of the café's wording, not a verbatim quote. The JSON-LD `description`, `<meta name="description">` and `llms.txt` carry the same text. No `openingHoursSpecification`: "dusk" is not a time, and no offline validator was available to confirm an `opens`-only entry is accepted. Only hey@tidetablescafe.com is shown, so contact@tidetablescafe.co.uk is not in the JSON-LD. Hollyhock stays "daylight hours". No VisitRichmond times.
 - **Menu:**
   - The menu page is a clearly labelled sample. A sticky "Sample layout: not the current menu" strip runs above everything, and the brief's exact banner sits at the top.
   - It uses only the published taster items, with no prices, and carries the café's approved disclaimer.
@@ -127,13 +128,13 @@ No cuisine clichés are used. The name "Tide Tables" is never claimed to mean an
 ## Structured data and llms.txt
 
 **Encoded** (facts from `research/copy-deck.md` only):
-- `index.html`: one JSON-LD block (it replaces the earlier one). Type `CafeOrCoffeeShop`, `name`, `description` ("A café in a converted arch beneath Richmond Bridge, right on the Thames Path. Open during daylight hours. For more specific information, please call +44 (0)20 8948 8285."). This includes the café's approved hours wording, which is visible on this page. Also `servesCuisine` "Vegetarian" ("The food is all vegetarian"), `address` (2 The Arches, Richmond, Surrey, TW9 1TH, GB), `telephone`, `email` and `url` https://tidetablescafe.com/.
+- `index.html`: one JSON-LD block (it replaces the earlier one). Type `CafeOrCoffeeShop`, `name`, `description` ("A café in a converted arch beneath Richmond Bridge, right on the Thames Path. Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk. For more specific information, please call +44 (0)20 8948 8285."). This includes the café's published hours, which are visible on this page. Also `servesCuisine` "Vegetarian" ("The food is all vegetarian"), `address` (2 The Arches, Richmond, Surrey, TW9 1TH, GB), `telephone`, `email` and `url` https://tidetablescafe.com/.
 - `menu.html`: a minimal `CafeOrCoffeeShop` identity block (name, url, telephone, all visible there) so the two pages agree. **No `Menu` JSON-LD**: Tide Tables publishes no menu or prices, and this page is a labelled sample layout. The earlier blocks on both pages said `Restaurant`.
-- `llms.txt`: name, the one-line description in the café's words, address, phone, email (with "only monitored periodically"), the approved hours wording ("Open during daylight hours. For more specific information, please call…"), "no online booking, please phone", and a link to the menu page described as a sample layout with no current menu or prices. A preview note matches the page banner.
+- `llms.txt`: name, the one-line description in the café's words, address, phone, email (with "only monitored periodically"), the published hours ("Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk", from the café's `.co.uk` Contact page, then "For more specific information, please call…"), "no online booking, please phone", and a link to the menu page described as a sample layout with no current menu or prices. A preview note matches the page banner.
 - `<meta name="description">`: index 163 characters, menu 162 characters, both in the café's voice.
 
 **Deliberately left out, and why:**
-- `openingHoursSpecification`: only "Open during daylight hours" is published, and day-by-day times are [TO CONFIRM].
+- `openingHoursSpecification`: the café publishes opening times but closes "till dusk", which is not a clock time; hours stay in `description` (see the hours update above).
 - `hasMenu` and any `Menu`/`MenuItem`/prices: no published menu exists.
 - `acceptsReservations` and `potentialAction`: there is no online booking, and the booking or walk-in policy is [TO CONFIRM].
 - The private-parties number (whether it is current is [TO CONFIRM]), The Jam Jar, boat services, blankets, refills and the plane-tree count ([TO CONFIRM]), and Hollyhock Café (a separate business with a disputed postcode).

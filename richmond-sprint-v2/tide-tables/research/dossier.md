@@ -1,6 +1,6 @@
 # Tide Tables Café: research dossier (v2)
 
-All sources were accessed on **25 October 2026**.
+All sources were accessed on **25 October 2026**, except S26–S28 (the café's second official site, http://www.tidetablescafe.co.uk/), fetched with plain `curl` over http on **26 October 2026**.
 
 **Labels:**
 - **VERIFIED** means an authority, the café's own site, or two independent sources agree.
@@ -8,7 +8,7 @@ All sources were accessed on **25 October 2026**.
 - **UNKNOWN** means no usable source was found.
 
 **Method:**
-- Pages were loaded with default Playwright Chromium or WebFetch, at most twice per page.
+- Pages were loaded with default Playwright Chromium or WebFetch, at most twice per page. S26–S28 were fetched with plain `curl` (normal requests, http only).
 - Refusals are recorded in § 8 and were not worked around.
 - No review quotes are used and no staff are named.
 
@@ -19,7 +19,7 @@ All sources were accessed on **25 October 2026**.
 | # | Fact | Status | Source |
 |---|---|---|---|
 | 1 | Name: **Tide Tables Café** (site: "Tide Tables Cafe"; FSA: "Tide Tables Cafe") | VERIFIED | S1, S17 |
-| 2 | Address: **2 The Arches, Richmond, Surrey TW9 1TH** (site). Contact page: "2 The Arches London TW9 1TH". FSA: "Tide Tables Arch 2 Riverside, Richmond, TW9 1TH" | VERIFIED (postcode); street wording varies | S1, S4, S16, S17 |
+| 2 | Address: **2 The Arches, Richmond, Surrey TW9 1TH** (site). Contact page: "2 The Arches London TW9 1TH". `.co.uk` Contact page: "2 The Arches, Beneath Richmond Bridge, Richmond, Surrey, TW9 1TH". FSA: "Tide Tables Arch 2 Riverside, Richmond, TW9 1TH" | VERIFIED (postcode); street wording varies | S1, S4, S16, S17, S27 |
 | 3 | In a converted arch beneath Richmond Bridge, Richmond (Surrey) bank | VERIFIED | S1, S10 |
 | 4 | Richmond Bridge: Grade I listed (list entry 1180951, first listed 2 Sep 1952); dated 1777; James Paine and Kenton Couse; Portland stone; five moulded segmental arches rising to the widest and tallest centre arch; two land-bound semicircular arches; widened 1937 | VERIFIED | S9, S10 (HE page S8 refused) |
 | 5 | "Now the oldest bridge over the Thames within the boundaries of Greater London" | VERIFIED | S9, S11 |
@@ -28,7 +28,7 @@ All sources were accessed on **25 October 2026**.
 | 8 | Carved bearded stone face as keystone over the café arch | VERIFIED (photos 2018 and ~2025) | S2, S24-3 |
 | 9 | Identity, date and origin of that face; whether the brick arches are 1777, 1937–40 or later fabric | UNKNOWN | S9, S10, S12 searched |
 | 10 | Large garden with "three majestic Plane trees" | VERIFIED (garden, plane); "three" REPORTED | S1, S4, S24-4 |
-| 11 | All-vegetarian food, with vegan and gluten-free dishes; many organic or Fairtrade products; organic milk; herbal teas; Fairtrade coffee; fresh organic juices and smoothies; wine and beer | VERIFIED (own site) | S1, S16 |
+| 11 | All-vegetarian food, with vegan and gluten-free dishes; many organic or Fairtrade products; organic milk; herbal teas; Fairtrade coffee; fresh organic juices and smoothies; wine and beer. `.co.uk`: "strictly vegetarian", "vegan and gluten-free menus", "we only use organic milk" | VERIFIED (own sites) | S1, S16, S26 |
 | 12 | Free WiFi | VERIFIED (own site); current status not tested | S1 |
 | 13 | Free weekday coffee refills | REPORTED (2017) | S7 |
 | 14 | Blankets to borrow from a basket at the door | REPORTED (2017) | S7 |
@@ -45,14 +45,21 @@ All sources were accessed on **25 October 2026**.
 | 25 | Card payments ("Credit cards accepted (no fee)"), "Disabled access", "Children welcome", no smoking | REPORTED (VisitRichmond) | S16 |
 | 26 | Why the café is called "Tide Tables" | UNKNOWN | none |
 | 27 | Opening date of the café, and its owners | UNKNOWN (owners deliberately not researched) | none |
+| 28 | The café runs **two official websites**: tidetablescafe.com (email hey@tidetablescafe.com) and www.tidetablescafe.co.uk (email contact@tidetablescafe.co.uk). The `.co.uk` site answers over http only; https fails with a certificate name mismatch | VERIFIED (both fetched) | S1, S4, S26, S27 |
+| 29 | Opening hours: "Monday-Friday 7:30am, serving from 8am till Dusk." "Saturday & Sunday 7am, serving from 7:30am till Dusk." Christmas Day "9:30 till dusk"; Boxing Day "8:30 till dusk (serving from 9)" | VERIFIED (own `.co.uk` site; see § 2) | S27 |
+| 30 | "We are licensed and serve organic wines, beers and ciders. We don't charge extra for cow milk alternatives." | VERIFIED (own `.co.uk` site) | S26 |
+| 31 | "From January 2022 onwards we shall be making an extra charge for cow's milk in our coffees to help keep plant milk low-priced for everyone." | VERIFIED as published; whether still current UNKNOWN | S26 |
+| 32 | "We have a beautiful outside seating area, directly adjoining the towpath." | VERIFIED (own `.co.uk` site) | S28 |
+| 33 | Jobs: "Please email your CV to vacancies@tidetablescafe.co.uk" | VERIFIED (own `.co.uk` site) | S27 |
 
 ---
 
-## 2. Opening hours (conflicting; none is authoritative)
+## 2. Opening hours (VERIFIED from the café's own `.co.uk` Contact page, 26 Oct 2026)
 
 | Source | Hours stated | Date of source | Status |
 |---|---|---|---|
-| **Official site** (home) S1 | "Both cafés are open during daylight hours. For more specific information, please call +44 (0)20 8948 8285." | page modified 27 Feb 2026 | VERIFIED as the official wording (no times) |
+| **Official `.co.uk` site** (Contact) S27 | "Christmas Day 9:30 till dusk" · "Boxing Day 8:30 till dusk (serving from 9)" · "Monday-Friday 7:30am, serving from 8am till Dusk." · "Saturday & Sunday 7am, serving from 7:30am till Dusk." | fetched 26 Oct 2026 (no modified date in the page) | **VERIFIED: authoritative** (café's own site, day-by-day) |
+| **Official `.com` site** (home) S1 | "Both cafés are open during daylight hours. For more specific information, please call +44 (0)20 8948 8285." | page modified 27 Feb 2026 | VERIFIED as the official wording (no times); consistent with "till dusk" |
 | VisitRichmond S16 | Mon–Fri 08:00–18:00; Sat–Sun 07:30–18:00; "Open all week". Season 1 Jan 2025 – 31 Dec 2026 | listing current for 2026; no update date | REPORTED |
 | Thames Path S7 | "open all day" | 27 Nov 2017 | REPORTED, stale |
 | Yelp | Mon–Sat 08:00–20:00, Sun closed (seen only in a search-engine summary; page refused 403) | "Updated July 2026" per search title | UNVERIFIED; do not use |
@@ -60,9 +67,9 @@ All sources were accessed on **25 October 2026**.
 | Yell | Weekdays 08:30–18:30, weekends 08:30–20:00 (search summary only; page refused 403) | unknown | UNVERIFIED; do not use |
 | Council, Terrace Gardens S14 | The café in Terrace Gardens (Hollyhock) is "open 7 days a week during daylight hours" | no date shown | VERIFIED for Hollyhock (council) |
 
-**Conflict:** Saturday and Sunday opening ranges from 07:30 to 08:30, and closing from 16:30 to 20:00. Yelp shows Sunday as closed while VisitRichmond shows it as open. The one official statement is "daylight hours".
+**Earlier conflict (superseded):** third-party sources disagree (weekend opening 07:30–08:30, closing 16:30–20:00; Yelp shows Sunday closed). The café's own `.co.uk` Contact page now settles opening times. The closing time is "dusk", in the café's own word; no source supports a fixed clock time, so none is published.
 
-**Recommendation:** Publish "Open daily during daylight hours" plus the phone number until the client supplies hours [TO CONFIRM].
+**Recommendation:** Publish "Mon–Fri from 7:30am (food and drink from 8am) · Sat–Sun from 7am (from 7:30am) · until dusk", plus "For more specific information, please call +44 (0)20 8948 8285." Do not use third-party times. Do not encode a closing time in structured data. Hollyhock's hours are not on the `.co.uk` Contact page and remain "daylight hours" (S1, S14).
 
 ---
 
@@ -72,9 +79,9 @@ All sources were accessed on **25 October 2026**.
 |---|---|---|
 | Phone | **+44 (0)20 8948 8285** (homepage). The contact page shows it malformed as "+44 020 8948 8285" | VERIFIED (S1, S4, S16). Not dialled |
 | Hire / parties phone | **07922474327** (homepage "Our community") | VERIFIED as published (S1). Purpose: hosting parties |
-| Email | **hey@tidetablescafe.com**. The site adds: "**Please note email only monitored periodically – for urgent enquiries please telephone.**" | VERIFIED (S1, S4) |
-| Website | https://tidetablescafe.com. VisitRichmond still links to `http://www.tidetablescafe.co.uk/`, which did not resolve per the brief | VERIFIED; stale link |
-| Social media | The Subscribe page mentions Facebook and Twitter, but **no links or handles exist** on the site, and none were found by search | UNKNOWN |
+| Email | Two addresses, one per official site: **hey@tidetablescafe.com** (`.com`; the site adds: "**Please note email only monitored periodically – for urgent enquiries please telephone.**") and **contact@tidetablescafe.co.uk** (`.co.uk` Contact page). Jobs: vacancies@tidetablescafe.co.uk | VERIFIED (S1, S4, S27) |
+| Website | **Two official sites:** https://tidetablescafe.com and **http://www.tidetablescafe.co.uk/** (WordPress; pages Home, About Us, Hollyhock Cafe, Reviews, Contact). VisitRichmond links to the `.co.uk` site. **Correction:** the earlier note that the `.co.uk` site "did not resolve" was an **https-only failure**: over https the certificate does not match www.tidetablescafe.co.uk (curl error 60), but over http it returns 200 and is live. The client reports Google treats the `.co.uk` site as the business website (not checked here) | VERIFIED (S26–S28) |
+| Social media | The Subscribe page mentions Facebook and Twitter, but **no links or handles exist** on the site, and none were found by search. The `.co.uk` homepage links to one Facebook profile, captioned "Click here to visit the Exciting New Arts Centre in Totnes": not the café's account | UNKNOWN |
 | Contact form | Yes: Name, Email, Subject, Message (contact page) | VERIFIED |
 | Hollyhock address | Official site: "Hollyhock Cafe, Terrace Gardens, Richmond, Surrey TW10 6UX". Council (gardens): Richmond Hill, TW10 6RH. Third-party: 146 Petersham Rd | Conflicting postcodes [TO CONFIRM] |
 
@@ -87,15 +94,16 @@ All sources were accessed on **25 October 2026**.
   - The next line reads: "Please note that this is a sample menu, and all items and prices are subject to change…"
   - Only a "taster" list is published (S1): Popina tarts; vegetable lasagne; jacket potatoes; pies; vegetable and bean chilli with brown rice; hearty salads; herbal teas; Fairtrade gourmet coffee; freshly squeezed organic juices and smoothies; organic milk; wine and beer.
   - **No prices are published officially.**
+  - The `.co.uk` homepage (S26) adds: "The food is strictly vegetarian, and there are vegan and gluten-free menus. Fairtrade and organic products are available, and we only use organic milk. We are licensed and serve organic wines, beers and ciders. We don't charge extra for cow milk alternatives." It also says: "From January 2022 onwards we shall be making an extra charge for cow's milk in our coffees to help keep plant milk low-priced for everyone." Neither site publishes a menu.
   - Third-party price: vegetarian lasagne and salad for £10 (S7, **2017**, not usable as current).
   - The chalkboard in the third-party vault photo (S24-1, ~5 months old) shows these headings: "Welcome to Tide Tables Café", "Coffee", "…& Tea", "Organic Wines & Beers", "All our wines are vegan" (partly legible). Partly legible drinks lines: red / white / rosé wine, lager, organic cider, organic ale, prosecco, and an ID notice for anyone who appears under 21. **Prices are illegible.** The board is not usable as a menu.
-- **Booking / walk-in:** No booking system or policy is published. The site warns "we get very crowded on sunny days" (S1). Parties are arranged by phone on 07922474327 (S1). Walk-in-only status: UNKNOWN [TO CONFIRM].
+- **Booking / walk-in:** No booking system or policy is published (nor on the `.co.uk` Home, About Us or Contact pages, checked 26 Oct 2026). The site warns "we get very crowded on sunny days" (S1). Parties are arranged by phone on 07922474327 (S1). Walk-in-only status: UNKNOWN [TO CONFIRM].
 - **Accessibility:**
   - VisitRichmond: "Disabled access" (S16, REPORTED).
   - The photos show a level paved approach to the glazed entrance, with a drainage channel at the threshold (S24-3). A short flight of steps is visible at the garden-side opening (S2 `thumbs_img_3476-2`).
   - The garden is gravel (S24-4).
   - Step-free route, accessible toilet and baby change: UNKNOWN.
-- **Dogs:** No policy published. A dog appears among the garden tables in the café's own 2018 photo (S2 `thumbs_img_6870`). Policy UNKNOWN [TO CONFIRM].
+- **Dogs:** No policy published (none on the `.co.uk` pages either). A dog appears among the garden tables in the café's own 2018 photo (S2 `thumbs_img_6870`). Policy UNKNOWN [TO CONFIRM].
 - **Wi-Fi:** "Free wireless internet… free WiFi in our cafe" (S1). A 2018 chalkboard reads "FREE WiFi" (S1 `column-3.jpg`).
 - **Payment:** Credit cards accepted, no fee (S16, REPORTED). Cash: UNKNOWN.
 - **Hire and events:**
@@ -113,12 +121,19 @@ All sources were accessed on **25 October 2026**.
 
 ---
 
-## 5. Website audit (tidetablescafe.com, loaded 25 Oct 2026)
+## 5. Website audit (tidetablescafe.com, loaded 25 Oct 2026; `.co.uk` site added 26 Oct 2026)
 
 **Stack:**
 - WordPress 6.9.10 (generator meta).
 - Theme: **"VW Interior Designs"**, an interior-design theme (stylesheet path `/themes/vw-interior-designs/`).
 - Six pages: Home, Gallery, Press, Contact, Feedback, Subscribe.
+
+### Second official site (www.tidetablescafe.co.uk, fetched 26 Oct 2026 with curl over http)
+- WordPress, footer credit "Website Creation By www.PrimeInternet.co.uk". Nav: About Us, Hollyhock Cafe, Reviews, Contact. Strapline: "Great Food Great coffee Great views".
+- https fails (certificate name mismatch); http returns 200. Only Home, Contact and About Us were fetched; Hollyhock Cafe and Reviews were not.
+- Contact page (S27): address, "Phone: 020 8948 8285", contact@tidetablescafe.co.uk, the day-by-day hours (§ 2), and a vacancies email.
+- Home (S26): the vegetarian, licensed and milk statements (§ 4); a stale "From January 2022 onwards…" line; a "Why meat is now 10x more deadly" item; a caption about the northern lights over Richmond Bridge on 10 May 2024; external links to a Kayak travel guide and to a Totnes arts centre's Facebook page.
+- No booking, dogs, accessibility or menu information.
 
 ### Mobile, 390 × 844
 - **No horizontal overflow** on any page: scrollWidth equals clientWidth at 390 for all six pages.
@@ -207,7 +222,7 @@ All sources were accessed on **25 October 2026**.
 
 ## 6. Unknowns (biggest first)
 
-1. **Current opening hours.** The sources conflict, and the official wording is "daylight hours".
+1. ~~Current opening hours~~ **Resolved** from the café's `.co.uk` Contact page (§ 2). Remaining: whether "serving from" means food and drink, and which of the two sites and emails is primary.
 2. **Any current menu and prices.** None is published.
 3. **The keystone face:** what it is, its date, and whether the brick arches are original bridge, 1937–40 widening, or later fabric.
 4. Whether blankets, free weekday refills and the skiff are still current (all evidenced from 2017–2018 only).
@@ -242,7 +257,7 @@ The client supplied four Google Maps photos (third-party), viewed 25 Oct 2026. F
 
 ---
 
-## 8. Sources (all accessed 25 October 2026)
+## 8. Sources (accessed 25 October 2026; S26–S28 on 26 October 2026)
 
 | ID | Source | How | Notes |
 |---|---|---|---|
@@ -270,4 +285,7 @@ The client supplied four Google Maps photos (third-party), viewed 25 Oct 2026. F
 | S22 | Discovery Richmond, "Where to eat in Richmond": https://discoveryrichmond.com/?p=3713 | WebFetch | |
 | S23 | Roam by Helen Ray, "Sip + Stroll #10 (Richmond)", 12 Jul 2024: https://roambyhelenray.substack.com/p/sip-stroll-459 | WebFetch | |
 | S24 | Client-supplied Google Maps photos (third-party), viewed 25 Oct 2026: 1 vault (~5 months), 2 river (~8 years), 3 entrance (~11 months), 4 garden (~4 months) | Read (scratchpad only) | reference only |
+| S26 | Tide Tables Café (second official site), Home: http://www.tidetablescafe.co.uk/ | `curl` over http, 200, 26 Oct 2026. https: certificate name mismatch (curl error 60) | live; quotes verified |
+| S27 | `.co.uk` Contact: http://www.tidetablescafe.co.uk/contact/ | `curl` over http, 200, 26 Oct 2026 | hours, phone, emails |
+| S28 | `.co.uk` About Us: http://www.tidetablescafe.co.uk/about-us/ | `curl` over http, 200, 26 Oct 2026 | outside seating line |
 | S25 | **Refused or not loaded:** Yelp (403), Yell (403), Spotted by Locals Hollyhock page (403), PLA pages (403/Cloudflare), Historic England (403). Tripadvisor was not attempted. Any values from these appear only as search-engine summaries and are marked UNVERIFIED | | |
