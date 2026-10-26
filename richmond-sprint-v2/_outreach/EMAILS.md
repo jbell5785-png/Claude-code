@@ -3,6 +3,7 @@
 **Status: drafts for you to edit and send yourself. Nothing has been sent.** Fill in the [brackets] first.
 
 ## Before you send
+- **Host the previews on your own domain first.** The links below are claude.ai addresses, which shows how the work was made. Once josephbell.co.uk (or similar) is live, the previews and evidence sheets move to addresses like `josephbell.co.uk/preview/<name>/` (hidden from search engines, banner kept), and the links in these emails get swapped.
 - **Share the links.** Every link below is a private claude.ai page. Before sending, open each one, use **Share** to make it viewable by anyone with the link, and check it opens in a private browser window.
 - **Delays to expect.** Concept pages can take a few seconds to load. Inside the viewer, call and email buttons may do nothing, and pop-ups are blocked; a real site works normally.
 - **One email, one follow-up.** If there's no reply after about a week, send one short follow-up or drop in at a quiet time (between 3pm and 5pm on a weekday). Don't keep chasing.
@@ -18,7 +19,7 @@
 
 Hello [owner's first name],
 
-It's [your name]. I worked at Caffè Mamma [when / in what role], and I still live round the corner. These days I design websites, and I've put together some ideas for yours, made on spec, as a thank-you as much as a pitch.
+It's Joseph Bell. I worked at Caffè Mamma [when / in what role], and I still live round the corner. These days I design websites, and I've put together some ideas for yours, made on spec, as a thank-you as much as a pitch.
 
 The one I'd lead with is built around the shirts on the line across the dining room. They become the website's menu: you tug a shirt to get to MENU, PRENOTA or DOVE. It's the one thing no other restaurant in Richmond has, and it carries the story back to "the restaurant with the washing" on Hill Street.
 
@@ -31,7 +32,7 @@ I can also check what Google's AI tells people about Caffè Mamma at the moment.
 
 I'd love to show you on a phone over a coffee, whenever suits.
 
-[Your name] · [phone]
+Joseph Bell · 07931 373488 · jbell5785@gmail.com
 
 *If you'd rather not hear from me again about this, just say and I won't.*
 
@@ -49,7 +50,7 @@ I'd love to show you on a phone over a coffee, whenever suits.
 
 Hello,
 
-I'm [your name], a web designer living near Richmond. I've been checking what Google's AI tells people about local restaurants, and Matsuba's results are worth a look.
+I'm Joseph Bell, a web designer living near Richmond. I've been checking what Google's AI tells people about local restaurants, and Matsuba's results are worth a look.
 
 The good news: you come up second for "best Japanese restaurant in Richmond". The problem is the detail:
 - It tells people you don't charge for no-shows. That comes from a Reddit thread; your actual terms are £10 a head.
@@ -69,7 +70,7 @@ They use your real menu and link to your existing Favourite Table and Toast acco
 
 Happy to show you on a phone between services.
 
-[Your name] · [phone]
+Joseph Bell · 07931 373488 · jbell5785@gmail.com
 
 *If you'd rather not hear from me again about this, just say and I won't.*
 
@@ -87,7 +88,7 @@ Happy to show you on a phone between services.
 
 Hello,
 
-I'm [your name], a web designer living locally. I've been checking what Google's AI tells visitors about Kew's tearooms, and you'll be glad to hear it puts you first for "afternoon tea near Kew Gardens".
+I'm Joseph Bell, a web designer living locally. I've been checking what Google's AI tells visitors about Kew's tearooms, and you'll be glad to hear it puts you first for "afternoon tea near Kew Gardens".
 
 But three times it tells people there's a £20 minimum spend on afternoon tea between 12 and 3. That's your luncheon rule, and it's the kind of thing that puts a family off. Because your menus are photos, Google can't read them, so it:
 - prices your teas from the gift-voucher shop;
@@ -106,7 +107,7 @@ They use your real menus and your existing ResDiary booking and online shop.
 
 I'd be glad to show you over a cup of tea, as a paying customer.
 
-[Your name] · [phone]
+Joseph Bell · 07931 373488 · jbell5785@gmail.com
 
 *If you'd rather not hear from me again about this, just say and I won't.*
 
@@ -126,7 +127,7 @@ I'd be glad to show you over a cup of tea, as a paying customer.
 
 Hello,
 
-I'm [your name], a web designer living in Richmond, and a regular under the bridge. I've been checking what Google's AI tells people about local cafés, and Tide Tables comes up first for "café by Richmond Bridge". But Google is confused about you:
+I'm Joseph Bell, a web designer living in Richmond, and a regular under the bridge. I've been checking what Google's AI tells people about local cafés, and Tide Tables comes up first for "café by Richmond Bridge". But Google is confused about you:
 - **Hours:** your Google listing has none set, and your two websites (.com and .co.uk) say different things, so it gives three versions of your hours.
 - **Menu:** you don't publish one, so a copycat site has written one, and Google repeats it as fact.
 - **Booking and dogs:** it says you're "strictly walk-in" and "very dog friendly", from a 2018 Tripadvisor answer.
@@ -145,7 +146,7 @@ The menu pages are clearly marked samples until you give me the real one.
 
 Happy to show you over a coffee on the terrace.
 
-[Your name] · [phone]
+Joseph Bell · 07931 373488 · jbell5785@gmail.com
 
 *If you'd rather not hear from me again about this, just say and I won't.*
 

@@ -173,13 +173,13 @@ def page(b):
     <h2>A side-by-side test</h2>
     <div class="score">
       <div class="nums">{before}<span>/20</span> → <b>{after}</b><span>/20</span></div>
-      <p>Fresh AI models answered ten everyday customer questions, once from today’s web and once with the new website in place, and a separate checker scored the answers against your own published facts. {e(note)}</p>
+      <p>I asked AI search tools the same ten everyday customer questions, once with today’s web and once with the new website in place, then checked every answer against your own published facts. {e(note)}</p>
     </div>
     <p class="small">A small, simulated test: it shows AI describing you more accurately, not where you would rank. No one can guarantee a position in Google or ChatGPT.</p>
   </section>
   <section><h2>The evidence</h2><div class="shots">{shots}</div></section>
   <footer>
-    <span class="small">Prepared independently by [Your name]; not commissioned by {e(b["name"])}. Facts are taken from your own website and published menus.</span>
+    <span class="small">Prepared independently by Joseph Bell, web designer in Richmond · 07931 373488 · jbell5785@gmail.com. Not commissioned by {e(b["name"])}. Facts are taken from your own website and published menus.</span>
   </footer>
 </main>
 '''

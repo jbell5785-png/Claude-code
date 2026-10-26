@@ -6,7 +6,7 @@ python3 -m http.server $port --directory $dir >/dev/null 2>&1 & srv=$!
 sleep 1
 cd "$(dirname "$0")"
 timeout 500 node review.js x $port $out > $out/summary.json 2>&1
-node cls.js $port index.html menu.html > $out/cls.txt 2>&1
+node cls.js $port ${PAGES:-index.html menu.html} > $out/cls.txt 2>&1
 kill $srv
 echo "== lint"
 grep -n -i -E "elevate|culinary journey|nestled|tantalis|rich tapestry|premier destination|hidden gem|best sushi|award-winning|lorem|Playfair|family=Inter|monospace|Young Serif|Instrument Sans|Italiana|Hanken|Bricolage|Atkinson" $dir/*.html $dir/css/*.css 2>/dev/null | head -20

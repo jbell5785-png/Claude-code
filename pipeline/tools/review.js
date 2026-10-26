@@ -7,6 +7,8 @@ const [letter, port, outdir, pass = 'p1'] = process.argv.slice(2);
 const base = `http://localhost:${port}`;
 const AXE = fs.readFileSync(path.join(__dirname, 'node_modules/axe-core/axe.min.js'), 'utf8');
 const widths = [390, 768, 1440];
+// PAGES env var (space-separated) overrides the default pair; the second page gets the no-JS/reduced-motion shot.
+const PAGES = (process.env.PAGES || 'index.html menu.html').split(/\s+/).filter(Boolean);
 const report = { console: [], failed: [], links: [], axe: {}, overflow: {}, cls: {} };
 fs.mkdirSync(outdir, { recursive: true });
 
@@ -25,7 +27,7 @@ async function scrollTo(p, frac) {
 
 (async () => {
   const b = await chromium.launch();
-  for (const pageName of ['index.html', 'menu.html']) {
+  for (const pageName of PAGES) {
     for (const w of widths) {
       const ctx = await b.newContext({ viewport: { width: w, height: w === 390 ? 844 : w === 768 ? 1024 : 900 }, deviceScaleFactor: 1 });
       const p = await ctx.newPage();
@@ -61,13 +63,9 @@ async function scrollTo(p, frac) {
         });
         report.axe[tag] = res;
       }
-      if (w === 1440 && pageName === 'index.html') {
+      if (w === 1440) {
         const links = await p.evaluate(() => [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href')));
-        report.links.push(...links.map(h => ['index.html', h]));
-      }
-      if (w === 1440 && pageName === 'menu.html') {
-        const links = await p.evaluate(() => [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href')));
-        report.links.push(...links.map(h => ['menu.html', h]));
+        report.links.push(...links.map(h => [pageName, h]));
       }
       await ctx.close();
     }
@@ -97,7 +95,7 @@ async function scrollTo(p, frac) {
       const q = await c.newPage();
       await q.goto(`${base}/index.html`, { waitUntil: 'networkidle' }); await settle(q, 1200);
       await q.screenshot({ path: `${outdir}/${label}_index_${w}.png` });
-      if (w === 390) { await q.goto(`${base}/menu.html`, { waitUntil: 'networkidle' }); await settle(q, 800); await q.screenshot({ path: `${outdir}/${label}_menu_${w}.png` }); }
+      if (w === 390 && PAGES[1]) { await q.goto(`${base}/${PAGES[1]}`, { waitUntil: 'networkidle' }); await settle(q, 800); await q.screenshot({ path: `${outdir}/${label}_${PAGES[1].replace('.html', '')}_${w}.png` }); }
       await c.close();
     }
   }
