@@ -39,7 +39,7 @@
 | Business | A | B | C | AI check sheet |
 |---|---|---|---|---|
 | Caffè Mamma | La Carta: https://claude.ai/artifact/VemRPwVwYPiq1Gf9o7Tqtt | Sera: https://claude.ai/artifact/4dxyaUUBrt5oHcQF5gTh5K | **Bucato** (recommended): https://claude.ai/artifact/32mhWYVm4GGgDWvjutUUwH | not done yet |
-| Matsuba | Under the awning: https://claude.ai/artifact/KPqWWb5wVit5WqmiFcXcST | The stepped wall: https://claude.ai/artifact/WriQBfJ8oc4o6ac8da975J | **Aburi** (lead): https://claude.ai/artifact/JKEmoymB3xyJmLqSpZD9Mi | https://claude.ai/artifact/NpJ36rukApJacwE6Z3sHnM |
+| Matsuba | Under the awning: https://claude.ai/artifact/KPqWWb5wVit5WqmiFcXcST | **The stepped wall** (lead): https://claude.ai/artifact/WriQBfJ8oc4o6ac8da975J | Aburi: https://claude.ai/artifact/JKEmoymB3xyJmLqSpZD9Mi | https://claude.ai/artifact/NpJ36rukApJacwE6Z3sHnM |
 | Maids of Honour | **Teas** (lead): https://claude.ai/artifact/2y29jngKqaq942mibZQQ6D | A royal secret: https://claude.ai/artifact/BdxckS6mdEbsMf1feUNcaY | The tearoom: https://claude.ai/artifact/JPSgFAFx2Kw5iAhpitja8G | https://claude.ai/artifact/TyWf8Sku8RRCpG1nN77Fn4 |
 | Tide Tables | **Under the keystone** (lead): https://claude.ai/artifact/8GewK7Ugbe3ZZQR33h7TJo | Five arches: https://claude.ai/artifact/2H99kDkL9YRA6f8Gd6QWNL | Ride the tide: https://claude.ai/artifact/7YgxyLyU9ztJUooKxTYehH | https://claude.ai/artifact/NEchc9pf5uGXjr6d9p2LCq |
 
@@ -165,3 +165,25 @@ The concepts are already built, so they're only needed for new work. Ask the use
 - **No commitments on the user's behalf.** Don't publish real websites, buy domains, sign up for paid services or contact owners.
 - **Previews stay labelled and noindexed.**
 - **Git:** commit and push to the branch (a stop hook asks for this). No model names in repo content.
+
+## 10. Update: the "Useful first" standard (added after the handover was first written)
+- **Why:** the user felt some concepts put the gimmick ahead of being useful.
+- **The standard:** research and a scoring rubric are in `pipeline/research/information-hierarchy.md`; the audit of all 12 concepts is in `pipeline/research/useful-first-audit.md`.
+- **Every site must have:**
+  - a "today" strip on the first phone screen: status or hours, the address linked to maps, Book and Menu;
+  - a Visit block second: full hours, getting there, booking policy;
+  - a priced taster within about 1,700 px;
+  - a signature of at most one phone screen, with a skip link, and anything it reveals also written as plain text;
+  - three literally labelled bar actions;
+  - a menu legend and allergen line.
+- **Results:** all nine Richmond v2 concepts now score full marks (Matsuba and Maids 32/32, Tide Tables 26/26) and are republished at the same links.
+- **Lead changes:**
+  - Matsuba: lead with **B "The stepped wall"**, not C.
+  - Caffè Mamma: the audit recommends **A "La Carta"** over C.
+  - Maids A and Tide A stay.
+- **Caffè Mamma's three concepts have NOT been fixed.** The original brief said not to modify that project, and the user hasn't yet said yes.
+- **Your own website:** it's in `portfolio/`, preview https://claude.ai/artifact/DbXDkuyiuLfz9QJb1LsjCN.
+  - Anonymised case studies, no mention of AI in how the work is made.
+  - Contact: 07931 373488 / jbell5785@gmail.com.
+  - Waiting on the user's domain and hosting choice (Cloudflare Pages or Netlify).
+  - The restaurant previews should move onto that domain before any email is sent, because claude.ai links reveal the tooling.
