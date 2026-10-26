@@ -1,6 +1,6 @@
 # Handover: Richmond restaurant website pitches and the prospect pipeline
 
-**For:** the next Claude Code session, which has Gmail connected.
+**For:** the next Claude Code session. Gmail and Google Drive are connected to the user's account (and were already live in the session that wrote this).
 **Written:** 26 October 2026, at the end of the session that did all the work below.
 **Read this file first, then `pipeline/PIPELINE.md`.**
 
