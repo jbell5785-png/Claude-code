@@ -16,7 +16,10 @@
 .mnote p { margin-bottom: .5em; }
 .mnote .veg { font-size: var(--fs-small); }
 .mnote a { font-weight: 700; }
-.mhero .actions { grid-column: 1 / -1; margin-top: var(--s-4); }
+.mhero .actions { grid-column: 1 / -1; margin-top: var(--s-3); }
+.mhero__today { grid-column: 1 / -1; margin: var(--s-3) 0 0; gap: 4px 0; }
+.mhero__where { font: 700 var(--fs-small)/1.3 var(--text); flex-basis: 100%; margin-left: calc(.62em + .45em); margin-top: 2px; }
+@media (min-width: 768px) { .mhero__where { flex-basis: auto; margin: 0 0 0 1em; } }
 @media (max-width: 767.98px) { .mhero .actions .btn--line { display: none; } }
 
 /* ---------- The pegged index: a sticky line with each course on a string ---------- */
@@ -28,7 +31,8 @@
 .ix__scroller { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
 .ix__scroller::-webkit-scrollbar { display: none; }
 .ix__track.strung { --y0: 12px; --sag: 8px; padding-top: var(--y0); padding-bottom: 12px; width: max-content; min-width: 100%; }
-.ix__list { list-style: none; display: flex; gap: 10px; padding-inline: var(--gutter); }
+.ix__list { list-style: none; display: flex; gap: 10px; padding-inline: var(--gutter); align-items: flex-end; }
+.ix__label { flex: none; align-self: center; margin-top: 12px; font: 700 var(--fs-micro)/1.1 var(--text); letter-spacing: .06em; text-transform: uppercase; max-width: 5.5em; }
 @media (min-width: 1200px) { .ix__list { justify-content: space-between; gap: 12px; } }
 .ix__tag {
   --k: .4; position: relative; isolation: isolate; display: flex; align-items: flex-end; justify-content: center;
@@ -125,5 +129,8 @@
 
 /* drinks get a closing note */
 .bere__note { margin-top: var(--s-4); font-weight: 700; }
+.totop { margin: var(--s-3) 0 0; }
+.totop a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; }
 .menu-foot-cta { padding-block: clamp(48px, 6vw, 96px); }
 .menu-foot-cta .display { font-size: clamp(2.5rem, 1rem + 6vw, 8rem); margin-bottom: var(--s-4); }
+.mhero .today__dot { background: var(--tovagliolo); }

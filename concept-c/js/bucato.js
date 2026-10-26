@@ -146,6 +146,14 @@
     window.addEventListener('resize', schedule);
   }
 
+  /* ---------- Today's row in the hours table (Europe/London) ---------- */
+  try {
+    var wd = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', weekday: 'short' }).format(new Date());
+    var day = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[wd];
+    var row = document.querySelector('.hours tr[data-day="' + day + '"]');
+    if (row) row.classList.add('is-today');
+  } catch (e) { /* the table is complete without it */ }
+
   /* ---------- Marquee ---------- */
   var mq = document.querySelector('[data-marquee]');
   if (mq) {

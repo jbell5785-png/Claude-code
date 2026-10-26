@@ -1,7 +1,8 @@
 /* Concept B "Sera": homepage behaviour.
    1. Booking step (works with or without GSAP).
-   2. Motion (only when html.motion is set and GSAP loaded): the page light engine,
-      the pinned frontage ("Si accendono le luci"), the gallery strip and the booking lamp. */
+   2. Motion (only when html.motion is set and GSAP loaded): the frontage scene, where the light goes
+      from afternoon to night and the lamps come on, scrubbed by a short pin; plus the booking lamp.
+      The text under the picture never moves. The scene plays once, then rests lit. */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -73,69 +74,13 @@
   var mix = function (a, b, t) { var A = hex(a), B = hex(b); return toHex([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t, A[2] + (B[2] - A[2]) * t]); };
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
 
-  /* ---- page light engine ----
-     t runs 0 (afternoon) .. 1 (golden) .. 2 (dusk) .. 3 (night).
-     Between afternoon and golden the ink stays dark; between dusk and night it stays plaster.
-     Between golden and dusk no ink passes AA at the midpoint, so the page never rests there:
-     it dissolves across in 1.4s and the ink steps at the middle of the dissolve. */
-  var STAGES = ['#E9DDC8', '#D99A55', '#2E2F4F', '#121319'];
-  var bgAt = function (t) { t = clamp(t, 0, 3); var i = Math.min(2, Math.floor(t)); return mix(STAGES[i], STAGES[i + 1], t - i); };
-  var quant = function (s) { return s <= 1 || s >= 2 ? s : (s < 1.5 ? 1 : 2); };
-  var theme = document.querySelector('meta[name="theme-color"]');
-  var light = { d: 0 };
-  var wasDark = null, crossing = false;
-  function applyLight() {
-    var d = light.d;
-    root.style.setProperty('--bg', bgAt(d));
-    var dark = d >= 1.5;
-    if (dark !== wasDark) {
-      wasDark = dark;
-      root.style.setProperty('--ink', dark ? '#F1EAE0' : '#1E1A17');
-      root.style.setProperty('--ink-soft', dark ? '#BDB3A6' : '#3E3631');
-      root.style.setProperty('--accent', dark ? '#F4B54A' : '#1E1A17');
-      root.style.setProperty('--rule', dark ? 'rgba(241,234,224,.22)' : 'rgba(30,26,23,.26)');
-      root.style.colorScheme = dark ? 'dark' : 'light';
-    }
-    if (theme) theme.setAttribute('content', bgAt(d));
-  }
-
+  /* ---- the frontage: afternoon, golden, dusk, night; then the lamps ---- */
   var hero = document.querySelector('.hero');
-  var scenes = [].slice.call(document.querySelectorAll('.scene[data-stage]'));
-  var heroS = 0;
-  function targetLight() {
-    var line = window.innerHeight * 0.45;
-    var hr = hero.getBoundingClientRect();
-    if (line < hr.bottom) return heroS;
-    var prev = 3;
-    for (var i = 0; i < scenes.length; i++) {
-      var el = scenes[i], r = el.getBoundingClientRect(), st = parseFloat(el.dataset.stage);
-      if (line < r.bottom) {
-        var lead = parseFloat(getComputedStyle(el).paddingTop) || 1;
-        var k = clamp((line - r.top) / lead, 0, 1);
-        return prev + (st - prev) * k;
-      }
-      prev = st;
-    }
-    return prev;
-  }
-  function syncLight() {
-    if (crossing) return;
-    var target = quant(targetLight());
-    var side = function (v) { return v < 1.5; };
-    if (side(target) !== side(light.d)) {
-      crossing = true;
-      gsap.to(light, { d: target, duration: 1.4, ease: 'sine.inOut', overwrite: true, onUpdate: applyLight,
-        onComplete: function () { crossing = false; syncLight(); } });
-    } else {
-      gsap.to(light, { d: target, duration: 0.5, ease: 'sine.out', overwrite: true, onUpdate: applyLight });
-    }
-  }
-
-  /* ---- the frontage: Si accendono le luci ---- */
   var svg = document.querySelector('.frontage');
-  var bulbs = svg ? [].slice.call(svg.querySelectorAll('.bulb')) : [];
-  var far = svg && svg.querySelector('.L-far');
-  var front = svg && svg.querySelector('.L-front');
+  if (!svg || !hero) { staticMode(); return; }
+  var bulbs = [].slice.call(svg.querySelectorAll('.bulb'));
+  var far = svg.querySelector('.L-far');
+  var front = svg.querySelector('.L-front');
   // [afternoon, golden, dusk, night] for each variable; stops at a = 0, .33, .62, 1
   var K = {
     sky1: ['#B9CCD2', '#C4A07E', '#2E2F4F', '#0B0C13'], sky2: ['#DCE1D6', '#E9B377', '#5D4B69', '#141625'], sky3: ['#F2E5C8', '#F7CF8D', '#C47B68', '#262A40'],
@@ -157,23 +102,10 @@
   var A = [0, .33, .62, 1];
   function seg(a) { var i = a < A[1] ? 0 : a < A[2] ? 1 : 2; return [i, clamp((a - A[i]) / (A[i + 1] - A[i]), 0, 1)]; }
 
-  var subs = [].slice.call(document.querySelectorAll('.hero .sub'));
-  var rowDay = document.querySelector('.hero__row--day');
-  var rowNight = document.querySelector('.hero__row--night');
-  var line = 0;
-  function setLine(n) {
-    if (n === line) return;
-    line = n;
-    subs.forEach(function (el) {
-      gsap.to(el, { opacity: +el.dataset.line === n ? 1 : 0, duration: 1.3, ease: 'sine.inOut', overwrite: true });
-    });
-    var night = n === 3;
-    gsap.to(rowNight, { autoAlpha: night ? 1 : 0, duration: 1.3, ease: 'sine.inOut', overwrite: true });
-    gsap.to(rowDay, { autoAlpha: night ? 0 : 1, duration: 1.3, ease: 'sine.inOut', overwrite: true });
-  }
-
   var B0 = .58, B1 = .84, BW = .03;
+  var done = 0;   // furthest point reached: the scene never runs backwards, so it plays once and rests
   function scene(p) {
+    p = Math.max(p, done); done = p;
     var a = clamp((p - .04) / .72, 0, 1);
     var sg = seg(a), i = sg[0], t = sg[1], k;
     for (k in K) svg.style.setProperty('--' + k, mix(K[k][i], K[k][i + 1], t));
@@ -190,69 +122,41 @@
     svg.style.setProperty('--tglow', (sum / bulbs.length).toFixed(3));
     if (far) far.setAttribute('transform', 'translate(0 ' + (a * 16).toFixed(1) + ')');
     if (front) front.setAttribute('transform', 'translate(0 ' + (-a * 12).toFixed(1) + ')');
-    heroS = 3 * a;
-    syncLight();
-    setLine(p < .40 ? 1 : p < B1 + BW - .005 ? 2 : 3);
   }
 
-  // initial hidden states for the hero lines (JS-applied)
-  subs.forEach(function (el) { gsap.set(el, { opacity: +el.dataset.line === 1 ? 1 : 0 }); });
-  gsap.set(rowNight, { autoAlpha: 0 });
-  gsap.set(rowDay, { autoAlpha: 1 });
-  line = 1;
-
   var mm = gsap.matchMedia();
-  mm.add({ phone: '(max-width: 899px)', desk: '(min-width: 900px)', tall: '(min-height: 520px)' }, function (ctx) {
+  mm.add({ phone: '(max-width: 899px)', tall: '(min-height: 520px)' }, function (ctx) {
     var c = ctx.conditions;
-    var proxy = { p: 0 };
-    if (svg && c.tall) {
+    var proxy = { p: done };
+    if (c.tall) {
       gsap.to(proxy, {
         p: 1, ease: 'none',
         onUpdate: function () { scene(proxy.p); },
         scrollTrigger: {
           trigger: hero, start: 'top top',
-          end: c.phone ? '+=110%' : '+=170%',   // short on phones so the scene never traps a thumb
-          pin: true, scrub: c.phone ? 0.6 : 1.1, anticipatePin: 1
+          end: c.phone ? '+=50%' : '+=110%',   // half a screen on phones, 1.1 on desktop
+          pin: true, scrub: c.phone ? 0.5 : 0.9, anticipatePin: 1
         }
       });
-      scene(0);
-    } else if (svg) {
-      scene(1);
-    }
-
-    // gallery: a scrubbed horizontal move on desktop; native swipe with snap on phones
-    var strip = document.querySelector('.strip');
-    var track = strip && strip.querySelector('.strip__track');
-    if (c.desk && strip) {
-      var dist = function () { return Math.max(0, track.scrollWidth - strip.clientWidth); };
-      if (dist() > 40) {
-        strip.classList.add('is-scrubbed');
-        strip.removeAttribute('tabindex');
-        gsap.to(track, {
-          x: function () { return -dist(); }, ease: 'none',
-          scrollTrigger: { trigger: strip.closest('.scene'), start: 'bottom bottom', end: function () { return '+=' + dist(); }, pin: true, scrub: 1, invalidateOnRefresh: true }
-        });
-      }
-      return function () { strip.classList.remove('is-scrubbed'); strip.setAttribute('tabindex', '0'); gsap.set(track, { clearProps: 'transform' }); };
+      scene(done);
+    } else {
+      scene(1);   // short landscape screens: no pin, the lit frame
     }
   });
 
-  // film-style dissolves as each scene's text arrives
+  // a short settle as each scene's text arrives (story, lunch, parties only; never the essentials)
   gsap.utils.toArray('[data-dissolve]').forEach(function (el) {
-    gsap.from(el, { opacity: 0, y: 18, duration: 1.4, ease: 'sine.inOut', scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+    gsap.from(el, { opacity: 0, y: 14, duration: 0.5, ease: 'sine.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
   });
 
   // the lamp over the booking table comes on
   var lamp = document.querySelector('.book__lamp');
   if (lamp) {
     ST.create({
-      trigger: '#book', start: 'top 60%',
-      onEnter: function () { gsap.to(lamp, { '--lamp-on': 1, duration: 1.6, ease: 'sine.inOut' }); },
-      onLeaveBack: function () { gsap.to(lamp, { '--lamp-on': 0, duration: 1.2, ease: 'sine.inOut' }); }
+      trigger: '#book', start: 'top 60%', once: true,
+      onEnter: function () { gsap.to(lamp, { '--lamp-on': 1, duration: 0.8, ease: 'sine.inOut' }); }
     });
   }
 
-  ST.create({ start: 0, end: 'max', onUpdate: syncLight, onRefresh: syncLight });
-  light.d = quant(targetLight()); applyLight();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ST.refresh(); });
 })();

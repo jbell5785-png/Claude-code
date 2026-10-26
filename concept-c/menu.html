@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#1F3B8F">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The menu · Caffè Mamma Ristorante, Richmond">
-<meta property="og:description" content="Antipasti to zabaglione, pegged out on one page. Pasta, pizza, meat, fish, set menus and drinks at Caffè Mamma, 110 Kew Road.">
+<meta property="og:description" content="Antipasti to zabaglione: pasta, pizza, meat, fish, set menus and drinks at Caffè Mamma, 110 Kew Road, Richmond.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231F3B8F'/%3E%3Cpath d='M0 14Q32 26 64 14' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cpath d='M24 19L17 21L8 30L13 38L19 35L19 56L45 56L45 35L51 38L56 30L47 21L40 19Q32 27 24 19Z' fill='%23D7261E'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,6 +43,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#antipasti">Skip to the dishes</a>
 
 <header class="site-head">
   <div class="site-head__in wrap">
@@ -51,19 +52,18 @@
         <span class="brand__name">Caffè Mamma</span>
         <span class="brand__sub">Ristorante</span>
       </span>
-      <span class="brand__note" aria-hidden="true">Logo slot<span>: original wordmark goes here</span></span>
     </a>
     <nav class="site-nav" aria-label="Main">
       <ul>
         <li><a href="menu.html" aria-current="page">Menu</a></li>
-        <li><a href="index.html#pranzo">Lunch</a></li>
-        <li><a href="index.html#feste">Parties</a></li>
-        <li><a href="index.html#dove">Find us</a></li>
+        <li><a href="index.html#lunch">Lunch</a></li>
+        <li><a href="index.html#parties">Parties</a></li>
+        <li><a href="index.html#visit">Find us</a></li>
       </ul>
     </nav>
     <div class="site-head__actions">
       <a class="btn btn--line" href="tel:+442089488330"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M6 1.5 8.6 6 6.8 7.8c.9 2.2 3.2 4.5 5.4 5.4L14 11.4l4.5 2.6-.9 3.6c-.2.6-.8 1-1.4.9C9 17.6 2.4 11 1.5 3.8c-.1-.6.3-1.2.9-1.4L6 1.5Z" fill="currentColor"/></svg>Call<span class="hide-s">&nbsp;020 8948 8330</span></a>
-      <a class="btn hide-m" href="index.html#prenota">Book a table</a>
+      <a class="btn hide-m" href="index.html#book">Book a table</a>
     </div>
   </div>
 </header>
@@ -72,47 +72,61 @@
 
 <section class="blk blk--blue mhero" aria-labelledby="menu-title">
   <div class="wrap grid">
-    <h1 class="display mhero__title" id="menu-title"><span class="w-bd" lang="it">Il menu.</span> <span class="w-lt">All of it, pegged out on one line.</span></h1>
+    <h1 class="display mhero__title" id="menu-title"><span class="w-bd">The menu.</span> <span class="w-lt">Antipasti to zabaglione.</span></h1>
+    <p class="mhero__today today__status"><i class="today__dot" aria-hidden="true"></i><span data-today>Open every day, 12 noon – 11pm</span><!-- [TO CONFIRM] hours --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span><span class="mhero__where">110 Kew Road, Richmond</span></p>
+    <script>
+    (function () {
+      var els = document.querySelectorAll('[data-today]');
+      try {
+        var h = 0, m = 0;
+        new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+          .formatToParts(new Date()).forEach(function (x) { if (x.type === 'hour') h = +x.value; if (x.type === 'minute') m = +x.value; });
+        var t = h * 60 + m, open = t >= 720 && t < 1380;
+        var txt = t < 720 ? 'Opens today at 12 noon' : open ? 'Open now, until 11pm' : 'Closed now, opens tomorrow at 12 noon';
+        for (var i = 0; i < els.length; i++) { els[i].textContent = txt; els[i].parentNode.classList.add(open ? 'is-open' : 'is-closed'); }
+      } catch (e) { /* the static line stays */ }
+    })();
+    </script>
     <div class="actions">
-      <a class="btn btn--big" href="index.html#prenota">Book a table</a>
+      <a class="btn btn--big" href="index.html#book">Book a table</a>
       <a class="btn btn--line btn--big" href="tel:+442089488330">Call 020 8948 8330</a>
     </div>
   </div>
 </section>
 
-<nav class="ix" aria-label="Courses">
+<nav class="ix" aria-label="On this menu">
   <div class="ix__scroller">
     <div class="ix__track strung" data-strung data-sag="8">
       <svg class="strung__svg" aria-hidden="true" focusable="false" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0 0Q500 100 1000 0"/></svg>
       <ul class="ix__list">
-          <li><a class="ix__tag hang" data-hang href="#antipasti" style="--c:var(--pomodoro);--cf:#fff"><i class="knot" aria-hidden="true"></i><span lang="it">Antipasti</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#insalate" style="--c:var(--basilico);--cf:#fff"><i class="knot" aria-hidden="true"></i><span lang="it">Insalate</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#pasta" style="--c:var(--soffitto);--cf:#fff"><i class="knot" aria-hidden="true"></i><span lang="it">Pasta</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#pizze" style="--c:var(--tovagliolo);--cf:var(--ink)"><i class="knot" aria-hidden="true"></i><span lang="it">Pizze</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#carne" style="--c:var(--pomodoro);--cf:#fff"><i class="knot" aria-hidden="true"></i><span lang="it">Carne</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#pesce" style="--c:var(--soffitto);--cf:#fff"><i class="knot" aria-hidden="true"></i><span lang="it">Pesce</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#dolci" style="--c:var(--tovagliolo);--cf:var(--ink)"><i class="knot" aria-hidden="true"></i><span lang="it">Dolci</span></a></li>
-          <li><a class="ix__tag hang" data-hang href="#set-menus" style="--c:var(--basilico);--cf:#fff"><i class="knot" aria-hidden="true"></i>Set menu</a></li>
-          <li><a class="ix__tag hang" data-hang href="#bere" style="--c:var(--ink);--cf:#fff"><i class="knot" aria-hidden="true"></i><span lang="it">Bere</span></a></li>
+          <li class="ix__label" aria-hidden="true">On this menu</li>
+          <li><a class="ix__tag hang" data-hang href="#antipasti" style="--c:var(--pomodoro);--cf:#fff"><i class="knot" aria-hidden="true"></i>Starters</a></li>
+          <li><a class="ix__tag hang" data-hang href="#insalate" style="--c:var(--basilico);--cf:#fff"><i class="knot" aria-hidden="true"></i>Salads</a></li>
+          <li><a class="ix__tag hang" data-hang href="#pasta" style="--c:var(--soffitto);--cf:#fff"><i class="knot" aria-hidden="true"></i>Pasta</a></li>
+          <li><a class="ix__tag hang" data-hang href="#pizze" style="--c:var(--tovagliolo);--cf:var(--ink)"><i class="knot" aria-hidden="true"></i>Pizza</a></li>
+          <li><a class="ix__tag hang" data-hang href="#carne" style="--c:var(--pomodoro);--cf:#fff"><i class="knot" aria-hidden="true"></i>Meat</a></li>
+          <li><a class="ix__tag hang" data-hang href="#pesce" style="--c:var(--soffitto);--cf:#fff"><i class="knot" aria-hidden="true"></i>Fish</a></li>
+          <li><a class="ix__tag hang" data-hang href="#dolci" style="--c:var(--tovagliolo);--cf:var(--ink)"><i class="knot" aria-hidden="true"></i>Desserts</a></li>
+          <li><a class="ix__tag hang" data-hang href="#set-menus" style="--c:var(--basilico);--cf:#fff"><i class="knot" aria-hidden="true"></i>Set menus</a></li>
+          <li><a class="ix__tag hang" data-hang href="#bere" style="--c:var(--ink);--cf:#fff"><i class="knot" aria-hidden="true"></i>Drinks</a></li>
       </ul>
     </div>
   </div>
 </nav>
-<section class="blk blk--white mnotes" aria-label="Prices, dietary key and allergies">
+<section class="blk blk--white mnotes" aria-label="Dietary key, allergies and prices">
   <div class="wrap grid">
     <div class="mhero__notes">
       <div class="mnote">
-        <h2>Prices</h2>
-        <p>Prices from our current menu, being re-checked.<!-- [TO CONFIRM] prices --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
-      </div>
-      <div class="mnote">
         <h2>Key</h2>
-        <p><span class="veg"><b aria-hidden="true">V</b>vegetarian</span></p>
-        <p>Dietary markers to be confirmed with the kitchen.<!-- [TO CONFIRM] dietary markers --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <p><span class="veg"><b aria-hidden="true">V</b>vegetarian</span><!-- [TO CONFIRM] dietary markers with the kitchen --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
       </div>
       <div class="mnote">
         <h2>Allergies</h2>
-        <p>Allergies or intolerances? Please tell us when you book and ask your server before you order. We can tell you about all 14 major allergens in every dish.</p>
+        <p>Allergies or intolerances? Please tell us when you book and ask your server before you order. We can tell you which of the 14 major allergens are in every dish.</p>
+      </div>
+      <div class="mnote">
+        <h2>Prices</h2>
+        <p>All prices in £.<!-- [TO CONFIRM] prices are from the current menu page --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span> Service charge<!-- [TO CONFIRM] service charge, if any --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
       </div>
       <div class="mnote">
         <h2>Takeaway</h2>
@@ -153,7 +167,7 @@
       <div class="wrap">
         <div class="hang course__hang" data-hang style="--tilt:1deg">
           <h2 class="course__name" id="insalate-h"><i class="peg" aria-hidden="true"></i><i class="peg peg--r" aria-hidden="true"></i><span lang="it">Insalate</span></h2>
-          <p class="course__en">Salads <span class="small">(from a third-party listing)</span><!-- [TO CONFIRM] Insalate section, third-party listing --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+          <p class="course__en">Salads<!-- [TO CONFIRM] Insalate section, third-party listing only --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
         </div>
       </div>
     </div>
@@ -186,7 +200,7 @@
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Penne siciliana</h3></div><div class="dish__price"><span class="swing" style="--tilt:4deg"><span class="tag price"><span class="sr-only">Price </span>£13.45</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Spaghetti carbonara</h3></div><div class="dish__price"><span class="swing" style="--tilt:-3deg"><span class="tag price"><span class="sr-only">Price </span>£13.75</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Spaghetti bolognese</h3></div><div class="dish__price"><span class="swing" style="--tilt:2deg"><span class="tag price"><span class="sr-only">Price </span>£13.75</span></span></div></li>
-      <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Lasagne<!-- [TO CONFIRM] Lasagne, third-party listing only --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></h3><p class="dish__note">Listed on OpenTable only.</p></div><div class="dish__price"><span class="swing" style="--tilt:-5deg"><span class="tag price"><span class="sr-only">Price </span>£13.95</span></span></div></li>
+      <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Lasagne<!-- [TO CONFIRM] Lasagne, listed on OpenTable only --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></h3></div><div class="dish__price"><span class="swing" style="--tilt:-5deg"><span class="tag price"><span class="sr-only">Price </span>£13.95</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Tagliatelle al salmone affumicato</h3><p class="dish__desc">Smoked salmon.</p></div><div class="dish__price"><span class="swing" style="--tilt:3deg"><span class="tag price"><span class="sr-only">Price </span>£14.45</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Penne polpette e pomodoro</h3><p class="dish__desc">Meatballs and tomato.</p></div><div class="dish__price"><span class="swing" style="--tilt:-4deg"><span class="tag price"><span class="sr-only">Price </span>£14.95</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Linguine alle vongole</h3><p class="dish__desc">Clams.</p></div><div class="dish__price"><span class="swing" style="--tilt:3deg"><span class="tag price"><span class="sr-only">Price </span>£14.95</span></span></div></li>
@@ -206,7 +220,7 @@
       <div class="wrap">
         <div class="hang course__hang" data-hang style="--tilt:1deg">
           <h2 class="course__name" id="pizze-h"><i class="peg" aria-hidden="true"></i><i class="peg peg--r" aria-hidden="true"></i><span lang="it">Pizze</span></h2>
-          <p class="course__en">Pizzas, also to take away: call 020 8948 8330 <a class="small" href="tel:+442089488330">To take away? Call 020 8948 8330</a></p>
+          <p class="course__en">Pizzas. <a class="small" href="tel:+442089488330">To take away, call 020 8948 8330</a></p>
         </div>
       </div>
     </div>
@@ -224,7 +238,7 @@
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Tonno e cipolle</h3><p class="dish__desc">Tuna and onion.</p></div><div class="dish__price"><span class="swing" style="--tilt:-4deg"><span class="tag price"><span class="sr-only">Price </span>£14.95</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Tropicana</h3></div><div class="dish__price"><span class="swing" style="--tilt:3deg"><span class="tag price"><span class="sr-only">Price </span>£14.95</span></span></div></li>
       <li class="dish"><div class="dish__main"><h3 class="dish__name" lang="it">Calzone</h3></div><div class="dish__price"><span class="swing" style="--tilt:-2deg"><span class="tag price"><span class="sr-only">Price </span>£14.95</span></span></div></li>
-      <li class="dish"><div class="dish__main"><h3 class="dish__name">Seafood pizza</h3><p class="dish__note">Italian name<!-- [TO CONFIRM] seafood pizza Italian name --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p></div><div class="dish__price"><span class="swing" style="--tilt:4deg"><span class="tag price">Price</span></span><!-- [TO CONFIRM] price of Seafood pizza --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></div></li>
+      <li class="dish"><div class="dish__main"><h3 class="dish__name">Seafood pizza<!-- [TO CONFIRM] seafood pizza Italian name --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></h3></div><div class="dish__price"><span class="swing" style="--tilt:4deg"><span class="tag price">Price</span></span><!-- [TO CONFIRM] price of Seafood pizza --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></div></li>
     </ul>
   </div>
 </section>
@@ -317,7 +331,7 @@
           <article class="towel towel--lunch hang" id="set-lunch" data-hang aria-labelledby="set-lunch-h"><i class="peg" aria-hidden="true"></i><i class="peg peg--r" aria-hidden="true"></i>
             <h3 id="set-lunch-h">Xpress Lunch</h3>
             <p class="towel__when">Two courses. Monday to Friday, 12 noon – 5pm.</p>
-            <div class="towel__price"><span>Price</span><!-- [TO CONFIRM] Xpress Lunch price --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span><span class="small">The current site shows both £11.95 and £18.95.</span></div>
+            <div class="towel__price"><span>Price</span><!-- [TO CONFIRM] Xpress Lunch price: the current site shows both £11.95 and £18.95 --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></div>
             <p>Starters include bruschetta con pomodoro, mozzarella and tomato salad, and egg with spinach. Full list<!-- [TO CONFIRM] Xpress Lunch full list --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
           </article>
           <article class="towel towel--kids hang" id="set-children" data-hang aria-labelledby="set-children-h"><i class="peg" aria-hidden="true"></i><i class="peg peg--r" aria-hidden="true"></i>
@@ -364,6 +378,7 @@
       <li class="dish"><div class="dish__main"><h3 class="dish__name">Red wine</h3><p class="dish__desc">Including Merlot (Veneto) and Dolcetto d&#x27;Alba (Piemonte). By the bottle.</p></div><div class="dish__price"><span class="swing" style="--tilt:4deg"><span class="tag price"><span class="sr-only">Price </span>£22.50–£23.95</span></span></div></li>
     </ul>
     <p class="bere__note">Full wine and drinks list<!-- [TO CONFIRM] full wine and drinks list --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+    <p class="totop"><a href="#main">Back to the top</a></p>
   </div>
 </section>
 
@@ -371,7 +386,7 @@
   <div class="wrap">
     <h2 class="display" id="cta-h"><span class="w-lt">Hungry yet?</span> <span class="w-bd">Book a table.</span></h2>
     <div class="actions">
-      <a class="btn btn--big" href="index.html#prenota">Book a table</a>
+      <a class="btn btn--big" href="index.html#book">Book a table</a>
       <a class="btn btn--line btn--big" href="tel:+442089488330">Call 020 8948 8330</a>
     </div>
   </div>
@@ -388,7 +403,6 @@
   </div>
   <div class="wrap">
     <p class="site-foot__mark" aria-hidden="true">Caffè Mamma</p>
-    <p class="site-foot__slot eyebrow">Working wordmark. Logo slot: the original red script goes here as vector art.</p>
     <div class="grid site-foot__cols">
       <div>
         <h2>Visit</h2>
@@ -405,33 +419,28 @@
       </div>
       <div>
         <h2>Open</h2>
-        <p>7 days, 12 noon – 11pm<!-- [TO CONFIRM] hours --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
+        <p>Every day, 12 noon – 11pm<!-- [TO CONFIRM] hours --><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
       </div>
       <div>
         <h2>Pages</h2>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="index.html#prenota">Book a table</a></li>
-          <li><a href="index.html#feste">Parties upstairs</a></li>
-          <li><a href="index.html#dove">Find us</a></li>
+          <li><a href="index.html#book">Book a table</a></li>
+          <li><a href="index.html#parties">Parties upstairs</a></li>
+          <li><a href="index.html#visit">Find us</a></li>
         </ul>
       </div>
     </div>
     <div class="site-foot__proposal">
-      <p>A design proposal for Caffè Mamma, not the live site. Concept C of three.</p>
-      <ul>
-        <li><a href="../concept-a/index.html">Concept A</a></li>
-        <li><a href="../concept-b/index.html">Concept B</a></li>
-        <li><a href="index.html">Home</a></li>
-      </ul>
+      <p>A speculative design proposal for Caffè Mamma. This is not the restaurant’s official website.</p>
     </div>
   </div>
 </footer>
 
 <nav class="dock" aria-label="Quick actions">
-  <a class="dock__book" href="index.html#prenota"><i class="peg" aria-hidden="true"></i><span lang="it">Prenota</span><small>Book</small></a>
-  <a class="dock__menu" href="index.html"><i class="peg" aria-hidden="true"></i><span lang="it">Casa</span><small>Home</small></a>
-  <a class="dock__call" href="tel:+442089488330"><i class="peg" aria-hidden="true"></i><span lang="it">Chiama</span><small>Call</small></a>
+  <a class="dock__book" href="index.html#book"><i class="peg" aria-hidden="true"></i><span>Book</span><small lang="it">prenota</small></a>
+  <a class="dock__menu" href="tel:+442089488330"><i class="peg" aria-hidden="true"></i><span>Call</span><small lang="it">chiama</small></a>
+  <a class="dock__call" href="index.html#visit"><i class="peg" aria-hidden="true"></i><span>Find us</span><small lang="it">dove</small></a>
 </nav>
 </body>
 </html>

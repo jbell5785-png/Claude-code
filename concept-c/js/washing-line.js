@@ -4,7 +4,10 @@
    a tug on hover/focus, and a sideways drag (mouse only) that springs back.
    The rope is redrawn through every peg, so the line moves with the washing.
    Touch input never calls preventDefault: scrolling always wins.
-   The loop sleeps when everything is at rest, and when the hero is off-screen. */
+   On load the washing settles in under 3 seconds and then rests; after that it
+   only moves when someone moves the pointer, scrolls, hovers or focuses (WCAG 2.2.2).
+   The loop sleeps when everything is at rest, and when the hero is off-screen.
+   Garments hidden at this width (phones show three) are skipped. */
 (function () {
   'use strict';
   var hero = document.querySelector('[data-washing]');
@@ -54,6 +57,8 @@
     G.forEach(function (g) {
       g.el.style.top = '';
       g.swing.style.rotate = '';
+      g.off = !g.el.offsetParent;
+      if (g.off) return;
       g.row = Math.round(cssNum(g.el, '--row', 0));
       g.wpx = g.el.offsetWidth;
       g.h = g.el.offsetHeight;
@@ -73,6 +78,7 @@
   function render() {
     var byRow = {};
     G.forEach(function (g) {
+      if (g.off) return;
       var ang = g.rest + g.th;
       g.swing.style.rotate = ang.toFixed(2) + 'deg';
       g.swing.style.translate = g.lift ? '0 ' + g.lift.toFixed(2) + 'px' : '';
@@ -127,14 +133,19 @@
   if (reduce.matches) return;
 
   /* ---------- Simulation ---------- */
-  var raf = 0, last = 0, onScreen = true;
+  var raf = 0, last = 0, onScreen = true, settleAt = 0;
   var C = 2.3, KL = 220, CL = 18;
   function step(t) {
     raf = 0;
     var dt = Math.min(0.033, Math.max(0.001, (t - (last || t)) / 1000));
     last = t;
     var awake = false;
+    if (settleAt && t >= settleAt) {
+      settleAt = 0;
+      G.forEach(function (g) { if (!g.drag) { g.th = 0; g.w = 0; } });
+    }
     G.forEach(function (g) {
+      if (g.off) return;
       if (g.drag) {
         var prevTh = g.th;
         g.th += (g.drag.target - g.th) * Math.min(1, dt * 22);
@@ -161,6 +172,7 @@
     if (!raf && onScreen && !document.hidden) { last = 0; raf = requestAnimationFrame(step); }
   }
   function kick(g, dv) { g.w += dv; wake(); }
+  function byVisitor() { settleAt = 0; } // the visitor is moving it now: don't cut their swing short
 
   /* Breeze from the pointer (mouse and pen) */
   var lp = null;
@@ -171,11 +183,12 @@
       var dt = Math.max(8, now - lp.t);
       var vx = (e.clientX - lp.x) / dt; // px per ms
       if (Math.abs(vx) > 0.05) {
+        byVisitor();
         var rect = washing.getBoundingClientRect();
         var px = e.clientX - rect.left;
         var near = e.clientY < rect.bottom + 160 ? 1 : 0.35;
         G.forEach(function (g) {
-          if (g.drag) return;
+          if (g.drag || g.off) return;
           var dx = (px - g.cx) / (W * 0.2);
           var fall = Math.exp(-dx * dx) * near;
           if (fall > 0.02) g.w += -Math.max(-2.5, Math.min(2.5, vx)) * 13 * fall;
@@ -196,14 +209,14 @@
     if (ls) {
       var dt = Math.max(8, now - ls.t);
       var v = Math.max(-4, Math.min(4, (y - ls.y) / dt));
-      if (Math.abs(v) > 0.05) { G.forEach(function (g) { g.w += v * 16 * g.sign; }); wake(); }
+      if (Math.abs(v) > 0.05) { byVisitor(); G.forEach(function (g) { g.w += v * 16 * g.sign; }); wake(); }
     }
     ls = { y: y, t: now };
   }, { passive: true });
 
   /* Hover and focus: a little tug and lift */
   G.forEach(function (g, i) {
-    var tug = function () { g.liftT = -7; kick(g, (i % 2 ? 1 : -1) * 70); };
+    var tug = function () { byVisitor(); g.liftT = -7; kick(g, (i % 2 ? 1 : -1) * 70); };
     var untug = function () { g.liftT = 0; wake(); };
     g.swing.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'touch') tug(); });
     g.swing.addEventListener('pointerleave', function (e) { if (e.pointerType !== 'touch') untug(); });
@@ -215,6 +228,7 @@
     var suppressUntil = 0;
     g.swing.addEventListener('pointerdown', function (e) {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      byVisitor();
       g.drag = { x0: e.clientX, th0: g.th, target: g.th, moved: false, id: e.pointerId };
       try { g.swing.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
       wake();
@@ -251,23 +265,13 @@
   }
   document.addEventListener('visibilitychange', function () { if (!document.hidden) wake(); });
 
-  /* An occasional gentle gust, rolling along the line */
-  var gustTimer = 0;
-  function gust() {
-    if (onScreen && !document.hidden) {
-      var dir = Math.random() < 0.5 ? -1 : 1;
-      G.forEach(function (g) {
-        setTimeout(function () { if (!g.drag) kick(g, dir * (9 + Math.random() * 9)); }, (g.cx / Math.max(W, 1)) * 700);
-      });
-    }
-    gustTimer = setTimeout(gust, 5200 + Math.random() * 3800);
-  }
-
-  /* Arrival: the washing swings in, already readable */
-  G.forEach(function (g, i) { g.th = (i % 2 ? 1 : -1) * (7 + (i % 3) * 2); });
+  /* Arrival: the washing swings in, already readable, and comes to rest within 3 s.
+     No recurring gusts: after this it moves only in response to the visitor. */
+  G.forEach(function (g, i) { g.th = (i % 2 ? 1 : -1) * (5 + (i % 3) * 1.5); });
+  settleAt = performance.now() + 2800;
   wake();
-  gustTimer = setTimeout(gust, 4200);
+  setTimeout(wake, 2900); // make sure the settle runs even if the swing slept early
   if (reduce.addEventListener) reduce.addEventListener('change', function () {
-    if (reduce.matches) { clearTimeout(gustTimer); G.forEach(function (g) { g.th = 0; g.w = 0; }); render(); }
+    if (reduce.matches) { settleAt = 0; G.forEach(function (g) { g.th = 0; g.w = 0; }); render(); }
   });
 })();

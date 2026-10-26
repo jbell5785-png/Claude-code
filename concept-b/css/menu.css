@@ -1,15 +1,18 @@
-/* Concept B "Sera": the menu, one course at a time. Set at night throughout for calm reading. */
+/* Concept B "Sera": the menu. Set at night throughout for calm reading. */
 :root { --rail: 52px; }
 
 .menu-intro {
-  padding: calc(var(--hh) + 14vh) var(--m) 8vh;
+  padding: calc(var(--hh) + 6vh) var(--m) 5vh;
   display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: var(--gap);
 }
 .menu-intro > * { grid-column: 1 / -1; }
-.menu-intro h1 { margin-bottom: .5em; }
-.menu-notes { display: grid; gap: 10px; margin: 8px 0 0; padding: 20px 0 0; border-top: 1px solid var(--rule); font-size: .9375rem; color: var(--ink-soft); }
+.menu-intro h1 { margin-bottom: .3em; }
+.menu-intro .lead { margin-bottom: .9em; }
+.menu-intro .today { margin-bottom: 18px; }
+.menu-notes { display: grid; gap: 8px; margin: 0; padding: 16px 0 0; border-top: 1px solid var(--rule); font-size: .9375rem; color: var(--ink-soft); }
 .menu-notes p { margin: 0; max-width: 40em; }
 .menu-notes strong { color: var(--ink); font-weight: 500; }
+.menu-notes .v { margin-left: 0; margin-right: .3em; }
 @media (min-width: 900px) {
   .menu-intro .lead { grid-column: 1 / 5; }
   .menu-notes { grid-column: 1 / 5; }
@@ -37,6 +40,7 @@
   background: var(--lamp); transform: scaleX(0); transform-origin: left; transition: transform .8s cubic-bezier(.45, 0, .55, 1);
 }
 .rail a:hover { color: var(--ink); }
+.rail__label { display: flex; align-items: center; height: var(--rail); padding: 0 12px; white-space: nowrap; font: 600 .6875rem/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
 .rail a[aria-current] { color: var(--ink); }
 .rail a[aria-current]::after { transform: scaleX(1); }
 .rail::after { /* fade at the right edge hints there is more to scroll on phones */
@@ -57,6 +61,7 @@
 .course > * { grid-column: 1 / -1; }
 .course__head { margin-bottom: 36px; }
 .course__name { font-family: var(--display); font-size: clamp(3rem, 2rem + 5vw, 7rem); line-height: .98; }
+.course__en .tbc { vertical-align: .25em; }
 .course__en { font-weight: 300; font-size: clamp(1.125rem, 1rem + .5vw, 1.375rem); color: var(--ink-soft); margin: .5em 0 0; }
 .course__note { font-size: .9375rem; color: var(--ink-soft); margin-top: 14px; }
 @media (min-width: 900px) {
@@ -72,9 +77,12 @@
 .dish { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 20px; align-items: baseline; padding: 18px 0 16px; border-bottom: 1px solid var(--rule); }
 .dish__name { font-family: var(--display); font-size: clamp(2rem, 1.6rem + 1vw, 2.5rem); line-height: 1.1; }
 .dish__price { font-weight: 500; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap; text-align: right; }
-.dish__price .tbc { margin-left: 0; }
 .dish__desc { grid-column: 1 / -1; margin: 4px 0 0; color: var(--ink-soft); font-size: 1rem; }
 .dish__desc:empty { display: none; }
+.course__top { grid-column: 1 / -1; margin: 22px 0 0; font-size: .9375rem; }
+.course__top a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); }
+@media (min-width: 900px) { .course__top { grid-column: 3 / 7; } }
+@media (min-width: 1200px) { .course__top { grid-column: 4 / 7; } }
 
 /* set menus: short slips with their conditions written plainly */
 .set { padding: 22px 0 20px; border-bottom: 1px solid var(--rule); }
@@ -92,5 +100,4 @@
 
 html.motion .course__stage { will-change: opacity; }
 .dish__price .tbc { margin-left: .5em; }
-.dish__price .tbc:first-child { margin-left: 0; }
-@media (max-width: 899px) { .course { padding-top: 8vh; } .course__head { margin-bottom: 28px; } }
+@media (max-width: 899px) { .course { min-height: 0; padding-top: 7vh; padding-bottom: 5vh; } .course__head { margin-bottom: 24px; } }

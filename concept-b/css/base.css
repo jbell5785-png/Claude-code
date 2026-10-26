@@ -1,8 +1,16 @@
 /* Concept B "Sera": shared base. Tokens, type, header, action bar, components. */
 
-/* Metric-adjusted fallbacks to limit layout shift while the web fonts load */
-@font-face { font-family: "Hanken Fallback"; src: local("Arial"), local("Helvetica Neue"), local("Liberation Sans"); size-adjust: 97%; ascent-override: 98%; descent-override: 28%; line-gap-override: 0%; }
-@font-face { font-family: "Italiana Fallback"; src: local("Times New Roman"), local("Georgia"), local("Liberation Serif"); size-adjust: 93%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
+/* Metric-adjusted fallbacks so the swap to the web fonts doesn't move the page.
+   Overrides measured against Hanken Grotesk 400/600 and Italiana (English letter frequency). */
+@font-face { font-family: "Hanken FB"; src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("LiberationSans"); font-weight: 300 500; size-adjust: 101.7%; ascent-override: 98.3%; descent-override: 29.8%; line-gap-override: 0%; }
+@font-face { font-family: "Hanken FB"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"); font-weight: 600 700; size-adjust: 95%; ascent-override: 105.3%; descent-override: 31.9%; line-gap-override: 0%; }
+@font-face { font-family: "Hanken FB DejaVu"; src: local("DejaVu Sans"), local("DejaVuSans"); font-weight: 300 500; size-adjust: 88.6%; ascent-override: 112.9%; descent-override: 34.2%; line-gap-override: 0%; }
+@font-face { font-family: "Hanken FB DejaVu"; src: local("DejaVu Sans Bold"), local("DejaVuSans-Bold"); font-weight: 600 700; size-adjust: 79.3%; ascent-override: 126.1%; descent-override: 38.2%; line-gap-override: 0%; }
+@font-face { font-family: "Hanken FB Noto"; src: local("Noto Sans"), local("NotoSans-Regular"); font-weight: 300 500; size-adjust: 94.9%; ascent-override: 105.4%; descent-override: 31.9%; line-gap-override: 0%; }
+@font-face { font-family: "Hanken FB Noto"; src: local("Noto Sans Bold"), local("NotoSans-Bold"); font-weight: 600 700; size-adjust: 90%; ascent-override: 111.1%; descent-override: 33.7%; line-gap-override: 0%; }
+@font-face { font-family: "Italiana FB"; src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif"), local("LiberationSerif"); size-adjust: 108.9%; ascent-override: 85.2%; descent-override: 23%; line-gap-override: 0%; }
+@font-face { font-family: "Italiana FB DejaVu"; src: local("DejaVu Serif"), local("DejaVuSerif"); size-adjust: 85.1%; ascent-override: 109.1%; descent-override: 29.4%; line-gap-override: 0%; }
+@font-face { font-family: "Italiana FB Noto"; src: local("Noto Serif"), local("NotoSerif-Regular"); size-adjust: 90.7%; ascent-override: 102.3%; descent-override: 27.6%; line-gap-override: 0%; }
 
 :root {
   /* the four stages of light */
@@ -26,8 +34,8 @@
   --rule: rgba(241, 234, 224, .22);
   --focus: var(--lamp);
 
-  --display: "Italiana", "Italiana Fallback", "Times New Roman", serif;
-  --sans: "Hanken Grotesk", "Hanken Fallback", Arial, sans-serif;
+  --display: "Italiana", "Italiana FB", "Italiana FB DejaVu", "Italiana FB Noto", serif;
+  --sans: "Hanken Grotesk", "Hanken FB", "Hanken FB DejaVu", "Hanken FB Noto", sans-serif;
 
   --m: 20px;                 /* side margin: 20px on phones, ~8vw on desktop */
   --gap: 16px;
@@ -40,7 +48,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--hh) + 12px); }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--hh) + 12px); scroll-padding-bottom: calc(var(--bb) + 8px); }
 body {
   margin: 0;
   background: var(--bg);
@@ -108,6 +116,18 @@ button, input, select { font: inherit; color: inherit; }
   cursor: help;
 }
 
+/* ---------- today: the status line, set before first paint (London time) ---------- */
+.today { display: grid; gap: 0; font-size: .9375rem; line-height: 1.6; }
+.today p { margin: 0; }
+.today__status { font-weight: 600; }
+.today__dot {
+  display: inline-block; width: 8px; height: 8px; margin: 0 .55em .1em 1px; border-radius: 50%;
+  background: var(--lamp); box-shadow: 0 0 0 3px rgba(244, 181, 74, .22); vertical-align: middle;
+}
+[data-state="closed"] .today__dot { background: var(--soft-light); box-shadow: none; }
+.today__where { color: var(--ink-soft); }
+.today__where a { color: var(--ink); font-weight: 500; }
+
 /* ---------- buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .6em;
@@ -161,36 +181,6 @@ button, input, select { font: inherit; color: inherit; }
 .actionbar svg { width: 18px; height: 18px; flex: none; }
 @media (min-width: 900px) { .actionbar { display: none; } }
 
-/* ---------- image slots: composed frames naming the shot to commission ---------- */
-.slot {
-  position: relative; margin: 0; overflow: hidden;
-  aspect-ratio: var(--ar, 4 / 5);
-  background:
-    radial-gradient(120% 80% at 28% 18%, rgba(244, 181, 74, .16), transparent 62%),
-    linear-gradient(165deg, #262741 0%, #16171F 70%);
-  color: var(--plaster);
-  border-radius: 2px;
-}
-.slot::before, .slot::after {
-  content: ""; position: absolute; inset: 14px; pointer-events: none;
-  border: 1px solid rgba(241, 234, 224, .14);
-}
-.slot::after {
-  inset: 14px;
-  border: 0;
-  background:
-    linear-gradient(var(--lamp), var(--lamp)) left top / 18px 1px no-repeat,
-    linear-gradient(var(--lamp), var(--lamp)) left top / 1px 18px no-repeat,
-    linear-gradient(var(--lamp), var(--lamp)) right bottom / 18px 1px no-repeat,
-    linear-gradient(var(--lamp), var(--lamp)) right bottom / 1px 18px no-repeat;
-  opacity: .8;
-}
-.slot__art { position: absolute; left: 12%; top: 13%; width: 76%; height: 44%; object-fit: contain; opacity: .55; }
-.slot__ratio { position: absolute; top: 24px; right: 26px; font: 600 .6875rem/1 var(--sans); letter-spacing: .18em; color: var(--soft-light); }
-.slot__cap { position: absolute; left: 26px; right: 26px; bottom: 22px; font-size: .875rem; line-height: 1.45; }
-.slot__cap b { display: block; font-weight: 600; font-size: .6875rem; letter-spacing: .2em; text-transform: uppercase; color: var(--lamp); margin-bottom: .45em; }
-.slot__cap span { color: var(--plaster); }
-
 /* V marker: a small lamplight glyph with its text label */
 .v { display: inline-flex; align-items: center; gap: 4px; font: 600 .6875rem/1 var(--sans); letter-spacing: .12em; color: var(--accent); vertical-align: middle; margin-left: .55em; white-space: nowrap; }
 .v svg { width: 11px; height: 11px; flex: none; }
@@ -199,14 +189,10 @@ button, input, select { font: inherit; color: inherit; }
 .site-footer { padding: clamp(56px, 8vh, 14vh) var(--m) 48px; border-top: 1px solid var(--rule); font-size: .9375rem; }
 .site-footer__grid { display: grid; gap: 32px; }
 @media (min-width: 900px) { .site-footer__grid { grid-template-columns: 2fr 3fr; align-items: end; } }
-.logo-slot {
-  display: grid; place-items: center; gap: 6px; text-align: center;
-  aspect-ratio: 3 / 1; max-width: 360px; padding: 16px;
-  border: 1px dashed var(--ink-soft); border-radius: 2px;
-}
-.logo-slot b { font: 600 .6875rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
-.logo-slot span { font-size: .875rem; color: var(--ink-soft); }
-.proposal { color: var(--ink-soft); margin-top: 28px; }
+.site-footer__mark { display: inline-flex; flex-direction: column; margin: 0; line-height: 1; }
+.site-footer__mark .wordmark__name { font-size: 2.75rem; }
+.site-footer__mark .wordmark__sub { margin-top: 8px; }
+.proposal { color: var(--ink-soft); margin-top: 20px; font-size: .875rem; max-width: 44em; }
 .proposal a { color: var(--ink); }
 .footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 12px 0 0; padding: 0; list-style: none; }
 .footer-links a { display: inline-flex; min-height: 44px; align-items: center; }
