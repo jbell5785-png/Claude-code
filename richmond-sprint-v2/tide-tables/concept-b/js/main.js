@@ -2,7 +2,6 @@
    Progressive enhancement only: every page is complete without this file.
    - the plate is engraved, then inked, once per visit (skipped for reduced motion)
    - arches ink in on hover/focus (CSS :has does this; the class toggle is a fallback)
-   - keyed bridge facts can be pinned (aria-pressed)
    - the river's shimmer pauses when the plate is off screen */
 (function () {
   'use strict';
@@ -45,28 +44,6 @@
       a.addEventListener('focus', on); a.addEventListener('blur', off);
     });
   }
-
-  /* ---------------------------------------------------------------- keyed facts */
-  var fig = document.querySelector('.facts-fig');
-  var keys = document.querySelectorAll('.key[data-hl]');
-  keys.forEach(function (k) {
-    k.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); k.click(); }
-    });
-    k.addEventListener('click', function () {
-      var pressed = k.getAttribute('aria-pressed') === 'true';
-      keys.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
-      k.setAttribute('aria-pressed', pressed ? 'false' : 'true');
-      if (!hasHas && fig) {
-        ['arches', 'cut', 'land', 'stone', 'bal'].forEach(function (h) { fig.style.setProperty('--hl-' + h, (!pressed && k.dataset.hl === h) ? '1' : '0'); });
-      }
-      // on narrow screens the figure sits above the text: bring it into view once
-      if (!pressed && fig && window.innerWidth < 900) {
-        var r = fig.getBoundingClientRect();
-        if (r.bottom < 60 || r.top > window.innerHeight) fig.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-      }
-    });
-  });
 
   /* ---------------------------------------------------------------- masthead rule once scrolled */
   var mast = document.getElementById('masthead');

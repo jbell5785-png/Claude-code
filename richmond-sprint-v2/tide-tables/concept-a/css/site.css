@@ -288,8 +288,7 @@ html.motion .walk-notes li::before { left: 0.85rem; top: 1.35rem; }
   .garden-grid { grid-template-columns: 7fr 5fr; column-gap: clamp(2rem, 5vw, 6rem); align-items: start; }
   .garden .kicker { grid-column: 1 / -1; }
   .garden-title { grid-column: 1; grid-row: 2; }
-  .garden-body { grid-column: 2; grid-row: 2 / span 2; padding-top: 0.6rem; }
-  .slot-garden { grid-column: 1; grid-row: 3; }
+  .garden-body { grid-column: 2; grid-row: 2; padding-top: 0.6rem; }
 }
 
 /* photo slots: fixed ratio, arch-topped, clearly placeholders */

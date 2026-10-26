@@ -50,7 +50,7 @@
   var wallEl = d.createElement('div');
   wallEl.className = 'twall';
   wallEl.setAttribute('role', 'tablist');
-  wallEl.setAttribute('aria-label', 'Tasting menu, 14 dishes as 14 slats');
+  wallEl.setAttribute('aria-label', 'Tasting menu, 14 dishes');
   var listLabel = list.getAttribute('aria-label');
   var panels = items.map(function (li, i) {   // each dish's words go in a div that can be a tabpanel
     var div = d.createElement('div');
@@ -102,7 +102,7 @@
       if (yes) { li.setAttribute('role', 'presentation'); pn.setAttribute('role', 'tabpanel'); pn.setAttribute('aria-labelledby', 'tslat-' + (j + 1)); pn.tabIndex = 0; }
       else { li.removeAttribute('role'); pn.removeAttribute('role'); pn.removeAttribute('aria-labelledby'); pn.removeAttribute('tabindex'); li.hidden = false; }
     });
-    if (hint) hint.textContent = yes ? 'Fourteen dishes, fourteen slats, in the order the menu lists them. Point at a slat, or tab to the wall and use the arrow keys.' : hintText;
+    if (hint) hint.textContent = yes ? 'Fourteen dishes. Point at or tap a slat to see each one.' : hintText;
     select(sel, false);
   }
   tabs.forEach(function (b, i) {

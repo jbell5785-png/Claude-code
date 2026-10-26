@@ -454,9 +454,9 @@ h3.caps { margin: 0 0 1rem; }
 .terms li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F4D893, #B48632 55%, #6B4A10); }
 .terms .lamp, .lamp--inline { --rb: 0px; padding: 0 0 2px; }
 .terms .lamp { font-size: .82em; }
-.book__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 0 0 1rem; }
+.book__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 0; }
 .book__handoff { font: 400 .85rem/1.5 var(--f-sans); color: rgba(243, 241, 236, .78); margin: 0; }
-@media (min-width: 1100px) { .book__canopy { grid-template-columns: 5fr 6fr; align-items: start; gap: clamp(32px, 4vw, 64px); } }
+@media (min-width: 1100px) { .book__canopy { grid-template-columns: 5fr 6fr; align-items: center; gap: clamp(32px, 4vw, 64px); } }
 
 /* ---------- Visit ---------- */
 .visit { display: grid; gap: 22px; }

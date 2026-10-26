@@ -353,7 +353,6 @@ h1 .osf .dn, h2 .osf .dn, .display .osf .dn { top: .27em; }
 .hours .h-day, .today-when .h-day { font-family: var(--f-display); font-size: 1.5em; line-height: 1.15; display: block; margin-bottom: 4px; }
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .actions .btn--wide { grid-column: 1 / -1; }
-.hero-note { margin: 18px 0 0; }
 .lede-wrap .lede { margin: 0; }
 @media (min-width: 900px) {
   .underplate { padding-top: 26px; align-items: start; }
@@ -361,8 +360,7 @@ h1 .osf .dn, h2 .osf .dn, .display .osf .dn { top: .27em; }
   .underplate .today-when { grid-column: 1; }
   .underplate .today-where { grid-column: 2; margin-top: 0; }
   .underplate .actions.today-acts { grid-column: 3; margin: 0; }
-  .underplate .lede-wrap { grid-column: 2 / 9; grid-row: 2; padding-right: 26px; }
-  .underplate .hero-note { grid-column: 9 / 12; grid-row: 2; }
+  .underplate .lede-wrap { grid-column: 2 / 11; grid-row: 2; padding-right: 26px; }
   .actions .btn { justify-content: flex-start; }
 }
 
@@ -388,10 +386,9 @@ h1 .osf .dn, h2 .osf .dn, .display .osf .dn { top: .27em; }
 /* the café */
 @media (min-width: 900px) {
   .cafe { align-items: start; }
-  .cafe .sect-head { grid-column: 4 / 10; grid-row: 1; }
-  .cafe .col-main { grid-column: 4 / 9; grid-row: 2; }
-  .cafe .side { grid-column: 10 / 12; grid-row: 2; padding-left: 24px; }
-  .cafe .slot { grid-column: 1 / 4; grid-row: 2; padding-right: 28px; margin-top: 0; }
+  .cafe .sect-head { grid-column: 2 / 9; grid-row: 1; }
+  .cafe .col-main { grid-column: 2 / 9; grid-row: 2; }
+  .cafe .side { grid-column: 9 / 12; grid-row: 2; padding-left: 24px; }
 }
 .ethos { margin-top: 1.4em; padding-top: 1.1em; border-top: 1px solid var(--rule); columns: 2 16rem; column-gap: 2.2em; font-size: var(--step--1); }
 .ethos p { break-inside: avoid; margin: 0 0 .9em; }
@@ -401,51 +398,14 @@ h1 .osf .dn, h2 .osf .dn, .display .osf .dn { top: .27em; }
 .party h3 { font-size: var(--step-1); margin-bottom: .35em; }
 .party p:last-child { margin-bottom: 0; }
 
-/* image slots: blank, plate-marked, captioned with the photograph to commission */
-.slot { margin: 28px 0; }
-.slot .frame {
-  position: relative; border: 1px solid var(--ink-soft); background:
-    repeating-linear-gradient(135deg, transparent 0 7px, rgba(42, 47, 51, .09) 7px 8px),
-    var(--proof);
-  display: grid; place-items: center; outline: 1px solid rgba(42, 47, 51, .25); outline-offset: 4px;
-}
-.slot .frame::after { content: ""; position: absolute; inset: 10px; border: 1px dashed rgba(42, 47, 51, .35); }
-.slot .r45 { aspect-ratio: 4 / 5; }
-.slot .r32 { aspect-ratio: 3 / 2; }
-.slot .frame span { position: relative; z-index: 1; background: var(--proof); padding: .35em .7em; font-family: var(--f-ui); font-size: .62rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
-.slot figcaption { margin-top: 12px; font-size: var(--step--1); font-style: italic; line-height: 1.45; color: var(--ink-soft); }
-.slot figcaption b { font-style: normal; font-weight: 400; color: var(--ink); }
-
-/* of the bridge: keyed facts */
-.bridgefacts .facts-fig { margin: 0 0 clamp(24px, 3vw, 40px); }
-.facts-fig .fig-svg { width: 100%; height: auto; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 0; background: var(--stone); }
-.facts-fig figcaption { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: var(--step--2); font-style: italic; color: var(--ink-soft); margin-top: 8px; }
+/* of the bridge */
 .facts-text { font-size: var(--step-1); line-height: 1.6; }
 .facts-text p { margin-bottom: .85em; }
-.key {
-  cursor: pointer; padding: 0 .08em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
-  text-decoration: underline; text-decoration-style: dotted; text-decoration-thickness: .07em; text-underline-offset: .22em;
-  border-radius: 0; transition: background-color .3s, text-decoration-color .3s;
-}
-.key:hover, .key[aria-pressed="true"] { background: rgba(131, 145, 161, .32); text-decoration-style: solid; }
-.key::after { content: "\00a0◦"; font-size: .7em; vertical-align: .25em; color: var(--ink-soft); }
-.key[aria-pressed="true"]::after { content: "\00a0•"; }
-.facts:has([data-hl="arches"]:is(:hover, :focus-visible, [aria-pressed="true"])) .facts-fig { --hl-arches: 1; }
-.facts:has([data-hl="cut"]:is(:hover, :focus-visible, [aria-pressed="true"])) .facts-fig { --hl-cut: 1; }
-.facts:has([data-hl="land"]:is(:hover, :focus-visible, [aria-pressed="true"])) .facts-fig { --hl-land: 1; }
-.facts:has([data-hl="stone"]:is(:hover, :focus-visible, [aria-pressed="true"])) .facts-fig { --hl-stone: 1; }
-.facts:has([data-hl="bal"]:is(:hover, :focus-visible, [aria-pressed="true"])) .facts-fig { --hl-bal: 1; }
-.facts .hint { font-size: var(--step--1); font-style: italic; color: var(--ink-soft); }
-.sources { font-size: var(--step--2); line-height: 1.5; color: var(--ink-soft); }
-.sources ol { margin: 0; padding-left: 1.3em; }
-.sources li { margin-bottom: .45em; }
 .big-date { font-family: var(--f-display); font-size: clamp(4.4rem, 11vw, 10rem); line-height: .8; letter-spacing: -.01em; display: block; margin: 0 0 .45em; }
 @media (min-width: 900px) {
   .bridgefacts .sect-head { grid-column: 2 / 9; }
-  .bridgefacts .facts-fig { grid-column: 1 / -1; }
   .bridgefacts .date-col { grid-column: 1 / 4; padding-right: 20px; }
   .bridgefacts .facts-text { grid-column: 4 / 9; }
-  .bridgefacts .aside { grid-column: 10 / 12; padding-left: 24px; }
 }
 
 /* the garden */
@@ -460,10 +420,9 @@ h1 .osf .dn, h2 .osf .dn, .display .osf .dn { top: .27em; }
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 70%); mask-image: linear-gradient(to bottom, transparent, #000 70%);
 }
 @media (min-width: 900px) {
-  .garden .sect-head { grid-column: 6 / 10; grid-row: 1; }
-  .garden .body { grid-column: 6 / 10; grid-row: 2; }
-  .garden .vignette { grid-column: 10 / 12; grid-row: 1 / span 3; padding-left: 24px; }
-  .garden .slot { grid-column: 1 / 5; grid-row: 1 / span 3; padding-right: 28px; margin-top: 0; }
+  .garden .sect-head { grid-column: 2 / 9; grid-row: 1; }
+  .garden .body { grid-column: 2 / 9; grid-row: 2; }
+  .garden .vignette { grid-column: 9 / 12; grid-row: 1 / span 2; padding-left: 24px; }
 }
 @media (max-width: 899px) { .garden .vignette { max-width: 300px; } }
 
