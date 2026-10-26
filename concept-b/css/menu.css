@@ -98,6 +98,5 @@
 .menu-end__actions a:not(.btn) { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; }
 @media (min-width: 900px) { .menu-end > * { grid-column: 1 / 5; } }
 
-html.motion .course__stage { will-change: opacity; }
 .dish__price .tbc { margin-left: .5em; }
-@media (max-width: 899px) { .course { min-height: 0; padding-top: 7vh; padding-bottom: 5vh; } .course__head { margin-bottom: 24px; } }
+@media (max-width: 899px) { .dish { padding: 13px 0 12px; } .dish__name { font-size: 1.875rem; } .course { min-height: 0; padding-top: 7vh; padding-bottom: 5vh; } .course__head { margin-bottom: 24px; } }

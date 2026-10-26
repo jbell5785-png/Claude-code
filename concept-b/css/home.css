@@ -26,12 +26,12 @@
   height: calc(100svh - var(--bb) - var(--peek));
   min-height: 500px;
   padding-top: var(--hh);
-  display: flex; flex-direction: column;
+  display: grid; grid-template-rows: minmax(0, 1fr) auto; /* the band keeps its place even before the picture arrives */
   background: var(--bg); color: var(--ink);
 }
 .hero__art {
-  order: -1;
-  position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden;
+  grid-row: 1;
+  position: relative; min-height: 0; overflow: hidden;
   border-bottom: 1px solid var(--rule);
   container-type: size;
 }
@@ -45,7 +45,8 @@
   .frontage { height: 78cqh; width: calc(78cqh * 1600 / 760); }
 }
 .hero__band {
-  position: relative; flex: none;
+  grid-row: 2;
+  position: relative;
   padding: 14px var(--m) 14px;
   display: grid; gap: 10px;
 }

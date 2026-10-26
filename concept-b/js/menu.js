@@ -1,5 +1,5 @@
-/* Concept B "Sera": the menu page. The course rail shows the course on stage (aria-current),
-   and on desktop each course dissolves in as it takes the stage. Everything stays in normal flow. */
+/* Concept B "Sera": the menu page. The sticky course rail marks the course in view (aria-current)
+   and keeps it scrolled into view on phones. No other motion: the menu is for reading. */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -37,25 +37,4 @@
     }
   }, { passive: true });
 
-  /* motion: a slow cross-dissolve between courses on desktop */
-  if (reduce || !root.classList.contains('motion') || !window.gsap || !window.ScrollTrigger) {
-    root.classList.remove('motion');
-    return;
-  }
-  var gsap = window.gsap;
-  gsap.registerPlugin(window.ScrollTrigger);
-  var mm = gsap.matchMedia();
-  mm.add('(min-width: 900px)', function () {
-    courses.forEach(function (c) {
-      var stage = c.querySelectorAll('.course__stage');
-      gsap.fromTo(stage, { opacity: 0.18 }, {
-        opacity: 1, ease: 'sine.inOut', stagger: 0.08,
-        scrollTrigger: { trigger: c, start: 'top 98%', end: 'top 72%', scrub: 1.4 }
-      });
-      gsap.to(c.querySelector('.course__head'), {
-        opacity: 0.18, ease: 'sine.inOut',
-        scrollTrigger: { trigger: c, start: 'bottom 22%', end: 'bottom top', scrub: 1.4 }
-      });
-    });
-  });
 })();

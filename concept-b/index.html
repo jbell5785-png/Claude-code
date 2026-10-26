@@ -77,21 +77,6 @@
           <p class="today__status"><span class="today__dot" aria-hidden="true"></span><span data-today>Open 7 days, 12 noon – 11pm</span><span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
           <p class="today__where"><a href="https://www.google.com/maps/search/?api=1&amp;query=Caff%C3%A8+Mamma%2C+110+Kew+Road%2C+Richmond+TW9+2PQ" target="_blank" rel="noopener">110 Kew Road, TW9 2PQ<span class="vh"> (map, opens in a new tab)</span></a> <span aria-hidden="true">·</span> <a href="#visit">All hours &amp; directions</a></p>
         </div>
-        <script>
-          /* Today's line, in London time, before first paint. Hours: every day 12 noon to 11pm [TO CONFIRM]. */
-          (function () {
-            var h = new Date().getHours(), m = new Date().getMinutes();
-            try {
-              new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
-                .formatToParts(new Date()).forEach(function (x) { if (x.type === 'hour') h = +x.value % 24; if (x.type === 'minute') m = +x.value; });
-            } catch (e) {}
-            var t = h * 60 + m, s, st;
-            if (t < 720) { s = 'Open today, 12 noon – 11pm'; st = 'later'; }
-            else if (t < 1380) { s = 'Open now, until 11pm'; st = 'open'; }
-            else { s = 'Closed now, open tomorrow from 12 noon'; st = 'closed'; }
-            [].forEach.call(document.querySelectorAll('[data-today]'), function (el) { el.textContent = s; el.parentNode.setAttribute('data-state', st); });
-          })();
-        </script>
         <div class="hero__row">
           <a class="btn btn--book" href="#book">Book a table</a>
           <a class="link-arrow" href="menu.html">See the menu</a>
@@ -141,6 +126,21 @@
 <!-- frontage:end -->
     </div>
   </section>
+  <script>
+    /* Today's line, in London time, before first paint. Hours: every day 12 noon to 11pm [TO CONFIRM]. */
+    (function () {
+      var h = new Date().getHours(), m = new Date().getMinutes();
+      try {
+        new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+          .formatToParts(new Date()).forEach(function (x) { if (x.type === 'hour') h = +x.value % 24; if (x.type === 'minute') m = +x.value; });
+      } catch (e) {}
+      var t = h * 60 + m, s, st;
+      if (t < 720) { s = 'Open today, 12 noon – 11pm'; st = 'later'; }
+      else if (t < 1380) { s = 'Open now, until 11pm'; st = 'open'; }
+      else { s = 'Closed now, open tomorrow from 12 noon'; st = 'closed'; }
+      [].forEach.call(document.querySelectorAll('[data-today]'), function (el) { el.textContent = s; el.parentNode.setAttribute('data-state', st); });
+    })();
+  </script>
 
   <!-- ============ VISIT: hours, booking, address ============ -->
   <section class="scene visit st-0 pv-3" id="visit" aria-labelledby="visit-title">
@@ -172,7 +172,7 @@
         <li class="dish"><span class="dish__name" lang="it">Tagliatelle gamberoni</span><span class="dish__price">£16.95</span><p class="dish__desc">King prawns</p></li>
       </ul>
       <!-- [TO CONFIRM] prices and dietary markers -->
-      <p class="notes-line">Prices in £<span class="tbc" title="To be confirmed with the restaurant">to confirm</span>. <span class="v"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg><span aria-hidden="true">V</span><span class="vh">Vegetarian</span></span> vegetarian<span class="tbc" title="To be confirmed with the restaurant">to confirm</span>. Allergies? Tell us when you book and ask your server: we can tell you about all 14 major allergens in every dish. <a href="menu.html#allergens">Allergen information</a></p>
+      <p class="notes-line">Prices in £<span class="tbc" title="To be confirmed with the restaurant">to confirm</span>. <span class="v" aria-hidden="true"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 .8C9.4 3 10.4 6.4 6 11.2 1.6 6.4 2.6 3 6 .8Z" fill="currentColor"/></svg>V</span> Vegetarian<span class="tbc" title="To be confirmed with the restaurant">to confirm</span>. Allergies? Tell us when you book and ask your server: we can tell you about all 14 major allergens in every dish. <a href="menu.html#allergens">Allergen information</a></p>
       <div class="course-preview__more">
         <a class="link-arrow" href="menu.html">See the full menu</a>
         <a class="link-arrow" href="menu.html#pasta">All the pasta and risotto</a>
@@ -234,7 +234,7 @@
       <p class="label">Our story</p>
       <h2 class="display" id="story-title">it began with the washing.</h2>
       <!-- [TO CONFIRM] opening year 1983 -->
-      <p class="lead">We opened on Hill Street, Richmond, in 1983<span class="tbc" title="To be confirmed with the restaurant">to confirm</span>, serving pasta under washing lines strung across the room like a Naples street. After a few years in Barnes, we came home to Richmond in March 2006, at 110 Kew Road.</p>
+      <p class="lead">We opened on Hill Street, Richmond, in 1983<span class="tbc" title="To be confirmed with the restaurant">to confirm</span>, serving pasta under washing lines strung across the room like a Naples street. After a spell in Barnes, we came home to Richmond in March 2006, at 110 Kew Road.</p>
       <!-- [TO CONFIRM] how the owners would like the Portuguese family told -->
       <p>The line is still up, across the dining room under a deep-blue ceiling, hung these days with sports shirts. Still family-run: an Italian kitchen with a Portuguese family behind it.<span class="tbc" title="To be confirmed with the restaurant">to confirm</span></p>
     </div>
